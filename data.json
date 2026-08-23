@@ -1,0 +1,38 @@
+{
+  "product": { "name": "Acute", "tagline": "Local-first multi-agent engineering workbench", "version": "0.1.0", "availability": "Private build" },
+  "pillars": [
+    { "id": "coding", "title": "Coding", "state": "usable", "progress": 70, "summary": "Projects, sandboxed file tools, streaming agent chat" },
+    { "id": "agentic", "title": "Agentic System", "state": "building", "progress": 35, "summary": "Multi-agent orchestration — blueprint ready" },
+    { "id": "automation", "title": "Automation", "state": "planned", "progress": 10, "summary": "Scheduling & workflow pillar — researched" }
+  ],
+  "plan": {
+    "current": { "title": "Model Management + UI Polish", "detail": "Building the provider/model settings system and improving the dashboard UI" },
+    "upcoming": [
+      { "phase": "Dashboard UI redesign", "status": "in-progress", "note": "Full visual redo with proper build pipeline" },
+      { "phase": "Phase 3 — Orchestration", "status": "owner-gated", "note": "Multi-agent delegation, approval engine" },
+      { "phase": "Automation pillar", "status": "planned", "note": "Workflows, scheduling, visual canvas" }
+    ],
+    "principles": ["Local-first — all processing on-device", "Additive architecture — no rewrites", "Quality over speed — every round verified"]
+  },
+  "quality": {
+    "ci": "success",
+    "suites": [
+      { "name": "agent-core", "tests": 121 },
+      { "name": "frontend", "tests": 66 },
+      { "name": "sidecar e2e", "tests": 6 }
+    ],
+    "cargoCheck": "green",
+    "licenseAudit": { "deps": 107, "verdict": "CLEAN" }
+  },
+  "milestones": [
+    { "date": "2026-08-21", "label": "Phase 0 — SPEC approved" },
+    { "date": "2026-08-22", "label": "Phase 1 — Architecture + CI" },
+    { "date": "2026-08-22", "label": "Phase 2 — First live agent conversation" },
+    { "date": "2026-08-22", "label": "Setup wizard — owner-approved" },
+    { "date": "2026-08-23", "label": "Agentic MVP — live-proven file writes" },
+    { "date": "2026-08-23", "label": "Streaming + telemetry + design system" },
+    { "date": "2026-08-23", "label": "Governance + ADRs + blueprint" },
+    { "date": "2026-08-23", "label": "Dashboard live on GitHub Pages" }
+  ],
+  "chips": ["Tauri 2", "React 18", "TypeScript", "Node sidecar", "SQLite", "BYO provider key"]
+}

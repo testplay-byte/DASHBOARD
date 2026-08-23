@@ -1,0 +1,45 @@
+name: Build & publish dashboard
+
+# GitHub Pages serves the root of `main`, and the generated index.html is
+# committed with the repo. This workflow is a safety net: it re-runs the
+# build on every push so the committed output always matches data.json,
+# even when data.json was edited in the GitHub UI without a local build.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dashboard-build
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build dashboard
+        run: node build.mjs
+
+      - name: Commit rebuilt output if it changed
+        run: |
+          git config user.name "acute-dashboard-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html assets/
+          if git diff --cached --quiet; then
+            echo "Generated output is already up to date."
+          else
+            git commit -m "chore: rebuild dashboard output [skip ci]"
+            git push
+          fi
