@@ -30,8 +30,8 @@
   ],
   "plan": {
     "current": {
-      "title": "Round 30 — Windows bug fixes + session management + sidebar/chat redesign",
-      "detail": "Fixed the owner's real-device bugs: 'Failed to fetch' (hijacked-SSE CORS drop), no live streaming, identical sessions (ignored ?session= param), no session deletion. Added DELETE /sessions/:id, selected-session highlight, distinct accent-tinted sidebar, chat overhaul. 212 tests + live OpenRouter streaming battery."
+      "title": "Round 32 — owner-designed UI: floating panels + activity block + no top bar",
+      "detail": "The owner's AI-designed screens implemented: floating warm-tinted sidebar + separate white chat panel, top navigation bar removed (one slim panel toolbar), the full ActivityBlock system (rounds timeline, file-change diff cards with real +N −M stats, command terminal cards, web rows, Detailed/Compact/Hidden customization, live streaming variant). 213 tests + live OpenRouter battery. Next: composer/model/context demos from AI-DESIGN-PROMPT-2."
     },
     "upcoming": [
       {
@@ -130,6 +130,10 @@
     {
       "date": "2026-08-24",
       "label": "Round 30 — Windows bug fixes (CORS streaming + sessions) + sidebar/chat redesign"
+    },
+    {
+      "date": "2026-08-24",
+      "label": "Round 32 — owner-designed UI: floating panels + activity block"
     }
   ],
   "chips": [
@@ -171,8 +175,16 @@
         "count": 9,
         "size_kb": 418,
         "scope": "Real product testing (live streaming, sessions, sidebar)"
+      },
+      {
+        "round": 32,
+        "date": "2026-08-24",
+        "url": "screenshots/round-32.zip",
+        "count": 6,
+        "size_kb": 385,
+        "scope": "Owner-designed UI implementation (live product testing)"
       }
     ],
-    "total": 47
+    "total": 53
   }
 }

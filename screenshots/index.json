@@ -29,6 +29,14 @@
       "size_bytes": 427604,
       "screenshots": 9,
       "scope": "Real product testing on the live app: CORS-fixed live streaming (mid-stream captures), session isolation + deletion, distinct sidebar with selected-session highlight (dark + light)."
+    },
+    {
+      "round": 32,
+      "date": "2026-08-24",
+      "zip": "round-32.zip",
+      "size_bytes": 393820,
+      "screenshots": 6,
+      "scope": "Owner-designed UI implemented: floating panels, no top bar, ActivityBlock with real diff (live OpenRouter turn), dark mode, collapsed rail."
     }
   ]
 }
