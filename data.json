@@ -30,8 +30,8 @@
   ],
   "plan": {
     "current": {
-      "title": "Round 32 — owner-designed UI: floating panels + activity block + no top bar",
-      "detail": "The owner's AI-designed screens implemented: floating warm-tinted sidebar + separate white chat panel, top navigation bar removed (one slim panel toolbar), the full ActivityBlock system (rounds timeline, file-change diff cards with real +N −M stats, command terminal cards, web rows, Detailed/Compact/Hidden customization, live streaming variant). 213 tests + live OpenRouter battery. Next: composer/model/context demos from AI-DESIGN-PROMPT-2."
+      "title": "Round 33 — hello-loop fix + sidebar/logo system + headerless chat",
+      "detail": "The infinite-continuation bug is fixed and live-proven ('hello, how are you' = one clean reply, zero tools, no rounds). Activity interleaved at the point tools ran; live file-population view; custom AcuteLogo with hover-morph toggle; collapse at top-right; on-project + session button; renameable sessions; prominent Settings; name-from-folder; instant updates; headerless chat with Ctrl K labels; floating-logo show-sidebar. 215 tests + live battery. Design Prompt 3 (settings) delivered."
     },
     "upcoming": [
       {
@@ -134,6 +134,10 @@
     {
       "date": "2026-08-24",
       "label": "Round 32 — owner-designed UI: floating panels + activity block"
+    },
+    {
+      "date": "2026-08-24",
+      "label": "Round 33 — hello-loop fix + sidebar/logo system"
     }
   ],
   "chips": [
@@ -183,8 +187,16 @@
         "count": 6,
         "size_kb": 385,
         "scope": "Owner-designed UI implementation (live product testing)"
+      },
+      {
+        "round": 33,
+        "date": "2026-08-24",
+        "url": "screenshots/round-33.zip",
+        "count": 8,
+        "size_kb": 443,
+        "scope": "Behavioral fixes + sidebar system (live product testing)"
       }
     ],
-    "total": 53
+    "total": 61
   }
 }

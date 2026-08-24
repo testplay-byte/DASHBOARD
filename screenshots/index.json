@@ -37,6 +37,14 @@
       "size_bytes": 393820,
       "screenshots": 6,
       "scope": "Owner-designed UI implemented: floating panels, no top bar, ActivityBlock with real diff (live OpenRouter turn), dark mode, collapsed rail."
+    },
+    {
+      "round": 33,
+      "date": "2026-08-24",
+      "zip": "round-33.zip",
+      "size_bytes": 453827,
+      "screenshots": 8,
+      "scope": "Hello-loop fix live-proven (clean single reply), renameable sessions, sidebar logo system, headerless chat, interleaved activity."
     }
   ]
 }
