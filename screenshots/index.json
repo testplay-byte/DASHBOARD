@@ -21,6 +21,14 @@
       "size_bytes": 1892726,
       "screenshots": 8,
       "scope": "Next.js showcase preview hub (browser-previewable on port 3000). Captures: full page, chat tab, demos tab, settings tab, dark mode, screenshot dialog open, mobile (375px), tablet (768px)."
+    },
+    {
+      "round": 30,
+      "date": "2026-08-24",
+      "zip": "round-30.zip",
+      "size_bytes": 427604,
+      "screenshots": 9,
+      "scope": "Real product testing on the live app: CORS-fixed live streaming (mid-stream captures), session isolation + deletion, distinct sidebar with selected-session highlight (dark + light)."
     }
   ]
 }
