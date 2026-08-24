@@ -18,19 +18,19 @@
       "title": "Agentic System",
       "state": "building",
       "progress": 35,
-      "summary": "Multi-agent orchestration \u2014 blueprint ready"
+      "summary": "Multi-agent orchestration — blueprint ready"
     },
     {
       "id": "automation",
       "title": "Automation",
       "state": "planned",
       "progress": 10,
-      "summary": "Scheduling & workflow pillar \u2014 researched"
+      "summary": "Scheduling & workflow pillar — researched"
     }
   ],
   "plan": {
     "current": {
-      "title": "Round 28 \u2014 UX + Agentic-Quality Overhaul",
+      "title": "Round 28 — UX + Agentic-Quality Overhaul",
       "detail": "Sidebar, settings appearance, chat redesign, live streaming, multi-turn continuation, project indexing, grep search, demo viewer"
     },
     "upcoming": [
@@ -40,7 +40,7 @@
         "note": "Full visual redo with proper build pipeline"
       },
       {
-        "phase": "Phase 3 \u2014 Orchestration",
+        "phase": "Phase 3 — Orchestration",
         "status": "owner-gated",
         "note": "Multi-agent delegation, approval engine"
       },
@@ -51,9 +51,9 @@
       }
     ],
     "principles": [
-      "Local-first \u2014 all processing on-device",
-      "Additive architecture \u2014 no rewrites",
-      "Quality over speed \u2014 every round verified"
+      "Local-first — all processing on-device",
+      "Additive architecture — no rewrites",
+      "Quality over speed — every round verified"
     ]
   },
   "quality": {
@@ -85,23 +85,23 @@
   "milestones": [
     {
       "date": "2026-08-21",
-      "label": "Phase 0 \u2014 SPEC approved"
+      "label": "Phase 0 — SPEC approved"
     },
     {
       "date": "2026-08-22",
-      "label": "Phase 1 \u2014 Architecture + CI"
+      "label": "Phase 1 — Architecture + CI"
     },
     {
       "date": "2026-08-22",
-      "label": "Phase 2 \u2014 First live agent conversation"
+      "label": "Phase 2 — First live agent conversation"
     },
     {
       "date": "2026-08-22",
-      "label": "Setup wizard \u2014 owner-approved"
+      "label": "Setup wizard — owner-approved"
     },
     {
       "date": "2026-08-23",
-      "label": "Agentic MVP \u2014 live-proven file writes"
+      "label": "Agentic MVP — live-proven file writes"
     },
     {
       "date": "2026-08-23",
@@ -132,8 +132,15 @@
         "url": "screenshots/round-27.zip",
         "count": 22,
         "size_kb": 1338
+      },
+      {
+        "round": 28,
+        "date": "2026-08-24",
+        "url": "screenshots/round-28.zip",
+        "count": 4,
+        "size_kb": 456
       }
     ],
-    "total": 22
+    "total": 26
   }
 }
