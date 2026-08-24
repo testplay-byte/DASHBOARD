@@ -1187,3 +1187,13 @@ a:hover { text-decoration: underline; }
     width: var(--w, 0%);
   }
 }
+
+/* ── Round 28 WS-K2: screenshots section ─────────────────────────────────── */
+.screenshots-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.screenshot-card { display: flex; flex-direction: column; gap: 4px; padding: 16px 18px; border-radius: 14px; border: 1.5px solid var(--border); background: var(--card); text-decoration: none; color: inherit; transition: transform 0.18s ease, border-color 0.18s ease; }
+.screenshot-card:hover { transform: translateY(-2px); border-color: var(--accent); }
+.screenshot-round { font-size: 15px; font-weight: 800; color: var(--accent); }
+.screenshot-meta { font-size: 12px; font-family: var(--mono); color: var(--text-2); }
+.screenshot-date { font-size: 11px; color: var(--text-3); }
+.screenshot-cta { margin-top: 6px; font-size: 12px; font-weight: 700; color: var(--accent); }
+.screenshots-empty { grid-column: 1 / -1; padding: 24px; text-align: center; color: var(--text-3); font-size: 13px; }
