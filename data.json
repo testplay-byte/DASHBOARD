@@ -30,8 +30,8 @@
   ],
   "plan": {
     "current": {
-      "title": "Round 33 — hello-loop fix + sidebar/logo system + headerless chat",
-      "detail": "The infinite-continuation bug is fixed and live-proven ('hello, how are you' = one clean reply, zero tools, no rounds). Activity interleaved at the point tools ran; live file-population view; custom AcuteLogo with hover-morph toggle; collapse at top-right; on-project + session button; renameable sessions; prominent Settings; name-from-folder; instant updates; headerless chat with Ctrl K labels; floating-logo show-sidebar. 215 tests + live battery. Design Prompt 3 (settings) delivered."
+      "title": "Round 34 — multi-step reliability (Cline parity) + settings redesign",
+      "detail": "Tool results now feed back into the conversation — live-proven with a real 4-step project build (math.js → test.js → verify → BUILD COMPLETE). Settings: sidebar transformation + Appearance (density/tint) + provider master-detail. Sub-agent reviewed (17 plan + 8 code findings, all fixed). 217 tests."
     },
     "upcoming": [
       {
@@ -138,6 +138,10 @@
     {
       "date": "2026-08-24",
       "label": "Round 33 — hello-loop fix + sidebar/logo system"
+    },
+    {
+      "date": "2026-08-24",
+      "label": "Round 34 — multi-step tool feedback + settings redesign"
     }
   ],
   "chips": [
@@ -195,8 +199,16 @@
         "count": 8,
         "size_kb": 443,
         "scope": "Behavioral fixes + sidebar system (live product testing)"
+      },
+      {
+        "round": 34,
+        "date": "2026-08-24",
+        "url": "screenshots/round-34.zip",
+        "count": 9,
+        "size_kb": 814,
+        "scope": "Multi-step proof + settings redesign"
       }
     ],
-    "total": 61
+    "total": 70
   }
 }

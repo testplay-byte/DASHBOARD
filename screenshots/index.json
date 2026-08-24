@@ -45,6 +45,14 @@
       "size_bytes": 453827,
       "screenshots": 8,
       "scope": "Hello-loop fix live-proven (clean single reply), renameable sessions, sidebar logo system, headerless chat, interleaved activity."
+    },
+    {
+      "round": 34,
+      "date": "2026-08-24",
+      "zip": "round-34.zip",
+      "size_bytes": 833047,
+      "screenshots": 9,
+      "scope": "Multi-step tool-feedback proof (real 4-step project build) + settings redesign (transformation sidebar, appearance, provider master-detail)."
     }
   ]
 }
