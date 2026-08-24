@@ -30,8 +30,8 @@
   ],
   "plan": {
     "current": {
-      "title": "Round 28 — UX + Agentic-Quality Overhaul",
-      "detail": "Sidebar, settings appearance, chat redesign, live streaming, multi-turn continuation, project indexing, grep search, demo viewer"
+      "title": "Round 29 — Browser-previewable showcase hub + missed-notification close-out",
+      "detail": "Next.js showcase mirror running on the sandbox dev port — VLM-verified, mobile/tablet/desktop responsive, dark mode tested, screenshots published to DASHBOARD repo, owner ping sent."
     },
     "upcoming": [
       {
@@ -114,6 +114,18 @@
     {
       "date": "2026-08-23",
       "label": "Dashboard live on GitHub Pages"
+    },
+    {
+      "date": "2026-08-24",
+      "label": "Round 27 — 13 tools + web tools + checkpoint revert"
+    },
+    {
+      "date": "2026-08-24",
+      "label": "Round 28 — UX + Agentic-Quality Overhaul (9 owner directives)"
+    },
+    {
+      "date": "2026-08-24",
+      "label": "Round 29 — Browser-previewable showcase + notification close-out"
     }
   ],
   "chips": [
@@ -139,8 +151,16 @@
         "url": "screenshots/round-28.zip",
         "count": 8,
         "size_kb": 675
+      },
+      {
+        "round": 29,
+        "date": "2026-08-24",
+        "url": "screenshots/round-29.zip",
+        "count": 8,
+        "size_kb": 1848,
+        "scope": "Next.js showcase hub (browser-previewable on the sandbox dev port)"
       }
     ],
-    "total": 30
+    "total": 38
   }
 }
