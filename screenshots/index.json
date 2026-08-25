@@ -53,6 +53,14 @@
       "size_bytes": 833047,
       "screenshots": 9,
       "scope": "Multi-step tool-feedback proof (real 4-step project build) + settings redesign (transformation sidebar, appearance, provider master-detail)."
+    },
+    {
+      "round": 35,
+      "date": "2026-08-25",
+      "zip": "round-35.zip",
+      "size_bytes": 631958,
+      "screenshots": 7,
+      "scope": "Thinking blocks + interleaved tool calls (live multi-step proof) + centered chat + settings (back button, tool-calls prefs)."
     }
   ]
 }

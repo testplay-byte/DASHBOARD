@@ -30,8 +30,8 @@
   ],
   "plan": {
     "current": {
-      "title": "Round 34 — multi-step reliability (Cline parity) + settings redesign",
-      "detail": "Tool results now feed back into the conversation — live-proven with a real 4-step project build (math.js → test.js → verify → BUILD COMPLETE). Settings: sidebar transformation + Appearance (density/tint) + provider master-detail. Sub-agent reviewed (17 plan + 8 code findings, all fixed). 217 tests."
+      "title": "Round 35 — thinking + interleaved tool calls + chat centering",
+      "detail": "Thinking streams + persists per segment (muted collapsible blocks); tool calls interleave MID-MESSAGE (segment flushing + stats carriers); chat column centered 900px; settings back button + Tool Calls preferences. Design Prompt 4 delivered. Sub-agent reviewed (8 findings fixed). 219 tests."
     },
     "upcoming": [
       {
@@ -142,6 +142,10 @@
     {
       "date": "2026-08-24",
       "label": "Round 34 — multi-step tool feedback + settings redesign"
+    },
+    {
+      "date": "2026-08-25",
+      "label": "Round 35 — thinking + interleaved tool calls"
     }
   ],
   "chips": [
@@ -207,8 +211,16 @@
         "count": 9,
         "size_kb": 814,
         "scope": "Multi-step proof + settings redesign"
+      },
+      {
+        "round": 35,
+        "date": "2026-08-25",
+        "url": "screenshots/round-35.zip",
+        "count": 7,
+        "size_kb": 617,
+        "scope": "Thinking + interleaving proof"
       }
     ],
-    "total": 70
+    "total": 77
   }
 }
