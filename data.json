@@ -30,8 +30,8 @@
   ],
   "plan": {
     "current": {
-      "title": "Round 35 — thinking + interleaved tool calls + chat centering",
-      "detail": "Thinking streams + persists per segment (muted collapsible blocks); tool calls interleave MID-MESSAGE (segment flushing + stats carriers); chat column centered 900px; settings back button + Tool Calls preferences. Design Prompt 4 delivered. Sub-agent reviewed (8 findings fixed). 219 tests."
+      "title": "Round 36 — sub-agent orchestration (Phase 3 core)",
+      "detail": "delegate_task + orchestrator (atomic semaphores, key pools, crash recovery) + live SubAgentCards with tap-to-inspect + retry + orchestration settings. Live-proven with a real 2-sub-agent parallel delegation. ADR-0022. 227 tests."
     },
     "upcoming": [
       {
@@ -146,6 +146,10 @@
     {
       "date": "2026-08-25",
       "label": "Round 35 — thinking + interleaved tool calls"
+    },
+    {
+      "date": "2026-08-25",
+      "label": "Round 36 — sub-agent orchestration (Phase 3 core)"
     }
   ],
   "chips": [
@@ -219,8 +223,16 @@
         "count": 7,
         "size_kb": 617,
         "scope": "Thinking + interleaving proof"
+      },
+      {
+        "round": 36,
+        "date": "2026-08-25",
+        "url": "screenshots/round-36.zip",
+        "count": 8,
+        "size_kb": 673,
+        "scope": "Sub-agent orchestration proof"
       }
     ],
-    "total": 77
+    "total": 85
   }
 }

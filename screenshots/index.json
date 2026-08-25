@@ -61,6 +61,14 @@
       "size_bytes": 631958,
       "screenshots": 7,
       "scope": "Thinking blocks + interleaved tool calls (live multi-step proof) + centered chat + settings (back button, tool-calls prefs)."
+    },
+    {
+      "round": 36,
+      "date": "2026-08-25",
+      "zip": "round-36.zip",
+      "size_bytes": 688703,
+      "screenshots": 8,
+      "scope": "Sub-agent orchestration live proof: parallel delegation, SubAgentCards, orchestration settings, key pool."
     }
   ]
 }
