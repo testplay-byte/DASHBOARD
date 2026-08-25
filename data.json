@@ -30,8 +30,8 @@
   ],
   "plan": {
     "current": {
-      "title": "Round 36 — sub-agent orchestration (Phase 3 core)",
-      "detail": "delegate_task + orchestrator (atomic semaphores, key pools, crash recovery) + live SubAgentCards with tap-to-inspect + retry + orchestration settings. Live-proven with a real 2-sub-agent parallel delegation. ADR-0022. 227 tests."
+      "title": "Chat continuity + provider rebuild + approvals (R37)",
+      "detail": "Turn-grouped chat: ONE Working section per turn (live timer, one-line expandable thoughts/tools, answer outside the section), sparkle iconography removed, width fixes. Providers: flat list + Add Provider dialog (presets/custom) + every provider editable/deletable + 3 API formats wired. Approvals v1: interactive Allow once/Always allow/Deny with fail-closed policy engine. Structured JSON-lines logging. 251 tests."
     },
     "upcoming": [
       {
@@ -61,15 +61,15 @@
     "suites": [
       {
         "name": "agent-core",
-        "tests": 135
+        "tests": 169
+      },
+      {
+        "name": "frontend",
+        "tests": 70
       },
       {
         "name": "shared",
         "tests": 4
-      },
-      {
-        "name": "frontend",
-        "tests": 55
       },
       {
         "name": "sidecar e2e",
