@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260826t065654151z">
+<link rel="stylesheet" href="assets/style.css?v=20260826t103618983z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -43,12 +43,12 @@
     <nav class="site-nav" aria-label="Dashboard sections">
       <a href="#pillars">Pillars</a>
       <a href="#features">Features</a>
-      <a href="#plan">Plan</a>
+      <a href="#audit">Audit</a>
+      <a href="#gaps">Gaps</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#next">Next</a>
       <a href="#quality">Quality</a>
-      <a href="#docs">Docs</a>
       <a href="#milestones">Milestones</a>
-      <a href="#principles">Principles</a>
-      <a href="#stack">Stack</a>
     </nav>
     <div class="header-actions">
       <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle dark mode">
@@ -65,7 +65,7 @@
           <path d="M12 .5C5.37.5 0 5.78 0 12.292c0 5.211 3.438 9.63 8.205 11.18.6.111.82-.26.82-.577 0-.285-.01-1.04-.016-2.046-3.338.726-4.043-1.61-4.043-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.082-.73.082-.73 1.205.085 1.838 1.237 1.838 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.776.42-1.305.762-1.605-2.665-.305-5.466-1.332-5.466-5.93 0-1.31.47-2.383 1.236-3.221-.124-.303-.535-1.523.117-3.173 0 0 1.008-.323 3.301 1.23A11.51 11.51 0 0 1 12 6.802c1.025.005 2.058.139 3.022.408 2.29-1.553 3.297-1.23 3.297-1.23.653 1.65.242 2.87.119 3.172.77.838 1.234 1.91 1.234 3.221 0 4.61-2.807 5.622-5.48 5.92.43.371.81 1.103.81 2.222 0 1.604-.014 2.898-.014 3.293 0 .32.216.695.825.576C20.565 21.917 24 17.498 24 12.292 24 5.78 18.627.5 12 .5z"/>
         </svg>
       </a>
-      <span class="pill pill-ok header-status-pill"><span class="pill-dot" aria-hidden="true"></span>healthy</span>
+      <span class="pill pill-warn header-status-pill"><span class="pill-dot" aria-hidden="true"></span>attention</span>
     </div>
   </div>
 </header>
@@ -83,7 +83,7 @@
       <h1 id="hero-title">Acute</h1>
       <p class="tagline">Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.</p>
       <div class="hero-chips">
-        <span class="pill pill-ok"><span class="pill-dot" aria-hidden="true"></span>All systems healthy</span>
+        <span class="pill pill-ok"><span class="pill-dot" aria-hidden="true"></span>CI red since R39 — Rust fix queued (Track 1)</span>
         <a class="chip chip-link" href="https://github.com/testplay-byte/DASHBOARD" target="_blank" rel="noopener noreferrer">
           <svg class="chip-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M12 .5C5.37.5 0 5.78 0 12.292c0 5.211 3.438 9.63 8.205 11.18.6.111.82-.26.82-.577 0-.285-.01-1.04-.016-2.046-3.338.726-4.043-1.61-4.043-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.082-.73.082-.73 1.205.085 1.838 1.237 1.838 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.776.42-1.305.762-1.605-2.665-.305-5.466-1.332-5.466-5.93 0-1.31.47-2.383 1.236-3.221-.124-.303-.535-1.523.117-3.173 0 0 1.008-.323 3.301 1.23A11.51 11.51 0 0 1 12 6.802c1.025.005 2.058.139 3.022.408 2.29-1.553 3.297-1.23 3.297-1.23.653 1.65.242 2.87.119 3.172.77.838 1.234 1.91 1.234 3.221 0 4.61-2.807 5.622-5.48 5.92.43.371.81 1.103.81 2.222 0 1.604-.014 2.898-.014 3.293 0 .32.216.695.825.576C20.565 21.917 24 17.498 24 12.292 24 5.78 18.627.5 12 .5z"/>
@@ -95,7 +95,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-08-26 06:56 UTC</span>
+      <span class="updated-time">2026-08-26 10:36 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -104,23 +104,23 @@
   <section class="stats-grid reveal" aria-label="Key numbers">
       <article class="stat-card card">
         <span class="stat-label">Tests passing</span>
-        <span class="stat-value"><span data-count="243">243</span></span>
-        <span class="stat-sub">4 suites · 8 skipped · unit + e2e</span>
+        <span class="stat-value"><span data-count="262">262</span></span>
+        <span class="stat-sub">4 suites · 0 skipped · unit + e2e</span>
+      </article>
+      <article class="stat-card card">
+        <span class="stat-label">Audit gaps identified</span>
+        <span class="stat-value"><span data-count="37">37</span></span>
+        <span class="stat-sub">9 critical · 15 high-impact · 13 next — six-track roadmap below</span>
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="22">22</span></span>
+        <span class="stat-value"><span data-count="24">24</span></span>
         <span class="stat-sub">Aug 21 – Aug 26 · 6-day run</span>
       </article>
       <article class="stat-card card">
         <span class="stat-label">Dependencies audited</span>
-        <span class="stat-value"><span data-count="112">112</span></span>
+        <span class="stat-value"><span data-count="131">131</span></span>
         <span class="stat-sub">license audit · CLEAN</span>
-      </article>
-      <article class="stat-card card">
-        <span class="stat-label">Top pillar progress</span>
-        <span class="stat-value"><span data-count="85">85</span>%</span>
-        <span class="stat-sub">Coding pillar — usable</span>
       </article>
   </section>
 
@@ -147,7 +147,7 @@
         <div class="bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" aria-label="Coding pillar progress">
           <div class="bar-fill" data-progress="85" style="--w:85%"></div>
         </div>
-        <p class="pillar-summary">Streaming chat with tool calls, project indexing, command palette (⌘K), approvals engine, notifications, web tools — daily-driver quality on a real codebase.</p>
+        <p class="pillar-summary">Streaming chat with tool calls, project indexing, command palette, approvals engine, notifications, web tools — daily-driver quality on a real codebase. The R42 deep audit scored editing-reliability and context management as the two weakest internals.</p>
       </article>
       <article class="pillar-card card" data-state="building">
         <div class="pillar-top">
@@ -162,7 +162,7 @@
         <div class="bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" aria-label="Agentic system pillar progress">
           <div class="bar-fill" data-progress="55" style="--w:55%"></div>
         </div>
-        <p class="pillar-summary">Sub-agent multi-turn delegation (delegate_task), live forwarding, per-session state, atomic slot reservation, key pools, retry-from-event-log recovery. Full orchestration engine gated on Phase 3.</p>
+        <p class="pillar-summary">Sub-agent delegation (5 roles, key pools, retry-from-event-log) and background turns are genuinely strong. Run modes beyond single-agent, cross-session memory, and the shared bus are still unbuilt.</p>
       </article>
       <article class="pillar-card card" data-state="planned">
         <div class="pillar-top">
@@ -172,12 +172,12 @@
         </div>
         <div class="pillar-progress-row">
           <span class="pillar-progress-label">Pillar progress</span>
-          <span class="pillar-pct"><span data-count="12">12</span>%</span>
+          <span class="pillar-pct"><span data-count="10">10</span>%</span>
         </div>
-        <div class="bar" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="100" aria-label="Automation pillar progress">
-          <div class="bar-fill" data-progress="12" style="--w:12%"></div>
+        <div class="bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" aria-label="Automation pillar progress">
+          <div class="bar-fill" data-progress="10" style="--w:10%"></div>
         </div>
-        <p class="pillar-summary">Scheduling, visual workflows, and the event bus — researched in docs/research/n8n; not yet implemented.</p>
+        <p class="pillar-summary">Zero code yet — research and blueprints are complete (n8n-pattern workflows, scheduler design, pre-identified traps). The audit scoped a concrete MVP in Track 4.</p>
       </article>
     </div>
   </section>
@@ -198,7 +198,7 @@
           <h3 class="feature-title">Embedded browser</h3>
           <span class="feature-status">live</span>
         </div>
-        <p class="feature-desc">Right-sidebar Chromium panel with click-to-open navigation, custom user-agent, and full DOM access for agent-driven browsing.</p>
+        <p class="feature-desc">Right-sidebar Chromium panel with click-to-open navigation, custom user-agent, and an isolated persistent profile; web/launcher mode opens a new tab of the current browser.</p>
       </article>
       <article class="feature-card card">
         <div class="feature-top">
@@ -211,10 +211,10 @@
       <article class="feature-card card">
         <div class="feature-top">
           <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span>
-          <h3 class="feature-title">Notifications + SSE</h3>
+          <h3 class="feature-title">Notifications, everywhere</h3>
           <span class="feature-status">live</span>
         </div>
-        <p class="feature-desc">Notification center with bell + unread badge, server-sent events stream, and optional desktop notifications for completed turns and approvals.</p>
+        <p class="feature-desc">Notification center with bell + unread badge, SSE stream, desktop notifications when hidden, and Web Push to a closed window via a service worker.</p>
       </article>
       <article class="feature-card card">
         <div class="feature-top">
@@ -222,7 +222,7 @@
           <h3 class="feature-title">Sub-agent live streaming</h3>
           <span class="feature-status">live</span>
         </div>
-        <p class="feature-desc">Multi-turn delegate_task with per-child sessions, live forwarded tokens, retry-from-event-log recovery, and atomic concurrency-slot reservation.</p>
+        <p class="feature-desc">Multi-turn delegation with per-child sessions, live forwarded tokens, retry-from-event-log recovery, atomic concurrency slots, and per-provider key pools.</p>
       </article>
       <article class="feature-card card">
         <div class="feature-top">
@@ -230,7 +230,7 @@
           <h3 class="feature-title">Approvals engine v1</h3>
           <span class="feature-status">live</span>
         </div>
-        <p class="feature-desc">Layered policy (blocked → destructive → safelist → confirm), interactive Allow once / Always allow / Deny, 120 s fail-closed timeout, denylist-supreme compound-command guard.</p>
+        <p class="feature-desc">Layered policy (blocked → destructive → safelist → confirm), interactive Allow once / Always allow / Deny, 120s fail-closed timeout, compound-command guard.</p>
       </article>
       <article class="feature-card card">
         <div class="feature-top">
@@ -246,15 +246,15 @@
           <h3 class="feature-title">Project indexing</h3>
           <span class="feature-status">live</span>
         </div>
-        <p class="feature-desc">codebase_index table + index_project tool — 318 files / 2 384 symbols indexed in 124 ms on the demo battery; CODEBASE AWARENESS prompt injection.</p>
+        <p class="feature-desc">Symbol index + index tool — 318 files / 2 384 symbols indexed in 124 ms on the demo battery; codebase summary injected into every turn.</p>
       </article>
       <article class="feature-card card">
         <div class="feature-top">
           <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
-          <h3 class="feature-title">Web tools (web_fetch + web_search)</h3>
+          <h3 class="feature-title">Web tools</h3>
           <span class="feature-status">live</span>
         </div>
-        <p class="feature-desc">Kilo/Cline-parity web tools — read a page, search the web, feed results back as tool_results for multi-step reasoning.</p>
+        <p class="feature-desc">web_fetch (real fetch, HTML-to-text, caps) + web_search — currently knowledge-search backed; the real search backend is Decision 1.</p>
       </article>
       <article class="feature-card card">
         <div class="feature-top">
@@ -262,15 +262,1026 @@
           <h3 class="feature-title">Streaming chat</h3>
           <span class="feature-status">live</span>
         </div>
-        <p class="feature-desc">SSE text deltas + interleaved tool calls + thinking blocks + per-reply usage stats (ms / in / out / tok / s).</p>
+        <p class="feature-desc">SSE text deltas + interleaved tool calls + thinking blocks + per-reply usage stats; turns complete in the background and notify when you&#39;re away.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3"/><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><line x1="10.5" y1="10" x2="6.5" y2="16"/><line x1="13.5" y1="10" x2="17.5" y2="16"/></svg></span>
+          <h3 class="feature-title">Background turns + stop</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Client disconnects no longer abort the turn — it completes, persists, and pushes a notification; an explicit stop endpoint returns a distinct aborted outcome.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <h3 class="feature-title">Checkpoint snapshots</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Every write/edit/delete records before+after content; real unified diffs in the chat; 30-day retention. (The restore button arrives in Track 2.)</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></span>
+          <h3 class="feature-title">Per-project rules files</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Rules files in the project folder are auto-loaded into every turn&#39;s system prompt — a genuine agent-rules analog, file-based for now.</p>
       </article>
     </div>
   </section>
 
-  <!-- · 03 plan · -->
-  <section id="plan" class="section reveal" aria-labelledby="plan-title">
+  <!-- · 03 audit — benchmark · -->
+  <section id="audit" class="section reveal" aria-labelledby="audit-title">
     <header class="section-head">
       <span class="section-index" aria-hidden="true">03</span>
+      <div>
+        <h2 id="audit-title">The deep review — R42 audit</h2>
+        <p class="section-desc">Five-agent audit fleet: four parallel domain audits (agent core &amp; tools · autonomy &amp; orchestration · workspace &amp; project UX · platform &amp; spec gaps) plus a synthesis pass producing the benchmark and roadmap. Every claim was verified against the actual source tree — file-and-line evidence, not doc claims.</p>
+      </div>
+    </header>
+    <div class="audit-vision card">
+      <span class="audit-vision-label">Reviewed against the owner's vision</span>
+      <p class="audit-vision-text">The review target, in the owner&#39;s words: a full-fledged system that works autonomously, supports different kinds of projects, is highly customized for different tasks, does research and file changes, has full-fledged automations, and can continue or revert sessions.</p>
+    </div>
+    <div class="headline-row">
+      <article class="headline-card card">
+        <span class="headline-label">Acute composite score</span>
+        <span class="headline-value">1.9 / 5</span>
+        <span class="headline-sub">vs a 4.7 / 5 frontier — the average of the best competitor per dimension below</span>
+      </article>
+      <article class="headline-card card headline-verdict">
+        <span class="headline-label">The verdict</span>
+        <p class="headline-verdict-text">The three near-parity dimensions — sub-agent orchestration, background autonomy, approval design — are precisely the architecture&#39;s core bets, and they are validated. Every major deficit (automation 0/5, ecosystem 0/5, research 1/5) is additive work on a sound foundation, not re-architecture.</p>
+      </article>
+    </div>
+    <div class="bench-wrap card" role="region" aria-label="Competitive benchmark table">
+      <div class="bench-row bench-head" role="row">
+        <span class="bench-dim" role="columnheader">Dimension</span>
+        <span class="bench-acute" role="columnheader">Acute</span>
+        <span class="bench-best" role="columnheader">Best-in-class</span>
+        <span class="bench-verdict" role="columnheader">Verdict</span>
+      </div>
+      <div class="bench-row" role="row">
+        <span class="bench-dim" role="rowheader">Agentic file-editing reliability</span>
+        <span class="bench-acute" role="cell"><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill" style="--w:40%"></span></span><span class="bench-score-num mono">2/5</span></span></span>
+        <span class="bench-best" role="cell"><span class="bench-best-name">Aider</span><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill high" style="--w:100%"></span></span><span class="bench-score-num mono">5/5</span></span></span>
+        <span class="bench-verdict" role="cell">Single exact-match edit path with before/after snapshots; no whitespace-to-elision fallback ladder, no reflection retries — fragile on imperfect matches.</span>
+      </div>
+      <div class="bench-row" role="row">
+        <span class="bench-dim" role="rowheader">Context management</span>
+        <span class="bench-acute" role="cell"><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill" style="--w:40%"></span></span><span class="bench-score-num mono">2/5</span></span></span>
+        <span class="bench-best" role="cell"><span class="bench-best-name">Claude Code</span><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill high" style="--w:100%"></span></span><span class="bench-score-num mono">5/5</span></span></span>
+        <span class="bench-verdict" role="cell">Trim-only (oldest-pair drop); no auto-compaction, no cross-session memory — the memory policy field is stored but never read.</span>
+      </div>
+      <div class="bench-row" role="row">
+        <span class="bench-dim" role="rowheader">Long-running autonomy</span>
+        <span class="bench-acute" role="cell"><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill high" style="--w:60%"></span></span><span class="bench-score-num mono">3/5</span></span></span>
+        <span class="bench-best" role="cell"><span class="bench-best-name">Devin</span><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill high" style="--w:100%"></span></span><span class="bench-score-num mono">5/5</span></span></span>
+        <span class="bench-verdict" role="cell">Genuinely good local-first base: turns survive disconnects, web push with the window closed, retry-from-event-log. But failed main sessions are terminal and there are no budgets.</span>
+      </div>
+      <div class="bench-row" role="row">
+        <span class="bench-dim" role="rowheader">Multi-agent orchestration</span>
+        <span class="bench-acute" role="cell"><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill high" style="--w:70%"></span></span><span class="bench-score-num mono">3.5/5</span></span></span>
+        <span class="bench-best" role="cell"><span class="bench-best-name">Cline</span><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill high" style="--w:80%"></span></span><span class="bench-score-num mono">4/5</span></span></span>
+        <span class="bench-verdict" role="cell">Verified parallel delegation, key pools, semaphores, live monitoring — the architecture&#39;s strongest bet. Missing worktree isolation and per-role tool limits.</span>
+      </div>
+      <div class="bench-row" role="row">
+        <span class="bench-dim" role="rowheader">Automation &amp; scheduling</span>
+        <span class="bench-acute" role="cell"><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill low" style="--w:0%"></span></span><span class="bench-score-num mono">0/5</span></span></span>
+        <span class="bench-best" role="cell"><span class="bench-best-name">OpenHands</span><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill high" style="--w:80%"></span></span><span class="bench-score-num mono">4/5</span></span></span>
+        <span class="bench-verdict" role="cell">Zero code — research and blueprints only. Cline ships cron agents; OpenHands runs a dedicated automation server.</span>
+      </div>
+      <div class="bench-row" role="row">
+        <span class="bench-dim" role="rowheader">Revert &amp; checkpoint UX</span>
+        <span class="bench-acute" role="cell"><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill" style="--w:40%"></span></span><span class="bench-score-num mono">2/5</span></span></span>
+        <span class="bench-best" role="cell"><span class="bench-best-name">Cline</span><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill high" style="--w:100%"></span></span><span class="bench-score-num mono">5/5</span></span></span>
+        <span class="bench-verdict" role="cell">Snapshot blobs and a working restore endpoint exist — with zero frontend callers. One UI round away from parity on the backend.</span>
+      </div>
+      <div class="bench-row" role="row">
+        <span class="bench-dim" role="rowheader">Project customization</span>
+        <span class="bench-acute" role="cell"><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill" style="--w:40%"></span></span><span class="bench-score-num mono">2/5</span></span></span>
+        <span class="bench-best" role="cell"><span class="bench-best-name">Cursor</span><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill high" style="--w:100%"></span></span><span class="bench-score-num mono">5/5</span></span></span>
+        <span class="bench-verdict" role="cell">Per-project rules files auto-load, but no project kinds, no per-project settings, and agent personas are silently discarded in project sessions.</span>
+      </div>
+      <div class="bench-row" role="row">
+        <span class="bench-dim" role="rowheader">Research capability</span>
+        <span class="bench-acute" role="cell"><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill low" style="--w:20%"></span></span><span class="bench-score-num mono">1/5</span></span></span>
+        <span class="bench-best" role="cell"><span class="bench-best-name">Claude Code</span><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill high" style="--w:100%"></span></span><span class="bench-score-num mono">5/5</span></span></span>
+        <span class="bench-verdict" role="cell">Web search is Wikipedia-only; the browser is user-facing, not agent-driven; no vision despite the schema being ready.</span>
+      </div>
+      <div class="bench-row" role="row">
+        <span class="bench-dim" role="rowheader">Terminal &amp; process control</span>
+        <span class="bench-acute" role="cell"><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill" style="--w:40%"></span></span><span class="bench-score-num mono">2/5</span></span></span>
+        <span class="bench-best" role="cell"><span class="bench-best-name">Claude Code</span><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill high" style="--w:100%"></span></span><span class="bench-score-num mono">5/5</span></span></span>
+        <span class="bench-verdict" role="cell">One-shot commands, 60s cap, no PTY, dev servers blocked. The layered approval tiering is the redeeming design.</span>
+      </div>
+      <div class="bench-row" role="row">
+        <span class="bench-dim" role="rowheader">Extension ecosystem (MCP)</span>
+        <span class="bench-acute" role="cell"><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill low" style="--w:0%"></span></span><span class="bench-score-num mono">0/5</span></span></span>
+        <span class="bench-best" role="cell"><span class="bench-best-name">Claude Code</span><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill high" style="--w:100%"></span></span><span class="bench-score-num mono">5/5</span></span></span>
+        <span class="bench-verdict" role="cell">No MCP client, no plugins, no skills system — the single biggest ecosystem gap.</span>
+      </div>
+      <div class="bench-row" role="row">
+        <span class="bench-dim" role="rowheader">Security &amp; approval model</span>
+        <span class="bench-acute" role="cell"><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill high" style="--w:60%"></span></span><span class="bench-score-num mono">3/5</span></span></span>
+        <span class="bench-best" role="cell"><span class="bench-best-name">Claude Code</span><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill high" style="--w:80%"></span></span><span class="bench-score-num mono">4/5</span></span></span>
+        <span class="bench-verdict" role="cell">The fail-closed layered engine is the field&#39;s best design — undermined by web tools bypassing it, keys inherited by child processes, and an uncontained auto tier.</span>
+      </div>
+      <div class="bench-row" role="row">
+        <span class="bench-dim" role="rowheader">Multi-file &amp; refactor capability</span>
+        <span class="bench-acute" role="cell"><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill" style="--w:40%"></span></span><span class="bench-score-num mono">2/5</span></span></span>
+        <span class="bench-best" role="cell"><span class="bench-best-name">Cursor</span><span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill high" style="--w:100%"></span></span><span class="bench-score-num mono">5/5</span></span></span>
+        <span class="bench-verdict" role="cell">17 tools and a symbol index can walk there eventually; no token-budgeted repo map, and the prompt suppresses parallel tool calls the SDK already supports.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- · 04 capabilities — what's done · -->
+  <section id="capabilities" class="section reveal" aria-labelledby="capabilities-title">
+    <header class="section-head">
+      <span class="section-index" aria-hidden="true">04</span>
+      <div>
+        <h2 id="capabilities-title">What is done — capability areas</h2>
+        <p class="section-desc">Nineteen areas audited against the source tree. Live = shipped and proven · Partial = real but incomplete · Missing = not built yet.</p>
+      </div>
+    </header>
+    <div class="cap-grid">
+      <article class="cap-card card">
+        <div class="cap-top">
+          <h3 class="cap-title">Streaming chat &amp; UI</h3>
+          <span class="cap-status cap-live">live</span>
+        </div>
+        <p class="cap-note">SSE deltas, interleaved tool calls, thinking blocks, turn-grouped Working sections, per-reply usage chips, context meter, per-send model picker, file-path pills.</p>
+      </article>
+      <article class="cap-card card">
+        <div class="cap-top">
+          <h3 class="cap-title">Agentic loop &amp; tools (17)</h3>
+          <span class="cap-status cap-live">live</span>
+        </div>
+        <p class="cap-note">Up to 400 tool round-trips per message (outer loop × turns), path-contained file tools, search, git read trio, todo, web, index, delegation — every tool sandboxed to the project root.</p>
+      </article>
+      <article class="cap-card card">
+        <div class="cap-top">
+          <h3 class="cap-title">Sub-agent orchestration</h3>
+          <span class="cap-status cap-live">live</span>
+        </div>
+        <p class="cap-note">5 roles, parallel dispatch with atomic semaphores, per-key API pools, live event forwarding, retry-from-event-log recovery, monitoring panel.</p>
+      </article>
+      <article class="cap-card card">
+        <div class="cap-top">
+          <h3 class="cap-title">Notifications</h3>
+          <span class="cap-status cap-live">live</span>
+        </div>
+        <p class="cap-note">In-app center + SSE + desktop notifications + Web Push to a closed window (VAPID), click-through navigation, unread badge.</p>
+      </article>
+      <article class="cap-card card">
+        <div class="cap-top">
+          <h3 class="cap-title">Codebase awareness</h3>
+          <span class="cap-status cap-live">live</span>
+        </div>
+        <p class="cap-note">Symbol index (files + symbols in ~124ms on the demo), summary injected every turn, ⌘K palette with symbol/file/content modes and grep options.</p>
+      </article>
+      <article class="cap-card card">
+        <div class="cap-top">
+          <h3 class="cap-title">Providers &amp; models</h3>
+          <span class="cap-status cap-live">live</span>
+        </div>
+        <p class="cap-note">Three wire formats (OpenAI-compatible, Anthropic, Responses), custom providers, key pools, model listing + connection probe, per-agent and per-message model routing.</p>
+      </article>
+      <article class="cap-card card">
+        <div class="cap-top">
+          <h3 class="cap-title">Onboarding &amp; theming</h3>
+          <span class="cap-status cap-live">live</span>
+        </div>
+        <p class="cap-note">5-step setup wizard with live connection test, 5 themes × light/dark, density control, demo mode.</p>
+      </article>
+      <article class="cap-card card">
+        <div class="cap-top">
+          <h3 class="cap-title">Approvals &amp; safety</h3>
+          <span class="cap-status cap-partial">partial</span>
+        </div>
+        <p class="cap-note">Layered fail-closed engine live (blocked → destructive → auto → rule → ask, compound-command guard, 120s timeout). Holes: web tools bypass it, auto tier uncontained, keys leak to child processes, denylist not configurable, no audit viewer.</p>
+      </article>
+      <article class="cap-card card">
+        <div class="cap-top">
+          <h3 class="cap-title">Sessions &amp; continuation</h3>
+          <span class="cap-status cap-partial">partial</span>
+        </div>
+        <p class="cap-note">Event-sourced append-only log, resume any session with full history, background completion, explicit stop, restart-safe sweep. Missing: search, fork, export, retry of failed mains, list capped at 8 per project.</p>
+      </article>
+      <article class="cap-card card">
+        <div class="cap-top">
+          <h3 class="cap-title">Checkpoints &amp; revert</h3>
+          <span class="cap-status cap-partial">partial</span>
+        </div>
+        <p class="cap-note">Every write/edit/delete snapshotted before+after; restore endpoint implemented and tested — but no frontend caller. Binary files corrupt on restore; no turn-level revert.</p>
+      </article>
+      <article class="cap-card card">
+        <div class="cap-top">
+          <h3 class="cap-title">Project management</h3>
+          <span class="cap-status cap-partial">partial</span>
+        </div>
+        <p class="cap-note">Projects are pinned folders with chat. No kinds, no per-project settings, no rename/recolor (no PATCH route), single default color for every project.</p>
+      </article>
+      <article class="cap-card card">
+        <div class="cap-top">
+          <h3 class="cap-title">Research &amp; web</h3>
+          <span class="cap-status cap-partial">partial</span>
+        </div>
+        <p class="cap-note">web_fetch is solid (real fetch, HTML-to-text, caps). web_search is Wikipedia-only — not a general search engine. No vision, no agent-driven browsing.</p>
+      </article>
+      <article class="cap-card card">
+        <div class="cap-top">
+          <h3 class="cap-title">Terminal &amp; processes</h3>
+          <span class="cap-status cap-partial">partial</span>
+        </div>
+        <p class="cap-note">Honest one-shot runner (60s, output caps, history recall) for the user; agent commands approval-gated. No PTY, no long-running processes, dev servers blocked.</p>
+      </article>
+      <article class="cap-card card">
+        <div class="cap-top">
+          <h3 class="cap-title">Context management</h3>
+          <span class="cap-status cap-partial">partial</span>
+        </div>
+        <p class="cap-note">Budget-aware trimming with markers and a context meter. No summarization/compaction, no sticky context, no cross-session memory.</p>
+      </article>
+      <article class="cap-card card">
+        <div class="cap-top">
+          <h3 class="cap-title">Memory &amp; skills</h3>
+          <span class="cap-status cap-missing">missing</span>
+        </div>
+        <p class="cap-note">memoryPolicy and skills are stored, validated, editable in the UI — and never read by the runtime. Every session starts blind to prior sessions.</p>
+      </article>
+      <article class="cap-card card">
+        <div class="cap-top">
+          <h3 class="cap-title">Automation &amp; scheduling</h3>
+          <span class="cap-status cap-missing">missing</span>
+        </div>
+        <p class="cap-note">No scheduler, triggers, or workflows. Research + blueprints complete; MVP scoped in Track 4.</p>
+      </article>
+      <article class="cap-card card">
+        <div class="cap-top">
+          <h3 class="cap-title">Multi-agent teams</h3>
+          <span class="cap-status cap-missing">missing</span>
+        </div>
+        <p class="cap-note">Only single-agent mode is accepted at session creation. auto-team and manual exist as types, not code. No shared bus, no task board.</p>
+      </article>
+      <article class="cap-card card">
+        <div class="cap-top">
+          <h3 class="cap-title">Extension ecosystem (MCP)</h3>
+          <span class="cap-status cap-missing">missing</span>
+        </div>
+        <p class="cap-note">No MCP client. The tool surface is a fixed set of 17.</p>
+      </article>
+      <article class="cap-card card">
+        <div class="cap-top">
+          <h3 class="cap-title">Packaging &amp; releases</h3>
+          <span class="cap-status cap-missing">missing</span>
+        </div>
+        <p class="cap-note">Runs as a dev launcher + source tree. Desktop bundler disabled, no versioned installer, no changelog, Rust shell currently fails to compile (see P0-1).</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- · 05 gaps — what's missing · -->
+  <section id="gaps" class="section reveal" aria-labelledby="gaps-title">
+    <header class="section-head">
+      <span class="section-index" aria-hidden="true">05</span>
+      <div>
+        <h2 id="gaps-title">What is missing — 37 consolidated gaps</h2>
+        <p class="section-desc">Deduplicated from ~72 raw findings across the four domain audits, in three priority tiers. Impact = value toward the autonomous vision · Effort = S small / M medium / L large.</p>
+      </div>
+    </header>
+    <div class="gap-counts">
+      <span class="gap-count-chip gap-count-p0"><strong>9</strong> critical / trust</span>
+      <span class="gap-count-chip gap-count-p1"><strong>15</strong> high-impact</span>
+      <span class="gap-count-chip gap-count-p2"><strong>13</strong> important next</span>
+    </div>
+    <div class="gap-group gap-group-p0">
+      <header class="gap-group-head">
+        <span class="gap-priority p0" aria-hidden="true">P0</span>
+        <div>
+          <h3>Critical / trust — broken or false today</h3>
+          <p class="gap-intro">Broken or false today. These erode trust and two of them are security holes that must close before any autonomous work is built on top. All are small fixes — one dense round.</p>
+        </div>
+      </header>
+      <div class="gap-list">
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P0-1</span>
+            <h4 class="gap-title">Rust shell fails to compile — CI red for 4 straight rounds</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-s">S</span>
+            </span>
+          </div>
+          <p class="gap-why">A Tauri API mismatch in the embedded-browser code broke the desktop shell build in R39; the last four CI runs all failed while this dashboard claimed green. Likely a one-line fix; blocks packaging and any shell work.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P0-2</span>
+            <h4 class="gap-title">Status reporting was false-green</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-s">S</span>
+            </span>
+          </div>
+          <p class="gap-why">The dashboard and internal status file hand-claimed CI success, 243 tests, and stale milestones while CI was red and 262 tests were green. This rebuild makes it honest; the durable fix is auto-syncing CI status from the GitHub API at build time.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P0-3</span>
+            <h4 class="gap-title">Provider keys leak to child processes</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-s">S</span>
+            </span>
+          </div>
+          <p class="gap-why">Approved commands inherit the full environment including provider API keys — any executed script or dependency can read them. Must be scrubbed before autonomy work.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P0-4</span>
+            <h4 class="gap-title">Auto-approved commands are not path-contained</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-m">M</span>
+            </span>
+          </div>
+          <p class="gap-why">The read-only auto tier (list/cat/grep/find) can touch any file on the machine, and auto-run build tools execute arbitrary project scripts. File tools are contained; commands are not.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P0-5</span>
+            <h4 class="gap-title">Web tools bypass the approval engine</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-s">S</span>
+            </span>
+          </div>
+          <p class="gap-why">web_fetch and web_search make ungated outbound calls with arbitrary URLs — an exfiltration channel for prompt-injected content. The spec requires every outbound call to be gated.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P0-6</span>
+            <h4 class="gap-title">The app database lives inside the source folder</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-l">S-M</span>
+            </span>
+          </div>
+          <p class="gap-why">Re-downloading or cleaning the app folder destroys all sessions and settings. Needs a data directory outside the tree, pre-migration backups, and full export/import.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P0-7</span>
+            <h4 class="gap-title">Binary files corrupt on checkpoint restore</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-s">S</span>
+            </span>
+          </div>
+          <p class="gap-why">Delete/write snapshots read files as text; restoring a deleted binary writes it back corrupted. Must fix before the revert UI ships on top of it.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P0-8</span>
+            <h4 class="gap-title">Dead navigation routes on the in-app dashboard</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-s">S</span>
+            </span>
+          </div>
+          <p class="gap-why">Start-a-session and recent-activity buttons lead to an unrouted screen (404 placeholder); project rows drop the session id; one dialog links to another dead route. First-run credibility.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P0-9</span>
+            <h4 class="gap-title">Rot bundle: shutdown route, workflow YAML, stale docs</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-med">MED</span>
+              <span class="gap-chip chip-effort-s">S</span>
+            </span>
+          </div>
+          <p class="gap-why">The shell calls a shutdown endpoint that does not exist; a corrupted branch filter sits in both CI workflows; the canonical worklog stops at R37; the API truth doc under-reports ~20 live routes.</p>
+        </article>
+      </div>
+    </div>
+    <div class="gap-group gap-group-p1">
+      <header class="gap-group-head">
+        <span class="gap-priority p1" aria-hidden="true">P1</span>
+        <div>
+          <h3>High-impact — unlocks the stated vision</h3>
+          <p class="gap-intro">Directly unlock the owner&#39;s stated vision: continuing sessions, reverting, different kinds of projects, research, and the first steps toward autonomy.</p>
+        </div>
+      </header>
+      <div class="gap-list">
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P1-1</span>
+            <h4 class="gap-title">Revert UI — the endpoint exists with zero callers</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-s">S</span>
+            </span>
+          </div>
+          <p class="gap-why">The owner&#39;s explicit &#39;revert to a previous session&#39; ask: a restore endpoint is implemented and tested, but the frontend can only view diffs. Add the button + turn-level revert. Depends on P0-7.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P1-2</span>
+            <h4 class="gap-title">Failed main sessions are permanent dead ends</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-l">S-M</span>
+            </span>
+          </div>
+          <p class="gap-why">Retry exists for sub-agents but not for the primary conversation — a provider crash mid-turn bricks the session. Generalize the proven retry pattern; also serialize concurrent turns (a latent interleave bug).</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P1-3</span>
+            <h4 class="gap-title">Session search + uncapped list</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-s">S</span>
+            </span>
+          </div>
+          <p class="gap-why">The sidebar caps at 8 sessions per project with a dead &#39;+N more&#39; link; there is no search. At 50+ sessions the product becomes unnavigable.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P1-4</span>
+            <h4 class="gap-title">Session fork — branch from any midpoint</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-med">MED</span>
+              <span class="gap-chip chip-effort-l">S-M</span>
+            </span>
+          </div>
+          <p class="gap-why">The event log makes forking a single copy-query: duplicate a session up to event N and explore a variant without losing the original. The experimentation workflow the owner described.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P1-5</span>
+            <h4 class="gap-title">Session export / import + markdown</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-l">S-M</span>
+            </span>
+          </div>
+          <p class="gap-why">Zero backup or portability story today. JSON export of everything + per-session markdown transcripts.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P1-6</span>
+            <h4 class="gap-title">Memory system v1</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-m">M</span>
+            </span>
+          </div>
+          <p class="gap-why">The spec&#39;s primary success criterion — remembering context between sessions — is unimplemented (the policy field is dead). Per-project markdown memory, injected per policy, editable in settings.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P1-7</span>
+            <h4 class="gap-title">Auto-compaction for long sessions</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-m">M</span>
+            </span>
+          </div>
+          <p class="gap-why">Trim-only context silently amputates the original task mid-run. Summarize-and-continue with sticky context (task, key files, todos) — the researched Cline pattern.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P1-8</span>
+            <h4 class="gap-title">Project kinds + per-project settings</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-m">M</span>
+            </span>
+          </div>
+          <p class="gap-why">The &#39;different kinds of projects&#39; vision: research/writing/data/coding kinds with per-kind suggestions, tool defaults, and rules templates; plus a settings dialog (rename, color, default agent/model, approval-rule management) — there is no update route today.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P1-9</span>
+            <h4 class="gap-title">Persona merge + agent picker</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-s">S</span>
+            </span>
+          </div>
+          <p class="gap-why">Agent system prompts are silently discarded in project sessions (replaced by the project prompt), so all five seeded agents are inert; the chat agent picker was removed with the old top bar and its store field is dead. Merge persona + environment prompts; restore the picker.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P1-10</span>
+            <h4 class="gap-title">Edit-reliability ladder</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-m">M</span>
+            </span>
+          </div>
+          <p class="gap-why">The #1 agentic friction: edits fail outright on imperfect matches with no did-you-mean. The aider recipe — exact → whitespace-normalized → elision, structured errors with closest-candidate hints, up to 3 reflection retries.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P1-11</span>
+            <h4 class="gap-title">Real web search</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-l">S-M</span>
+            </span>
+          </div>
+          <p class="gap-why">Research is bounded by Wikipedia. A pluggable search backend (Tavily / Brave / Exa) keyed like a provider, with the current engine as fallback. Needs the owner&#39;s API-key decision (Decision 1).</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P1-12</span>
+            <h4 class="gap-title">Approval queue + remote approve</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-m">M</span>
+            </span>
+          </div>
+          <p class="gap-why">Today an unattended agent waits 120s then is denied — not autonomy-ready. A persistent pending-approvals center plus Approve/Deny action buttons on push notifications turns the existing plumbing into a remote control surface.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P1-13</span>
+            <h4 class="gap-title">Cost tracking + budgets</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-med">MED</span>
+              <span class="gap-chip chip-effort-l">S-M</span>
+            </span>
+          </div>
+          <p class="gap-why">Recorded cost is always zero although the model pricing table exists; a runaway loop has no financial brake. Wire the estimate and add USD caps per run/day.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P1-14</span>
+            <h4 class="gap-title">Scheduler MVP (cron)</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-l">M-L</span>
+            </span>
+          </div>
+          <p class="gap-why">The automation pillar&#39;s first real code: workflows + schedules tables, one sidecar loop, missed-run policy, manual-run-first. The n8n-pattern blueprint is already written and pre-audited for traps.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P1-15</span>
+            <h4 class="gap-title">Auto-team run mode</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-l">M-L</span>
+            </span>
+          </div>
+          <p class="gap-why">The flagship multi-agent ask: a cheap orchestrator model planning and delegating to a powerful worker. Types exist; session creation rejects the mode. Needs approval queue + budgets first (P1-12/13).</p>
+        </article>
+      </div>
+    </div>
+    <div class="gap-group gap-group-p2">
+      <header class="gap-group-head">
+        <span class="gap-priority p2" aria-hidden="true">P2</span>
+        <div>
+          <h3>Important next — depth and the long game</h3>
+          <p class="gap-intro">Important for depth and the long game — MCP, vision, packaging, and the polish debt the audits catalogued.</p>
+        </div>
+      </header>
+      <div class="gap-list">
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P2-1</span>
+            <h4 class="gap-title">MCP client</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-l">M-L</span>
+            </span>
+          </div>
+          <p class="gap-why">The industry-standard extension mechanism — every competitor supports it. Turns any MCP server into a tool; the biggest ecosystem unlock. After approval tiers extend to external tools.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P2-2</span>
+            <h4 class="gap-title">PTY terminal</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-m">M</span>
+            </span>
+          </div>
+          <p class="gap-why">Long-running processes, dev servers, cd persistence, streamed output — an agent that builds but cannot run or verify its app is not autonomous.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P2-3</span>
+            <h4 class="gap-title">In-app file editing + diff review</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-m">M</span>
+            </span>
+          </div>
+          <p class="gap-why">The file viewer is read-only today. Edit mode with snapshot-first saving keeps checkpoints consistent; open-at-line from chat and the palette.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P2-4</span>
+            <h4 class="gap-title">Worktree isolation for parallel sub-agents</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-med">MED</span>
+              <span class="gap-chip chip-effort-m">M</span>
+            </span>
+          </div>
+          <p class="gap-why">Five parallel agents mutate the same tree — last writer wins. Git worktrees per coding child with a user-approved promotion step.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P2-5</span>
+            <h4 class="gap-title">Per-role sub-agent tool limits</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-med">MED</span>
+              <span class="gap-chip chip-effort-l">S-M</span>
+            </span>
+          </div>
+          <p class="gap-why">Children currently get the full toolset minus delegation; a researcher can write files. Role-level allowlists are one settings layer.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P2-6</span>
+            <h4 class="gap-title">Vision / image input</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-med">MED</span>
+              <span class="gap-chip chip-effort-m">M</span>
+            </span>
+          </div>
+          <p class="gap-why">The vision-model field has existed since the first migration and nothing consumes it. Composer attachments → vision model; unlocks screenshot-driven UI verification later.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P2-7</span>
+            <h4 class="gap-title">Agent-driven browser automation</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-med">MED</span>
+              <span class="gap-chip chip-effort-l">M-L</span>
+            </span>
+          </div>
+          <p class="gap-why">The embedded browser is user-facing only. Navigate/click/type/screenshot tools feeding the vision model close the research loop.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P2-8</span>
+            <h4 class="gap-title">WebSocket event bus</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-med">MED</span>
+              <span class="gap-chip chip-effort-m">M</span>
+            </span>
+          </div>
+          <p class="gap-why">Two ad-hoc SSE channels today; the designed auth-framed gateway would unify streaming and unlock live automation UI. Design is already an approved ADR.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P2-9</span>
+            <h4 class="gap-title">Packaging &amp; versioning</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-high">HIGH</span>
+              <span class="gap-chip chip-effort-m">M</span>
+            </span>
+          </div>
+          <p class="gap-why">Bundling is disabled, no installer, no changelog, no version discipline. Path: fix the Rust build → CI artifact (portable zip) → semver + changelog → launcher consumes releases. Depends on P0-1.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P2-10</span>
+            <h4 class="gap-title">Configurable denylist + approvals audit viewer</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-med">MED</span>
+              <span class="gap-chip chip-effort-l">S-M</span>
+            </span>
+          </div>
+          <p class="gap-why">The command denylist is hardcoded in source and always-allow rules are written but unmanageable. Two settings screens backed by existing storage.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P2-11</span>
+            <h4 class="gap-title">Skills system</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-med">MED</span>
+              <span class="gap-chip chip-effort-l">M-L</span>
+            </span>
+          </div>
+          <p class="gap-why">SKILL.md folders with progressive disclosure — the universal standard per the research corpus; the agent form already has a skills field that does nothing.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P2-12</span>
+            <h4 class="gap-title">Repo-map context economy</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-med">MED</span>
+              <span class="gap-chip chip-effort-l">L</span>
+            </span>
+          </div>
+          <p class="gap-why">Token-budgeted tree-sitter repo maps (the aider approach) are the long-term answer to multi-file awareness beyond the symbol index.</p>
+        </article>
+        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">P2-13</span>
+            <h4 class="gap-title">QA &amp; polish debt</h4>
+            <span class="gap-chips">
+              <span class="gap-chip chip-impact-med">MED</span>
+              <span class="gap-chip chip-effort-m">M</span>
+            </span>
+          </div>
+          <p class="gap-why">Zero Rust tests; the SSE stream route has no unit tests; palette lacks keyboard navigation; unreachable legacy layout code; one prompt rule suppresses parallel tool calls the SDK supports.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- · 06 roadmap tracks · -->
+  <section id="roadmap" class="section reveal" aria-labelledby="roadmap-title">
+    <header class="section-head">
+      <span class="section-index" aria-hidden="true">06</span>
+      <div>
+        <h2 id="roadmap-title">The roadmap — six tracks</h2>
+        <p class="section-desc">Coherent workstreams bundling the gaps above. Pick a track, get a user-visible outcome — every track is additive, no re-architecture.</p>
+      </div>
+    </header>
+    <div class="tracks-grid">
+      <article class="track-card card">
+        <header class="track-head">
+          <span class="track-id mono">T1</span>
+          <div>
+            <h3 class="track-name">Foundation &amp; Trust</h3>
+            <p class="track-tagline">Make every claim true and every click land.</p>
+          </div>
+        </header>
+        <ul class="track-contents">
+          <li>All nine P0s: Rust build fix + CI-watch</li>
+          <li>Security hardening: key scrubbing, contained auto tier, gated web tools</li>
+          <li>Data out of the source folder + backups + export</li>
+          <li>Dead routes repaired, rot bundle cleaned</li>
+          <li>Dashboard auto-reports CI truth from the API</li>
+        </ul>
+        <div class="track-gets">
+          <span class="track-gets-label">Owner gets</span>
+          <p>Green CI on the desktop shell for the first time since R38; keys that never reach spawned processes; data that survives re-downloading the app; zero dead clicks; a dashboard that cannot lie.</p>
+        </div>
+        <footer class="track-meta">
+          <span class="track-meta-chip"><span class="track-meta-label">rounds</span> 1 (dense, but all S/M items)</span>
+          <span class="track-meta-chip"><span class="track-meta-label">deps</span> None — everything else builds on this.</span>
+        </footer>
+      </article>
+      <article class="track-card card">
+        <header class="track-head">
+          <span class="track-id mono">T2</span>
+          <div>
+            <h3 class="track-name">Session Intelligence</h3>
+            <p class="track-tagline">Never lose, misplace, or get stuck in a session.</p>
+          </div>
+        </header>
+        <ul class="track-contents">
+          <li>Revert UI + turn-level revert (P1-1)</li>
+          <li>Main-session retry + turn serialization (P1-2)</li>
+          <li>Session search + uncapped list (P1-3)</li>
+          <li>Fork from any midpoint (P1-4)</li>
+          <li>Export/import + markdown (P1-5)</li>
+          <li>Memory system v1 (P1-6)</li>
+          <li>Auto-compaction (P1-7)</li>
+        </ul>
+        <div class="track-gets">
+          <span class="track-gets-label">Owner gets</span>
+          <p>One-click revert to any checkpoint; failed sessions reopen; full-text session search; fork-to-experiment; markdown export; agents that remember each project across sessions; long chats that stay smart.</p>
+        </div>
+        <footer class="track-meta">
+          <span class="track-meta-chip"><span class="track-meta-label">rounds</span> 2</span>
+          <span class="track-meta-chip"><span class="track-meta-label">deps</span> Track 1 (binary-snapshot fix precedes the revert UI; durability precedes export).</span>
+        </footer>
+      </article>
+      <article class="track-card card">
+        <header class="track-head">
+          <span class="track-id mono">T3</span>
+          <div>
+            <h3 class="track-name">Project Customization</h3>
+            <p class="track-tagline">Different kinds of projects, each behaving differently.</p>
+          </div>
+        </header>
+        <ul class="track-contents">
+          <li>Project kinds with template cards (P1-8)</li>
+          <li>Per-project settings dialog + update route</li>
+          <li>Persona merge + agent picker (P1-9)</li>
+          <li>Prompt library + slash commands</li>
+          <li>Per-kind empty states, tool defaults, rules templates</li>
+        </ul>
+        <div class="track-gets">
+          <span class="track-gets-label">Owner gets</span>
+          <p>A Research project behaves differently from a Coding project — different suggestions, tools, and starter rules; per-project model and instructions; agent personalities that actually apply; per-session agent choice.</p>
+        </div>
+        <footer class="track-meta">
+          <span class="track-meta-chip"><span class="track-meta-label">rounds</span> 1–2</span>
+          <span class="track-meta-chip"><span class="track-meta-label">deps</span> Track 1 (light). Can run parallel to Track 2.</span>
+        </footer>
+      </article>
+      <article class="track-card card">
+        <header class="track-head">
+          <span class="track-id mono">T4</span>
+          <div>
+            <h3 class="track-name">Autonomy &amp; Automation</h3>
+            <p class="track-tagline">Full-fledged automations with human gates controllable from anywhere.</p>
+          </div>
+        </header>
+        <ul class="track-contents">
+          <li>Approval queue + remote approve via push actions (P1-12)</li>
+          <li>Cost budgets + spend caps (P1-13)</li>
+          <li>Scheduler MVP — cron workflows, manual-run-first (P1-14)</li>
+          <li>Auto-team run mode (P1-15)</li>
+        </ul>
+        <div class="track-gets">
+          <span class="track-gets-label">Owner gets</span>
+          <p>Overnight runs that pause at approval gates and resume from a phone tap; scheduled research digests; enforced spend caps; a self-organizing agent team for large jobs.</p>
+        </div>
+        <footer class="track-meta">
+          <span class="track-meta-chip"><span class="track-meta-label">rounds</span> 2–3</span>
+          <span class="track-meta-chip"><span class="track-meta-label">deps</span> Track 1 hard (gates close first); Track 2 (retry + memory make scheduled runs recoverable); worktree isolation ideally first.</span>
+        </footer>
+      </article>
+      <article class="track-card card">
+        <header class="track-head">
+          <span class="track-id mono">T5</span>
+          <div>
+            <h3 class="track-name">Capability Depth</h3>
+            <p class="track-tagline">Make the agent genuinely better at the work itself.</p>
+          </div>
+        </header>
+        <ul class="track-contents">
+          <li>Edit-reliability ladder + parallel tool calls un-suppressed (P1-10)</li>
+          <li>Real web search backend (P1-11)</li>
+          <li>PTY terminal (P2-2)</li>
+          <li>In-app file editing + diff review (P2-3)</li>
+          <li>Worktree isolation (P2-4) + per-role tool limits (P2-5)</li>
+        </ul>
+        <div class="track-gets">
+          <span class="track-gets-label">Owner gets</span>
+          <p>Edits that survive imperfect matches; real search results; a terminal that runs and watches the dev server; editing files in-app with diff review; parallel agents that don&#39;t stomp each other.</p>
+        </div>
+        <footer class="track-meta">
+          <span class="track-meta-chip"><span class="track-meta-label">rounds</span> 2–3</span>
+          <span class="track-meta-chip"><span class="track-meta-label">deps</span> Track 1; search needs Decision 1 (API key) beforehand.</span>
+        </footer>
+      </article>
+      <article class="track-card card">
+        <header class="track-head">
+          <span class="track-id mono">T6</span>
+          <div>
+            <h3 class="track-name">Ecosystem &amp; Shipping</h3>
+            <p class="track-tagline">Plug into the tool universe; ship an installer.</p>
+          </div>
+        </header>
+        <ul class="track-contents">
+          <li>MCP client (P2-1)</li>
+          <li>Vision input (P2-6) + browser automation (P2-7)</li>
+          <li>WebSocket event bus (P2-8)</li>
+          <li>Packaging, semver, changelog, release artifacts (P2-9)</li>
+          <li>Denylist UI + audit viewer (P2-10), skills (P2-11), repo map (P2-12)</li>
+        </ul>
+        <div class="track-gets">
+          <span class="track-gets-label">Owner gets</span>
+          <p>Any MCP server becomes a tool; paste screenshots into chat; agent-driven browsing; an installable, versioned app instead of the dev launcher.</p>
+        </div>
+        <footer class="track-meta">
+          <span class="track-meta-chip"><span class="track-meta-label">rounds</span> 2–3</span>
+          <span class="track-meta-chip"><span class="track-meta-label">deps</span> Track 1 (packaging requires the green Rust build); MCP after approval tiers extend (Track 4).</span>
+        </footer>
+      </article>
+    </div>
+  </section>
+
+  <!-- · 07 next rounds + decisions · -->
+  <section id="next" class="section reveal" aria-labelledby="next-title">
+    <header class="section-head">
+      <span class="section-index" aria-hidden="true">07</span>
+      <div>
+        <h2 id="next-title">Recommended sequence + owner decisions</h2>
+        <p class="section-desc">The proposed round-by-round order, and the eight calls only the owner can make.</p>
+      </div>
+    </header>
+    <ol class="seq-list">
+      <li class="seq-item">
+        <span class="seq-round mono">R43</span>
+        <div class="seq-body">
+          <span class="seq-track">Track 1 — Foundation &amp; Trust</span>
+          <p class="seq-why">CI has been red for four straight rounds while the dashboard said green — the project&#39;s largest trust liability, and it&#39;s almost all S-effort fixes. The security holes must close before automation is built on top of them. Highest payoff-per-effort round in the plan; unblocks everything.</p>
+        </div>
+      </li>
+      <li class="seq-item">
+        <span class="seq-round mono">R44</span>
+        <div class="seq-body">
+          <span class="seq-track">Track 2 pt.1 — Session Intelligence</span>
+          <p class="seq-why">The owner&#39;s explicit vision sentence: continue a session, revert to a previous session. The backend largely exists — this is mostly surfacing work with immediately visible payoff.</p>
+        </div>
+      </li>
+      <li class="seq-item">
+        <span class="seq-round mono">R45</span>
+        <div class="seq-body">
+          <span class="seq-track">Track 3 — Project Customization</span>
+          <p class="seq-why">The other explicit vision clause: different kinds of projects, highly customized. Independent of Track 2, so a clean round; gives R44&#39;s memory system concrete per-project hooks.</p>
+        </div>
+      </li>
+      <li class="seq-item">
+        <span class="seq-round mono">R46</span>
+        <div class="seq-body">
+          <span class="seq-track">Track 5 pt.1 — Capability Depth</span>
+          <p class="seq-why">Edit ladder + real web search + PTY. Capability compounds: every later automation benefits from reliable edits and real research. Requires Decision 1 by this round.</p>
+        </div>
+      </li>
+      <li class="seq-item">
+        <span class="seq-round mono">R47</span>
+        <div class="seq-body">
+          <span class="seq-track">Track 4 pt.1 — Autonomy gates</span>
+          <p class="seq-why">Approval queue + remote approve + budgets. With gates closed (R43) and recovery solid (R44), overnight autonomy becomes safe; the queue turns existing push plumbing into the owner&#39;s remote-control surface.</p>
+        </div>
+      </li>
+      <li class="seq-item">
+        <span class="seq-round mono">R48+</span>
+        <div class="seq-body">
+          <span class="seq-track">Track 4 pt.2 → Track 6</span>
+          <p class="seq-why">Scheduler MVP and auto-team, then the ecosystem bets in dependency order (MCP → packaging → vision).</p>
+        </div>
+      </li>
+    </ol>
+    <div class="decisions-grid">
+      <article class="decision-card card">
+        <span class="decision-num mono" aria-hidden="true">01</span>
+        <div class="decision-body">
+          <h3 class="decision-title">Search API provider + key</h3>
+          <p class="decision-detail">Real web search needs one external API. Tavily (agent-optimized, free tier), Brave (privacy, free tier), or Exa/Serper.</p>
+          <p class="decision-rec"><span class="decision-rec-label">Recommended</span>Tavily free tier first — agent-optimized results, drop-in behind the existing tool; revisit if limits bite.</p>
+        </div>
+      </article>
+      <article class="decision-card card">
+        <span class="decision-num mono" aria-hidden="true">02</span>
+        <div class="decision-body">
+          <h3 class="decision-title">Gate the web tools?</h3>
+          <p class="decision-detail">The audit strongly recommends routing web_fetch/web_search through the approval engine (fail-closed), optionally with per-domain allow rules later.</p>
+          <p class="decision-rec"><span class="decision-rec-label">Recommended</span>Yes — gate by default with an always-allow option per domain; aligns with the spec and closes the exfil channel.</p>
+        </div>
+      </article>
+      <article class="decision-card card">
+        <span class="decision-num mono" aria-hidden="true">03</span>
+        <div class="decision-body">
+          <h3 class="decision-title">Track order</h3>
+          <p class="decision-detail">Confirm the R43–R48 sequence, or pull Automation earlier — accepting a scheduler landing before retry and budgets exist (a footgun the audits warn about).</p>
+          <p class="decision-rec"><span class="decision-rec-label">Recommended</span>Keep the proposed order; the foundation round is one dense round and de-risks everything after it.</p>
+        </div>
+      </article>
+      <article class="decision-card card">
+        <span class="decision-num mono" aria-hidden="true">04</span>
+        <div class="decision-body">
+          <h3 class="decision-title">Budget policy defaults</h3>
+          <p class="decision-detail">Daily/monthly USD caps and breach behavior — hard-stop vs notify-only.</p>
+          <p class="decision-rec"><span class="decision-rec-label">Recommended</span>Start notify-only with a hard stop at a generous ceiling; tighten once real burn data exists.</p>
+        </div>
+      </article>
+      <article class="decision-card card">
+        <span class="decision-num mono" aria-hidden="true">05</span>
+        <div class="decision-body">
+          <h3 class="decision-title">Remote-approval surface</h3>
+          <p class="decision-detail">Web Push action buttons (works from any phone browser, minimal build) vs a full mobile web app (much later).</p>
+          <p class="decision-rec"><span class="decision-rec-label">Recommended</span>Push action buttons now; a mobile app only if the button flow proves limiting.</p>
+        </div>
+      </article>
+      <article class="decision-card card">
+        <span class="decision-num mono" aria-hidden="true">06</span>
+        <div class="decision-body">
+          <h3 class="decision-title">Packaging timeline</h3>
+          <p class="decision-detail">When does the dev launcher retire? Requires the fixed Rust build, bundler config, a content-security policy, and a changelog. Also makes the data-directory fix more urgent.</p>
+          <p class="decision-rec"><span class="decision-rec-label">Recommended</span>Fix the build in R43; aim for a first versioned portable zip as the Track 6 milestone, launcher retires after it proves stable.</p>
+        </div>
+      </article>
+      <article class="decision-card card">
+        <span class="decision-num mono" aria-hidden="true">07</span>
+        <div class="decision-body">
+          <h3 class="decision-title">Stay closed-source?</h3>
+          <p class="decision-detail">The dashboard links only to this public repo; private-repo references are forbidden by its build scanner — the current behavior is correct for a closed-source product.</p>
+          <p class="decision-rec"><span class="decision-rec-label">Recommended</span>Stay closed-source; keep the dashboard as the public surface.</p>
+        </div>
+      </article>
+      <article class="decision-card card">
+        <span class="decision-num mono" aria-hidden="true">08</span>
+        <div class="decision-body">
+          <h3 class="decision-title">Initial project kinds</h3>
+          <p class="decision-detail">Confirm Research / Writing / Data / Coding as the first four kinds, and whether user-defined custom kinds are in scope for v1.</p>
+          <p class="decision-rec"><span class="decision-rec-label">Recommended</span>Ship the four built-ins first; custom kinds after the per-project settings land and prove out.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- · 08 plan · -->
+  <section id="plan" class="section reveal" aria-labelledby="plan-title">
+    <header class="section-head">
+      <span class="section-index" aria-hidden="true">08</span>
       <div>
         <h2 id="plan-title">The plan</h2>
         <p class="section-desc">What is happening right now, and what comes next.</p>
@@ -279,8 +1290,8 @@
     <div class="now-card">
       <span class="now-label">Now</span>
       <div class="now-body">
-        <h3 class="now-title">R41 — Dashboard overhaul + embedded Chromium browser + per-session sidebar state</h3>
-        <p class="now-detail">Public dashboard rebuilt with a highly-detailed design, dark mode, and dedicated Features + Documentation sections. Inside the app: a full-fledged embedded Chromium browser, dedicated collapse section in the right sidebar, popover bounds, per-session sidebar state, and desktop notifications. Verify pipeline stays green (243 tests).</p>
+        <h3 class="now-title">R42 delivered — full project audit complete, awaiting owner verdict on the R43 track order</h3>
+        <p class="now-detail">A five-agent audit fleet reviewed the entire codebase against the owner&#39;s autonomous vision: what is done, what is missing, and what to build next. The results — a 12-dimension competitive benchmark, an 18-area capability inventory, 37 consolidated gaps, and a six-track roadmap with a recommended R43–R48 sequence — are published in the Audit, Gaps, and Roadmap sections below. CI is honestly RED (Rust shell break since R39, one-line fix identified); Track 1 proposes to make every claim true again.</p>
       </div>
       <span class="now-live"><span class="live-dot" aria-hidden="true"></span>current focus</span>
     </div>
@@ -288,34 +1299,56 @@
       <li class="upcoming-item">
         <span class="status-chip status-ownergated">owner-gated</span>
         <div class="upcoming-body">
-          <span class="upcoming-phase">Phase 3 — Orchestration engine</span>
-          <span class="upcoming-note">Multi-agent run loop, shared message bus, Kanban task board, three run modes (single / auto-team / manual).</span>
+          <span class="upcoming-phase">Track 1 — Foundation &amp; Trust (recommended R43)</span>
+          <span class="upcoming-note">Fix the Rust build, close the three security holes, move data out of the source folder, repair dead routes, make this dashboard auto-report CI truth. All small fixes, highest payoff.</span>
+        </div>
+      </li>
+      <li class="upcoming-item">
+        <span class="status-chip status-ownergated">owner-gated</span>
+        <div class="upcoming-body">
+          <span class="upcoming-phase">Track 2 — Session Intelligence (recommended R44)</span>
+          <span class="upcoming-note">Revert UI, main-session retry, session search + fork + export, memory v1, auto-compaction — the owner&#39;s explicit continue-a-session / revert vision.</span>
+        </div>
+      </li>
+      <li class="upcoming-item">
+        <span class="status-chip status-ownergated">owner-gated</span>
+        <div class="upcoming-body">
+          <span class="upcoming-phase">Track 3 — Project Customization (recommended R45)</span>
+          <span class="upcoming-note">Project kinds, per-project settings, persona merge, agent picker — the different-kinds-of-projects vision.</span>
+        </div>
+      </li>
+      <li class="upcoming-item">
+        <span class="status-chip status-ownergated">owner-gated</span>
+        <div class="upcoming-body">
+          <span class="upcoming-phase">Track 4 — Autonomy &amp; Automation (recommended R47, after Track 5)</span>
+          <span class="upcoming-note">Approval queue + remote approve, cost budgets, scheduler MVP, auto-team run mode — the full-fledged-automations vision.</span>
+        </div>
+      </li>
+      <li class="upcoming-item">
+        <span class="status-chip status-ownergated">owner-gated</span>
+        <div class="upcoming-body">
+          <span class="upcoming-phase">Track 5 — Capability Depth (recommended R46)</span>
+          <span class="upcoming-note">Edit-reliability ladder, real web search, PTY terminal, in-app file editing.</span>
         </div>
       </li>
       <li class="upcoming-item">
         <span class="status-chip status-planned">planned</span>
         <div class="upcoming-body">
-          <span class="upcoming-phase">Automation pillar — workflows + scheduling</span>
-          <span class="upcoming-note">Visual canvas, cron-style scheduling, event bus (n8n-pattern reference).</span>
-        </div>
-      </li>
-      <li class="upcoming-item">
-        <span class="status-chip status-planned">planned</span>
-        <div class="upcoming-body">
-          <span class="upcoming-phase">Rust cargo-deny audit in CI</span>
-          <span class="upcoming-note">License-audit the Tauri/Rust sidecar dependencies alongside the existing pnpm audit.</span>
+          <span class="upcoming-phase">Track 6 — Ecosystem &amp; Shipping</span>
+          <span class="upcoming-note">MCP client, vision input, browser automation, packaging + versioned releases.</span>
         </div>
       </li>
     </ul>
   </section>
 
-  <!-- · 04 quality · -->
+  <!-- · 09 quality · -->
   <section id="quality" class="section reveal" aria-labelledby="quality-title">
     <header class="section-head">
-      <span class="section-index" aria-hidden="true">04</span>
+      <span class="section-index" aria-hidden="true">09</span>
       <div>
         <h2 id="quality-title">Quality</h2>
-        <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI.</p>
+        <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
+        <p class="quality-note">Red since R39 — the Rust shell fails cargo check (one-line Tauri API fix identified, Track 1 / P0-1). JS-side verify (lint + typecheck + tests + build + license) is green locally.</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -325,9 +1358,9 @@
         <div class="suite-row">
           <div class="suite-head">
             <span class="suite-name">agent-core (vitest)</span>
-            <span class="suite-count"><strong data-count="161">161</strong> tests</span>
+            <span class="suite-count"><strong data-count="180">180</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="161" aria-valuemin="0" aria-valuemax="161" aria-label="agent-core (vitest) test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="180" aria-valuemin="0" aria-valuemax="180" aria-label="agent-core (vitest) test count relative to largest suite">
             <div class="bar-fill" data-progress="100" style="--w:100%"></div>
           </div>
         </div>
@@ -336,8 +1369,8 @@
             <span class="suite-name">frontend (vitest + RTL)</span>
             <span class="suite-count"><strong data-count="70">70</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="161" aria-label="frontend (vitest + RTL) test count relative to largest suite">
-            <div class="bar-fill" data-progress="43" style="--w:43%"></div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="180" aria-label="frontend (vitest + RTL) test count relative to largest suite">
+            <div class="bar-fill" data-progress="39" style="--w:39%"></div>
           </div>
         </div>
         <div class="suite-row">
@@ -345,31 +1378,31 @@
             <span class="suite-name">shared (domain types)</span>
             <span class="suite-count"><strong data-count="4">4</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="161" aria-label="shared (domain types) test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="180" aria-label="shared (domain types) test count relative to largest suite">
             <div class="bar-fill" data-progress="3" style="--w:3%"></div>
           </div>
         </div>
         <div class="suite-row">
           <div class="suite-head">
             <span class="suite-name">sidecar e2e (built dist)</span>
-            <span class="suite-count"><strong data-count="8">8</strong> tests · <span class="suite-skip">8 skipped</span></span>
+            <span class="suite-count"><strong data-count="8">8</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="8" aria-valuemin="0" aria-valuemax="161" aria-label="sidecar e2e (built dist) test count relative to largest suite">
-            <div class="bar-fill" data-progress="5" style="--w:5%"></div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="8" aria-valuemin="0" aria-valuemax="180" aria-label="sidecar e2e (built dist) test count relative to largest suite">
+            <div class="bar-fill" data-progress="4" style="--w:4%"></div>
           </div>
         </div>
         <div class="suites-total">
           <span>Total</span>
-          <strong class="mono"><span data-count="243">243</span> tests passing · <span data-count="8">8</span> skipped</strong>
+          <strong class="mono"><span data-count="262">262</span> tests passing · <span data-count="0">0</span> skipped</strong>
         </div>
       </article>
       <div class="checks-col">
         <article class="check-card card">
-          <span class="check-icon icon-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <span class="check-icon icon-bad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
           <div class="check-body">
             <span class="check-label">CI pipeline</span>
-            <span class="check-value value-ok">passing</span>
-            <span class="check-sub">latest run: success</span>
+            <span class="check-value value-bad">failing</span>
+            <span class="check-sub">red since R39 — Rust shell, fix queued (P0-1)</span>
           </div>
         </article>
         <article class="check-card card">
@@ -389,11 +1422,11 @@
           </div>
         </article>
         <article class="check-card card">
-          <span class="check-icon icon-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.5 9.4 7.55 4.24"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" x2="12" y1="22" y2="12"/></svg></span>
+          <span class="check-icon icon-bad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.5 9.4 7.55 4.24"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" x2="12" y1="22" y2="12"/></svg></span>
           <div class="check-body">
             <span class="check-label">cargo check</span>
-            <span class="check-value value-ok">passing</span>
-            <span class="check-sub">Rust sidecar compiles clean</span>
+            <span class="check-value value-bad">failing</span>
+            <span class="check-sub">Rust shell — one-line Tauri API fix identified (Track 1)</span>
           </div>
         </article>
         <article class="check-card card">
@@ -401,17 +1434,17 @@
           <div class="check-body">
             <span class="check-label">License audit</span>
             <span class="check-value value-ok">CLEAN</span>
-            <span class="check-sub">112 dependencies reviewed</span>
+            <span class="check-sub">131 dependencies reviewed</span>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- · 05 documentation · -->
+  <!-- · 10 documentation · -->
   <section id="docs" class="section reveal" aria-labelledby="docs-title">
     <header class="section-head">
-      <span class="section-index" aria-hidden="true">05</span>
+      <span class="section-index" aria-hidden="true">10</span>
       <div>
         <h2 id="docs-title">Documentation</h2>
         <p class="section-desc">The canonical truth — what to read first, in order. Living docs in the private source repo; the public dashboard links only to itself.</p>
@@ -442,7 +1475,7 @@
           <span class="doc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
         </div>
         <h3 class="doc-title">SPEC.md</h3>
-        <p class="doc-desc">Master requirements (F1–F11 features) — owner-approved.</p>
+        <p class="doc-desc">Master requirements (F1–F11 features) — owner-approved. The R42 audit scored each F against reality.</p>
         <code class="doc-path">docs/specs/SPEC.md</code>
       </article>
       <article class="doc-card card">
@@ -460,7 +1493,7 @@
           <span class="doc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
         </div>
         <h3 class="doc-title">API.md + IMPLEMENTED-API.md</h3>
-        <p class="doc-desc">REST + WS surface: 52 operations specified, with an IMPLEMENTED-API truth doc that tracks what is actually wired.</p>
+        <p class="doc-desc">52 operations specified; 30 wired + ~24 additional live routes the plan never had (59 total). The truth doc needs the R43 catch-up.</p>
         <code class="doc-path">docs/architecture/api/</code>
       </article>
       <article class="doc-card card">
@@ -496,7 +1529,7 @@
           <span class="doc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
         </div>
         <h3 class="doc-title">WORKFLOW.md</h3>
-        <p class="doc-desc">The session spine — branch policy, verification gates, per-round doc duties, push / CI / ntfy checklist.</p>
+        <p class="doc-desc">The session spine — branch policy, verification gates, per-round doc duties, push / CI checklist.</p>
         <code class="doc-path">docs/runbooks/WORKFLOW.md</code>
       </article>
       <article class="doc-card card">
@@ -514,7 +1547,7 @@
           <span class="doc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
         </div>
         <h3 class="doc-title">LOCAL-PC-RUNNER.md</h3>
-        <p class="doc-desc">Owner&#39;s one-click launcher: ACUTE.bat + acute.sh + acute_launcher.py (auto-install, credentials, update+restart, self-update).</p>
+        <p class="doc-desc">Owner&#39;s one-click launcher: auto-install, update+restart, self-update, auto-open browser.</p>
         <code class="doc-path">docs/runbooks/LOCAL-PC-RUNNER.md</code>
       </article>
       <article class="doc-card card">
@@ -523,7 +1556,7 @@
           <span class="doc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
         </div>
         <h3 class="doc-title">9 reference projects</h3>
-        <p class="doc-desc">Kilo, Cline, OpenHands, Letta, Hermes, n8n, MetaGPT, Aider, Goose, OpenCode — pattern synthesis in docs/research/README.md.</p>
+        <p class="doc-desc">Kilo, Cline, OpenHands, Letta, Hermes, n8n, MetaGPT, Aider, Goose, OpenCode — pattern synthesis feeding the audit&#39;s benchmark.</p>
         <code class="doc-path">docs/research/</code>
       </article>
       <article class="doc-card card">
@@ -535,13 +1568,22 @@
         <p class="doc-desc">1123-line plan v2 with 30 sub-agent review fixes applied — the UX + Agentic-Quality overhaul that reset the cadence.</p>
         <code class="doc-path">docs/ROUND-28-MASTER-PLAN.md</code>
       </article>
+      <article class="doc-card card">
+        <div class="doc-top">
+          <span class="doc-category">Plan</span>
+          <span class="doc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </div>
+        <h3 class="doc-title">PILLARS.md</h3>
+        <p class="doc-desc">The automation-pillar blueprint — workflows, scheduler design, and the 7-step additive build order the audit&#39;s Track 4 follows.</p>
+        <code class="doc-path">docs/research/PILLARS.md</code>
+      </article>
     </div>
   </section>
 
-  <!-- · 06 milestones · -->
+  <!-- · 11 milestones · -->
   <section id="milestones" class="section reveal" aria-labelledby="milestones-title">
     <header class="section-head">
-      <span class="section-index" aria-hidden="true">06</span>
+      <span class="section-index" aria-hidden="true">11</span>
       <div>
         <h2 id="milestones-title">Milestones</h2>
         <p class="section-desc">The road so far — oldest first, newest last.</p>
@@ -654,19 +1696,29 @@
           <span class="timeline-label">R40 — sub-agent tool allowlist fix + notifications + chat width + sidebar dropdown + embedded browser + click-to-open</span>
           
         </li>
+        <li class="timeline-item">
+          <span class="timeline-date">2026-08-26</span>
+          <span class="timeline-label">R41 — dashboard overhaul + embedded Chromium browser + dedicated collapse section + popover bounds + per-session sidebar state + desktop notifications</span>
+          
+        </li>
+        <li class="timeline-item">
+          <span class="timeline-date">2026-08-26</span>
+          <span class="timeline-label">R42 — Web Push with window closed + background turns + stop endpoint + auto-rename fix + restart-safe sessions + launcher auto-open + sidebar polish — 262 tests</span>
+          
+        </li>
         <li class="timeline-item latest">
           <span class="timeline-date">2026-08-26</span>
-          <span class="timeline-label">R41 — dashboard overhaul + full-fledged embedded Chromium browser + dedicated collapse section + popover bounds + per-session sidebar state + desktop notifications (in progress)</span>
+          <span class="timeline-label">R42 audit — five-agent deep review: benchmark, 37 gaps, six-track roadmap published (this page)</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
     </div>
   </section>
 
-  <!-- · 07 screenshots · -->
+  <!-- · 12 screenshots · -->
   <section id="screenshots" class="section reveal" aria-labelledby="screenshots-title">
     <header class="section-head">
-      <span class="section-index" aria-hidden="true">07</span>
+      <span class="section-index" aria-hidden="true">12</span>
       <div>
         <h2 id="screenshots-title">Screenshots</h2>
         <p class="section-desc">Per-round verification captures — downloadable zips.</p>
@@ -675,10 +1727,10 @@
     <div class="screenshots-grid" id="screenshots-grid"></div>
   </section>
 
-  <!-- · 08 principles · -->
+  <!-- · 13 principles · -->
   <section id="principles" class="section reveal" aria-labelledby="principles-title">
     <header class="section-head">
-      <span class="section-index" aria-hidden="true">08</span>
+      <span class="section-index" aria-hidden="true">13</span>
       <div>
         <h2 id="principles-title">Principles</h2>
         <p class="section-desc">The rules the project is built by.</p>
@@ -712,16 +1764,22 @@
       <article class="principle-card card">
         <span class="principle-index" aria-hidden="true">05</span>
         <span class="principle-rule" aria-hidden="true"></span>
+        <h3 class="principle-title">Honest status</h3>
+        <p class="principle-desc">the dashboard reports what is true, including failures</p>
+      </article>
+      <article class="principle-card card">
+        <span class="principle-index" aria-hidden="true">06</span>
+        <span class="principle-rule" aria-hidden="true"></span>
         <h3 class="principle-title">Documentation is a deliverable</h3>
         <p class="principle-desc">ADRs, runbooks, and round-notes are required, not optional</p>
       </article>
     </div>
   </section>
 
-  <!-- · 09 stack · -->
+  <!-- · 14 stack · -->
   <section id="stack" class="section reveal" aria-labelledby="stack-title">
     <header class="section-head">
-      <span class="section-index" aria-hidden="true">09</span>
+      <span class="section-index" aria-hidden="true">14</span>
       <div>
         <h2 id="stack-title">Built with</h2>
         <p class="section-desc">A deliberately small, portable, local-first stack.</p>
@@ -745,12 +1803,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-08-26 06:56 UTC · curated public data only — no product source · Acute v0.2.0</p>
+    <p class="footer-note">Generated 2026-08-26 10:36 UTC · curated public data only — no product source · Acute v0.2.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-08-26T06:56:54.151Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"}],"total":85}}</script>
-<script src="assets/app.js?v=20260826t065654151z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-08-26T10:36:18.983Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"}],"total":85}}</script>
+<script src="assets/app.js?v=20260826t103618983z" defer></script>
 </body>
 </html>

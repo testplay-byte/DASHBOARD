@@ -43,12 +43,12 @@
     <nav class="site-nav" aria-label="Dashboard sections">
       <a href="#pillars">Pillars</a>
       <a href="#features">Features</a>
-      <a href="#plan">Plan</a>
+      <a href="#audit">Audit</a>
+      <a href="#gaps">Gaps</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#next">Next</a>
       <a href="#quality">Quality</a>
-      <a href="#docs">Docs</a>
       <a href="#milestones">Milestones</a>
-      <a href="#principles">Principles</a>
-      <a href="#stack">Stack</a>
     </nav>
     <div class="header-actions">
       <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle dark mode">
@@ -65,7 +65,7 @@
           <path d="M12 .5C5.37.5 0 5.78 0 12.292c0 5.211 3.438 9.63 8.205 11.18.6.111.82-.26.82-.577 0-.285-.01-1.04-.016-2.046-3.338.726-4.043-1.61-4.043-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.082-.73.082-.73 1.205.085 1.838 1.237 1.838 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.776.42-1.305.762-1.605-2.665-.305-5.466-1.332-5.466-5.93 0-1.31.47-2.383 1.236-3.221-.124-.303-.535-1.523.117-3.173 0 0 1.008-.323 3.301 1.23A11.51 11.51 0 0 1 12 6.802c1.025.005 2.058.139 3.022.408 2.29-1.553 3.297-1.23 3.297-1.23.653 1.65.242 2.87.119 3.172.77.838 1.234 1.91 1.234 3.221 0 4.61-2.807 5.622-5.48 5.92.43.371.81 1.103.81 2.222 0 1.604-.014 2.898-.014 3.293 0 .32.216.695.825.576C20.565 21.917 24 17.498 24 12.292 24 5.78 18.627.5 12 .5z"/>
         </svg>
       </a>
-      <span class="pill pill-ok header-status-pill"><span class="pill-dot" aria-hidden="true"></span>{{STATUS_SHORT}}</span>
+      <span class="pill {{STATUS_PILL_CLASS}} header-status-pill"><span class="pill-dot" aria-hidden="true"></span>{{STATUS_SHORT}}</span>
     </div>
   </div>
 </header>
@@ -133,10 +133,142 @@
     </div>
   </section>
 
-  <!-- · 03 plan · -->
-  <section id="plan" class="section reveal" aria-labelledby="plan-title">
+  <!-- · 03 audit — benchmark · -->
+  <section id="audit" class="section reveal" aria-labelledby="audit-title">
     <header class="section-head">
       <span class="section-index" aria-hidden="true">03</span>
+      <div>
+        <h2 id="audit-title">The deep review — R42 audit</h2>
+        <p class="section-desc">{{AUDIT_METHOD}}</p>
+      </div>
+    </header>
+    <div class="audit-vision card">
+      <span class="audit-vision-label">Reviewed against the owner's vision</span>
+      <p class="audit-vision-text">{{AUDIT_VISION}}</p>
+    </div>
+    <div class="headline-row">
+      <article class="headline-card card">
+        <span class="headline-label">Acute composite score</span>
+        <span class="headline-value">{{AUDIT_COMPOSITE}}</span>
+        <span class="headline-sub">vs a {{AUDIT_FRONTIER}} frontier — the average of the best competitor per dimension below</span>
+      </article>
+      <article class="headline-card card headline-verdict">
+        <span class="headline-label">The verdict</span>
+        <p class="headline-verdict-text">{{AUDIT_VERDICT}}</p>
+      </article>
+    </div>
+    <div class="bench-wrap card" role="region" aria-label="Competitive benchmark table">
+      <div class="bench-row bench-head" role="row">
+        <span class="bench-dim" role="columnheader">Dimension</span>
+        <span class="bench-acute" role="columnheader">Acute</span>
+        <span class="bench-best" role="columnheader">Best-in-class</span>
+        <span class="bench-verdict" role="columnheader">Verdict</span>
+      </div>
+{{BENCH_ROWS}}
+    </div>
+  </section>
+
+  <!-- · 04 capabilities — what's done · -->
+  <section id="capabilities" class="section reveal" aria-labelledby="capabilities-title">
+    <header class="section-head">
+      <span class="section-index" aria-hidden="true">04</span>
+      <div>
+        <h2 id="capabilities-title">What is done — capability areas</h2>
+        <p class="section-desc">Nineteen areas audited against the source tree. Live = shipped and proven · Partial = real but incomplete · Missing = not built yet.</p>
+      </div>
+    </header>
+    <div class="cap-grid">
+{{CAPABILITIES}}
+    </div>
+  </section>
+
+  <!-- · 05 gaps — what's missing · -->
+  <section id="gaps" class="section reveal" aria-labelledby="gaps-title">
+    <header class="section-head">
+      <span class="section-index" aria-hidden="true">05</span>
+      <div>
+        <h2 id="gaps-title">What is missing — {{GAP_TOTAL}} consolidated gaps</h2>
+        <p class="section-desc">Deduplicated from ~72 raw findings across the four domain audits, in three priority tiers. Impact = value toward the autonomous vision · Effort = S small / M medium / L large.</p>
+      </div>
+    </header>
+    <div class="gap-counts">
+      <span class="gap-count-chip gap-count-p0"><strong>{{P0_COUNT}}</strong> critical / trust</span>
+      <span class="gap-count-chip gap-count-p1"><strong>{{P1_COUNT}}</strong> high-impact</span>
+      <span class="gap-count-chip gap-count-p2"><strong>{{P2_COUNT}}</strong> important next</span>
+    </div>
+    <div class="gap-group gap-group-p0">
+      <header class="gap-group-head">
+        <span class="gap-priority p0" aria-hidden="true">P0</span>
+        <div>
+          <h3>Critical / trust — broken or false today</h3>
+          <p class="gap-intro">{{P0_INTRO}}</p>
+        </div>
+      </header>
+      <div class="gap-list">
+{{P0_ITEMS}}
+      </div>
+    </div>
+    <div class="gap-group gap-group-p1">
+      <header class="gap-group-head">
+        <span class="gap-priority p1" aria-hidden="true">P1</span>
+        <div>
+          <h3>High-impact — unlocks the stated vision</h3>
+          <p class="gap-intro">{{P1_INTRO}}</p>
+        </div>
+      </header>
+      <div class="gap-list">
+{{P1_ITEMS}}
+      </div>
+    </div>
+    <div class="gap-group gap-group-p2">
+      <header class="gap-group-head">
+        <span class="gap-priority p2" aria-hidden="true">P2</span>
+        <div>
+          <h3>Important next — depth and the long game</h3>
+          <p class="gap-intro">{{P2_INTRO}}</p>
+        </div>
+      </header>
+      <div class="gap-list">
+{{P2_ITEMS}}
+      </div>
+    </div>
+  </section>
+
+  <!-- · 06 roadmap tracks · -->
+  <section id="roadmap" class="section reveal" aria-labelledby="roadmap-title">
+    <header class="section-head">
+      <span class="section-index" aria-hidden="true">06</span>
+      <div>
+        <h2 id="roadmap-title">The roadmap — six tracks</h2>
+        <p class="section-desc">Coherent workstreams bundling the gaps above. Pick a track, get a user-visible outcome — every track is additive, no re-architecture.</p>
+      </div>
+    </header>
+    <div class="tracks-grid">
+{{TRACKS}}
+    </div>
+  </section>
+
+  <!-- · 07 next rounds + decisions · -->
+  <section id="next" class="section reveal" aria-labelledby="next-title">
+    <header class="section-head">
+      <span class="section-index" aria-hidden="true">07</span>
+      <div>
+        <h2 id="next-title">Recommended sequence + owner decisions</h2>
+        <p class="section-desc">The proposed round-by-round order, and the eight calls only the owner can make.</p>
+      </div>
+    </header>
+    <ol class="seq-list">
+{{SEQUENCE}}
+    </ol>
+    <div class="decisions-grid">
+{{DECISIONS}}
+    </div>
+  </section>
+
+  <!-- · 08 plan · -->
+  <section id="plan" class="section reveal" aria-labelledby="plan-title">
+    <header class="section-head">
+      <span class="section-index" aria-hidden="true">08</span>
       <div>
         <h2 id="plan-title">The plan</h2>
         <p class="section-desc">What is happening right now, and what comes next.</p>
@@ -155,13 +287,14 @@
     </ul>
   </section>
 
-  <!-- · 04 quality · -->
+  <!-- · 09 quality · -->
   <section id="quality" class="section reveal" aria-labelledby="quality-title">
     <header class="section-head">
-      <span class="section-index" aria-hidden="true">04</span>
+      <span class="section-index" aria-hidden="true">09</span>
       <div>
         <h2 id="quality-title">Quality</h2>
-        <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI.</p>
+        <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
+        <p class="quality-note">{{CI_NOTE}}</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -180,10 +313,10 @@
     </div>
   </section>
 
-  <!-- · 05 documentation · -->
+  <!-- · 10 documentation · -->
   <section id="docs" class="section reveal" aria-labelledby="docs-title">
     <header class="section-head">
-      <span class="section-index" aria-hidden="true">05</span>
+      <span class="section-index" aria-hidden="true">10</span>
       <div>
         <h2 id="docs-title">Documentation</h2>
         <p class="section-desc">The canonical truth — what to read first, in order. Living docs in the private source repo; the public dashboard links only to itself.</p>
@@ -194,10 +327,10 @@
     </div>
   </section>
 
-  <!-- · 06 milestones · -->
+  <!-- · 11 milestones · -->
   <section id="milestones" class="section reveal" aria-labelledby="milestones-title">
     <header class="section-head">
-      <span class="section-index" aria-hidden="true">06</span>
+      <span class="section-index" aria-hidden="true">11</span>
       <div>
         <h2 id="milestones-title">Milestones</h2>
         <p class="section-desc">The road so far — oldest first, newest last.</p>
@@ -210,10 +343,10 @@
     </div>
   </section>
 
-  <!-- · 07 screenshots · -->
+  <!-- · 12 screenshots · -->
   <section id="screenshots" class="section reveal" aria-labelledby="screenshots-title">
     <header class="section-head">
-      <span class="section-index" aria-hidden="true">07</span>
+      <span class="section-index" aria-hidden="true">12</span>
       <div>
         <h2 id="screenshots-title">Screenshots</h2>
         <p class="section-desc">Per-round verification captures — downloadable zips.</p>
@@ -222,10 +355,10 @@
     <div class="screenshots-grid" id="screenshots-grid"></div>
   </section>
 
-  <!-- · 08 principles · -->
+  <!-- · 13 principles · -->
   <section id="principles" class="section reveal" aria-labelledby="principles-title">
     <header class="section-head">
-      <span class="section-index" aria-hidden="true">08</span>
+      <span class="section-index" aria-hidden="true">13</span>
       <div>
         <h2 id="principles-title">Principles</h2>
         <p class="section-desc">The rules the project is built by.</p>
@@ -236,10 +369,10 @@
     </div>
   </section>
 
-  <!-- · 09 stack · -->
+  <!-- · 14 stack · -->
   <section id="stack" class="section reveal" aria-labelledby="stack-title">
     <header class="section-head">
-      <span class="section-index" aria-hidden="true">09</span>
+      <span class="section-index" aria-hidden="true">14</span>
       <div>
         <h2 id="stack-title">Built with</h2>
         <p class="section-desc">A deliberately small, portable, local-first stack.</p>

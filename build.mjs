@@ -35,9 +35,22 @@ const css = read("src", "style.css");
 const js = read("src", "app.js");
 
 /* ── basic validation ───────────────────────────────────────────────────── */
-for (const key of ["product", "pillars", "plan", "quality", "milestones", "chips"]) {
+for (const key of ["product", "pillars", "plan", "quality", "milestones", "chips", "audit"]) {
   if (data[key] === undefined) {
     console.error(`data.json is missing required field: ${key}`);
+    process.exit(1);
+  }
+}
+const audit = data.audit;
+for (const key of ["benchmark", "capabilities", "tracks", "sequence", "decisions"]) {
+  if (!Array.isArray(audit[key]) || audit[key].length === 0) {
+    console.error(`data.json: audit.${key} must be a non-empty array`);
+    process.exit(1);
+  }
+}
+for (const key of ["p0", "p1", "p2"]) {
+  if (!Array.isArray(audit.gaps?.[key]) || audit.gaps[key].length === 0) {
+    console.error(`data.json: audit.gaps.${key} must be a non-empty array`);
     process.exit(1);
   }
 }
@@ -84,14 +97,18 @@ const milestones = [...(Array.isArray(data.milestones) ? data.milestones : [])]
   .sort((a, b) => String(a.date).localeCompare(String(b.date)));
 const features = Array.isArray(data.features) ? data.features : [];
 const documentation = Array.isArray(data.documentation) ? data.documentation : [];
+const gaps = audit.gaps ?? { p0: [], p1: [], p2: [] };
+const gapTotal = gaps.p0.length + gaps.p1.length + gaps.p2.length;
 
 const totalTests = suites.reduce((n, s) => n + num(s.tests), 0);
 const totalSkipped = suites.reduce((n, s) => n + num(s.skipped), 0);
 const maxSuite = Math.max(1, ...suites.map((s) => num(s.tests)));
 const ciOk = quality.ci === "success" || quality.ci === "green";
+const ciBad = quality.ci === "failure" || quality.ci === "failing" || quality.ci === "red";
 const lintOk = quality.lint === "clean" || quality.lint === "success";
 const typecheckOk = quality.typecheck === "clean" || quality.typecheck === "success";
 const cargoOk = quality.cargoCheck === "green" || quality.cargoCheck === "success";
+const cargoBad = quality.cargoCheck === "failing" || quality.cargoCheck === "failure";
 const license = quality.licenseAudit ?? { deps: 0, verdict: "n/a" };
 
 const topPillar = pillars.reduce(
@@ -197,6 +214,93 @@ const ICONS = {
 };
 
 /* ── fragment renderers ─────────────────────────────────────────────────── */
+/* ── audit renderers ────────────────────────────────────────────────────── */
+const scoreBar = (score, max) => {
+  const pct = clamp(Math.round((num(score) / max) * 100), 0, 100);
+  const lvl = num(score) <= 1 ? " low" : num(score) >= 3 ? " high" : "";
+  return `<span class="bench-score"><span class="bench-score-track"><span class="bench-score-fill${lvl}" style="--w:${pct}%"></span></span><span class="bench-score-num mono">${num(score)}/${max}</span></span>`;
+};
+
+const renderBenchRow = (b) => `      <div class="bench-row" role="row">
+        <span class="bench-dim" role="rowheader">${esc(b.dimension)}</span>
+        <span class="bench-acute" role="cell">${scoreBar(b.acute, 5)}</span>
+        <span class="bench-best" role="cell"><span class="bench-best-name">${esc(b.bestName)}</span>${scoreBar(b.bestScore, 5)}</span>
+        <span class="bench-verdict" role="cell">${esc(b.verdict)}</span>
+      </div>`;
+
+const CAP_STATUS = {
+  live: { cls: "cap-live", label: "live" },
+  partial: { cls: "cap-partial", label: "partial" },
+  missing: { cls: "cap-missing", label: "missing" },
+};
+
+const renderCapability = (c) => {
+  const st = CAP_STATUS[c.status] ?? { cls: "cap-missing", label: esc(c.status) };
+  return `      <article class="cap-card card">
+        <div class="cap-top">
+          <h3 class="cap-title">${esc(c.area)}</h3>
+          <span class="cap-status ${st.cls}">${st.label}</span>
+        </div>
+        <p class="cap-note">${esc(c.note)}</p>
+      </article>`;
+};
+
+const impactCls = (v) => (String(v).toUpperCase() === "HIGH" ? "chip-impact-high" : "chip-impact-med");
+const effortCls = (v) => {
+  const s = String(v).toUpperCase();
+  return s === "S" ? "chip-effort-s" : s === "M" ? "chip-effort-m" : "chip-effort-l";
+};
+
+const renderGapItem = (g) => `        <article class="gap-item">
+          <div class="gap-item-head">
+            <span class="gap-id mono">${esc(g.id)}</span>
+            <h4 class="gap-title">${esc(g.title)}</h4>
+            <span class="gap-chips">
+              <span class="gap-chip ${impactCls(g.impact)}">${esc(g.impact)}</span>
+              <span class="gap-chip ${effortCls(g.effort)}">${esc(g.effort)}</span>
+            </span>
+          </div>
+          <p class="gap-why">${esc(g.why)}</p>
+        </article>`;
+
+const renderTrack = (t) => `      <article class="track-card card">
+        <header class="track-head">
+          <span class="track-id mono">${esc(t.id)}</span>
+          <div>
+            <h3 class="track-name">${esc(t.name)}</h3>
+            <p class="track-tagline">${esc(t.tagline)}</p>
+          </div>
+        </header>
+        <ul class="track-contents">
+${t.contents.map((c) => `          <li>${esc(c)}</li>`).join("\n")}
+        </ul>
+        <div class="track-gets">
+          <span class="track-gets-label">Owner gets</span>
+          <p>${esc(t.gets)}</p>
+        </div>
+        <footer class="track-meta">
+          <span class="track-meta-chip"><span class="track-meta-label">rounds</span> ${esc(t.rounds)}</span>
+          <span class="track-meta-chip"><span class="track-meta-label">deps</span> ${esc(t.deps)}</span>
+        </footer>
+      </article>`;
+
+const renderSeq = (s) => `      <li class="seq-item">
+        <span class="seq-round mono">${esc(s.round)}</span>
+        <div class="seq-body">
+          <span class="seq-track">${esc(s.track)}</span>
+          <p class="seq-why">${esc(s.why)}</p>
+        </div>
+      </li>`;
+
+const renderDecision = (d) => `      <article class="decision-card card">
+        <span class="decision-num mono" aria-hidden="true">${String(d.n).padStart(2, "0")}</span>
+        <div class="decision-body">
+          <h3 class="decision-title">${esc(d.title)}</h3>
+          <p class="decision-detail">${esc(d.detail)}</p>
+          <p class="decision-rec"><span class="decision-rec-label">Recommended</span>${esc(d.recommend)}</p>
+        </div>
+      </article>`;
+
 const STATES = {
   usable: { cls: "state-usable", label: "Usable" },
   building: { cls: "state-building", label: "Building" },
@@ -270,6 +374,12 @@ const stats = [
     sub: `${suites.length} suites · ${totalSkipped} skipped · unit + e2e`,
   },
   {
+    label: "Audit gaps identified",
+    value: gapTotal,
+    suffix: "",
+    sub: `9 critical · 15 high-impact · 13 next — six-track roadmap below`,
+  },
+  {
     label: "Milestones shipped",
     value: milestones.length,
     suffix: "",
@@ -282,12 +392,6 @@ const stats = [
     value: num(license.deps),
     suffix: "",
     sub: `license audit · ${esc(license.verdict)}`,
-  },
-  {
-    label: "Top pillar progress",
-    value: num(topPillar.progress),
-    suffix: "%",
-    sub: `${esc(topPillar.title)} — ${topPillarState}`,
   },
 ];
 
@@ -326,11 +430,11 @@ const renderSuite = (s) => {
         </div>`;
 };
 
-const renderCheck = (icon, iconCls, label, value, ok, sub) => `        <article class="check-card card">
+const renderCheck = (icon, iconCls, label, value, ok, sub, bad = false) => `        <article class="check-card card">
           <span class="check-icon ${iconCls}">${icon}</span>
           <div class="check-body">
             <span class="check-label">${esc(label)}</span>
-            <span class="check-value ${ok ? "value-ok" : ""}">${esc(value)}</span>
+            <span class="check-value ${ok ? "value-ok" : bad ? "value-bad" : ""}">${esc(value)}</span>
             <span class="check-sub">${esc(sub)}</span>
           </div>
         </article>`;
@@ -338,11 +442,12 @@ const renderCheck = (icon, iconCls, label, value, ok, sub) => `        <article 
 const checks = [
   renderCheck(
     ICONS.check,
-    ciOk ? "icon-ok" : "icon-accent",
+    ciOk ? "icon-ok" : ciBad ? "icon-bad" : "icon-accent",
     "CI pipeline",
-    ciOk ? "passing" : String(quality.ci),
+    ciOk ? "passing" : ciBad ? "failing" : String(quality.ci),
     ciOk,
-    ciOk ? "latest run: success" : "check run status",
+    ciOk ? "latest run: success" : "red since R39 — Rust shell, fix queued (P0-1)",
+    ciBad,
   ),
   renderCheck(
     ICONS.terminal,
@@ -362,11 +467,12 @@ const checks = [
   ),
   renderCheck(
     ICONS.package,
-    cargoOk ? "icon-ok" : "icon-accent",
+    cargoOk ? "icon-ok" : cargoBad ? "icon-bad" : "icon-accent",
     "cargo check",
-    cargoOk ? "passing" : String(quality.cargoCheck),
+    cargoOk ? "passing" : cargoBad ? "failing" : String(quality.cargoCheck),
     cargoOk,
-    cargoOk ? "Rust sidecar compiles clean" : "compile status changed",
+    cargoOk ? "Rust shell compiles clean" : "Rust shell — one-line Tauri API fix identified (Track 1)",
+    cargoBad,
   ),
   renderCheck(
     ICONS.shield,
@@ -412,8 +518,13 @@ const favicon =
     '<text x="32" y="45" font-family="Menlo, Consolas, monospace" font-size="34" ' +
     'font-weight="700" text-anchor="middle" fill="#1f130a">◐</text></svg>',
   );
-const statusPill = ciOk ? "All systems healthy" : "Status: check runs";
-const statusShort = ciOk ? "healthy" : "watch";
+const statusPill = ciOk
+  ? "All systems healthy"
+  : ciBad
+    ? "CI red since R39 — Rust fix queued (Track 1)"
+    : "Status: check runs";
+const statusShort = ciOk ? "healthy" : ciBad ? "attention" : "watch";
+const statusPillClass = ciOk ? "pill-ok" : ciBad ? "pill-warn" : "pill-ok";
 
 // Public-safe GitHub link — the denylist allows github.com/testplay-byte/DASHBOARD
 // (the public repo we publish to). We never link the private source repo here.
@@ -443,6 +554,7 @@ const slots = {
   AVAILABILITY: esc(product.availability),
   STATUS_PILL: esc(statusPill),
   STATUS_SHORT: esc(statusShort),
+  STATUS_PILL_CLASS: statusPillClass,
   GITHUB_URL: esc(githubUrl),
   GITHUB_LABEL: esc(githubLabel),
   BUILD_STAMP: esc(buildStamp),
@@ -452,6 +564,27 @@ const slots = {
   NOW_TITLE: esc(plan.current.title),
   NOW_DETAIL: esc(plan.current.detail),
   UPCOMING: (plan.upcoming ?? []).map(renderUpcoming).join("\n"),
+  AUDIT_METHOD: esc(audit.method ?? ""),
+  AUDIT_VISION: esc(audit.vision ?? ""),
+  AUDIT_COMPOSITE: esc(audit.headline?.composite ?? ""),
+  AUDIT_FRONTIER: esc(audit.headline?.frontier ?? ""),
+  AUDIT_VERDICT: esc(audit.headline?.verdict ?? ""),
+  BENCH_ROWS: audit.benchmark.map(renderBenchRow).join("\n"),
+  CAPABILITIES: audit.capabilities.map(renderCapability).join("\n"),
+  GAP_TOTAL: gapTotal,
+  P0_COUNT: gaps.p0.length,
+  P1_COUNT: gaps.p1.length,
+  P2_COUNT: gaps.p2.length,
+  P0_INTRO: esc(gaps.p0_intro ?? ""),
+  P1_INTRO: esc(gaps.p1_intro ?? ""),
+  P2_INTRO: esc(gaps.p2_intro ?? ""),
+  P0_ITEMS: gaps.p0.map(renderGapItem).join("\n"),
+  P1_ITEMS: gaps.p1.map(renderGapItem).join("\n"),
+  P2_ITEMS: gaps.p2.map(renderGapItem).join("\n"),
+  TRACKS: audit.tracks.map(renderTrack).join("\n"),
+  SEQUENCE: audit.sequence.map(renderSeq).join("\n"),
+  DECISIONS: audit.decisions.map(renderDecision).join("\n"),
+  CI_NOTE: esc(quality.ciNote ?? ""),
   QUALITY_SUITES: suites.map(renderSuite).join("\n"),
   QUALITY_CHECKS: checks.join("\n"),
   TOTAL_TESTS: totalTests,
@@ -465,7 +598,7 @@ const slots = {
 };
 
 let missing = [];
-let html = template.replace(/\{\{([A-Z_]+)\}\}/g, (match, name) => {
+let html = template.replace(/\{\{([A-Z0-9_]+)\}\}/g, (match, name) => {
   if (!(name in slots)) {
     missing.push(name);
     return match;
@@ -521,4 +654,5 @@ console.log(`  assets/app.js      ${js.length} bytes`);
 console.log(`  features           ${features.length} cards`);
 console.log(`  documentation       ${documentation.length} cards`);
 console.log(`  milestones          ${milestones.length} entries`);
-console.log(`  denylist           clean`);
+console.log(`  audit               ${audit.benchmark.length} benchmark rows · ${audit.capabilities.length} capability areas · ${gapTotal} gaps · ${audit.tracks.length} tracks · ${audit.decisions.length} decisions`);
+console.log(`  denylist            clean`);
