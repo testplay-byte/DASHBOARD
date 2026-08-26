@@ -1,25 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Acute — status dashboard</title>
-<meta name="description" content="Local-first multi-agent engineering workbench. Public status: pillars, plan, quality metrics, milestones.">
-<meta name="color-scheme" content="light">
-<meta name="theme-color" content="#FF6B2C">
+<meta name="description" content="Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.. Public status: pillars, features, plan, quality metrics, milestones, docs.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FF6B2C" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d0c0a" media="(prefers-color-scheme: dark)">
 <meta property="og:title" content="Acute — status dashboard">
-<meta name="og:description" content="Local-first multi-agent engineering workbench. Public status: pillars, plan, quality metrics, milestones.">
+<meta name="og:description" content="Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.. Public status: pillars, features, plan, quality metrics, milestones, docs.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260825t162422534z">
-<script>document.documentElement.classList.add("js");</script>
+<link rel="stylesheet" href="assets/style.css?v=20260826t065547644z">
+<script>
+  // Apply persisted theme before paint to avoid a flash.
+  (function () {
+    try {
+      var stored = localStorage.getItem("acute-theme");
+      var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      var theme = stored === "dark" || stored === "light" ? stored : (prefersDark ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    } catch (_) { /* ignore */ }
+    document.documentElement.classList.add("js");
+  })();
+</script>
 </head>
 <body id="top">
 <a class="skip-link" href="#main">Skip to content</a>
 
-<header class="site-header">
+<header class="site-header" role="banner">
   <div class="container header-inner">
     <a class="brand" href="#top" aria-label="Acute — status dashboard, back to top">
       <span class="brand-mark" aria-hidden="true">◐</span>
@@ -30,34 +42,60 @@
     </a>
     <nav class="site-nav" aria-label="Dashboard sections">
       <a href="#pillars">Pillars</a>
+      <a href="#features">Features</a>
       <a href="#plan">Plan</a>
       <a href="#quality">Quality</a>
+      <a href="#docs">Docs</a>
       <a href="#milestones">Milestones</a>
       <a href="#principles">Principles</a>
       <a href="#stack">Stack</a>
     </nav>
-    <div class="header-status">
-      <span class="pill pill-ok"><span class="pill-dot" aria-hidden="true"></span>healthy</span>
+    <div class="header-actions">
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle dark mode">
+        <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M6.34 17.66l-1.41 1.41"/><path d="M19.07 4.93l-1.41 1.41"/>
+        </svg>
+        <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <a class="github-link" href="https://github.com/testplay-byte/DASHBOARD" target="_blank" rel="noopener noreferrer" aria-label="View source on GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 .5C5.37.5 0 5.78 0 12.292c0 5.211 3.438 9.63 8.205 11.18.6.111.82-.26.82-.577 0-.285-.01-1.04-.016-2.046-3.338.726-4.043-1.61-4.043-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.082-.73.082-.73 1.205.085 1.838 1.237 1.838 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.776.42-1.305.762-1.605-2.665-.305-5.466-1.332-5.466-5.93 0-1.31.47-2.383 1.236-3.221-.124-.303-.535-1.523.117-3.173 0 0 1.008-.323 3.301 1.23A11.51 11.51 0 0 1 12 6.802c1.025.005 2.058.139 3.022.408 2.29-1.553 3.297-1.23 3.297-1.23.653 1.65.242 2.87.119 3.172.77.838 1.234 1.91 1.234 3.221 0 4.61-2.807 5.622-5.48 5.92.43.371.81 1.103.81 2.222 0 1.604-.014 2.898-.014 3.293 0 .32.216.695.825.576C20.565 21.917 24 17.498 24 12.292 24 5.78 18.627.5 12 .5z"/>
+        </svg>
+      </a>
+      <span class="pill pill-ok header-status-pill"><span class="pill-dot" aria-hidden="true"></span>healthy</span>
     </div>
   </div>
 </header>
 
-<main id="main" class="container">
+<main id="main" class="container main-area">
 
   <!-- · product hero · -->
   <section class="hero card reveal" aria-labelledby="hero-title">
     <div class="hero-main">
-      <h1 id="hero-title">Acute<span class="version-chip">v0.1.0</span></h1>
-      <p class="tagline">Local-first multi-agent engineering workbench</p>
+      <div class="hero-eyebrow">
+        <span class="hero-availability">Private build · Windows 10 x64</span>
+        <span class="hero-dot" aria-hidden="true">·</span>
+        <span class="hero-version">v0.2.0</span>
+      </div>
+      <h1 id="hero-title">Acute</h1>
+      <p class="tagline">Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.</p>
       <div class="hero-chips">
-        <span class="chip">Private build</span>
         <span class="pill pill-ok"><span class="pill-dot" aria-hidden="true"></span>All systems healthy</span>
+        <a class="chip chip-link" href="https://github.com/testplay-byte/DASHBOARD" target="_blank" rel="noopener noreferrer">
+          <svg class="chip-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 .5C5.37.5 0 5.78 0 12.292c0 5.211 3.438 9.63 8.205 11.18.6.111.82-.26.82-.577 0-.285-.01-1.04-.016-2.046-3.338.726-4.043-1.61-4.043-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.082-.73.082-.73 1.205.085 1.838 1.237 1.838 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.776.42-1.305.762-1.605-2.665-.305-5.466-1.332-5.466-5.93 0-1.31.47-2.383 1.236-3.221-.124-.303-.535-1.523.117-3.173 0 0 1.008-.323 3.301 1.23A11.51 11.51 0 0 1 12 6.802c1.025.005 2.058.139 3.022.408 2.29-1.553 3.297-1.23 3.297-1.23.653 1.65.242 2.87.119 3.172.77.838 1.234 1.91 1.234 3.221 0 4.61-2.807 5.622-5.48 5.92.43.371.81 1.103.81 2.222 0 1.604-.014 2.898-.014 3.293 0 .32.216.695.825.576C20.565 21.917 24 17.498 24 12.292 24 5.78 18.627.5 12 .5z"/>
+          </svg>
+          testplay-byte/DASHBOARD
+        </a>
       </div>
     </div>
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-08-25 16:24 UTC</span>
+      <span class="updated-time">2026-08-26 06:55 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -66,23 +104,23 @@
   <section class="stats-grid reveal" aria-label="Key numbers">
       <article class="stat-card card">
         <span class="stat-label">Tests passing</span>
-        <span class="stat-value"><span data-count="251">251</span></span>
-        <span class="stat-sub">4 suites · unit + end-to-end</span>
+        <span class="stat-value"><span data-count="243">243</span></span>
+        <span class="stat-sub">4 suites · 8 skipped · unit + e2e</span>
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="17">17</span></span>
-        <span class="stat-sub">Aug 21 – Aug 25 · 5-day run</span>
+        <span class="stat-value"><span data-count="22">22</span></span>
+        <span class="stat-sub">Aug 21 – Aug 26 · 6-day run</span>
       </article>
       <article class="stat-card card">
         <span class="stat-label">Dependencies audited</span>
-        <span class="stat-value"><span data-count="107">107</span></span>
+        <span class="stat-value"><span data-count="112">112</span></span>
         <span class="stat-sub">license audit · CLEAN</span>
       </article>
       <article class="stat-card card">
         <span class="stat-label">Top pillar progress</span>
-        <span class="stat-value"><span data-count="70">70</span>%</span>
-        <span class="stat-sub">Coding — usable</span>
+        <span class="stat-value"><span data-count="85">85</span>%</span>
+        <span class="stat-sub">Coding pillar — usable</span>
       </article>
   </section>
 
@@ -92,62 +130,147 @@
       <span class="section-index" aria-hidden="true">01</span>
       <div>
         <h2 id="pillars-title">Three pillars</h2>
-        <p class="section-desc">The product grows along three pillars — each at its own stage.</p>
+        <p class="section-desc">The product grows along three pillars — each at its own stage. Progress bars reflect completed rounds.</p>
       </div>
     </header>
     <div class="pillars-grid">
       <article class="pillar-card card" data-state="usable">
         <div class="pillar-top">
           <span class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
-          <h3 class="pillar-title">Coding</h3>
+          <h3 class="pillar-title">Coding pillar</h3>
           <span class="state-badge state-usable">Usable</span>
         </div>
         <div class="pillar-progress-row">
           <span class="pillar-progress-label">Pillar progress</span>
-          <span class="pillar-pct"><span data-count="70">70</span>%</span>
+          <span class="pillar-pct"><span data-count="85">85</span>%</span>
         </div>
-        <div class="bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" aria-label="Coding progress">
-          <div class="bar-fill" data-progress="70" style="--w:70%"></div>
+        <div class="bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" aria-label="Coding pillar progress">
+          <div class="bar-fill" data-progress="85" style="--w:85%"></div>
         </div>
-        <p class="pillar-summary">Projects, sandboxed file tools, streaming agent chat</p>
+        <p class="pillar-summary">Streaming chat with tool calls, project indexing, command palette (⌘K), approvals engine, notifications, web tools — daily-driver quality on a real codebase.</p>
       </article>
       <article class="pillar-card card" data-state="building">
         <div class="pillar-top">
           <span class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg></span>
-          <h3 class="pillar-title">Agentic System</h3>
+          <h3 class="pillar-title">Agentic system pillar</h3>
           <span class="state-badge state-building">Building</span>
         </div>
         <div class="pillar-progress-row">
           <span class="pillar-progress-label">Pillar progress</span>
-          <span class="pillar-pct"><span data-count="35">35</span>%</span>
+          <span class="pillar-pct"><span data-count="55">55</span>%</span>
         </div>
-        <div class="bar" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" aria-label="Agentic System progress">
-          <div class="bar-fill" data-progress="35" style="--w:35%"></div>
+        <div class="bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" aria-label="Agentic system pillar progress">
+          <div class="bar-fill" data-progress="55" style="--w:55%"></div>
         </div>
-        <p class="pillar-summary">Multi-agent orchestration — blueprint ready</p>
+        <p class="pillar-summary">Sub-agent multi-turn delegation (delegate_task), live forwarding, per-session state, atomic slot reservation, key pools, retry-from-event-log recovery. Full orchestration engine gated on Phase 3.</p>
       </article>
       <article class="pillar-card card" data-state="planned">
         <div class="pillar-top">
           <span class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg></span>
-          <h3 class="pillar-title">Automation</h3>
+          <h3 class="pillar-title">Automation pillar</h3>
           <span class="state-badge state-planned">Planned</span>
         </div>
         <div class="pillar-progress-row">
           <span class="pillar-progress-label">Pillar progress</span>
-          <span class="pillar-pct"><span data-count="10">10</span>%</span>
+          <span class="pillar-pct"><span data-count="12">12</span>%</span>
         </div>
-        <div class="bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" aria-label="Automation progress">
-          <div class="bar-fill" data-progress="10" style="--w:10%"></div>
+        <div class="bar" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="100" aria-label="Automation pillar progress">
+          <div class="bar-fill" data-progress="12" style="--w:12%"></div>
         </div>
-        <p class="pillar-summary">Scheduling &amp; workflow pillar — researched</p>
+        <p class="pillar-summary">Scheduling, visual workflows, and the event bus — researched in docs/research/n8n; not yet implemented.</p>
       </article>
     </div>
   </section>
 
-  <!-- · 02 plan · -->
-  <section id="plan" class="section reveal" aria-labelledby="plan-title">
+  <!-- · 02 features · -->
+  <section id="features" class="section reveal" aria-labelledby="features-title">
     <header class="section-head">
       <span class="section-index" aria-hidden="true">02</span>
+      <div>
+        <h2 id="features-title">Features</h2>
+        <p class="section-desc">What shipped in the last rounds — the daily-driver capabilities that are live in the product right now.</p>
+      </div>
+    </header>
+    <div class="features-grid">
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><circle cx="6.5" cy="6.5" r="0.6" fill="currentColor"/><circle cx="9" cy="6.5" r="0.6" fill="currentColor"/></svg></span>
+          <h3 class="feature-title">Embedded browser</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Right-sidebar Chromium panel with click-to-open navigation, custom user-agent, and full DOM access for agent-driven browsing.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="15" y1="4" x2="15" y2="20"/><line x1="3" y1="9" x2="15" y2="9"/><line x1="3" y1="13" x2="15" y2="13"/><line x1="3" y1="17" x2="15" y2="17"/></svg></span>
+          <h3 class="feature-title">Right-sidebar tabs</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">File viewer · Browser · Terminal · Sub-agents — a browser-style tab strip with per-session state and bounds-safe popovers.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span>
+          <h3 class="feature-title">Notifications + SSE</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Notification center with bell + unread badge, server-sent events stream, and optional desktop notifications for completed turns and approvals.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3"/><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><line x1="10.5" y1="10" x2="6.5" y2="16"/><line x1="13.5" y1="10" x2="17.5" y2="16"/></svg></span>
+          <h3 class="feature-title">Sub-agent live streaming</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Multi-turn delegate_task with per-child sessions, live forwarded tokens, retry-from-event-log recovery, and atomic concurrency-slot reservation.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <h3 class="feature-title">Approvals engine v1</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Layered policy (blocked → destructive → safelist → confirm), interactive Allow once / Always allow / Deny, 120 s fail-closed timeout, denylist-supreme compound-command guard.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">Command palette ⌘K</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Symbol-search and file-open via Ctrl/Cmd-K with grep options (case-sensitive, whole-word, file glob, max results).</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h2v12H4z"/><path d="M7 9h13"/><path d="M7 13h13"/><path d="M7 17h13"/><path d="M7 6h6"/></svg></span>
+          <h3 class="feature-title">Project indexing</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">codebase_index table + index_project tool — 318 files / 2 384 symbols indexed in 124 ms on the demo battery; CODEBASE AWARENESS prompt injection.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+          <h3 class="feature-title">Web tools (web_fetch + web_search)</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Kilo/Cline-parity web tools — read a page, search the web, feed results back as tool_results for multi-step reasoning.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span>
+          <h3 class="feature-title">Streaming chat</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">SSE text deltas + interleaved tool calls + thinking blocks + per-reply usage stats (ms / in / out / tok / s).</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- · 03 plan · -->
+  <section id="plan" class="section reveal" aria-labelledby="plan-title">
+    <header class="section-head">
+      <span class="section-index" aria-hidden="true">03</span>
       <div>
         <h2 id="plan-title">The plan</h2>
         <p class="section-desc">What is happening right now, and what comes next.</p>
@@ -156,43 +279,43 @@
     <div class="now-card">
       <span class="now-label">Now</span>
       <div class="now-body">
-        <h3 class="now-title">Chat continuity + provider rebuild + approvals (R37)</h3>
-        <p class="now-detail">Turn-grouped chat: ONE Working section per turn (live timer, one-line expandable thoughts/tools, answer outside the section), sparkle iconography removed, width fixes. Providers: flat list + Add Provider dialog (presets/custom) + every provider editable/deletable + 3 API formats wired. Approvals v1: interactive Allow once/Always allow/Deny with fail-closed policy engine. Structured JSON-lines logging. 251 tests.</p>
+        <h3 class="now-title">R41 — Dashboard overhaul + embedded Chromium browser + per-session sidebar state</h3>
+        <p class="now-detail">Public dashboard rebuilt with a highly-detailed design, dark mode, and dedicated Features + Documentation sections. Inside the app: a full-fledged embedded Chromium browser, dedicated collapse section in the right sidebar, popover bounds, per-session sidebar state, and desktop notifications. Verify pipeline stays green (243 tests).</p>
       </div>
       <span class="now-live"><span class="live-dot" aria-hidden="true"></span>current focus</span>
     </div>
     <ul class="upcoming-list">
       <li class="upcoming-item">
-        <span class="status-chip status-inprogress">in progress</span>
-        <div class="upcoming-body">
-          <span class="upcoming-phase">Dashboard UI redesign</span>
-          <span class="upcoming-note">Full visual redo with proper build pipeline</span>
-        </div>
-      </li>
-      <li class="upcoming-item">
         <span class="status-chip status-ownergated">owner-gated</span>
         <div class="upcoming-body">
-          <span class="upcoming-phase">Phase 3 — Orchestration</span>
-          <span class="upcoming-note">Multi-agent delegation, approval engine</span>
+          <span class="upcoming-phase">Phase 3 — Orchestration engine</span>
+          <span class="upcoming-note">Multi-agent run loop, shared message bus, Kanban task board, three run modes (single / auto-team / manual).</span>
         </div>
       </li>
       <li class="upcoming-item">
         <span class="status-chip status-planned">planned</span>
         <div class="upcoming-body">
-          <span class="upcoming-phase">Automation pillar</span>
-          <span class="upcoming-note">Workflows, scheduling, visual canvas</span>
+          <span class="upcoming-phase">Automation pillar — workflows + scheduling</span>
+          <span class="upcoming-note">Visual canvas, cron-style scheduling, event bus (n8n-pattern reference).</span>
+        </div>
+      </li>
+      <li class="upcoming-item">
+        <span class="status-chip status-planned">planned</span>
+        <div class="upcoming-body">
+          <span class="upcoming-phase">Rust cargo-deny audit in CI</span>
+          <span class="upcoming-note">License-audit the Tauri/Rust sidecar dependencies alongside the existing pnpm audit.</span>
         </div>
       </li>
     </ul>
   </section>
 
-  <!-- · 03 quality · -->
+  <!-- · 04 quality · -->
   <section id="quality" class="section reveal" aria-labelledby="quality-title">
     <header class="section-head">
-      <span class="section-index" aria-hidden="true">03</span>
+      <span class="section-index" aria-hidden="true">04</span>
       <div>
         <h2 id="quality-title">Quality</h2>
-        <p class="section-desc">Every change is verified before it lands — tests, types, licenses, CI.</p>
+        <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI.</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -201,43 +324,43 @@
         <p class="card-sub">Unit and end-to-end suites gating every merge to main</p>
         <div class="suite-row">
           <div class="suite-head">
-            <span class="suite-name">agent-core</span>
-            <span class="suite-count"><strong data-count="169">169</strong> tests</span>
+            <span class="suite-name">agent-core (vitest)</span>
+            <span class="suite-count"><strong data-count="161">161</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="169" aria-valuemin="0" aria-valuemax="169" aria-label="agent-core test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="161" aria-valuemin="0" aria-valuemax="161" aria-label="agent-core (vitest) test count relative to largest suite">
             <div class="bar-fill" data-progress="100" style="--w:100%"></div>
           </div>
         </div>
         <div class="suite-row">
           <div class="suite-head">
-            <span class="suite-name">frontend</span>
+            <span class="suite-name">frontend (vitest + RTL)</span>
             <span class="suite-count"><strong data-count="70">70</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="169" aria-label="frontend test count relative to largest suite">
-            <div class="bar-fill" data-progress="41" style="--w:41%"></div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="161" aria-label="frontend (vitest + RTL) test count relative to largest suite">
+            <div class="bar-fill" data-progress="43" style="--w:43%"></div>
           </div>
         </div>
         <div class="suite-row">
           <div class="suite-head">
-            <span class="suite-name">shared</span>
+            <span class="suite-name">shared (domain types)</span>
             <span class="suite-count"><strong data-count="4">4</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="169" aria-label="shared test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="161" aria-label="shared (domain types) test count relative to largest suite">
             <div class="bar-fill" data-progress="3" style="--w:3%"></div>
           </div>
         </div>
         <div class="suite-row">
           <div class="suite-head">
-            <span class="suite-name">sidecar e2e</span>
-            <span class="suite-count"><strong data-count="8">8</strong> tests</span>
+            <span class="suite-name">sidecar e2e (built dist)</span>
+            <span class="suite-count"><strong data-count="8">8</strong> tests · <span class="suite-skip">8 skipped</span></span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="8" aria-valuemin="0" aria-valuemax="169" aria-label="sidecar e2e test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="8" aria-valuemin="0" aria-valuemax="161" aria-label="sidecar e2e (built dist) test count relative to largest suite">
             <div class="bar-fill" data-progress="5" style="--w:5%"></div>
           </div>
         </div>
         <div class="suites-total">
           <span>Total</span>
-          <strong class="mono"><span data-count="251">251</span> tests passing</strong>
+          <strong class="mono"><span data-count="243">243</span> tests passing · <span data-count="8">8</span> skipped</strong>
         </div>
       </article>
       <div class="checks-col">
@@ -252,27 +375,173 @@
         <article class="check-card card">
           <span class="check-icon icon-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg></span>
           <div class="check-body">
+            <span class="check-label">Lint (eslint)</span>
+            <span class="check-value value-ok">clean</span>
+            <span class="check-sub">0 errors, 0 warnings</span>
+          </div>
+        </article>
+        <article class="check-card card">
+          <span class="check-icon icon-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <div class="check-body">
+            <span class="check-label">Typecheck (tsc)</span>
+            <span class="check-value value-ok">clean</span>
+            <span class="check-sub">strict mode, no any</span>
+          </div>
+        </article>
+        <article class="check-card card">
+          <span class="check-icon icon-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.5 9.4 7.55 4.24"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" x2="12" y1="22" y2="12"/></svg></span>
+          <div class="check-body">
             <span class="check-label">cargo check</span>
             <span class="check-value value-ok">passing</span>
             <span class="check-sub">Rust sidecar compiles clean</span>
           </div>
         </article>
         <article class="check-card card">
-          <span class="check-icon icon-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.5 9.4 7.55 4.24"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" x2="12" y1="22" y2="12"/></svg></span>
+          <span class="check-icon icon-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
           <div class="check-body">
             <span class="check-label">License audit</span>
             <span class="check-value value-ok">CLEAN</span>
-            <span class="check-sub">107 dependencies reviewed</span>
+            <span class="check-sub">112 dependencies reviewed</span>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- · 04 milestones · -->
+  <!-- · 05 documentation · -->
+  <section id="docs" class="section reveal" aria-labelledby="docs-title">
+    <header class="section-head">
+      <span class="section-index" aria-hidden="true">05</span>
+      <div>
+        <h2 id="docs-title">Documentation</h2>
+        <p class="section-desc">The canonical truth — what to read first, in order. Living docs in the private source repo; the public dashboard links only to itself.</p>
+      </div>
+    </header>
+    <div class="docs-grid">
+      <article class="doc-card card">
+        <div class="doc-top">
+          <span class="doc-category">Root</span>
+          <span class="doc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </div>
+        <h3 class="doc-title">HANDOFF.md</h3>
+        <p class="doc-desc">The single-page agent handoff: state, rules, environment, secrets, next steps.</p>
+        <code class="doc-path">HANDOFF.md</code>
+      </article>
+      <article class="doc-card card">
+        <div class="doc-top">
+          <span class="doc-category">Root</span>
+          <span class="doc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </div>
+        <h3 class="doc-title">AGENTS.md</h3>
+        <p class="doc-desc">Operating rules — phase gates, question protocol, hard rules, sub-agent protocol.</p>
+        <code class="doc-path">AGENTS.md</code>
+      </article>
+      <article class="doc-card card">
+        <div class="doc-top">
+          <span class="doc-category">Specs</span>
+          <span class="doc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </div>
+        <h3 class="doc-title">SPEC.md</h3>
+        <p class="doc-desc">Master requirements (F1–F11 features) — owner-approved.</p>
+        <code class="doc-path">docs/specs/SPEC.md</code>
+      </article>
+      <article class="doc-card card">
+        <div class="doc-top">
+          <span class="doc-category">Architecture</span>
+          <span class="doc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </div>
+        <h3 class="doc-title">ARCHITECTURE.md</h3>
+        <p class="doc-desc">Design truth — three pillars, run modes, agent runtime, storage, providers, approvals.</p>
+        <code class="doc-path">docs/architecture/ARCHITECTURE.md</code>
+      </article>
+      <article class="doc-card card">
+        <div class="doc-top">
+          <span class="doc-category">Architecture</span>
+          <span class="doc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </div>
+        <h3 class="doc-title">API.md + IMPLEMENTED-API.md</h3>
+        <p class="doc-desc">REST + WS surface: 52 operations specified, with an IMPLEMENTED-API truth doc that tracks what is actually wired.</p>
+        <code class="doc-path">docs/architecture/api/</code>
+      </article>
+      <article class="doc-card card">
+        <div class="doc-top">
+          <span class="doc-category">ADRs</span>
+          <span class="doc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </div>
+        <h3 class="doc-title">ADRs 0001 – 0024</h3>
+        <p class="doc-desc">Architecture Decision Records — sequential, never renumbered. Newest: 0024 approval-engine v1.</p>
+        <code class="doc-path">docs/decisions/</code>
+      </article>
+      <article class="doc-card card">
+        <div class="doc-top">
+          <span class="doc-category">Runbooks</span>
+          <span class="doc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </div>
+        <h3 class="doc-title">SANDBOX-RESTORE.md</h3>
+        <p class="doc-desc">Zero-to-resumed procedure after a sandbox wipe — secrets, clones, pnpm, env, verify.</p>
+        <code class="doc-path">docs/runbooks/SANDBOX-RESTORE.md</code>
+      </article>
+      <article class="doc-card card">
+        <div class="doc-top">
+          <span class="doc-category">Runbooks</span>
+          <span class="doc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </div>
+        <h3 class="doc-title">AGENT-MEMORY.md</h3>
+        <p class="doc-desc">Lessons learned &amp; standing rules — read before working (owner-mandated).</p>
+        <code class="doc-path">docs/runbooks/AGENT-MEMORY.md</code>
+      </article>
+      <article class="doc-card card">
+        <div class="doc-top">
+          <span class="doc-category">Runbooks</span>
+          <span class="doc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </div>
+        <h3 class="doc-title">WORKFLOW.md</h3>
+        <p class="doc-desc">The session spine — branch policy, verification gates, per-round doc duties, push / CI / ntfy checklist.</p>
+        <code class="doc-path">docs/runbooks/WORKFLOW.md</code>
+      </article>
+      <article class="doc-card card">
+        <div class="doc-top">
+          <span class="doc-category">Runbooks</span>
+          <span class="doc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </div>
+        <h3 class="doc-title">TESTING.md</h3>
+        <p class="doc-desc">Vitest + E2E sidecar strategy; AI SDK mocked — never live calls in tests.</p>
+        <code class="doc-path">docs/runbooks/TESTING.md</code>
+      </article>
+      <article class="doc-card card">
+        <div class="doc-top">
+          <span class="doc-category">Runbooks</span>
+          <span class="doc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </div>
+        <h3 class="doc-title">LOCAL-PC-RUNNER.md</h3>
+        <p class="doc-desc">Owner&#39;s one-click launcher: ACUTE.bat + acute.sh + acute_launcher.py (auto-install, credentials, update+restart, self-update).</p>
+        <code class="doc-path">docs/runbooks/LOCAL-PC-RUNNER.md</code>
+      </article>
+      <article class="doc-card card">
+        <div class="doc-top">
+          <span class="doc-category">Research</span>
+          <span class="doc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </div>
+        <h3 class="doc-title">9 reference projects</h3>
+        <p class="doc-desc">Kilo, Cline, OpenHands, Letta, Hermes, n8n, MetaGPT, Aider, Goose, OpenCode — pattern synthesis in docs/research/README.md.</p>
+        <code class="doc-path">docs/research/</code>
+      </article>
+      <article class="doc-card card">
+        <div class="doc-top">
+          <span class="doc-category">Plan</span>
+          <span class="doc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </div>
+        <h3 class="doc-title">ROUND-28-MASTER-PLAN.md</h3>
+        <p class="doc-desc">1123-line plan v2 with 30 sub-agent review fixes applied — the UX + Agentic-Quality overhaul that reset the cadence.</p>
+        <code class="doc-path">docs/ROUND-28-MASTER-PLAN.md</code>
+      </article>
+    </div>
+  </section>
+
+  <!-- · 06 milestones · -->
   <section id="milestones" class="section reveal" aria-labelledby="milestones-title">
     <header class="section-head">
-      <span class="section-index" aria-hidden="true">04</span>
+      <span class="section-index" aria-hidden="true">06</span>
       <div>
         <h2 id="milestones-title">Milestones</h2>
         <p class="section-desc">The road so far — oldest first, newest last.</p>
@@ -322,58 +591,82 @@
         </li>
         <li class="timeline-item">
           <span class="timeline-date">2026-08-24</span>
-          <span class="timeline-label">Round 27 — 13 tools + web tools + checkpoint revert</span>
+          <span class="timeline-label">R27 — 13 tools + web tools + checkpoint revert</span>
           
         </li>
         <li class="timeline-item">
           <span class="timeline-date">2026-08-24</span>
-          <span class="timeline-label">Round 28 — UX + Agentic-Quality Overhaul (9 owner directives)</span>
+          <span class="timeline-label">R28 — UX + Agentic-Quality Overhaul (9 owner directives)</span>
           
         </li>
         <li class="timeline-item">
           <span class="timeline-date">2026-08-24</span>
-          <span class="timeline-label">Round 29 — Browser-previewable showcase + notification close-out</span>
+          <span class="timeline-label">R29 — browser-previewable showcase + notification close-out</span>
           
         </li>
         <li class="timeline-item">
           <span class="timeline-date">2026-08-24</span>
-          <span class="timeline-label">Round 30 — Windows bug fixes (CORS streaming + sessions) + sidebar/chat redesign</span>
+          <span class="timeline-label">R30 — Windows bug fixes (CORS streaming + sessions) + sidebar/chat redesign</span>
           
         </li>
         <li class="timeline-item">
           <span class="timeline-date">2026-08-24</span>
-          <span class="timeline-label">Round 32 — owner-designed UI: floating panels + activity block</span>
+          <span class="timeline-label">R32 — owner-designed UI: floating panels + activity block</span>
           
         </li>
         <li class="timeline-item">
           <span class="timeline-date">2026-08-24</span>
-          <span class="timeline-label">Round 33 — hello-loop fix + sidebar/logo system</span>
+          <span class="timeline-label">R33 — hello-loop fix + sidebar/logo system</span>
           
         </li>
         <li class="timeline-item">
           <span class="timeline-date">2026-08-24</span>
-          <span class="timeline-label">Round 34 — multi-step tool feedback + settings redesign</span>
+          <span class="timeline-label">R34 — multi-step tool feedback + settings redesign</span>
           
         </li>
         <li class="timeline-item">
           <span class="timeline-date">2026-08-25</span>
-          <span class="timeline-label">Round 35 — thinking + interleaved tool calls</span>
+          <span class="timeline-label">R35 — thinking + interleaved tool calls</span>
+          
+        </li>
+        <li class="timeline-item">
+          <span class="timeline-date">2026-08-25</span>
+          <span class="timeline-label">R36 — sub-agent orchestration (Phase 3 core)</span>
+          
+        </li>
+        <li class="timeline-item">
+          <span class="timeline-date">2026-08-25</span>
+          <span class="timeline-label">R37 — chat continuity (Working section) + provider rebuild + approvals v1</span>
+          
+        </li>
+        <li class="timeline-item">
+          <span class="timeline-date">2026-08-25</span>
+          <span class="timeline-label">R38 — chat UI polish + sessions correctness + sidebar animation + sub-agent fix + right sidebar</span>
+          
+        </li>
+        <li class="timeline-item">
+          <span class="timeline-date">2026-08-25</span>
+          <span class="timeline-label">R39 — browser-style right sidebar tabs + background sessions + sub-agent multi-turn + custom browser</span>
+          
+        </li>
+        <li class="timeline-item">
+          <span class="timeline-date">2026-08-26</span>
+          <span class="timeline-label">R40 — sub-agent tool allowlist fix + notifications + chat width + sidebar dropdown + embedded browser + click-to-open</span>
           
         </li>
         <li class="timeline-item latest">
-          <span class="timeline-date">2026-08-25</span>
-          <span class="timeline-label">Round 36 — sub-agent orchestration (Phase 3 core)</span>
+          <span class="timeline-date">2026-08-26</span>
+          <span class="timeline-label">R41 — dashboard overhaul + full-fledged embedded Chromium browser + dedicated collapse section + popover bounds + per-session sidebar state + desktop notifications (in progress)</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
     </div>
   </section>
 
-
-  <!-- · 05 screenshots · -->
+  <!-- · 07 screenshots · -->
   <section id="screenshots" class="section reveal" aria-labelledby="screenshots-title">
     <header class="section-head">
-      <span class="section-index" aria-hidden="true">05</span>
+      <span class="section-index" aria-hidden="true">07</span>
       <div>
         <h2 id="screenshots-title">Screenshots</h2>
         <p class="section-desc">Per-round verification captures — downloadable zips.</p>
@@ -382,10 +675,10 @@
     <div class="screenshots-grid" id="screenshots-grid"></div>
   </section>
 
-  <!-- · 06 principles · -->
+  <!-- · 08 principles · -->
   <section id="principles" class="section reveal" aria-labelledby="principles-title">
     <header class="section-head">
-      <span class="section-index" aria-hidden="true">05</span>
+      <span class="section-index" aria-hidden="true">08</span>
       <div>
         <h2 id="principles-title">Principles</h2>
         <p class="section-desc">The rules the project is built by.</p>
@@ -396,39 +689,55 @@
         <span class="principle-index" aria-hidden="true">01</span>
         <span class="principle-rule" aria-hidden="true"></span>
         <h3 class="principle-title">Local-first</h3>
-        <p class="principle-desc">all processing on-device</p>
+        <p class="principle-desc">all processing on-device; LLMs are the only cloud hop</p>
       </article>
       <article class="principle-card card">
         <span class="principle-index" aria-hidden="true">02</span>
         <span class="principle-rule" aria-hidden="true"></span>
         <h3 class="principle-title">Additive architecture</h3>
-        <p class="principle-desc">no rewrites</p>
+        <p class="principle-desc">no rewrites, every round layers on top of the prior</p>
       </article>
       <article class="principle-card card">
         <span class="principle-index" aria-hidden="true">03</span>
         <span class="principle-rule" aria-hidden="true"></span>
         <h3 class="principle-title">Quality over speed</h3>
-        <p class="principle-desc">every round verified</p>
+        <p class="principle-desc">every round is lint + typecheck + test + build + license-audit green</p>
+      </article>
+      <article class="principle-card card">
+        <span class="principle-index" aria-hidden="true">04</span>
+        <span class="principle-rule" aria-hidden="true"></span>
+        <h3 class="principle-title">Approval-gated</h3>
+        <p class="principle-desc">the human approval engine IS the security boundary in v1</p>
+      </article>
+      <article class="principle-card card">
+        <span class="principle-index" aria-hidden="true">05</span>
+        <span class="principle-rule" aria-hidden="true"></span>
+        <h3 class="principle-title">Documentation is a deliverable</h3>
+        <p class="principle-desc">ADRs, runbooks, and round-notes are required, not optional</p>
       </article>
     </div>
   </section>
 
-  <!-- · 07 stack · -->
+  <!-- · 09 stack · -->
   <section id="stack" class="section reveal" aria-labelledby="stack-title">
     <header class="section-head">
-      <span class="section-index" aria-hidden="true">07</span>
+      <span class="section-index" aria-hidden="true">09</span>
       <div>
         <h2 id="stack-title">Built with</h2>
         <p class="section-desc">A deliberately small, portable, local-first stack.</p>
       </div>
     </header>
     <div class="chips-wrap">
-        <span class="tech-chip"><span class="tech-dot" aria-hidden="true"></span>Tauri 2</span>
-        <span class="tech-chip"><span class="tech-dot" aria-hidden="true"></span>React 18</span>
-        <span class="tech-chip"><span class="tech-dot" aria-hidden="true"></span>TypeScript</span>
-        <span class="tech-chip"><span class="tech-dot" aria-hidden="true"></span>Node sidecar</span>
-        <span class="tech-chip"><span class="tech-dot" aria-hidden="true"></span>SQLite</span>
-        <span class="tech-chip"><span class="tech-dot" aria-hidden="true"></span>BYO provider key</span>
+        <span class="tech-chip"><span class="tech-dot" aria-hidden="true"></span>Tauri 2 (Rust shell)</span>
+        <span class="tech-chip"><span class="tech-dot" aria-hidden="true"></span>React 18 + TypeScript</span>
+        <span class="tech-chip"><span class="tech-dot" aria-hidden="true"></span>Node 24 sidecar (Fastify 5)</span>
+        <span class="tech-chip"><span class="tech-dot" aria-hidden="true"></span>SQLite (WAL, better-sqlite3)</span>
+        <span class="tech-chip"><span class="tech-dot" aria-hidden="true"></span>Vercel AI SDK v7</span>
+        <span class="tech-chip"><span class="tech-dot" aria-hidden="true"></span>BYO provider key (OpenRouter · Anthropic · OpenAI · Google · custom)</span>
+        <span class="tech-chip"><span class="tech-dot" aria-hidden="true"></span>OpenRouter ox-alpha (1M ctx, 0-cost)</span>
+        <span class="tech-chip"><span class="tech-dot" aria-hidden="true"></span>Vitest + RTL + sidecar E2E</span>
+        <span class="tech-chip"><span class="tech-dot" aria-hidden="true"></span>pnpm 11 workspaces</span>
+        <span class="tech-chip"><span class="tech-dot" aria-hidden="true"></span>GitHub Actions CI (windows-latest + cargo check)</span>
     </div>
   </section>
 
@@ -436,12 +745,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-08-25 16:24 UTC · curated public data only — no product source · Acute v0.1.0</p>
+    <p class="footer-note">Generated 2026-08-26 06:55 UTC · curated public data only — no product source · Acute v0.2.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-08-25T16:24:22.534Z"}</script>
-<script src="assets/app.js?v=20260825t162422534z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-08-26T06:55:47.644Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"}],"total":85}}</script>
+<script src="assets/app.js?v=20260826t065547644z" defer></script>
 </body>
 </html>

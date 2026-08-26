@@ -1,237 +1,276 @@
 {
   "product": {
     "name": "Acute",
-    "tagline": "Local-first multi-agent engineering workbench",
-    "version": "0.1.0",
-    "availability": "Private build"
+    "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
+    "version": "0.2.0",
+    "availability": "Private build · Windows 10 x64",
+    "github": {
+      "label": "testplay-byte/DASHBOARD",
+      "url": "https://github.com/testplay-byte/DASHBOARD"
+    }
   },
   "pillars": [
     {
       "id": "coding",
-      "title": "Coding",
+      "title": "Coding pillar",
       "state": "usable",
-      "progress": 70,
-      "summary": "Projects, sandboxed file tools, streaming agent chat"
+      "progress": 85,
+      "summary": "Streaming chat with tool calls, project indexing, command palette (⌘K), approvals engine, notifications, web tools — daily-driver quality on a real codebase."
     },
     {
       "id": "agentic",
-      "title": "Agentic System",
+      "title": "Agentic system pillar",
       "state": "building",
-      "progress": 35,
-      "summary": "Multi-agent orchestration — blueprint ready"
+      "progress": 55,
+      "summary": "Sub-agent multi-turn delegation (delegate_task), live forwarding, per-session state, atomic slot reservation, key pools, retry-from-event-log recovery. Full orchestration engine gated on Phase 3."
     },
     {
       "id": "automation",
-      "title": "Automation",
+      "title": "Automation pillar",
       "state": "planned",
-      "progress": 10,
-      "summary": "Scheduling & workflow pillar — researched"
+      "progress": 12,
+      "summary": "Scheduling, visual workflows, and the event bus — researched in docs/research/n8n; not yet implemented."
     }
   ],
   "plan": {
     "current": {
-      "title": "Chat continuity + provider rebuild + approvals (R37)",
-      "detail": "Turn-grouped chat: ONE Working section per turn (live timer, one-line expandable thoughts/tools, answer outside the section), sparkle iconography removed, width fixes. Providers: flat list + Add Provider dialog (presets/custom) + every provider editable/deletable + 3 API formats wired. Approvals v1: interactive Allow once/Always allow/Deny with fail-closed policy engine. Structured JSON-lines logging. 251 tests."
+      "title": "R41 — Dashboard overhaul + embedded Chromium browser + per-session sidebar state",
+      "detail": "Public dashboard rebuilt with a highly-detailed design, dark mode, and dedicated Features + Documentation sections. Inside the app: a full-fledged embedded Chromium browser, dedicated collapse section in the right sidebar, popover bounds, per-session sidebar state, and desktop notifications. Verify pipeline stays green (243 tests)."
     },
     "upcoming": [
       {
-        "phase": "Dashboard UI redesign",
-        "status": "in-progress",
-        "note": "Full visual redo with proper build pipeline"
-      },
-      {
-        "phase": "Phase 3 — Orchestration",
+        "phase": "Phase 3 — Orchestration engine",
         "status": "owner-gated",
-        "note": "Multi-agent delegation, approval engine"
+        "note": "Multi-agent run loop, shared message bus, Kanban task board, three run modes (single / auto-team / manual)."
       },
       {
-        "phase": "Automation pillar",
+        "phase": "Automation pillar — workflows + scheduling",
         "status": "planned",
-        "note": "Workflows, scheduling, visual canvas"
+        "note": "Visual canvas, cron-style scheduling, event bus (n8n-pattern reference)."
+      },
+      {
+        "phase": "Rust cargo-deny audit in CI",
+        "status": "planned",
+        "note": "License-audit the Tauri/Rust sidecar dependencies alongside the existing pnpm audit."
       }
     ],
     "principles": [
-      "Local-first — all processing on-device",
-      "Additive architecture — no rewrites",
-      "Quality over speed — every round verified"
+      "Local-first — all processing on-device; LLMs are the only cloud hop",
+      "Additive architecture — no rewrites, every round layers on top of the prior",
+      "Quality over speed — every round is lint + typecheck + test + build + license-audit green",
+      "Approval-gated — the human approval engine IS the security boundary in v1",
+      "Documentation is a deliverable — ADRs, runbooks, and round-notes are required, not optional"
     ]
   },
+  "features": [
+    {
+      "id": "embedded-browser",
+      "icon": "browser",
+      "title": "Embedded browser",
+      "status": "live",
+      "desc": "Right-sidebar Chromium panel with click-to-open navigation, custom user-agent, and full DOM access for agent-driven browsing."
+    },
+    {
+      "id": "right-sidebar",
+      "icon": "panels",
+      "title": "Right-sidebar tabs",
+      "status": "live",
+      "desc": "File viewer · Browser · Terminal · Sub-agents — a browser-style tab strip with per-session state and bounds-safe popovers."
+    },
+    {
+      "id": "notifications",
+      "icon": "bell",
+      "title": "Notifications + SSE",
+      "status": "live",
+      "desc": "Notification center with bell + unread badge, server-sent events stream, and optional desktop notifications for completed turns and approvals."
+    },
+    {
+      "id": "sub-agents",
+      "icon": "agents",
+      "title": "Sub-agent live streaming",
+      "status": "live",
+      "desc": "Multi-turn delegate_task with per-child sessions, live forwarded tokens, retry-from-event-log recovery, and atomic concurrency-slot reservation."
+    },
+    {
+      "id": "approvals",
+      "icon": "shield",
+      "title": "Approvals engine v1",
+      "status": "live",
+      "desc": "Layered policy (blocked → destructive → safelist → confirm), interactive Allow once / Always allow / Deny, 120 s fail-closed timeout, denylist-supreme compound-command guard."
+    },
+    {
+      "id": "command-palette",
+      "icon": "command",
+      "title": "Command palette ⌘K",
+      "status": "live",
+      "desc": "Symbol-search and file-open via Ctrl/Cmd-K with grep options (case-sensitive, whole-word, file glob, max results)."
+    },
+    {
+      "id": "project-indexing",
+      "icon": "index",
+      "title": "Project indexing",
+      "status": "live",
+      "desc": "codebase_index table + index_project tool — 318 files / 2 384 symbols indexed in 124 ms on the demo battery; CODEBASE AWARENESS prompt injection."
+    },
+    {
+      "id": "web-tools",
+      "icon": "globe",
+      "title": "Web tools (web_fetch + web_search)",
+      "status": "live",
+      "desc": "Kilo/Cline-parity web tools — read a page, search the web, feed results back as tool_results for multi-step reasoning."
+    },
+    {
+      "id": "streaming-chat",
+      "icon": "stream",
+      "title": "Streaming chat",
+      "status": "live",
+      "desc": "SSE text deltas + interleaved tool calls + thinking blocks + per-reply usage stats (ms / in / out / tok / s)."
+    }
+  ],
+  "documentation": [
+    {
+      "category": "Root",
+      "title": "HANDOFF.md",
+      "path": "HANDOFF.md",
+      "desc": "The single-page agent handoff: state, rules, environment, secrets, next steps."
+    },
+    {
+      "category": "Root",
+      "title": "AGENTS.md",
+      "path": "AGENTS.md",
+      "desc": "Operating rules — phase gates, question protocol, hard rules, sub-agent protocol."
+    },
+    {
+      "category": "Specs",
+      "title": "SPEC.md",
+      "path": "docs/specs/SPEC.md",
+      "desc": "Master requirements (F1–F11 features) — owner-approved."
+    },
+    {
+      "category": "Architecture",
+      "title": "ARCHITECTURE.md",
+      "path": "docs/architecture/ARCHITECTURE.md",
+      "desc": "Design truth — three pillars, run modes, agent runtime, storage, providers, approvals."
+    },
+    {
+      "category": "Architecture",
+      "title": "API.md + IMPLEMENTED-API.md",
+      "path": "docs/architecture/api/",
+      "desc": "REST + WS surface: 52 operations specified, with an IMPLEMENTED-API truth doc that tracks what is actually wired."
+    },
+    {
+      "category": "ADRs",
+      "title": "ADRs 0001 – 0024",
+      "path": "docs/decisions/",
+      "desc": "Architecture Decision Records — sequential, never renumbered. Newest: 0024 approval-engine v1."
+    },
+    {
+      "category": "Runbooks",
+      "title": "SANDBOX-RESTORE.md",
+      "path": "docs/runbooks/SANDBOX-RESTORE.md",
+      "desc": "Zero-to-resumed procedure after a sandbox wipe — secrets, clones, pnpm, env, verify."
+    },
+    {
+      "category": "Runbooks",
+      "title": "AGENT-MEMORY.md",
+      "path": "docs/runbooks/AGENT-MEMORY.md",
+      "desc": "Lessons learned & standing rules — read before working (owner-mandated)."
+    },
+    {
+      "category": "Runbooks",
+      "title": "WORKFLOW.md",
+      "path": "docs/runbooks/WORKFLOW.md",
+      "desc": "The session spine — branch policy, verification gates, per-round doc duties, push / CI / ntfy checklist."
+    },
+    {
+      "category": "Runbooks",
+      "title": "TESTING.md",
+      "path": "docs/runbooks/TESTING.md",
+      "desc": "Vitest + E2E sidecar strategy; AI SDK mocked — never live calls in tests."
+    },
+    {
+      "category": "Runbooks",
+      "title": "LOCAL-PC-RUNNER.md",
+      "path": "docs/runbooks/LOCAL-PC-RUNNER.md",
+      "desc": "Owner's one-click launcher: ACUTE.bat + acute.sh + acute_launcher.py (auto-install, credentials, update+restart, self-update)."
+    },
+    {
+      "category": "Research",
+      "title": "9 reference projects",
+      "path": "docs/research/",
+      "desc": "Kilo, Cline, OpenHands, Letta, Hermes, n8n, MetaGPT, Aider, Goose, OpenCode — pattern synthesis in docs/research/README.md."
+    },
+    {
+      "category": "Plan",
+      "title": "ROUND-28-MASTER-PLAN.md",
+      "path": "docs/ROUND-28-MASTER-PLAN.md",
+      "desc": "1123-line plan v2 with 30 sub-agent review fixes applied — the UX + Agentic-Quality overhaul that reset the cadence."
+    }
+  ],
   "quality": {
     "ci": "success",
     "suites": [
-      {
-        "name": "agent-core",
-        "tests": 169
-      },
-      {
-        "name": "frontend",
-        "tests": 70
-      },
-      {
-        "name": "shared",
-        "tests": 4
-      },
-      {
-        "name": "sidecar e2e",
-        "tests": 8
-      }
+      { "name": "agent-core (vitest)", "tests": 161 },
+      { "name": "frontend (vitest + RTL)", "tests": 70 },
+      { "name": "shared (domain types)", "tests": 4 },
+      { "name": "sidecar e2e (built dist)", "tests": 8, "skipped": 8 }
     ],
+    "lint": "clean",
+    "typecheck": "clean",
     "cargoCheck": "green",
     "licenseAudit": {
-      "deps": 107,
+      "deps": 112,
       "verdict": "CLEAN"
     }
   },
   "milestones": [
-    {
-      "date": "2026-08-21",
-      "label": "Phase 0 — SPEC approved"
-    },
-    {
-      "date": "2026-08-22",
-      "label": "Phase 1 — Architecture + CI"
-    },
-    {
-      "date": "2026-08-22",
-      "label": "Phase 2 — First live agent conversation"
-    },
-    {
-      "date": "2026-08-22",
-      "label": "Setup wizard — owner-approved"
-    },
-    {
-      "date": "2026-08-23",
-      "label": "Agentic MVP — live-proven file writes"
-    },
-    {
-      "date": "2026-08-23",
-      "label": "Streaming + telemetry + design system"
-    },
-    {
-      "date": "2026-08-23",
-      "label": "Governance + ADRs + blueprint"
-    },
-    {
-      "date": "2026-08-23",
-      "label": "Dashboard live on GitHub Pages"
-    },
-    {
-      "date": "2026-08-24",
-      "label": "Round 27 — 13 tools + web tools + checkpoint revert"
-    },
-    {
-      "date": "2026-08-24",
-      "label": "Round 28 — UX + Agentic-Quality Overhaul (9 owner directives)"
-    },
-    {
-      "date": "2026-08-24",
-      "label": "Round 29 — Browser-previewable showcase + notification close-out"
-    },
-    {
-      "date": "2026-08-24",
-      "label": "Round 30 — Windows bug fixes (CORS streaming + sessions) + sidebar/chat redesign"
-    },
-    {
-      "date": "2026-08-24",
-      "label": "Round 32 — owner-designed UI: floating panels + activity block"
-    },
-    {
-      "date": "2026-08-24",
-      "label": "Round 33 — hello-loop fix + sidebar/logo system"
-    },
-    {
-      "date": "2026-08-24",
-      "label": "Round 34 — multi-step tool feedback + settings redesign"
-    },
-    {
-      "date": "2026-08-25",
-      "label": "Round 35 — thinking + interleaved tool calls"
-    },
-    {
-      "date": "2026-08-25",
-      "label": "Round 36 — sub-agent orchestration (Phase 3 core)"
-    }
+    { "date": "2026-08-21", "label": "Phase 0 — SPEC approved" },
+    { "date": "2026-08-22", "label": "Phase 1 — Architecture + CI" },
+    { "date": "2026-08-22", "label": "Phase 2 — First live agent conversation" },
+    { "date": "2026-08-22", "label": "Setup wizard — owner-approved" },
+    { "date": "2026-08-23", "label": "Agentic MVP — live-proven file writes" },
+    { "date": "2026-08-23", "label": "Streaming + telemetry + design system" },
+    { "date": "2026-08-23", "label": "Governance + ADRs + blueprint" },
+    { "date": "2026-08-23", "label": "Dashboard live on GitHub Pages" },
+    { "date": "2026-08-24", "label": "R27 — 13 tools + web tools + checkpoint revert" },
+    { "date": "2026-08-24", "label": "R28 — UX + Agentic-Quality Overhaul (9 owner directives)" },
+    { "date": "2026-08-24", "label": "R29 — browser-previewable showcase + notification close-out" },
+    { "date": "2026-08-24", "label": "R30 — Windows bug fixes (CORS streaming + sessions) + sidebar/chat redesign" },
+    { "date": "2026-08-24", "label": "R32 — owner-designed UI: floating panels + activity block" },
+    { "date": "2026-08-24", "label": "R33 — hello-loop fix + sidebar/logo system" },
+    { "date": "2026-08-24", "label": "R34 — multi-step tool feedback + settings redesign" },
+    { "date": "2026-08-25", "label": "R35 — thinking + interleaved tool calls" },
+    { "date": "2026-08-25", "label": "R36 — sub-agent orchestration (Phase 3 core)" },
+    { "date": "2026-08-25", "label": "R37 — chat continuity (Working section) + provider rebuild + approvals v1" },
+    { "date": "2026-08-25", "label": "R38 — chat UI polish + sessions correctness + sidebar animation + sub-agent fix + right sidebar" },
+    { "date": "2026-08-25", "label": "R39 — browser-style right sidebar tabs + background sessions + sub-agent multi-turn + custom browser" },
+    { "date": "2026-08-26", "label": "R40 — sub-agent tool allowlist fix + notifications + chat width + sidebar dropdown + embedded browser + click-to-open" },
+    { "date": "2026-08-26", "label": "R41 — dashboard overhaul + full-fledged embedded Chromium browser + dedicated collapse section + popover bounds + per-session sidebar state + desktop notifications (in progress)" }
   ],
   "chips": [
-    "Tauri 2",
-    "React 18",
-    "TypeScript",
-    "Node sidecar",
-    "SQLite",
-    "BYO provider key"
+    "Tauri 2 (Rust shell)",
+    "React 18 + TypeScript",
+    "Node 24 sidecar (Fastify 5)",
+    "SQLite (WAL, better-sqlite3)",
+    "Vercel AI SDK v7",
+    "BYO provider key (OpenRouter · Anthropic · OpenAI · Google · custom)",
+    "OpenRouter ox-alpha (1M ctx, 0-cost)",
+    "Vitest + RTL + sidecar E2E",
+    "pnpm 11 workspaces",
+    "GitHub Actions CI (windows-latest + cargo check)"
   ],
   "screenshots": {
     "rounds": [
-      {
-        "round": 27,
-        "date": "2026-08-24",
-        "url": "screenshots/round-27.zip",
-        "count": 22,
-        "size_kb": 1338
-      },
-      {
-        "round": 28,
-        "date": "2026-08-24",
-        "url": "screenshots/round-28.zip",
-        "count": 8,
-        "size_kb": 675
-      },
-      {
-        "round": 29,
-        "date": "2026-08-24",
-        "url": "screenshots/round-29.zip",
-        "count": 8,
-        "size_kb": 1848,
-        "scope": "Next.js showcase hub (browser-previewable on the sandbox dev port)"
-      },
-      {
-        "round": 30,
-        "date": "2026-08-24",
-        "url": "screenshots/round-30.zip",
-        "count": 9,
-        "size_kb": 418,
-        "scope": "Real product testing (live streaming, sessions, sidebar)"
-      },
-      {
-        "round": 32,
-        "date": "2026-08-24",
-        "url": "screenshots/round-32.zip",
-        "count": 6,
-        "size_kb": 385,
-        "scope": "Owner-designed UI implementation (live product testing)"
-      },
-      {
-        "round": 33,
-        "date": "2026-08-24",
-        "url": "screenshots/round-33.zip",
-        "count": 8,
-        "size_kb": 443,
-        "scope": "Behavioral fixes + sidebar system (live product testing)"
-      },
-      {
-        "round": 34,
-        "date": "2026-08-24",
-        "url": "screenshots/round-34.zip",
-        "count": 9,
-        "size_kb": 814,
-        "scope": "Multi-step proof + settings redesign"
-      },
-      {
-        "round": 35,
-        "date": "2026-08-25",
-        "url": "screenshots/round-35.zip",
-        "count": 7,
-        "size_kb": 617,
-        "scope": "Thinking + interleaving proof"
-      },
-      {
-        "round": 36,
-        "date": "2026-08-25",
-        "url": "screenshots/round-36.zip",
-        "count": 8,
-        "size_kb": 673,
-        "scope": "Sub-agent orchestration proof"
-      }
+      { "round": 27, "date": "2026-08-24", "url": "screenshots/round-27.zip", "count": 22, "size_kb": 1338 },
+      { "round": 28, "date": "2026-08-24", "url": "screenshots/round-28.zip", "count": 8, "size_kb": 675 },
+      { "round": 29, "date": "2026-08-24", "url": "screenshots/round-29.zip", "count": 8, "size_kb": 1848, "scope": "Next.js showcase hub (browser-previewable on the sandbox dev port)" },
+      { "round": 30, "date": "2026-08-24", "url": "screenshots/round-30.zip", "count": 9, "size_kb": 418, "scope": "Real product testing (live streaming, sessions, sidebar)" },
+      { "round": 32, "date": "2026-08-24", "url": "screenshots/round-32.zip", "count": 6, "size_kb": 385, "scope": "Owner-designed UI implementation (live product testing)" },
+      { "round": 33, "date": "2026-08-24", "url": "screenshots/round-33.zip", "count": 8, "size_kb": 443, "scope": "Behavioral fixes + sidebar system (live product testing)" },
+      { "round": 34, "date": "2026-08-24", "url": "screenshots/round-34.zip", "count": 9, "size_kb": 814, "scope": "Multi-step proof + settings redesign" },
+      { "round": 35, "date": "2026-08-25", "url": "screenshots/round-35.zip", "count": 7, "size_kb": 617, "scope": "Thinking + interleaving proof" },
+      { "round": 36, "date": "2026-08-25", "url": "screenshots/round-36.zip", "count": 8, "size_kb": 673, "scope": "Sub-agent orchestration proof" },
+      { "round": 37, "date": "2026-08-25", "url": "screenshots/round-37.zip", "count": 10, "size_kb": 814, "scope": "Chat continuity (Working section) + provider rebuild + approvals" }
     ],
     "total": 85
   }

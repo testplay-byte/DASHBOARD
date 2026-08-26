@@ -7,8 +7,8 @@
  *
  * How it works
  *   1. data.json is the single source of content truth (curated, public-safe).
- *   2. Loop-shaped sections (pillars, plan, quality, milestones, principles,
- *      chips, stats) are rendered into escaped HTML fragments.
+ *   2. Loop-shaped sections (pillars, features, plan, quality, milestones,
+ *      principles, chips, stats, docs) are rendered into escaped HTML fragments.
  *   3. Fragments + literals are injected into src/template.html at
  *      {{PLACEHOLDER}} slots (function replacers only — never string
  *      interpolation into .replace, so "$&"-style content can't corrupt it).
@@ -45,6 +45,14 @@ if (!Array.isArray(data.pillars) || data.pillars.length === 0) {
   console.error("data.json: pillars must be a non-empty array");
   process.exit(1);
 }
+if (!Array.isArray(data.features) || data.features.length === 0) {
+  console.error("data.json: features must be a non-empty array");
+  process.exit(1);
+}
+if (!Array.isArray(data.documentation) || data.documentation.length === 0) {
+  console.error("data.json: documentation must be a non-empty array");
+  process.exit(1);
+}
 
 /* ── helpers ────────────────────────────────────────────────────────────── */
 const esc = (s) =>
@@ -74,10 +82,15 @@ const quality = data.quality;
 const suites = Array.isArray(quality.suites) ? quality.suites : [];
 const milestones = [...(Array.isArray(data.milestones) ? data.milestones : [])]
   .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+const features = Array.isArray(data.features) ? data.features : [];
+const documentation = Array.isArray(data.documentation) ? data.documentation : [];
 
 const totalTests = suites.reduce((n, s) => n + num(s.tests), 0);
+const totalSkipped = suites.reduce((n, s) => n + num(s.skipped), 0);
 const maxSuite = Math.max(1, ...suites.map((s) => num(s.tests)));
 const ciOk = quality.ci === "success" || quality.ci === "green";
+const lintOk = quality.lint === "clean" || quality.lint === "success";
+const typecheckOk = quality.typecheck === "clean" || quality.typecheck === "success";
 const cargoOk = quality.cargoCheck === "green" || quality.cargoCheck === "success";
 const license = quality.licenseAudit ?? { deps: 0, verdict: "n/a" };
 
@@ -125,6 +138,62 @@ const ICONS = {
   package: svg(
     '<path d="M16.5 9.4 7.55 4.24"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" x2="12" y1="22" y2="12"/>',
   ),
+  // feature-card icons
+  browser: svg(
+    '<rect x="3" y="4" width="18" height="16" rx="2"/>' +
+    '<path d="M3 9h18"/>' +
+    '<circle cx="6.5" cy="6.5" r="0.6" fill="currentColor"/>' +
+    '<circle cx="9" cy="6.5" r="0.6" fill="currentColor"/>',
+  ),
+  panels: svg(
+    '<rect x="3" y="4" width="18" height="16" rx="2"/>' +
+    '<line x1="15" y1="4" x2="15" y2="20"/>' +
+    '<line x1="3" y1="9" x2="15" y2="9"/>' +
+    '<line x1="3" y1="13" x2="15" y2="13"/>' +
+    '<line x1="3" y1="17" x2="15" y2="17"/>',
+  ),
+  bell: svg(
+    '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>' +
+    '<path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
+  ),
+  agents: svg(
+    '<circle cx="12" cy="8" r="3"/>' +
+    '<circle cx="5" cy="18" r="3"/>' +
+    '<circle cx="19" cy="18" r="3"/>' +
+    '<line x1="10.5" y1="10" x2="6.5" y2="16"/>' +
+    '<line x1="13.5" y1="10" x2="17.5" y2="16"/>',
+  ),
+  shield: svg(
+    '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>' +
+    '<path d="m9 12 2 2 4-4"/>',
+  ),
+  command: svg(
+    '<path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/>' +
+    '<path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/>' +
+    '<line x1="12" y1="6" x2="12" y2="18"/>',
+  ),
+  index: svg(
+    '<path d="M4 6h2v12H4z"/><path d="M7 9h13"/>' +
+    '<path d="M7 13h13"/><path d="M7 17h13"/><path d="M7 6h6"/>',
+  ),
+  globe: svg(
+    '<circle cx="12" cy="12" r="10"/>' +
+    '<line x1="2" y1="12" x2="22" y2="12"/>' +
+    '<path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+  ),
+  stream: svg(
+    '<path d="M3 12h4l3-8 4 16 3-8h4"/>',
+  ),
+  doc: svg(
+    '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>' +
+    '<polyline points="14 2 14 8 20 8"/>' +
+    '<line x1="8" y1="13" x2="16" y2="13"/>' +
+    '<line x1="8" y1="17" x2="13" y2="17"/>',
+  ),
+  arrow: svg(
+    '<line x1="5" y1="12" x2="19" y2="12"/>' +
+    '<polyline points="12 5 19 12 12 19"/>',
+  ),
 };
 
 /* ── fragment renderers ─────────────────────────────────────────────────── */
@@ -155,6 +224,38 @@ const renderPillar = (p, i) => {
       </article>`;
 };
 
+const FEATURE_STATUS = {
+  live: { cls: "feature-status", label: "live" },
+  beta: { cls: "feature-status", label: "beta" },
+  planned: { cls: "feature-status", label: "planned" },
+};
+
+const renderFeature = (f) => {
+  const st = FEATURE_STATUS[f.status] ?? { cls: "feature-status", label: esc(f.status) };
+  const icon = ICONS[f.icon] ?? ICONS.command;
+  return `      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon">${icon}</span>
+          <h3 class="feature-title">${esc(f.title)}</h3>
+          <span class="${st.cls}">${st.label}</span>
+        </div>
+        <p class="feature-desc">${esc(f.desc)}</p>
+      </article>`;
+};
+
+const renderDoc = (d) => {
+  const icon = ICONS.doc;
+  return `      <article class="doc-card card">
+        <div class="doc-top">
+          <span class="doc-category">${esc(d.category)}</span>
+          <span class="doc-arrow" aria-hidden="true">${ICONS.arrow}</span>
+        </div>
+        <h3 class="doc-title">${esc(d.title)}</h3>
+        <p class="doc-desc">${esc(d.desc)}</p>
+        <code class="doc-path">${esc(d.path)}</code>
+      </article>`;
+};
+
 const renderStat = (stat) => `      <article class="stat-card card">
         <span class="stat-label">${esc(stat.label)}</span>
         <span class="stat-value"><span data-count="${num(stat.value)}">${num(stat.value)}</span>${stat.suffix ? esc(stat.suffix) : ""}</span>
@@ -166,7 +267,7 @@ const stats = [
     label: "Tests passing",
     value: totalTests,
     suffix: "",
-    sub: `${suites.length} suites · unit + end-to-end`,
+    sub: `${suites.length} suites · ${totalSkipped} skipped · unit + e2e`,
   },
   {
     label: "Milestones shipped",
@@ -210,10 +311,14 @@ const renderUpcoming = (item) => {
 const renderSuite = (s) => {
   const tests = num(s.tests);
   const pct = clamp(Math.round((tests / maxSuite) * 100), 3, 100);
+  const skip = num(s.skipped);
+  const skipStr = skip > 0
+    ? ` · <span class="suite-skip">${skip} skipped</span>`
+    : "";
   return `        <div class="suite-row">
           <div class="suite-head">
             <span class="suite-name">${esc(s.name)}</span>
-            <span class="suite-count"><strong data-count="${tests}">${tests}</strong> tests</span>
+            <span class="suite-count"><strong data-count="${tests}">${tests}</strong> tests${skipStr}</span>
           </div>
           <div class="bar suite-bar" role="progressbar" aria-valuenow="${tests}" aria-valuemin="0" aria-valuemax="${maxSuite}" aria-label="${esc(s.name)} test count relative to largest suite">
             <div class="bar-fill" data-progress="${pct}" style="--w:${pct}%"></div>
@@ -241,6 +346,22 @@ const checks = [
   ),
   renderCheck(
     ICONS.terminal,
+    lintOk ? "icon-ok" : "icon-accent",
+    "Lint (eslint)",
+    lintOk ? "clean" : String(quality.lint),
+    lintOk,
+    "0 errors, 0 warnings",
+  ),
+  renderCheck(
+    ICONS.command,
+    typecheckOk ? "icon-ok" : "icon-accent",
+    "Typecheck (tsc)",
+    typecheckOk ? "clean" : String(quality.typecheck),
+    typecheckOk,
+    "strict mode, no any",
+  ),
+  renderCheck(
+    ICONS.package,
     cargoOk ? "icon-ok" : "icon-accent",
     "cargo check",
     cargoOk ? "passing" : String(quality.cargoCheck),
@@ -248,7 +369,7 @@ const checks = [
     cargoOk ? "Rust sidecar compiles clean" : "compile status changed",
   ),
   renderCheck(
-    ICONS.package,
+    ICONS.shield,
     license.verdict === "CLEAN" ? "icon-ok" : "icon-accent",
     "License audit",
     String(license.verdict),
@@ -281,7 +402,7 @@ const renderTechChip = (c) => `        <span class="tech-chip"><span class="tech
 
 /* ── assemble the page ──────────────────────────────────────────────────── */
 const title = `${product.name} — status dashboard`;
-const description = `${product.tagline}. Public status: pillars, plan, quality metrics, milestones.`;
+const description = `${product.tagline}. Public status: pillars, features, plan, quality metrics, milestones, docs.`;
 const pageUrl = "https://testplay-byte.github.io/DASHBOARD/";
 const favicon =
   "data:image/svg+xml," +
@@ -293,11 +414,20 @@ const favicon =
   );
 const statusPill = ciOk ? "All systems healthy" : "Status: check runs";
 const statusShort = ciOk ? "healthy" : "watch";
+
+// Public-safe GitHub link — the denylist allows github.com/testplay-byte/DASHBOARD
+// (the public repo we publish to). We never link the private source repo here.
+const githubUrl = "https://github.com/testplay-byte/DASHBOARD";
+const githubLabel = "testplay-byte/DASHBOARD";
+
 const footerNote =
   `Generated ${buildStamp} · curated public data only — no product source ` +
   `· ${esc(product.name)} v${esc(product.version)}`;
 
-const dataJson = JSON.stringify({ buildIso }).replace(/</g, "\\u003c");
+const dataJson = JSON.stringify({
+  buildIso,
+  screenshots: data.screenshots ?? null,
+}).replace(/</g, "\\u003c");
 
 const slots = {
   LANG: "en",
@@ -313,15 +443,20 @@ const slots = {
   AVAILABILITY: esc(product.availability),
   STATUS_PILL: esc(statusPill),
   STATUS_SHORT: esc(statusShort),
+  GITHUB_URL: esc(githubUrl),
+  GITHUB_LABEL: esc(githubLabel),
   BUILD_STAMP: esc(buildStamp),
   STATS: stats.map(renderStat).join("\n"),
   PILLARS: pillars.map(renderPillar).join("\n"),
+  FEATURES: features.map(renderFeature).join("\n"),
   NOW_TITLE: esc(plan.current.title),
   NOW_DETAIL: esc(plan.current.detail),
   UPCOMING: (plan.upcoming ?? []).map(renderUpcoming).join("\n"),
   QUALITY_SUITES: suites.map(renderSuite).join("\n"),
   QUALITY_CHECKS: checks.join("\n"),
   TOTAL_TESTS: totalTests,
+  SKIPPED_TESTS: totalSkipped,
+  DOCUMENTATION: documentation.map(renderDoc).join("\n"),
   MILESTONES: milestones.map((m, i) => renderMilestone(m, i === milestones.length - 1)).join("\n"),
   PRINCIPLES: (plan.principles ?? []).map(renderPrinciple).join("\n"),
   TECH_CHIPS: (data.chips ?? []).map(renderTechChip).join("\n"),
@@ -383,4 +518,7 @@ console.log(`dashboard built`);
 console.log(`  index.html         ${html.length} bytes (updated ${buildStamp})`);
 console.log(`  assets/style.css   ${css.length} bytes`);
 console.log(`  assets/app.js      ${js.length} bytes`);
+console.log(`  features           ${features.length} cards`);
+console.log(`  documentation       ${documentation.length} cards`);
+console.log(`  milestones          ${milestones.length} entries`);
 console.log(`  denylist           clean`);
