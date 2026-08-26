@@ -34,14 +34,14 @@
   ],
   "plan": {
     "current": {
-      "title": "R42 delivered — full project audit complete, awaiting owner verdict on the R43 track order",
-      "detail": "A five-agent audit fleet reviewed the entire codebase against the owner's autonomous vision: what is done, what is missing, and what to build next. The results — a 12-dimension competitive benchmark, an 18-area capability inventory, 37 consolidated gaps, and a six-track roadmap with a recommended R43–R48 sequence — are published in the Audit, Gaps, and Roadmap sections below. CI is honestly RED (Rust shell break since R39, one-line fix identified); Track 1 proposes to make every claim true again."
+      "title": "R43 delivered — embedded in-app browser, free-model resilience, error cards + retry, CI green again; awaiting the owner's verdict",
+      "detail": "The owner's 9-item R42 verdict list shipped: a real embedded browser that renders sites like github.com inside the right sidebar (sidecar proxy + viewport presets 375–1920 + an agent browser tool), the dead default model replaced by a 46-entry catalog (18 free; default glm-5.2:free) with a provider-side free-model fallback chain, failed turns now persist an error card with Retry, chat geometry fixed across 700–2560px, a temporary sub-agent key/model section, and the Rust CI failure fixed at the root (two real Tauri 2 API bugs). CI status on this page is baked from the GitHub Actions API, never hand-claimed. Next: the owner's verdict on R43, then the deferred queue — security hardening, packaging, memory system, PTY terminal, real search API."
     },
     "upcoming": [
       {
         "phase": "Track 1 — Foundation & Trust (recommended R43)",
-        "status": "owner-gated",
-        "note": "Fix the Rust build, close the three security holes, move data out of the source folder, repair dead routes, make this dashboard auto-report CI truth. All small fixes, highest payoff."
+        "status": "partially delivered (R43)",
+        "note": "R43 shipped the Rust/CI fix and made this dashboard API-truthful; remaining: the three security holes (deferred by the owner), the data-directory move, and dead-route repairs. All small fixes, highest payoff."
       },
       {
         "phase": "Track 2 — Session Intelligence (recommended R44)",
@@ -79,7 +79,7 @@
     ]
   },
   "audit": {
-    "stamp": "2026-08-26 · Round 42 state",
+    "stamp": "2026-08-26 · Round 42 state (progress annotations through R43)",
     "method": "Five-agent audit fleet: four parallel domain audits (agent core & tools · autonomy & orchestration · workspace & project UX · platform & spec gaps) plus a synthesis pass producing the benchmark and roadmap. Every claim was verified against the actual source tree — file-and-line evidence, not doc claims.",
     "vision": "The review target, in the owner's words: a full-fledged system that works autonomously, supports different kinds of projects, is highly customized for different tasks, does research and file changes, has full-fledged automations, and can continue or revert sessions.",
     "headline": {
@@ -174,72 +174,370 @@
       }
     ],
     "capabilities": [
-      { "area": "Streaming chat & UI", "status": "live", "note": "SSE deltas, interleaved tool calls, thinking blocks, turn-grouped Working sections, per-reply usage chips, context meter, per-send model picker, file-path pills." },
-      { "area": "Agentic loop & tools (17)", "status": "live", "note": "Up to 400 tool round-trips per message (outer loop × turns), path-contained file tools, search, git read trio, todo, web, index, delegation — every tool sandboxed to the project root." },
-      { "area": "Sub-agent orchestration", "status": "live", "note": "5 roles, parallel dispatch with atomic semaphores, per-key API pools, live event forwarding, retry-from-event-log recovery, monitoring panel." },
-      { "area": "Notifications", "status": "live", "note": "In-app center + SSE + desktop notifications + Web Push to a closed window (VAPID), click-through navigation, unread badge." },
-      { "area": "Codebase awareness", "status": "live", "note": "Symbol index (files + symbols in ~124ms on the demo), summary injected every turn, ⌘K palette with symbol/file/content modes and grep options." },
-      { "area": "Providers & models", "status": "live", "note": "Three wire formats (OpenAI-compatible, Anthropic, Responses), custom providers, key pools, model listing + connection probe, per-agent and per-message model routing." },
-      { "area": "Onboarding & theming", "status": "live", "note": "5-step setup wizard with live connection test, 5 themes × light/dark, density control, demo mode." },
-      { "area": "Approvals & safety", "status": "partial", "note": "Layered fail-closed engine live (blocked → destructive → auto → rule → ask, compound-command guard, 120s timeout). Holes: web tools bypass it, auto tier uncontained, keys leak to child processes, denylist not configurable, no audit viewer." },
-      { "area": "Sessions & continuation", "status": "partial", "note": "Event-sourced append-only log, resume any session with full history, background completion, explicit stop, restart-safe sweep. Missing: search, fork, export, retry of failed mains, list capped at 8 per project." },
-      { "area": "Checkpoints & revert", "status": "partial", "note": "Every write/edit/delete snapshotted before+after; restore endpoint implemented and tested — but no frontend caller. Binary files corrupt on restore; no turn-level revert." },
-      { "area": "Project management", "status": "partial", "note": "Projects are pinned folders with chat. No kinds, no per-project settings, no rename/recolor (no PATCH route), single default color for every project." },
-      { "area": "Research & web", "status": "partial", "note": "web_fetch is solid (real fetch, HTML-to-text, caps). web_search is Wikipedia-only — not a general search engine. No vision, no agent-driven browsing." },
-      { "area": "Terminal & processes", "status": "partial", "note": "Honest one-shot runner (60s, output caps, history recall) for the user; agent commands approval-gated. No PTY, no long-running processes, dev servers blocked." },
-      { "area": "Context management", "status": "partial", "note": "Budget-aware trimming with markers and a context meter. No summarization/compaction, no sticky context, no cross-session memory." },
-      { "area": "Memory & skills", "status": "missing", "note": "memoryPolicy and skills are stored, validated, editable in the UI — and never read by the runtime. Every session starts blind to prior sessions." },
-      { "area": "Automation & scheduling", "status": "missing", "note": "No scheduler, triggers, or workflows. Research + blueprints complete; MVP scoped in Track 4." },
-      { "area": "Multi-agent teams", "status": "missing", "note": "Only single-agent mode is accepted at session creation. auto-team and manual exist as types, not code. No shared bus, no task board." },
-      { "area": "Extension ecosystem (MCP)", "status": "missing", "note": "No MCP client. The tool surface is a fixed set of 17." },
-      { "area": "Packaging & releases", "status": "missing", "note": "Runs as a dev launcher + source tree. Desktop bundler disabled, no versioned installer, no changelog, Rust shell currently fails to compile (see P0-1)." }
+      {
+        "area": "Streaming chat & UI",
+        "status": "live",
+        "note": "SSE deltas, interleaved tool calls, thinking blocks, turn-grouped Working sections, per-reply usage chips, context meter, per-send model picker, file-path pills."
+      },
+      {
+        "area": "Agentic loop & tools (17)",
+        "status": "live",
+        "note": "Up to 400 tool round-trips per message (outer loop × turns), path-contained file tools, search, git read trio, todo, web, index, delegation — every tool sandboxed to the project root."
+      },
+      {
+        "area": "Sub-agent orchestration",
+        "status": "live",
+        "note": "5 roles, parallel dispatch with atomic semaphores, per-key API pools, live event forwarding, retry-from-event-log recovery, monitoring panel."
+      },
+      {
+        "area": "Notifications",
+        "status": "live",
+        "note": "In-app center + SSE + desktop notifications + Web Push to a closed window (VAPID), click-through navigation, unread badge."
+      },
+      {
+        "area": "Codebase awareness",
+        "status": "live",
+        "note": "Symbol index (files + symbols in ~124ms on the demo), summary injected every turn, ⌘K palette with symbol/file/content modes and grep options."
+      },
+      {
+        "area": "Providers & models",
+        "status": "live",
+        "note": "Three wire formats (OpenAI-compatible, Anthropic, Responses), custom providers, key pools, model listing + connection probe, per-agent and per-message model routing. R43: typed 46-entry catalog (18 free, default glm-5.2:free) + Free-only/All filter + provider-side free-model fallback chain."
+      },
+      {
+        "area": "Onboarding & theming",
+        "status": "live",
+        "note": "5-step setup wizard with live connection test, 5 themes × light/dark, density control, demo mode."
+      },
+      {
+        "area": "Approvals & safety",
+        "status": "partial",
+        "note": "Layered fail-closed engine live (blocked → destructive → auto → rule → ask, compound-command guard, 120s timeout). Holes: web tools bypass it, auto tier uncontained, keys leak to child processes, denylist not configurable, no audit viewer."
+      },
+      {
+        "area": "Sessions & continuation",
+        "status": "partial",
+        "note": "Event-sourced append-only log, resume any session with full history, background completion, explicit stop, restart-safe sweep. R43: failed turns persist turn.error and return to queued with a Retry card. Still missing: search, fork, export, list capped at 8 per project."
+      },
+      {
+        "area": "Checkpoints & revert",
+        "status": "partial",
+        "note": "Every write/edit/delete snapshotted before+after; restore endpoint implemented and tested — but no frontend caller. Binary files corrupt on restore; no turn-level revert."
+      },
+      {
+        "area": "Project management",
+        "status": "partial",
+        "note": "Projects are pinned folders with chat. No kinds, no per-project settings, no rename/recolor (no PATCH route), single default color for every project."
+      },
+      {
+        "area": "Research & web",
+        "status": "partial",
+        "note": "web_fetch is solid (real fetch, HTML-to-text, caps). web_search is Wikipedia-only — not a general search engine. Agent-driven browsing arrived in R43 (browser_control: navigate/back/forward/reload/set_viewport/get_state); click/type automation and vision still pending."
+      },
+      {
+        "area": "Terminal & processes",
+        "status": "partial",
+        "note": "Honest one-shot runner (60s, output caps, history recall) for the user; agent commands approval-gated. No PTY, no long-running processes, dev servers blocked."
+      },
+      {
+        "area": "Context management",
+        "status": "partial",
+        "note": "Budget-aware trimming with markers and a context meter. No summarization/compaction, no sticky context, no cross-session memory."
+      },
+      {
+        "area": "Memory & skills",
+        "status": "missing",
+        "note": "memoryPolicy and skills are stored, validated, editable in the UI — and never read by the runtime. Every session starts blind to prior sessions."
+      },
+      {
+        "area": "Automation & scheduling",
+        "status": "missing",
+        "note": "No scheduler, triggers, or workflows. Research + blueprints complete; MVP scoped in Track 4."
+      },
+      {
+        "area": "Multi-agent teams",
+        "status": "missing",
+        "note": "Only single-agent mode is accepted at session creation. auto-team and manual exist as types, not code. No shared bus, no task board."
+      },
+      {
+        "area": "Extension ecosystem (MCP)",
+        "status": "missing",
+        "note": "No MCP client. The tool surface is a fixed set of 17."
+      },
+      {
+        "area": "Packaging & releases",
+        "status": "missing",
+        "note": "Runs as a dev launcher + source tree. Desktop bundler disabled, no versioned installer, no changelog — the Rust shell compiles again (fixed in R43; CI green), so packaging is unblocked."
+      }
     ],
     "gaps": {
       "p0_intro": "Broken or false today. These erode trust and two of them are security holes that must close before any autonomous work is built on top. All are small fixes — one dense round.",
       "p1_intro": "Directly unlock the owner's stated vision: continuing sessions, reverting, different kinds of projects, research, and the first steps toward autonomy.",
       "p2_intro": "Important for depth and the long game — MCP, vision, packaging, and the polish debt the audits catalogued.",
       "p0": [
-        { "id": "P0-1", "title": "Rust shell fails to compile — CI red for 4 straight rounds", "why": "A Tauri API mismatch in the embedded-browser code broke the desktop shell build in R39; the last four CI runs all failed while this dashboard claimed green. Likely a one-line fix; blocks packaging and any shell work.", "impact": "HIGH", "effort": "S" },
-        { "id": "P0-2", "title": "Status reporting was false-green", "why": "The dashboard and internal status file hand-claimed CI success, 243 tests, and stale milestones while CI was red and 262 tests were green. This rebuild makes it honest; the durable fix is auto-syncing CI status from the GitHub API at build time.", "impact": "HIGH", "effort": "S" },
-        { "id": "P0-3", "title": "Provider keys leak to child processes", "why": "Approved commands inherit the full environment including provider API keys — any executed script or dependency can read them. Must be scrubbed before autonomy work.", "impact": "HIGH", "effort": "S" },
-        { "id": "P0-4", "title": "Auto-approved commands are not path-contained", "why": "The read-only auto tier (list/cat/grep/find) can touch any file on the machine, and auto-run build tools execute arbitrary project scripts. File tools are contained; commands are not.", "impact": "HIGH", "effort": "M" },
-        { "id": "P0-5", "title": "Web tools bypass the approval engine", "why": "web_fetch and web_search make ungated outbound calls with arbitrary URLs — an exfiltration channel for prompt-injected content. The spec requires every outbound call to be gated.", "impact": "HIGH", "effort": "S" },
-        { "id": "P0-6", "title": "The app database lives inside the source folder", "why": "Re-downloading or cleaning the app folder destroys all sessions and settings. Needs a data directory outside the tree, pre-migration backups, and full export/import.", "impact": "HIGH", "effort": "S-M" },
-        { "id": "P0-7", "title": "Binary files corrupt on checkpoint restore", "why": "Delete/write snapshots read files as text; restoring a deleted binary writes it back corrupted. Must fix before the revert UI ships on top of it.", "impact": "HIGH", "effort": "S" },
-        { "id": "P0-8", "title": "Dead navigation routes on the in-app dashboard", "why": "Start-a-session and recent-activity buttons lead to an unrouted screen (404 placeholder); project rows drop the session id; one dialog links to another dead route. First-run credibility.", "impact": "HIGH", "effort": "S" },
-        { "id": "P0-9", "title": "Rot bundle: shutdown route, workflow YAML, stale docs", "why": "The shell calls a shutdown endpoint that does not exist; a corrupted branch filter sits in both CI workflows; the canonical worklog stops at R37; the API truth doc under-reports ~20 live routes.", "impact": "MED", "effort": "S" }
+        {
+          "id": "P0-1",
+          "title": "Rust shell failed to compile — CI red for 4 straight rounds (FIXED in R43)",
+          "why": "A Tauri API mismatch in the embedded-browser code broke the desktop shell build in R39; the last four CI runs all failed while this dashboard claimed green. R43 found TWO real API misuses (user_data_dir renamed data_directory in Tauri 2; on_navigation is a builder method), fixed both, and watched the runs to success via the API.",
+          "impact": "HIGH",
+          "effort": "S"
+        },
+        {
+          "id": "P0-2",
+          "title": "Status reporting was false-green",
+          "why": "The dashboard and internal status file hand-claimed CI success, 243 tests, and stale milestones while CI was red and 262 tests were green. This rebuild makes it honest; the durable fix is auto-syncing CI status from the GitHub API at build time. (Since R43 this dashboard bakes its CI status from the GitHub Actions API at build time.)",
+          "impact": "HIGH",
+          "effort": "S"
+        },
+        {
+          "id": "P0-3",
+          "title": "Provider keys leak to child processes",
+          "why": "Approved commands inherit the full environment including provider API keys — any executed script or dependency can read them. Must be scrubbed before autonomy work.",
+          "impact": "HIGH",
+          "effort": "S"
+        },
+        {
+          "id": "P0-4",
+          "title": "Auto-approved commands are not path-contained",
+          "why": "The read-only auto tier (list/cat/grep/find) can touch any file on the machine, and auto-run build tools execute arbitrary project scripts. File tools are contained; commands are not.",
+          "impact": "HIGH",
+          "effort": "M"
+        },
+        {
+          "id": "P0-5",
+          "title": "Web tools bypass the approval engine",
+          "why": "web_fetch and web_search make ungated outbound calls with arbitrary URLs — an exfiltration channel for prompt-injected content. The spec requires every outbound call to be gated.",
+          "impact": "HIGH",
+          "effort": "S"
+        },
+        {
+          "id": "P0-6",
+          "title": "The app database lives inside the source folder",
+          "why": "Re-downloading or cleaning the app folder destroys all sessions and settings. Needs a data directory outside the tree, pre-migration backups, and full export/import.",
+          "impact": "HIGH",
+          "effort": "S-M"
+        },
+        {
+          "id": "P0-7",
+          "title": "Binary files corrupt on checkpoint restore",
+          "why": "Delete/write snapshots read files as text; restoring a deleted binary writes it back corrupted. Must fix before the revert UI ships on top of it.",
+          "impact": "HIGH",
+          "effort": "S"
+        },
+        {
+          "id": "P0-8",
+          "title": "Dead navigation routes on the in-app dashboard",
+          "why": "Start-a-session and recent-activity buttons lead to an unrouted screen (404 placeholder); project rows drop the session id; one dialog links to another dead route. First-run credibility.",
+          "impact": "HIGH",
+          "effort": "S"
+        },
+        {
+          "id": "P0-9",
+          "title": "Rot bundle: shutdown route, workflow YAML, stale docs",
+          "why": "The shell calls a shutdown endpoint that does not exist; a corrupted branch filter sits in both CI workflows; the canonical worklog stops at R37; the API truth doc under-reports ~20 live routes. (R43 refreshed the worklog and documented the browser/browser_control routes in the API truth doc.)",
+          "impact": "MED",
+          "effort": "S"
+        }
       ],
       "p1": [
-        { "id": "P1-1", "title": "Revert UI — the endpoint exists with zero callers", "why": "The owner's explicit 'revert to a previous session' ask: a restore endpoint is implemented and tested, but the frontend can only view diffs. Add the button + turn-level revert. Depends on P0-7.", "impact": "HIGH", "effort": "S" },
-        { "id": "P1-2", "title": "Failed main sessions are permanent dead ends", "why": "Retry exists for sub-agents but not for the primary conversation — a provider crash mid-turn bricks the session. Generalize the proven retry pattern; also serialize concurrent turns (a latent interleave bug).", "impact": "HIGH", "effort": "S-M" },
-        { "id": "P1-3", "title": "Session search + uncapped list", "why": "The sidebar caps at 8 sessions per project with a dead '+N more' link; there is no search. At 50+ sessions the product becomes unnavigable.", "impact": "HIGH", "effort": "S" },
-        { "id": "P1-4", "title": "Session fork — branch from any midpoint", "why": "The event log makes forking a single copy-query: duplicate a session up to event N and explore a variant without losing the original. The experimentation workflow the owner described.", "impact": "MED", "effort": "S-M" },
-        { "id": "P1-5", "title": "Session export / import + markdown", "why": "Zero backup or portability story today. JSON export of everything + per-session markdown transcripts.", "impact": "HIGH", "effort": "S-M" },
-        { "id": "P1-6", "title": "Memory system v1", "why": "The spec's primary success criterion — remembering context between sessions — is unimplemented (the policy field is dead). Per-project markdown memory, injected per policy, editable in settings.", "impact": "HIGH", "effort": "M" },
-        { "id": "P1-7", "title": "Auto-compaction for long sessions", "why": "Trim-only context silently amputates the original task mid-run. Summarize-and-continue with sticky context (task, key files, todos) — the researched Cline pattern.", "impact": "HIGH", "effort": "M" },
-        { "id": "P1-8", "title": "Project kinds + per-project settings", "why": "The 'different kinds of projects' vision: research/writing/data/coding kinds with per-kind suggestions, tool defaults, and rules templates; plus a settings dialog (rename, color, default agent/model, approval-rule management) — there is no update route today.", "impact": "HIGH", "effort": "M" },
-        { "id": "P1-9", "title": "Persona merge + agent picker", "why": "Agent system prompts are silently discarded in project sessions (replaced by the project prompt), so all five seeded agents are inert; the chat agent picker was removed with the old top bar and its store field is dead. Merge persona + environment prompts; restore the picker.", "impact": "HIGH", "effort": "S" },
-        { "id": "P1-10", "title": "Edit-reliability ladder", "why": "The #1 agentic friction: edits fail outright on imperfect matches with no did-you-mean. The aider recipe — exact → whitespace-normalized → elision, structured errors with closest-candidate hints, up to 3 reflection retries.", "impact": "HIGH", "effort": "M" },
-        { "id": "P1-11", "title": "Real web search", "why": "Research is bounded by Wikipedia. A pluggable search backend (Tavily / Brave / Exa) keyed like a provider, with the current engine as fallback. Needs the owner's API-key decision (Decision 1).", "impact": "HIGH", "effort": "S-M" },
-        { "id": "P1-12", "title": "Approval queue + remote approve", "why": "Today an unattended agent waits 120s then is denied — not autonomy-ready. A persistent pending-approvals center plus Approve/Deny action buttons on push notifications turns the existing plumbing into a remote control surface.", "impact": "HIGH", "effort": "M" },
-        { "id": "P1-13", "title": "Cost tracking + budgets", "why": "Recorded cost is always zero although the model pricing table exists; a runaway loop has no financial brake. Wire the estimate and add USD caps per run/day.", "impact": "MED", "effort": "S-M" },
-        { "id": "P1-14", "title": "Scheduler MVP (cron)", "why": "The automation pillar's first real code: workflows + schedules tables, one sidecar loop, missed-run policy, manual-run-first. The n8n-pattern blueprint is already written and pre-audited for traps.", "impact": "HIGH", "effort": "M-L" },
-        { "id": "P1-15", "title": "Auto-team run mode", "why": "The flagship multi-agent ask: a cheap orchestrator model planning and delegating to a powerful worker. Types exist; session creation rejects the mode. Needs approval queue + budgets first (P1-12/13).", "impact": "HIGH", "effort": "M-L" }
+        {
+          "id": "P1-1",
+          "title": "Revert UI — the endpoint exists with zero callers",
+          "why": "The owner's explicit 'revert to a previous session' ask: a restore endpoint is implemented and tested, but the frontend can only view diffs. Add the button + turn-level revert. Depends on P0-7.",
+          "impact": "HIGH",
+          "effort": "S"
+        },
+        {
+          "id": "P1-2",
+          "title": "Failed main sessions are permanent dead ends",
+          "why": "Retry exists for sub-agents but not for the primary conversation — a provider crash mid-turn bricks the session. Generalize the proven retry pattern; also serialize concurrent turns (a latent interleave bug).",
+          "impact": "HIGH",
+          "effort": "S-M"
+        },
+        {
+          "id": "P1-3",
+          "title": "Session search + uncapped list",
+          "why": "The sidebar caps at 8 sessions per project with a dead '+N more' link; there is no search. At 50+ sessions the product becomes unnavigable.",
+          "impact": "HIGH",
+          "effort": "S"
+        },
+        {
+          "id": "P1-4",
+          "title": "Session fork — branch from any midpoint",
+          "why": "The event log makes forking a single copy-query: duplicate a session up to event N and explore a variant without losing the original. The experimentation workflow the owner described.",
+          "impact": "MED",
+          "effort": "S-M"
+        },
+        {
+          "id": "P1-5",
+          "title": "Session export / import + markdown",
+          "why": "Zero backup or portability story today. JSON export of everything + per-session markdown transcripts.",
+          "impact": "HIGH",
+          "effort": "S-M"
+        },
+        {
+          "id": "P1-6",
+          "title": "Memory system v1",
+          "why": "The spec's primary success criterion — remembering context between sessions — is unimplemented (the policy field is dead). Per-project markdown memory, injected per policy, editable in settings.",
+          "impact": "HIGH",
+          "effort": "M"
+        },
+        {
+          "id": "P1-7",
+          "title": "Auto-compaction for long sessions",
+          "why": "Trim-only context silently amputates the original task mid-run. Summarize-and-continue with sticky context (task, key files, todos) — the researched Cline pattern.",
+          "impact": "HIGH",
+          "effort": "M"
+        },
+        {
+          "id": "P1-8",
+          "title": "Project kinds + per-project settings",
+          "why": "The 'different kinds of projects' vision: research/writing/data/coding kinds with per-kind suggestions, tool defaults, and rules templates; plus a settings dialog (rename, color, default agent/model, approval-rule management) — there is no update route today.",
+          "impact": "HIGH",
+          "effort": "M"
+        },
+        {
+          "id": "P1-9",
+          "title": "Persona merge + agent picker",
+          "why": "Agent system prompts are silently discarded in project sessions (replaced by the project prompt), so all five seeded agents are inert; the chat agent picker was removed with the old top bar and its store field is dead. Merge persona + environment prompts; restore the picker.",
+          "impact": "HIGH",
+          "effort": "S"
+        },
+        {
+          "id": "P1-10",
+          "title": "Edit-reliability ladder",
+          "why": "The #1 agentic friction: edits fail outright on imperfect matches with no did-you-mean. The aider recipe — exact → whitespace-normalized → elision, structured errors with closest-candidate hints, up to 3 reflection retries.",
+          "impact": "HIGH",
+          "effort": "M"
+        },
+        {
+          "id": "P1-11",
+          "title": "Real web search",
+          "why": "Research is bounded by Wikipedia. A pluggable search backend (Tavily / Brave / Exa) keyed like a provider, with the current engine as fallback. Needs the owner's API-key decision (Decision 1).",
+          "impact": "HIGH",
+          "effort": "S-M"
+        },
+        {
+          "id": "P1-12",
+          "title": "Approval queue + remote approve",
+          "why": "Today an unattended agent waits 120s then is denied — not autonomy-ready. A persistent pending-approvals center plus Approve/Deny action buttons on push notifications turns the existing plumbing into a remote control surface.",
+          "impact": "HIGH",
+          "effort": "M"
+        },
+        {
+          "id": "P1-13",
+          "title": "Cost tracking + budgets",
+          "why": "Recorded cost is always zero although the model pricing table exists; a runaway loop has no financial brake. Wire the estimate and add USD caps per run/day.",
+          "impact": "MED",
+          "effort": "S-M"
+        },
+        {
+          "id": "P1-14",
+          "title": "Scheduler MVP (cron)",
+          "why": "The automation pillar's first real code: workflows + schedules tables, one sidecar loop, missed-run policy, manual-run-first. The n8n-pattern blueprint is already written and pre-audited for traps.",
+          "impact": "HIGH",
+          "effort": "M-L"
+        },
+        {
+          "id": "P1-15",
+          "title": "Auto-team run mode",
+          "why": "The flagship multi-agent ask: a cheap orchestrator model planning and delegating to a powerful worker. Types exist; session creation rejects the mode. Needs approval queue + budgets first (P1-12/13).",
+          "impact": "HIGH",
+          "effort": "M-L"
+        }
       ],
       "p2": [
-        { "id": "P2-1", "title": "MCP client", "why": "The industry-standard extension mechanism — every competitor supports it. Turns any MCP server into a tool; the biggest ecosystem unlock. After approval tiers extend to external tools.", "impact": "HIGH", "effort": "M-L" },
-        { "id": "P2-2", "title": "PTY terminal", "why": "Long-running processes, dev servers, cd persistence, streamed output — an agent that builds but cannot run or verify its app is not autonomous.", "impact": "HIGH", "effort": "M" },
-        { "id": "P2-3", "title": "In-app file editing + diff review", "why": "The file viewer is read-only today. Edit mode with snapshot-first saving keeps checkpoints consistent; open-at-line from chat and the palette.", "impact": "HIGH", "effort": "M" },
-        { "id": "P2-4", "title": "Worktree isolation for parallel sub-agents", "why": "Five parallel agents mutate the same tree — last writer wins. Git worktrees per coding child with a user-approved promotion step.", "impact": "MED", "effort": "M" },
-        { "id": "P2-5", "title": "Per-role sub-agent tool limits", "why": "Children currently get the full toolset minus delegation; a researcher can write files. Role-level allowlists are one settings layer.", "impact": "MED", "effort": "S-M" },
-        { "id": "P2-6", "title": "Vision / image input", "why": "The vision-model field has existed since the first migration and nothing consumes it. Composer attachments → vision model; unlocks screenshot-driven UI verification later.", "impact": "MED", "effort": "M" },
-        { "id": "P2-7", "title": "Agent-driven browser automation", "why": "The embedded browser is user-facing only. Navigate/click/type/screenshot tools feeding the vision model close the research loop.", "impact": "MED", "effort": "M-L" },
-        { "id": "P2-8", "title": "WebSocket event bus", "why": "Two ad-hoc SSE channels today; the designed auth-framed gateway would unify streaming and unlock live automation UI. Design is already an approved ADR.", "impact": "MED", "effort": "M" },
-        { "id": "P2-9", "title": "Packaging & versioning", "why": "Bundling is disabled, no installer, no changelog, no version discipline. Path: fix the Rust build → CI artifact (portable zip) → semver + changelog → launcher consumes releases. Depends on P0-1.", "impact": "HIGH", "effort": "M" },
-        { "id": "P2-10", "title": "Configurable denylist + approvals audit viewer", "why": "The command denylist is hardcoded in source and always-allow rules are written but unmanageable. Two settings screens backed by existing storage.", "impact": "MED", "effort": "S-M" },
-        { "id": "P2-11", "title": "Skills system", "why": "SKILL.md folders with progressive disclosure — the universal standard per the research corpus; the agent form already has a skills field that does nothing.", "impact": "MED", "effort": "M-L" },
-        { "id": "P2-12", "title": "Repo-map context economy", "why": "Token-budgeted tree-sitter repo maps (the aider approach) are the long-term answer to multi-file awareness beyond the symbol index.", "impact": "MED", "effort": "L" },
-        { "id": "P2-13", "title": "QA & polish debt", "why": "Zero Rust tests; the SSE stream route has no unit tests; palette lacks keyboard navigation; unreachable legacy layout code; one prompt rule suppresses parallel tool calls the SDK supports.", "impact": "MED", "effort": "M" }
+        {
+          "id": "P2-1",
+          "title": "MCP client",
+          "why": "The industry-standard extension mechanism — every competitor supports it. Turns any MCP server into a tool; the biggest ecosystem unlock. After approval tiers extend to external tools.",
+          "impact": "HIGH",
+          "effort": "M-L"
+        },
+        {
+          "id": "P2-2",
+          "title": "PTY terminal",
+          "why": "Long-running processes, dev servers, cd persistence, streamed output — an agent that builds but cannot run or verify its app is not autonomous.",
+          "impact": "HIGH",
+          "effort": "M"
+        },
+        {
+          "id": "P2-3",
+          "title": "In-app file editing + diff review",
+          "why": "The file viewer is read-only today. Edit mode with snapshot-first saving keeps checkpoints consistent; open-at-line from chat and the palette.",
+          "impact": "HIGH",
+          "effort": "M"
+        },
+        {
+          "id": "P2-4",
+          "title": "Worktree isolation for parallel sub-agents",
+          "why": "Five parallel agents mutate the same tree — last writer wins. Git worktrees per coding child with a user-approved promotion step.",
+          "impact": "MED",
+          "effort": "M"
+        },
+        {
+          "id": "P2-5",
+          "title": "Per-role sub-agent tool limits",
+          "why": "Children currently get the full toolset minus delegation; a researcher can write files. Role-level allowlists are one settings layer.",
+          "impact": "MED",
+          "effort": "S-M"
+        },
+        {
+          "id": "P2-6",
+          "title": "Vision / image input",
+          "why": "The vision-model field has existed since the first migration and nothing consumes it. Composer attachments → vision model; unlocks screenshot-driven UI verification later.",
+          "impact": "MED",
+          "effort": "M"
+        },
+        {
+          "id": "P2-7",
+          "title": "Agent-driven browser automation",
+          "why": "The embedded browser is user-facing only. Navigate/click/type/screenshot tools feeding the vision model close the research loop.",
+          "impact": "MED",
+          "effort": "M-L"
+        },
+        {
+          "id": "P2-8",
+          "title": "WebSocket event bus",
+          "why": "Two ad-hoc SSE channels today; the designed auth-framed gateway would unify streaming and unlock live automation UI. Design is already an approved ADR.",
+          "impact": "MED",
+          "effort": "M"
+        },
+        {
+          "id": "P2-9",
+          "title": "Packaging & versioning",
+          "why": "Bundling is disabled, no installer, no changelog, no version discipline. Path: fix the Rust build → CI artifact (portable zip) → semver + changelog → launcher consumes releases. Depends on P0-1.",
+          "impact": "HIGH",
+          "effort": "M"
+        },
+        {
+          "id": "P2-10",
+          "title": "Configurable denylist + approvals audit viewer",
+          "why": "The command denylist is hardcoded in source and always-allow rules are written but unmanageable. Two settings screens backed by existing storage.",
+          "impact": "MED",
+          "effort": "S-M"
+        },
+        {
+          "id": "P2-11",
+          "title": "Skills system",
+          "why": "SKILL.md folders with progressive disclosure — the universal standard per the research corpus; the agent form already has a skills field that does nothing.",
+          "impact": "MED",
+          "effort": "M-L"
+        },
+        {
+          "id": "P2-12",
+          "title": "Repo-map context economy",
+          "why": "Token-budgeted tree-sitter repo maps (the aider approach) are the long-term answer to multi-file awareness beyond the symbol index.",
+          "impact": "MED",
+          "effort": "L"
+        },
+        {
+          "id": "P2-13",
+          "title": "QA & polish debt",
+          "why": "Zero Rust tests; the SSE stream route has no unit tests; palette lacks keyboard navigation; unreachable legacy layout code; one prompt rule suppresses parallel tool calls the SDK supports.",
+          "impact": "MED",
+          "effort": "M"
+        }
       ]
     },
     "tracks": [
@@ -247,7 +545,13 @@
         "id": "T1",
         "name": "Foundation & Trust",
         "tagline": "Make every claim true and every click land.",
-        "contents": ["All nine P0s: Rust build fix + CI-watch", "Security hardening: key scrubbing, contained auto tier, gated web tools", "Data out of the source folder + backups + export", "Dead routes repaired, rot bundle cleaned", "Dashboard auto-reports CI truth from the API"],
+        "contents": [
+          "All nine P0s: Rust build fix + CI-watch",
+          "Security hardening: key scrubbing, contained auto tier, gated web tools",
+          "Data out of the source folder + backups + export",
+          "Dead routes repaired, rot bundle cleaned",
+          "Dashboard auto-reports CI truth from the API"
+        ],
         "gets": "Green CI on the desktop shell for the first time since R38; keys that never reach spawned processes; data that survives re-downloading the app; zero dead clicks; a dashboard that cannot lie.",
         "rounds": "1 (dense, but all S/M items)",
         "deps": "None — everything else builds on this."
@@ -256,7 +560,15 @@
         "id": "T2",
         "name": "Session Intelligence",
         "tagline": "Never lose, misplace, or get stuck in a session.",
-        "contents": ["Revert UI + turn-level revert (P1-1)", "Main-session retry + turn serialization (P1-2)", "Session search + uncapped list (P1-3)", "Fork from any midpoint (P1-4)", "Export/import + markdown (P1-5)", "Memory system v1 (P1-6)", "Auto-compaction (P1-7)"],
+        "contents": [
+          "Revert UI + turn-level revert (P1-1)",
+          "Main-session retry + turn serialization (P1-2)",
+          "Session search + uncapped list (P1-3)",
+          "Fork from any midpoint (P1-4)",
+          "Export/import + markdown (P1-5)",
+          "Memory system v1 (P1-6)",
+          "Auto-compaction (P1-7)"
+        ],
         "gets": "One-click revert to any checkpoint; failed sessions reopen; full-text session search; fork-to-experiment; markdown export; agents that remember each project across sessions; long chats that stay smart.",
         "rounds": "2",
         "deps": "Track 1 (binary-snapshot fix precedes the revert UI; durability precedes export)."
@@ -265,7 +577,13 @@
         "id": "T3",
         "name": "Project Customization",
         "tagline": "Different kinds of projects, each behaving differently.",
-        "contents": ["Project kinds with template cards (P1-8)", "Per-project settings dialog + update route", "Persona merge + agent picker (P1-9)", "Prompt library + slash commands", "Per-kind empty states, tool defaults, rules templates"],
+        "contents": [
+          "Project kinds with template cards (P1-8)",
+          "Per-project settings dialog + update route",
+          "Persona merge + agent picker (P1-9)",
+          "Prompt library + slash commands",
+          "Per-kind empty states, tool defaults, rules templates"
+        ],
         "gets": "A Research project behaves differently from a Coding project — different suggestions, tools, and starter rules; per-project model and instructions; agent personalities that actually apply; per-session agent choice.",
         "rounds": "1–2",
         "deps": "Track 1 (light). Can run parallel to Track 2."
@@ -274,7 +592,12 @@
         "id": "T4",
         "name": "Autonomy & Automation",
         "tagline": "Full-fledged automations with human gates controllable from anywhere.",
-        "contents": ["Approval queue + remote approve via push actions (P1-12)", "Cost budgets + spend caps (P1-13)", "Scheduler MVP — cron workflows, manual-run-first (P1-14)", "Auto-team run mode (P1-15)"],
+        "contents": [
+          "Approval queue + remote approve via push actions (P1-12)",
+          "Cost budgets + spend caps (P1-13)",
+          "Scheduler MVP — cron workflows, manual-run-first (P1-14)",
+          "Auto-team run mode (P1-15)"
+        ],
         "gets": "Overnight runs that pause at approval gates and resume from a phone tap; scheduled research digests; enforced spend caps; a self-organizing agent team for large jobs.",
         "rounds": "2–3",
         "deps": "Track 1 hard (gates close first); Track 2 (retry + memory make scheduled runs recoverable); worktree isolation ideally first."
@@ -283,7 +606,13 @@
         "id": "T5",
         "name": "Capability Depth",
         "tagline": "Make the agent genuinely better at the work itself.",
-        "contents": ["Edit-reliability ladder + parallel tool calls un-suppressed (P1-10)", "Real web search backend (P1-11)", "PTY terminal (P2-2)", "In-app file editing + diff review (P2-3)", "Worktree isolation (P2-4) + per-role tool limits (P2-5)"],
+        "contents": [
+          "Edit-reliability ladder + parallel tool calls un-suppressed (P1-10)",
+          "Real web search backend (P1-11)",
+          "PTY terminal (P2-2)",
+          "In-app file editing + diff review (P2-3)",
+          "Worktree isolation (P2-4) + per-role tool limits (P2-5)"
+        ],
         "gets": "Edits that survive imperfect matches; real search results; a terminal that runs and watches the dev server; editing files in-app with diff review; parallel agents that don't stomp each other.",
         "rounds": "2–3",
         "deps": "Track 1; search needs Decision 1 (API key) beforehand."
@@ -292,29 +621,99 @@
         "id": "T6",
         "name": "Ecosystem & Shipping",
         "tagline": "Plug into the tool universe; ship an installer.",
-        "contents": ["MCP client (P2-1)", "Vision input (P2-6) + browser automation (P2-7)", "WebSocket event bus (P2-8)", "Packaging, semver, changelog, release artifacts (P2-9)", "Denylist UI + audit viewer (P2-10), skills (P2-11), repo map (P2-12)"],
+        "contents": [
+          "MCP client (P2-1)",
+          "Vision input (P2-6) + browser automation (P2-7)",
+          "WebSocket event bus (P2-8)",
+          "Packaging, semver, changelog, release artifacts (P2-9)",
+          "Denylist UI + audit viewer (P2-10), skills (P2-11), repo map (P2-12)"
+        ],
         "gets": "Any MCP server becomes a tool; paste screenshots into chat; agent-driven browsing; an installable, versioned app instead of the dev launcher.",
         "rounds": "2–3",
         "deps": "Track 1 (packaging requires the green Rust build); MCP after approval tiers extend (Track 4)."
       }
     ],
     "sequence": [
-      { "round": "R43", "track": "Track 1 — Foundation & Trust", "why": "CI has been red for four straight rounds while the dashboard said green — the project's largest trust liability, and it's almost all S-effort fixes. The security holes must close before automation is built on top of them. Highest payoff-per-effort round in the plan; unblocks everything." },
-      { "round": "R44", "track": "Track 2 pt.1 — Session Intelligence", "why": "The owner's explicit vision sentence: continue a session, revert to a previous session. The backend largely exists — this is mostly surfacing work with immediately visible payoff." },
-      { "round": "R45", "track": "Track 3 — Project Customization", "why": "The other explicit vision clause: different kinds of projects, highly customized. Independent of Track 2, so a clean round; gives R44's memory system concrete per-project hooks." },
-      { "round": "R46", "track": "Track 5 pt.1 — Capability Depth", "why": "Edit ladder + real web search + PTY. Capability compounds: every later automation benefits from reliable edits and real research. Requires Decision 1 by this round." },
-      { "round": "R47", "track": "Track 4 pt.1 — Autonomy gates", "why": "Approval queue + remote approve + budgets. With gates closed (R43) and recovery solid (R44), overnight autonomy becomes safe; the queue turns existing push plumbing into the owner's remote-control surface." },
-      { "round": "R48+", "track": "Track 4 pt.2 → Track 6", "why": "Scheduler MVP and auto-team, then the ecosystem bets in dependency order (MCP → packaging → vision)." }
+      {
+        "round": "R43",
+        "track": "Track 1 — Foundation & Trust",
+        "why": "CI has been red for four straight rounds while the dashboard said green — the project's largest trust liability, and it's almost all S-effort fixes. The security holes must close before automation is built on top of them. Highest payoff-per-effort round in the plan; unblocks everything. — DELIVERED in R43: CI green + API-truthful dashboard; the security holes were deferred by the owner to a later round."
+      },
+      {
+        "round": "R44",
+        "track": "Track 2 pt.1 — Session Intelligence",
+        "why": "The owner's explicit vision sentence: continue a session, revert to a previous session. The backend largely exists — this is mostly surfacing work with immediately visible payoff."
+      },
+      {
+        "round": "R45",
+        "track": "Track 3 — Project Customization",
+        "why": "The other explicit vision clause: different kinds of projects, highly customized. Independent of Track 2, so a clean round; gives R44's memory system concrete per-project hooks."
+      },
+      {
+        "round": "R46",
+        "track": "Track 5 pt.1 — Capability Depth",
+        "why": "Edit ladder + real web search + PTY. Capability compounds: every later automation benefits from reliable edits and real research. Requires Decision 1 by this round."
+      },
+      {
+        "round": "R47",
+        "track": "Track 4 pt.1 — Autonomy gates",
+        "why": "Approval queue + remote approve + budgets. With gates closed (R43) and recovery solid (R44), overnight autonomy becomes safe; the queue turns existing push plumbing into the owner's remote-control surface."
+      },
+      {
+        "round": "R48+",
+        "track": "Track 4 pt.2 → Track 6",
+        "why": "Scheduler MVP and auto-team, then the ecosystem bets in dependency order (MCP → packaging → vision)."
+      }
     ],
     "decisions": [
-      { "n": 1, "title": "Search API provider + key", "detail": "Real web search needs one external API. Tavily (agent-optimized, free tier), Brave (privacy, free tier), or Exa/Serper.", "recommend": "Tavily free tier first — agent-optimized results, drop-in behind the existing tool; revisit if limits bite." },
-      { "n": 2, "title": "Gate the web tools?", "detail": "The audit strongly recommends routing web_fetch/web_search through the approval engine (fail-closed), optionally with per-domain allow rules later.", "recommend": "Yes — gate by default with an always-allow option per domain; aligns with the spec and closes the exfil channel." },
-      { "n": 3, "title": "Track order", "detail": "Confirm the R43–R48 sequence, or pull Automation earlier — accepting a scheduler landing before retry and budgets exist (a footgun the audits warn about).", "recommend": "Keep the proposed order; the foundation round is one dense round and de-risks everything after it." },
-      { "n": 4, "title": "Budget policy defaults", "detail": "Daily/monthly USD caps and breach behavior — hard-stop vs notify-only.", "recommend": "Start notify-only with a hard stop at a generous ceiling; tighten once real burn data exists." },
-      { "n": 5, "title": "Remote-approval surface", "detail": "Web Push action buttons (works from any phone browser, minimal build) vs a full mobile web app (much later).", "recommend": "Push action buttons now; a mobile app only if the button flow proves limiting." },
-      { "n": 6, "title": "Packaging timeline", "detail": "When does the dev launcher retire? Requires the fixed Rust build, bundler config, a content-security policy, and a changelog. Also makes the data-directory fix more urgent.", "recommend": "Fix the build in R43; aim for a first versioned portable zip as the Track 6 milestone, launcher retires after it proves stable." },
-      { "n": 7, "title": "Stay closed-source?", "detail": "The dashboard links only to this public repo; private-repo references are forbidden by its build scanner — the current behavior is correct for a closed-source product.", "recommend": "Stay closed-source; keep the dashboard as the public surface." },
-      { "n": 8, "title": "Initial project kinds", "detail": "Confirm Research / Writing / Data / Coding as the first four kinds, and whether user-defined custom kinds are in scope for v1.", "recommend": "Ship the four built-ins first; custom kinds after the per-project settings land and prove out." }
+      {
+        "n": 1,
+        "title": "Search API provider + key",
+        "detail": "Real web search needs one external API. Tavily (agent-optimized, free tier), Brave (privacy, free tier), or Exa/Serper.",
+        "recommend": "Tavily free tier first — agent-optimized results, drop-in behind the existing tool; revisit if limits bite."
+      },
+      {
+        "n": 2,
+        "title": "Gate the web tools?",
+        "detail": "The audit strongly recommends routing web_fetch/web_search through the approval engine (fail-closed), optionally with per-domain allow rules later.",
+        "recommend": "Yes — gate by default with an always-allow option per domain; aligns with the spec and closes the exfil channel."
+      },
+      {
+        "n": 3,
+        "title": "Track order",
+        "detail": "Confirm the R43–R48 sequence, or pull Automation earlier — accepting a scheduler landing before retry and budgets exist (a footgun the audits warn about).",
+        "recommend": "Keep the proposed order; the foundation round is one dense round and de-risks everything after it."
+      },
+      {
+        "n": 4,
+        "title": "Budget policy defaults",
+        "detail": "Daily/monthly USD caps and breach behavior — hard-stop vs notify-only.",
+        "recommend": "Start notify-only with a hard stop at a generous ceiling; tighten once real burn data exists."
+      },
+      {
+        "n": 5,
+        "title": "Remote-approval surface",
+        "detail": "Web Push action buttons (works from any phone browser, minimal build) vs a full mobile web app (much later).",
+        "recommend": "Push action buttons now; a mobile app only if the button flow proves limiting."
+      },
+      {
+        "n": 6,
+        "title": "Packaging timeline",
+        "detail": "When does the dev launcher retire? Requires the fixed Rust build, bundler config, a content-security policy, and a changelog. Also makes the data-directory fix more urgent.",
+        "recommend": "Fix the build in R43; aim for a first versioned portable zip as the Track 6 milestone, launcher retires after it proves stable."
+      },
+      {
+        "n": 7,
+        "title": "Stay closed-source?",
+        "detail": "The dashboard links only to this public repo; private-repo references are forbidden by its build scanner — the current behavior is correct for a closed-source product.",
+        "recommend": "Stay closed-source; keep the dashboard as the public surface."
+      },
+      {
+        "n": 8,
+        "title": "Initial project kinds",
+        "detail": "Confirm Research / Writing / Data / Coding as the first four kinds, and whether user-defined custom kinds are in scope for v1.",
+        "recommend": "Ship the four built-ins first; custom kinds after the per-project settings land and prove out."
+      }
     ]
   },
   "features": [
@@ -323,14 +722,14 @@
       "icon": "browser",
       "title": "Embedded browser",
       "status": "live",
-      "desc": "Right-sidebar Chromium panel with click-to-open navigation, custom user-agent, and an isolated persistent profile; web/launcher mode opens a new tab of the current browser."
+      "desc": "In-sidebar browser that renders sites like github.com INSIDE the app via a sidecar proxy (per-tab ticket auth, HTML/CSS rewriting, framing headers stripped) — viewport presets 375→1920 + custom + zoom + rotate, and an agent browser_control tool sharing the same state; open-external is an explicit secondary."
     },
     {
       "id": "right-sidebar",
       "icon": "panels",
       "title": "Right-sidebar tabs",
       "status": "live",
-      "desc": "File viewer · Browser · Terminal · Sub-agents — a browser-style tab strip with per-session state and bounds-safe popovers."
+      "desc": "File viewer · Browser · Terminal · Sub-agents — a browser-style tab strip with per-session state and bounds-safe popovers; the Sub-agents panel renders phase cards (task → activity → files → report) with a live timeline and a failed banner + retry."
     },
     {
       "id": "notifications",
@@ -401,6 +800,34 @@
       "title": "Per-project rules files",
       "status": "live",
       "desc": "Rules files in the project folder are auto-loaded into every turn's system prompt — a genuine agent-rules analog, file-based for now."
+    },
+    {
+      "id": "free-model-catalog",
+      "icon": "stream",
+      "title": "Free-model catalog + fallback chain",
+      "status": "live",
+      "desc": "46-entry typed catalog (18 free models; default glm-5.2:free) after the old default died upstream. A persisted Free-only/All filter is shared by Settings, the chat picker, and the sub-agent picker; requests on free models carry a provider-side fallback (primary + openrouter/free) verified live through a 429 storm."
+    },
+    {
+      "id": "subagent-providers",
+      "icon": "agents",
+      "title": "Sub-agent provider settings (temporary)",
+      "status": "live",
+      "desc": "A dedicated Settings tab (explicitly temporary): OpenRouter key slots isolated from the main key (pool slots 2–4) and a tool-capable, free-first sub-agent model override applied to every delegated child turn."
+    },
+    {
+      "id": "error-cards",
+      "icon": "arrow",
+      "title": "Failed-turn error cards + retry",
+      "status": "live",
+      "desc": "Failed turns persist a turn.error event (survives reload) and surface a live error card — model, reason, timestamp, Retry and Copy-details. Abnormal stream disconnects are detected client-side; a deliberate stop is never an error."
+    },
+    {
+      "id": "chat-geometry",
+      "icon": "panels",
+      "title": "Chat geometry engine",
+      "status": "live",
+      "desc": "The chat panel fills its column at every width with a readable 1080px centered column and zero horizontal scrollbars from 700 to 2560px; the right sidebar yields smoothly below the 480px chat floor (the earlier cap regression removed)."
     }
   ],
   "documentation": [
@@ -432,7 +859,7 @@
       "category": "Architecture",
       "title": "API.md + IMPLEMENTED-API.md",
       "path": "docs/architecture/api/",
-      "desc": "52 operations specified; 30 wired + ~24 additional live routes the plan never had (59 total). The truth doc needs the R43 catch-up."
+      "desc": "52 operations specified; ~35 wired plus round additions logged in the truth doc — R43 added the browser session/proxy/history/viewport routes, the browser_control tool, and the orchestration subagent-model field."
     },
     {
       "category": "ADRs",
@@ -490,47 +917,127 @@
     }
   ],
   "quality": {
-    "ci": "failure",
-    "ciNote": "Red since R39 — the Rust shell fails cargo check (one-line Tauri API fix identified, Track 1 / P0-1). JS-side verify (lint + typecheck + tests + build + license) is green locally.",
+    "ci": "success",
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: run 32999942243 on head b826f4a, conclusion success (lint, typecheck, tests, build, e2e, license audit, cargo check on windows-latest). First green streak since R38; the R39–R42 red streak was two real Tauri 2 API bugs, fixed in R43.",
     "suites": [
-      { "name": "agent-core (vitest)", "tests": 180 },
-      { "name": "frontend (vitest + RTL)", "tests": 70 },
-      { "name": "shared (domain types)", "tests": 4 },
-      { "name": "sidecar e2e (built dist)", "tests": 8 }
+      {
+        "name": "unit (agent-core + frontend + shared, vitest)",
+        "tests": 389
+      },
+      {
+        "name": "sidecar e2e (built dist)",
+        "tests": 8
+      }
     ],
     "lint": "clean",
     "typecheck": "clean",
-    "cargoCheck": "failing",
+    "cargoCheck": "green",
     "licenseAudit": {
       "deps": 131,
       "verdict": "CLEAN"
     }
   },
   "milestones": [
-    { "date": "2026-08-21", "label": "Phase 0 — SPEC approved" },
-    { "date": "2026-08-22", "label": "Phase 1 — Architecture + CI" },
-    { "date": "2026-08-22", "label": "Phase 2 — First live agent conversation" },
-    { "date": "2026-08-22", "label": "Setup wizard — owner-approved" },
-    { "date": "2026-08-23", "label": "Agentic MVP — live-proven file writes" },
-    { "date": "2026-08-23", "label": "Streaming + telemetry + design system" },
-    { "date": "2026-08-23", "label": "Governance + ADRs + blueprint" },
-    { "date": "2026-08-23", "label": "Dashboard live on GitHub Pages" },
-    { "date": "2026-08-24", "label": "R27 — 13 tools + web tools + checkpoint revert" },
-    { "date": "2026-08-24", "label": "R28 — UX + Agentic-Quality Overhaul (9 owner directives)" },
-    { "date": "2026-08-24", "label": "R29 — browser-previewable showcase + notification close-out" },
-    { "date": "2026-08-24", "label": "R30 — Windows bug fixes (CORS streaming + sessions) + sidebar/chat redesign" },
-    { "date": "2026-08-24", "label": "R32 — owner-designed UI: floating panels + activity block" },
-    { "date": "2026-08-24", "label": "R33 — hello-loop fix + sidebar/logo system" },
-    { "date": "2026-08-24", "label": "R34 — multi-step tool feedback + settings redesign" },
-    { "date": "2026-08-25", "label": "R35 — thinking + interleaved tool calls" },
-    { "date": "2026-08-25", "label": "R36 — sub-agent orchestration (Phase 3 core)" },
-    { "date": "2026-08-25", "label": "R37 — chat continuity (Working section) + provider rebuild + approvals v1" },
-    { "date": "2026-08-25", "label": "R38 — chat UI polish + sessions correctness + sidebar animation + sub-agent fix + right sidebar" },
-    { "date": "2026-08-25", "label": "R39 — browser-style right sidebar tabs + background sessions + sub-agent multi-turn + custom browser" },
-    { "date": "2026-08-26", "label": "R40 — sub-agent tool allowlist fix + notifications + chat width + sidebar dropdown + embedded browser + click-to-open" },
-    { "date": "2026-08-26", "label": "R41 — dashboard overhaul + embedded Chromium browser + dedicated collapse section + popover bounds + per-session sidebar state + desktop notifications" },
-    { "date": "2026-08-26", "label": "R42 — Web Push with window closed + background turns + stop endpoint + auto-rename fix + restart-safe sessions + launcher auto-open + sidebar polish — 262 tests" },
-    { "date": "2026-08-26", "label": "R42 audit — five-agent deep review: benchmark, 37 gaps, six-track roadmap published (this page)" }
+    {
+      "date": "2026-08-21",
+      "label": "Phase 0 — SPEC approved"
+    },
+    {
+      "date": "2026-08-22",
+      "label": "Phase 1 — Architecture + CI"
+    },
+    {
+      "date": "2026-08-22",
+      "label": "Phase 2 — First live agent conversation"
+    },
+    {
+      "date": "2026-08-22",
+      "label": "Setup wizard — owner-approved"
+    },
+    {
+      "date": "2026-08-23",
+      "label": "Agentic MVP — live-proven file writes"
+    },
+    {
+      "date": "2026-08-23",
+      "label": "Streaming + telemetry + design system"
+    },
+    {
+      "date": "2026-08-23",
+      "label": "Governance + ADRs + blueprint"
+    },
+    {
+      "date": "2026-08-23",
+      "label": "Dashboard live on GitHub Pages"
+    },
+    {
+      "date": "2026-08-24",
+      "label": "R27 — 13 tools + web tools + checkpoint revert"
+    },
+    {
+      "date": "2026-08-24",
+      "label": "R28 — UX + Agentic-Quality Overhaul (9 owner directives)"
+    },
+    {
+      "date": "2026-08-24",
+      "label": "R29 — browser-previewable showcase + notification close-out"
+    },
+    {
+      "date": "2026-08-24",
+      "label": "R30 — Windows bug fixes (CORS streaming + sessions) + sidebar/chat redesign"
+    },
+    {
+      "date": "2026-08-24",
+      "label": "R32 — owner-designed UI: floating panels + activity block"
+    },
+    {
+      "date": "2026-08-24",
+      "label": "R33 — hello-loop fix + sidebar/logo system"
+    },
+    {
+      "date": "2026-08-24",
+      "label": "R34 — multi-step tool feedback + settings redesign"
+    },
+    {
+      "date": "2026-08-25",
+      "label": "R35 — thinking + interleaved tool calls"
+    },
+    {
+      "date": "2026-08-25",
+      "label": "R36 — sub-agent orchestration (Phase 3 core)"
+    },
+    {
+      "date": "2026-08-25",
+      "label": "R37 — chat continuity (Working section) + provider rebuild + approvals v1"
+    },
+    {
+      "date": "2026-08-25",
+      "label": "R38 — chat UI polish + sessions correctness + sidebar animation + sub-agent fix + right sidebar"
+    },
+    {
+      "date": "2026-08-25",
+      "label": "R39 — browser-style right sidebar tabs + background sessions + sub-agent multi-turn + custom browser"
+    },
+    {
+      "date": "2026-08-26",
+      "label": "R40 — sub-agent tool allowlist fix + notifications + chat width + sidebar dropdown + embedded browser + click-to-open"
+    },
+    {
+      "date": "2026-08-26",
+      "label": "R41 — dashboard overhaul + embedded Chromium browser + dedicated collapse section + popover bounds + per-session sidebar state + desktop notifications"
+    },
+    {
+      "date": "2026-08-26",
+      "label": "R42 — Web Push with window closed + background turns + stop endpoint + auto-rename fix + restart-safe sessions + launcher auto-open + sidebar polish — 262 tests"
+    },
+    {
+      "date": "2026-08-26",
+      "label": "R42 audit — five-agent deep review: benchmark, 37 gaps, six-track roadmap published (this page)"
+    },
+    {
+      "date": "2026-08-26",
+      "label": "R43 — embedded in-app proxy browser + browser_control agent tool · free-model catalog + fallback chain · turn-error cards with retry · chat geometry · sub-agent provider section · CI green again — 397 tests"
+    }
   ],
   "chips": [
     "Tauri 2 (Rust shell)",
@@ -539,24 +1046,93 @@
     "SQLite (WAL, better-sqlite3)",
     "Vercel AI SDK v7",
     "BYO provider key (OpenRouter · Anthropic · OpenAI · Google · custom)",
-    "OpenRouter ox-alpha (1M ctx, 0-cost)",
+    "Free-first OpenRouter models (glm-5.2:free + auto fallback)",
     "Vitest + RTL + sidecar E2E",
     "pnpm 11 workspaces",
     "GitHub Actions CI (windows-latest + cargo check)"
   ],
   "screenshots": {
     "rounds": [
-      { "round": 27, "date": "2026-08-24", "url": "screenshots/round-27.zip", "count": 22, "size_kb": 1338 },
-      { "round": 28, "date": "2026-08-24", "url": "screenshots/round-28.zip", "count": 8, "size_kb": 675 },
-      { "round": 29, "date": "2026-08-24", "url": "screenshots/round-29.zip", "count": 8, "size_kb": 1848, "scope": "Next.js showcase hub (browser-previewable on the sandbox dev port)" },
-      { "round": 30, "date": "2026-08-24", "url": "screenshots/round-30.zip", "count": 9, "size_kb": 418, "scope": "Real product testing (live streaming, sessions, sidebar)" },
-      { "round": 32, "date": "2026-08-24", "url": "screenshots/round-32.zip", "count": 6, "size_kb": 385, "scope": "Owner-designed UI implementation (live product testing)" },
-      { "round": 33, "date": "2026-08-24", "url": "screenshots/round-33.zip", "count": 8, "size_kb": 443, "scope": "Behavioral fixes + sidebar system (live product testing)" },
-      { "round": 34, "date": "2026-08-24", "url": "screenshots/round-34.zip", "count": 9, "size_kb": 814, "scope": "Multi-step proof + settings redesign" },
-      { "round": 35, "date": "2026-08-25", "url": "screenshots/round-35.zip", "count": 7, "size_kb": 617, "scope": "Thinking + interleaving proof" },
-      { "round": 36, "date": "2026-08-25", "url": "screenshots/round-36.zip", "count": 8, "size_kb": 673, "scope": "Sub-agent orchestration proof" },
-      { "round": 37, "date": "2026-08-25", "url": "screenshots/round-37.zip", "count": 10, "size_kb": 814, "scope": "Chat continuity (Working section) + provider rebuild + approvals" }
+      {
+        "round": 27,
+        "date": "2026-08-24",
+        "url": "screenshots/round-27.zip",
+        "count": 22,
+        "size_kb": 1338
+      },
+      {
+        "round": 28,
+        "date": "2026-08-24",
+        "url": "screenshots/round-28.zip",
+        "count": 8,
+        "size_kb": 675
+      },
+      {
+        "round": 29,
+        "date": "2026-08-24",
+        "url": "screenshots/round-29.zip",
+        "count": 8,
+        "size_kb": 1848,
+        "scope": "Next.js showcase hub (browser-previewable on the sandbox dev port)"
+      },
+      {
+        "round": 30,
+        "date": "2026-08-24",
+        "url": "screenshots/round-30.zip",
+        "count": 9,
+        "size_kb": 418,
+        "scope": "Real product testing (live streaming, sessions, sidebar)"
+      },
+      {
+        "round": 32,
+        "date": "2026-08-24",
+        "url": "screenshots/round-32.zip",
+        "count": 6,
+        "size_kb": 385,
+        "scope": "Owner-designed UI implementation (live product testing)"
+      },
+      {
+        "round": 33,
+        "date": "2026-08-24",
+        "url": "screenshots/round-33.zip",
+        "count": 8,
+        "size_kb": 443,
+        "scope": "Behavioral fixes + sidebar system (live product testing)"
+      },
+      {
+        "round": 34,
+        "date": "2026-08-24",
+        "url": "screenshots/round-34.zip",
+        "count": 9,
+        "size_kb": 814,
+        "scope": "Multi-step proof + settings redesign"
+      },
+      {
+        "round": 35,
+        "date": "2026-08-25",
+        "url": "screenshots/round-35.zip",
+        "count": 7,
+        "size_kb": 617,
+        "scope": "Thinking + interleaving proof"
+      },
+      {
+        "round": 36,
+        "date": "2026-08-25",
+        "url": "screenshots/round-36.zip",
+        "count": 8,
+        "size_kb": 673,
+        "scope": "Sub-agent orchestration proof"
+      },
+      {
+        "round": 37,
+        "date": "2026-08-25",
+        "url": "screenshots/round-37.zip",
+        "count": 10,
+        "size_kb": 814,
+        "scope": "Chat continuity (Working section) + provider rebuild + approvals"
+      }
     ],
     "total": 85
-  }
+  },
+  "lastUpdated": "2026-08-26T18:37:00Z"
 }
