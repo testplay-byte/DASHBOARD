@@ -828,6 +828,41 @@
       "title": "Chat geometry engine",
       "status": "live",
       "desc": "The chat panel fills its column at every width with a readable 1080px centered column and zero horizontal scrollbars from 700 to 2560px; the right sidebar yields smoothly below the 480px chat floor (the earlier cap regression removed)."
+    },
+    {
+      "id": "memory-system",
+      "icon": "spark",
+      "title": "Agent memory system",
+      "status": "live",
+      "desc": "Persistent per-project memory: memory_save / memory_recall / memory_list tools, a digest auto-injected into every turn's prompt (proved live: a no-tools turn recalled a saved decision), and a right-sidebar Memory tab with kind chips and delete."
+    },
+    {
+      "id": "real-web-search",
+      "icon": "globe",
+      "title": "Real web search",
+      "status": "live",
+      "desc": "web_search now queries the real web via DuckDuckGo (html + lite endpoints, ad/self-link filtering, uddg redirect unwrapping) with an honest MediaWiki fallback — live-verified in-turn with 8 real results."
+    },
+    {
+      "id": "session-management",
+      "icon": "panels",
+      "title": "Session search · fork · revert",
+      "status": "live",
+      "desc": "Full-text search across session titles AND chat history (?q=), one-click fork (copies the whole event log to a new top-level session), and revert-to-message with a confirm dialog (truncates the event log and appends a marker)."
+    },
+    {
+      "id": "streaming-terminal",
+      "icon": "terminal",
+      "title": "Streaming terminal",
+      "status": "live",
+      "desc": "The right-sidebar terminal streams stdout/stderr chunks live over SSE with heartbeats, a Stop button, exit-code footers (green/red), shrink-only timeout/output-cap overrides, and an automatic sync-route fallback."
+    },
+    {
+      "id": "credentials-subkeys",
+      "icon": "lock",
+      "title": "Sub-agent keys auto-provisioned",
+      "status": "live",
+      "desc": "The launcher reads three optional sub-agent pool keys from its local credentials file (auto-appends them if missing), distributes them to the OS secure stores, and injects pool slots 2/3/4 — the Sub-agents settings tab shows them with zero manual pasting."
     }
   ],
   "documentation": [
@@ -918,11 +953,11 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at build time: run 32999942243 on head b826f4a, conclusion success (lint, typecheck, tests, build, e2e, license audit, cargo check on windows-latest). First green streak since R38; the R39–R42 red streak was two real Tauri 2 API bugs, fixed in R43.",
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: run 33042592310 on head 6bd86c8, conclusion success. R44 note: the streaming-terminal test had a Windows-only CRLF assertion that briefly reddened waves 2-3 (caught by the docs agent, fixed + regression-pinned the same round); golden rule 3 (watch CI to success) now fully honored.",
     "suites": [
       {
         "name": "unit (agent-core + frontend + shared, vitest)",
-        "tests": 389
+        "tests": 465
       },
       {
         "name": "sidecar e2e (built dist)",
@@ -1037,6 +1072,10 @@
     {
       "date": "2026-08-26",
       "label": "R43 — embedded in-app proxy browser + browser_control agent tool · free-model catalog + fallback chain · turn-error cards with retry · chat geometry · sub-agent provider section · CI green again — 397 tests"
+    },
+    {
+      "date": "2026-08-27",
+      "label": "R44 — complete-the-environment round: agent memory system · real web search (DDG) · session search/fork/revert · streaming terminal · sub-agent keys auto-provisioned from the launcher's local file · VLM-driven UI pass (2 real bugs found+fixed: dead recent-activity route, unreachable Sub-agents tab) · MAINTENANCE.md — 473 tests"
     }
   ],
   "chips": [
@@ -1134,5 +1173,5 @@
     ],
     "total": 85
   },
-  "lastUpdated": "2026-08-26T18:37:00Z"
+  "lastUpdated": "2026-08-27T05:33:34.977Z"
 }

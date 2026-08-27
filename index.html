@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260826t183901239z">
+<link rel="stylesheet" href="assets/style.css?v=20260827t053350550z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -95,7 +95,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-08-26 18:39 UTC</span>
+      <span class="updated-time">2026-08-27 05:33 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -104,7 +104,7 @@
   <section class="stats-grid reveal" aria-label="Key numbers">
       <article class="stat-card card">
         <span class="stat-label">Tests passing</span>
-        <span class="stat-value"><span data-count="397">397</span></span>
+        <span class="stat-value"><span data-count="473">473</span></span>
         <span class="stat-sub">2 suites · 0 skipped · unit + e2e</span>
       </article>
       <article class="stat-card card">
@@ -114,8 +114,8 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="25">25</span></span>
-        <span class="stat-sub">Aug 21 – Aug 26 · 6-day run</span>
+        <span class="stat-value"><span data-count="26">26</span></span>
+        <span class="stat-sub">Aug 21 – Aug 27 · 7-day run</span>
       </article>
       <article class="stat-card card">
         <span class="stat-label">Dependencies audited</span>
@@ -319,6 +319,46 @@
           <span class="feature-status">live</span>
         </div>
         <p class="feature-desc">The chat panel fills its column at every width with a readable 1080px centered column and zero horizontal scrollbars from 700 to 2560px; the right sidebar yields smoothly below the 480px chat floor (the earlier cap regression removed).</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">Agent memory system</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Persistent per-project memory: memory_save / memory_recall / memory_list tools, a digest auto-injected into every turn&#39;s prompt (proved live: a no-tools turn recalled a saved decision), and a right-sidebar Memory tab with kind chips and delete.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+          <h3 class="feature-title">Real web search</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">web_search now queries the real web via DuckDuckGo (html + lite endpoints, ad/self-link filtering, uddg redirect unwrapping) with an honest MediaWiki fallback — live-verified in-turn with 8 real results.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="15" y1="4" x2="15" y2="20"/><line x1="3" y1="9" x2="15" y2="9"/><line x1="3" y1="13" x2="15" y2="13"/><line x1="3" y1="17" x2="15" y2="17"/></svg></span>
+          <h3 class="feature-title">Session search · fork · revert</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Full-text search across session titles AND chat history (?q=), one-click fork (copies the whole event log to a new top-level session), and revert-to-message with a confirm dialog (truncates the event log and appends a marker).</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg></span>
+          <h3 class="feature-title">Streaming terminal</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The right-sidebar terminal streams stdout/stderr chunks live over SSE with heartbeats, a Stop button, exit-code footers (green/red), shrink-only timeout/output-cap overrides, and an automatic sync-route fallback.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">Sub-agent keys auto-provisioned</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The launcher reads three optional sub-agent pool keys from its local credentials file (auto-appends them if missing), distributes them to the OS secure stores, and injects pool slots 2/3/4 — the Sub-agents settings tab shows them with zero manual pasting.</p>
       </article>
     </div>
   </section>
@@ -1380,7 +1420,7 @@
       <div>
         <h2 id="quality-title">Quality</h2>
         <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
-        <p class="quality-note">Green on main — verified from the GitHub Actions API at build time: run 32999942243 on head b826f4a, conclusion success (lint, typecheck, tests, build, e2e, license audit, cargo check on windows-latest). First green streak since R38; the R39–R42 red streak was two real Tauri 2 API bugs, fixed in R43.</p>
+        <p class="quality-note">Green on main — verified from the GitHub Actions API at build time: run 33042592310 on head 6bd86c8, conclusion success. R44 note: the streaming-terminal test had a Windows-only CRLF assertion that briefly reddened waves 2-3 (caught by the docs agent, fixed + regression-pinned the same round); golden rule 3 (watch CI to success) now fully honored.</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -1390,9 +1430,9 @@
         <div class="suite-row">
           <div class="suite-head">
             <span class="suite-name">unit (agent-core + frontend + shared, vitest)</span>
-            <span class="suite-count"><strong data-count="389">389</strong> tests</span>
+            <span class="suite-count"><strong data-count="465">465</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="389" aria-valuemin="0" aria-valuemax="389" aria-label="unit (agent-core + frontend + shared, vitest) test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="465" aria-valuemin="0" aria-valuemax="465" aria-label="unit (agent-core + frontend + shared, vitest) test count relative to largest suite">
             <div class="bar-fill" data-progress="100" style="--w:100%"></div>
           </div>
         </div>
@@ -1401,13 +1441,13 @@
             <span class="suite-name">sidecar e2e (built dist)</span>
             <span class="suite-count"><strong data-count="8">8</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="8" aria-valuemin="0" aria-valuemax="389" aria-label="sidecar e2e (built dist) test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="8" aria-valuemin="0" aria-valuemax="465" aria-label="sidecar e2e (built dist) test count relative to largest suite">
             <div class="bar-fill" data-progress="3" style="--w:3%"></div>
           </div>
         </div>
         <div class="suites-total">
           <span>Total</span>
-          <strong class="mono"><span data-count="397">397</span> tests passing · <span data-count="0">0</span> skipped</strong>
+          <strong class="mono"><span data-count="473">473</span> tests passing · <span data-count="0">0</span> skipped</strong>
         </div>
       </article>
       <div class="checks-col">
@@ -1725,9 +1765,14 @@
           <span class="timeline-label">R42 audit — five-agent deep review: benchmark, 37 gaps, six-track roadmap published (this page)</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-08-26</span>
           <span class="timeline-label">R43 — embedded in-app proxy browser + browser_control agent tool · free-model catalog + fallback chain · turn-error cards with retry · chat geometry · sub-agent provider section · CI green again — 397 tests</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-08-27</span>
+          <span class="timeline-label">R44 — complete-the-environment round: agent memory system · real web search (DDG) · session search/fork/revert · streaming terminal · sub-agent keys auto-provisioned from the launcher&#39;s local file · VLM-driven UI pass (2 real bugs found+fixed: dead recent-activity route, unreachable Sub-agents tab) · MAINTENANCE.md — 473 tests</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -1822,12 +1867,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-08-26 18:39 UTC · curated public data only — no product source · Acute v0.2.0</p>
+    <p class="footer-note">Generated 2026-08-27 05:33 UTC · curated public data only — no product source · Acute v0.2.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-08-26T18:39:01.239Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"}],"total":85}}</script>
-<script src="assets/app.js?v=20260826t183901239z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-08-27T05:33:50.550Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"}],"total":85}}</script>
+<script src="assets/app.js?v=20260827t053350550z" defer></script>
 </body>
 </html>
