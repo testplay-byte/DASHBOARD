@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260827t053406540z">
+<link rel="stylesheet" href="assets/style.css?v=20260828t154437012z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -78,7 +78,7 @@
       <div class="hero-eyebrow">
         <span class="hero-availability">Private build · Windows 10 x64</span>
         <span class="hero-dot" aria-hidden="true">·</span>
-        <span class="hero-version">v0.2.0</span>
+        <span class="hero-version">v0.45.0</span>
       </div>
       <h1 id="hero-title">Acute</h1>
       <p class="tagline">Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.</p>
@@ -95,7 +95,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-08-27 05:34 UTC</span>
+      <span class="updated-time">2026-08-28 15:44 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -104,7 +104,7 @@
   <section class="stats-grid reveal" aria-label="Key numbers">
       <article class="stat-card card">
         <span class="stat-label">Tests passing</span>
-        <span class="stat-value"><span data-count="473">473</span></span>
+        <span class="stat-value"><span data-count="565">565</span></span>
         <span class="stat-sub">2 suites · 0 skipped · unit + e2e</span>
       </article>
       <article class="stat-card card">
@@ -114,12 +114,12 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="26">26</span></span>
-        <span class="stat-sub">Aug 21 – Aug 27 · 7-day run</span>
+        <span class="stat-value"><span data-count="27">27</span></span>
+        <span class="stat-sub">Aug 21 – Aug 28 · 8-day run</span>
       </article>
       <article class="stat-card card">
         <span class="stat-label">Dependencies audited</span>
-        <span class="stat-value"><span data-count="131">131</span></span>
+        <span class="stat-value"><span data-count="133">133</span></span>
         <span class="stat-sub">license audit · CLEAN</span>
       </article>
   </section>
@@ -359,6 +359,38 @@
           <span class="feature-status">live</span>
         </div>
         <p class="feature-desc">The launcher reads three optional sub-agent pool keys from its local credentials file (auto-appends them if missing), distributes them to the OS secure stores, and injects pool slots 2/3/4 — the Sub-agents settings tab shows them with zero manual pasting.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <h3 class="feature-title">Security round: audit P0-3/4/5 closed</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Spawned children get an allowlist environment and never inherit the provider keys; auto-approved commands are contained to the project root (reading outside it now asks first); web fetches pass a host gate (default doc/source allowlist + per-project always-allow hosts, interactive approval) and search queries are secret-scrubbed before leaving the machine — each control live-verified through a real model turn.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg></span>
+          <h3 class="feature-title">Interactive terminal sessions</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Persistent shells per project: a real PTY engine (node-pty, pure-Node pipe fallback), a Run | Shell mode toggle with command history, live streaming with backlog replay for late viewers, idle reaping and per-project caps — shells never inherit secrets and never outlive the app.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></span>
+          <h3 class="feature-title">Packaging v1: version discipline + release workflow</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The app version is single-sourced at 0.45.0 across all four manifests and gated in CI; a Keep-a-Changelog changelog spans 0.37→0.45; the release workflow assembles a CRLF-verified launcher-kit artifact (built and verified on CI) and opens a draft release on version tags. The bundled installer is the documented next step.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="15" y1="4" x2="15" y2="20"/><line x1="3" y1="9" x2="15" y2="9"/><line x1="3" y1="13" x2="15" y2="13"/><line x1="3" y1="17" x2="15" y2="17"/></svg></span>
+          <h3 class="feature-title">Session manager reachable + mobile drawer</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The VLM verification pass found the session search/fork screen had shipped unrouted — unreachable at any size — and that phones had no navigation drawer at all (69px of content at 375px). Both fixed: the screen is live with sidebar navigation, and below desktop widths the sidebar is an overlay drawer (351px of content, auto-closing).</p>
       </article>
     </div>
   </section>
@@ -663,35 +695,35 @@
         <article class="gap-item">
           <div class="gap-item-head">
             <span class="gap-id mono">P0-3</span>
-            <h4 class="gap-title">Provider keys leak to child processes</h4>
+            <h4 class="gap-title">Provider keys leak to child processes (FIXED in R45)</h4>
             <span class="gap-chips">
               <span class="gap-chip chip-impact-high">HIGH</span>
               <span class="gap-chip chip-effort-s">S</span>
             </span>
           </div>
-          <p class="gap-why">Approved commands inherit the full environment including provider API keys — any executed script or dependency can read them. Must be scrubbed before autonomy work.</p>
+          <p class="gap-why">Approved commands inherit the full environment including provider API keys — any executed script or dependency can read them. Must be scrubbed before autonomy work. R45 closed it: every spawned child gets an ALLOWLIST environment (buildChildEnv at all six spawn sites) — a live child probe prints nulls for every secret-bearing variable.</p>
         </article>
         <article class="gap-item">
           <div class="gap-item-head">
             <span class="gap-id mono">P0-4</span>
-            <h4 class="gap-title">Auto-approved commands are not path-contained</h4>
+            <h4 class="gap-title">Auto-approved commands are not path-contained (FIXED in R45)</h4>
             <span class="gap-chips">
               <span class="gap-chip chip-impact-high">HIGH</span>
               <span class="gap-chip chip-effort-m">M</span>
             </span>
           </div>
-          <p class="gap-why">The read-only auto tier (list/cat/grep/find) can touch any file on the machine, and auto-run build tools execute arbitrary project scripts. File tools are contained; commands are not.</p>
+          <p class="gap-why">The read-only auto tier (list/cat/grep/find) can touch any file on the machine, and auto-run build tools execute arbitrary project scripts. File tools are contained; commands are not. R45 closed it: the auto tier is now contained to the project root — outside-root, home-relative, parent-escape, and other-drive paths demote the command to the ask tier (cat /etc/passwd asks now); explicit always-allow rules still win.</p>
         </article>
         <article class="gap-item">
           <div class="gap-item-head">
             <span class="gap-id mono">P0-5</span>
-            <h4 class="gap-title">Web tools bypass the approval engine</h4>
+            <h4 class="gap-title">Web tools bypass the approval engine (FIXED in R45)</h4>
             <span class="gap-chips">
               <span class="gap-chip chip-impact-high">HIGH</span>
               <span class="gap-chip chip-effort-s">S</span>
             </span>
           </div>
-          <p class="gap-why">web_fetch and web_search make ungated outbound calls with arbitrary URLs — an exfiltration channel for prompt-injected content. The spec requires every outbound call to be gated.</p>
+          <p class="gap-why">web_fetch and web_search make ungated outbound calls with arbitrary URLs — an exfiltration channel for prompt-injected content. The spec requires every outbound call to be gated. R45 closed it: fetches and agent-driven navigation pass a host gate — a default documentation/source allowlist plus per-project always-allow host rules with the same interactive approval commands use; search stays friction-free but queries are secret-scrubbed first.</p>
         </article>
         <article class="gap-item">
           <div class="gap-item-head">
@@ -1362,17 +1394,17 @@
     <div class="now-card">
       <span class="now-label">Now</span>
       <div class="now-body">
-        <h3 class="now-title">R43 delivered — embedded in-app browser, free-model resilience, error cards + retry, CI green again; awaiting the owner&#39;s verdict</h3>
-        <p class="now-detail">The owner&#39;s 9-item R42 verdict list shipped: a real embedded browser that renders sites like github.com inside the right sidebar (sidecar proxy + viewport presets 375–1920 + an agent browser tool), the dead default model replaced by a 46-entry catalog (18 free; default glm-5.2:free) with a provider-side free-model fallback chain, failed turns now persist an error card with Retry, chat geometry fixed across 700–2560px, a temporary sub-agent key/model section, and the Rust CI failure fixed at the root (two real Tauri 2 API bugs). CI status on this page is baked from the GitHub Actions API, never hand-claimed. Next: the owner&#39;s verdict on R43, then the deferred queue — security hardening, packaging, memory system, PTY terminal, real search API.</p>
+        <h3 class="now-title">R45 delivered — security round closed the last three deferred audit holes, interactive terminal sessions shipped, packaging v1; awaiting the owner&#39;s verdict</h3>
+        <p class="now-detail">The owner-deferred security work landed, each control live-verified through a real model turn: spawned children no longer inherit provider keys (allowlist environment at every spawn site), auto-approved commands are contained to the project root (cat /etc/passwd now asks instead of running), and web fetches pass a host gate (default doc/source allowlist, per-project always-allow hosts, interactive approval) with search queries secret-scrubbed before leaving the machine. The terminal gained persistent interactive shells (node-pty engine with a pure-Node fallback, a Run | Shell toggle, command history, backlog replay). Version discipline is single-sourced at 0.45.0 with a changelog and a release workflow whose launcher-kit artifact has been built and verified on CI. CI status on this page is baked from the GitHub Actions API, never hand-claimed. Next: the owner&#39;s verdict on R45, then the bundled-installer workstream (the release kit is the launcher flow today) and memory relevance ranking.</p>
       </div>
       <span class="now-live"><span class="live-dot" aria-hidden="true"></span>current focus</span>
     </div>
     <ul class="upcoming-list">
       <li class="upcoming-item">
-        <span class="status-chip status-planned">partially delivered (R43)</span>
+        <span class="status-chip status-planned">partially delivered (R43 + R45)</span>
         <div class="upcoming-body">
           <span class="upcoming-phase">Track 1 — Foundation &amp; Trust (recommended R43)</span>
-          <span class="upcoming-note">R43 shipped the Rust/CI fix and made this dashboard API-truthful; remaining: the three security holes (deferred by the owner), the data-directory move, and dead-route repairs. All small fixes, highest payoff.</span>
+          <span class="upcoming-note">R43 shipped the Rust/CI fix and made this dashboard API-truthful; R45 closed the three security holes (P0-3/4/5). Remaining: the data-directory move (P0-6) and binary-safe checkpoint restore (P0-7). Small fixes, high payoff.</span>
         </div>
       </li>
       <li class="upcoming-item">
@@ -1400,7 +1432,7 @@
         <span class="status-chip status-ownergated">owner-gated</span>
         <div class="upcoming-body">
           <span class="upcoming-phase">Track 5 — Capability Depth (recommended R46)</span>
-          <span class="upcoming-note">Edit-reliability ladder, real web search, PTY terminal, in-app file editing.</span>
+          <span class="upcoming-note">Edit-reliability ladder, real web search (delivered R44), PTY terminal (delivered R45), in-app file editing.</span>
         </div>
       </li>
       <li class="upcoming-item">
@@ -1420,7 +1452,7 @@
       <div>
         <h2 id="quality-title">Quality</h2>
         <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
-        <p class="quality-note">Green on main — verified from the GitHub Actions API at build time: run 33042592310 on head 6bd86c8, conclusion success. R44 note: the streaming-terminal test had a Windows-only CRLF assertion that briefly reddened waves 2-3 (caught by the docs agent, fixed + regression-pinned the same round); golden rule 3 (watch CI to success) now fully honored.</p>
+        <p class="quality-note">Green on main — verified from the GitHub Actions API at build time: run 33184750437 on head 6f75087, conclusion success. That run was dispatched manually because the push itself failed to auto-trigger one (the dispatch fallback is standing protocol); the prior push run 33181641242 on fd70c5b was also success, and the one-off Release workflow ran green too (run 33182499163 — it produced the v0.45.0 launcher-kit artifact).</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -1430,9 +1462,9 @@
         <div class="suite-row">
           <div class="suite-head">
             <span class="suite-name">unit (agent-core + frontend + shared, vitest)</span>
-            <span class="suite-count"><strong data-count="465">465</strong> tests</span>
+            <span class="suite-count"><strong data-count="557">557</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="465" aria-valuemin="0" aria-valuemax="465" aria-label="unit (agent-core + frontend + shared, vitest) test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="557" aria-valuemin="0" aria-valuemax="557" aria-label="unit (agent-core + frontend + shared, vitest) test count relative to largest suite">
             <div class="bar-fill" data-progress="100" style="--w:100%"></div>
           </div>
         </div>
@@ -1441,13 +1473,13 @@
             <span class="suite-name">sidecar e2e (built dist)</span>
             <span class="suite-count"><strong data-count="8">8</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="8" aria-valuemin="0" aria-valuemax="465" aria-label="sidecar e2e (built dist) test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="8" aria-valuemin="0" aria-valuemax="557" aria-label="sidecar e2e (built dist) test count relative to largest suite">
             <div class="bar-fill" data-progress="3" style="--w:3%"></div>
           </div>
         </div>
         <div class="suites-total">
           <span>Total</span>
-          <strong class="mono"><span data-count="473">473</span> tests passing · <span data-count="0">0</span> skipped</strong>
+          <strong class="mono"><span data-count="565">565</span> tests passing · <span data-count="0">0</span> skipped</strong>
         </div>
       </article>
       <div class="checks-col">
@@ -1488,7 +1520,7 @@
           <div class="check-body">
             <span class="check-label">License audit</span>
             <span class="check-value value-ok">CLEAN</span>
-            <span class="check-sub">131 dependencies reviewed</span>
+            <span class="check-sub">133 dependencies reviewed</span>
           </div>
         </article>
       </div>
@@ -1770,9 +1802,14 @@
           <span class="timeline-label">R43 — embedded in-app proxy browser + browser_control agent tool · free-model catalog + fallback chain · turn-error cards with retry · chat geometry · sub-agent provider section · CI green again — 397 tests</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-08-27</span>
           <span class="timeline-label">R44 — complete-the-environment round: agent memory system · real web search (DDG) · session search/fork/revert · streaming terminal · sub-agent keys auto-provisioned from the launcher&#39;s local file · VLM-driven UI pass (2 real bugs found+fixed: dead recent-activity route, unreachable Sub-agents tab) · MAINTENANCE.md — 473 tests</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-08-28</span>
+          <span class="timeline-label">R45 — security round: the last three deferred audit holes closed (child-env scrubbing, path-contained auto tier, host-gated web tools) · interactive terminal sessions (Run | Shell) · packaging v1 (version 0.45.0, changelog, verified release workflow) · session manager routed + mobile navigation drawer — 565 tests</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -1867,12 +1904,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-08-27 05:34 UTC · curated public data only — no product source · Acute v0.2.0</p>
+    <p class="footer-note">Generated 2026-08-28 15:44 UTC · curated public data only — no product source · Acute v0.45.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-08-27T05:34:06.540Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"}],"total":85}}</script>
-<script src="assets/app.js?v=20260827t053406540z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-08-28T15:44:37.012Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"}],"total":85}}</script>
+<script src="assets/app.js?v=20260828t154437012z" defer></script>
 </body>
 </html>

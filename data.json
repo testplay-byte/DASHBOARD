@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.2.0",
+    "version": "0.45.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -34,14 +34,14 @@
   ],
   "plan": {
     "current": {
-      "title": "R43 delivered — embedded in-app browser, free-model resilience, error cards + retry, CI green again; awaiting the owner's verdict",
-      "detail": "The owner's 9-item R42 verdict list shipped: a real embedded browser that renders sites like github.com inside the right sidebar (sidecar proxy + viewport presets 375–1920 + an agent browser tool), the dead default model replaced by a 46-entry catalog (18 free; default glm-5.2:free) with a provider-side free-model fallback chain, failed turns now persist an error card with Retry, chat geometry fixed across 700–2560px, a temporary sub-agent key/model section, and the Rust CI failure fixed at the root (two real Tauri 2 API bugs). CI status on this page is baked from the GitHub Actions API, never hand-claimed. Next: the owner's verdict on R43, then the deferred queue — security hardening, packaging, memory system, PTY terminal, real search API."
+      "title": "R45 delivered — security round closed the last three deferred audit holes, interactive terminal sessions shipped, packaging v1; awaiting the owner's verdict",
+      "detail": "The owner-deferred security work landed, each control live-verified through a real model turn: spawned children no longer inherit provider keys (allowlist environment at every spawn site), auto-approved commands are contained to the project root (cat /etc/passwd now asks instead of running), and web fetches pass a host gate (default doc/source allowlist, per-project always-allow hosts, interactive approval) with search queries secret-scrubbed before leaving the machine. The terminal gained persistent interactive shells (node-pty engine with a pure-Node fallback, a Run | Shell toggle, command history, backlog replay). Version discipline is single-sourced at 0.45.0 with a changelog and a release workflow whose launcher-kit artifact has been built and verified on CI. CI status on this page is baked from the GitHub Actions API, never hand-claimed. Next: the owner's verdict on R45, then the bundled-installer workstream (the release kit is the launcher flow today) and memory relevance ranking."
     },
     "upcoming": [
       {
         "phase": "Track 1 — Foundation & Trust (recommended R43)",
-        "status": "partially delivered (R43)",
-        "note": "R43 shipped the Rust/CI fix and made this dashboard API-truthful; remaining: the three security holes (deferred by the owner), the data-directory move, and dead-route repairs. All small fixes, highest payoff."
+        "status": "partially delivered (R43 + R45)",
+        "note": "R43 shipped the Rust/CI fix and made this dashboard API-truthful; R45 closed the three security holes (P0-3/4/5). Remaining: the data-directory move (P0-6) and binary-safe checkpoint restore (P0-7). Small fixes, high payoff."
       },
       {
         "phase": "Track 2 — Session Intelligence (recommended R44)",
@@ -61,7 +61,7 @@
       {
         "phase": "Track 5 — Capability Depth (recommended R46)",
         "status": "owner-gated",
-        "note": "Edit-reliability ladder, real web search, PTY terminal, in-app file editing."
+        "note": "Edit-reliability ladder, real web search (delivered R44), PTY terminal (delivered R45), in-app file editing."
       },
       {
         "phase": "Track 6 — Ecosystem & Shipping",
@@ -291,22 +291,22 @@
         },
         {
           "id": "P0-3",
-          "title": "Provider keys leak to child processes",
-          "why": "Approved commands inherit the full environment including provider API keys — any executed script or dependency can read them. Must be scrubbed before autonomy work.",
+          "title": "Provider keys leak to child processes (FIXED in R45)",
+          "why": "Approved commands inherit the full environment including provider API keys — any executed script or dependency can read them. Must be scrubbed before autonomy work. R45 closed it: every spawned child gets an ALLOWLIST environment (buildChildEnv at all six spawn sites) — a live child probe prints nulls for every secret-bearing variable.",
           "impact": "HIGH",
           "effort": "S"
         },
         {
           "id": "P0-4",
-          "title": "Auto-approved commands are not path-contained",
-          "why": "The read-only auto tier (list/cat/grep/find) can touch any file on the machine, and auto-run build tools execute arbitrary project scripts. File tools are contained; commands are not.",
+          "title": "Auto-approved commands are not path-contained (FIXED in R45)",
+          "why": "The read-only auto tier (list/cat/grep/find) can touch any file on the machine, and auto-run build tools execute arbitrary project scripts. File tools are contained; commands are not. R45 closed it: the auto tier is now contained to the project root — outside-root, home-relative, parent-escape, and other-drive paths demote the command to the ask tier (cat /etc/passwd asks now); explicit always-allow rules still win.",
           "impact": "HIGH",
           "effort": "M"
         },
         {
           "id": "P0-5",
-          "title": "Web tools bypass the approval engine",
-          "why": "web_fetch and web_search make ungated outbound calls with arbitrary URLs — an exfiltration channel for prompt-injected content. The spec requires every outbound call to be gated.",
+          "title": "Web tools bypass the approval engine (FIXED in R45)",
+          "why": "web_fetch and web_search make ungated outbound calls with arbitrary URLs — an exfiltration channel for prompt-injected content. The spec requires every outbound call to be gated. R45 closed it: fetches and agent-driven navigation pass a host gate — a default documentation/source allowlist plus per-project always-allow host rules with the same interactive approval commands use; search stays friction-free but queries are secret-scrubbed first.",
           "impact": "HIGH",
           "effort": "S"
         },
@@ -863,6 +863,34 @@
       "title": "Sub-agent keys auto-provisioned",
       "status": "live",
       "desc": "The launcher reads three optional sub-agent pool keys from its local credentials file (auto-appends them if missing), distributes them to the OS secure stores, and injects pool slots 2/3/4 — the Sub-agents settings tab shows them with zero manual pasting."
+    },
+    {
+      "id": "security-round",
+      "icon": "shield",
+      "title": "Security round: audit P0-3/4/5 closed",
+      "status": "live",
+      "desc": "Spawned children get an allowlist environment and never inherit the provider keys; auto-approved commands are contained to the project root (reading outside it now asks first); web fetches pass a host gate (default doc/source allowlist + per-project always-allow hosts, interactive approval) and search queries are secret-scrubbed before leaving the machine — each control live-verified through a real model turn."
+    },
+    {
+      "id": "pty-terminal",
+      "icon": "terminal",
+      "title": "Interactive terminal sessions",
+      "status": "live",
+      "desc": "Persistent shells per project: a real PTY engine (node-pty, pure-Node pipe fallback), a Run | Shell mode toggle with command history, live streaming with backlog replay for late viewers, idle reaping and per-project caps — shells never inherit secrets and never outlive the app."
+    },
+    {
+      "id": "packaging-v1",
+      "icon": "doc",
+      "title": "Packaging v1: version discipline + release workflow",
+      "status": "live",
+      "desc": "The app version is single-sourced at 0.45.0 across all four manifests and gated in CI; a Keep-a-Changelog changelog spans 0.37→0.45; the release workflow assembles a CRLF-verified launcher-kit artifact (built and verified on CI) and opens a draft release on version tags. The bundled installer is the documented next step."
+    },
+    {
+      "id": "session-manager-mobile",
+      "icon": "panels",
+      "title": "Session manager reachable + mobile drawer",
+      "status": "live",
+      "desc": "The VLM verification pass found the session search/fork screen had shipped unrouted — unreachable at any size — and that phones had no navigation drawer at all (69px of content at 375px). Both fixed: the screen is live with sidebar navigation, and below desktop widths the sidebar is an overlay drawer (351px of content, auto-closing)."
     }
   ],
   "documentation": [
@@ -953,11 +981,11 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at build time: run 33042592310 on head 6bd86c8, conclusion success. R44 note: the streaming-terminal test had a Windows-only CRLF assertion that briefly reddened waves 2-3 (caught by the docs agent, fixed + regression-pinned the same round); golden rule 3 (watch CI to success) now fully honored.",
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: run 33184750437 on head 6f75087, conclusion success. That run was dispatched manually because the push itself failed to auto-trigger one (the dispatch fallback is standing protocol); the prior push run 33181641242 on fd70c5b was also success, and the one-off Release workflow ran green too (run 33182499163 — it produced the v0.45.0 launcher-kit artifact).",
     "suites": [
       {
         "name": "unit (agent-core + frontend + shared, vitest)",
-        "tests": 465
+        "tests": 557
       },
       {
         "name": "sidecar e2e (built dist)",
@@ -968,7 +996,7 @@
     "typecheck": "clean",
     "cargoCheck": "green",
     "licenseAudit": {
-      "deps": 131,
+      "deps": 133,
       "verdict": "CLEAN"
     }
   },
@@ -1076,6 +1104,10 @@
     {
       "date": "2026-08-27",
       "label": "R44 — complete-the-environment round: agent memory system · real web search (DDG) · session search/fork/revert · streaming terminal · sub-agent keys auto-provisioned from the launcher's local file · VLM-driven UI pass (2 real bugs found+fixed: dead recent-activity route, unreachable Sub-agents tab) · MAINTENANCE.md — 473 tests"
+    },
+    {
+      "date": "2026-08-28",
+      "label": "R45 — security round: the last three deferred audit holes closed (child-env scrubbing, path-contained auto tier, host-gated web tools) · interactive terminal sessions (Run | Shell) · packaging v1 (version 0.45.0, changelog, verified release workflow) · session manager routed + mobile navigation drawer — 565 tests"
     }
   ],
   "chips": [
@@ -1173,5 +1205,5 @@
     ],
     "total": 85
   },
-  "lastUpdated": "2026-08-27T05:33:34.977Z"
+  "lastUpdated": "2026-08-28T15:44:33.841Z"
 }
