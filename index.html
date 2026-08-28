@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260828t154549978z">
+<link rel="stylesheet" href="assets/style.css?v=20260828t232835090z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -78,7 +78,7 @@
       <div class="hero-eyebrow">
         <span class="hero-availability">Private build · Windows 10 x64</span>
         <span class="hero-dot" aria-hidden="true">·</span>
-        <span class="hero-version">v0.45.0</span>
+        <span class="hero-version">v0.46.0</span>
       </div>
       <h1 id="hero-title">Acute</h1>
       <p class="tagline">Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.</p>
@@ -95,7 +95,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-08-28 15:45 UTC</span>
+      <span class="updated-time">2026-08-28 23:28 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -104,7 +104,7 @@
   <section class="stats-grid reveal" aria-label="Key numbers">
       <article class="stat-card card">
         <span class="stat-label">Tests passing</span>
-        <span class="stat-value"><span data-count="565">565</span></span>
+        <span class="stat-value"><span data-count="622">622</span></span>
         <span class="stat-sub">2 suites · 0 skipped · unit + e2e</span>
       </article>
       <article class="stat-card card">
@@ -114,7 +114,7 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="27">27</span></span>
+        <span class="stat-value"><span data-count="28">28</span></span>
         <span class="stat-sub">Aug 21 – Aug 28 · 8-day run</span>
       </article>
       <article class="stat-card card">
@@ -382,7 +382,7 @@
           <h3 class="feature-title">Packaging v1: version discipline + release workflow</h3>
           <span class="feature-status">live</span>
         </div>
-        <p class="feature-desc">The app version is single-sourced at 0.45.0 across all four manifests and gated in CI; a Keep-a-Changelog changelog spans 0.37→0.45; the release workflow assembles a CRLF-verified launcher-kit artifact (built and verified on CI) and opens a draft release on version tags. The bundled installer is the documented next step.</p>
+        <p class="feature-desc">The app version is single-sourced across all four manifests and gated in CI (0.45.0 at introduction, 0.46.0 today); a Keep-a-Changelog changelog spans 0.37→0.46; the release workflow assembles a CRLF-verified launcher-kit artifact (built and verified on CI) and opens a draft release on version tags. The bundled installer is the documented next step.</p>
       </article>
       <article class="feature-card card">
         <div class="feature-top">
@@ -391,6 +391,38 @@
           <span class="feature-status">live</span>
         </div>
         <p class="feature-desc">The VLM verification pass found the session search/fork screen had shipped unrouted — unreachable at any size — and that phones had no navigation drawer at all (69px of content at 375px). Both fixed: the screen is live with sidebar navigation, and below desktop widths the sidebar is an overlay drawer (351px of content, auto-closing).</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h2v12H4z"/><path d="M7 9h13"/><path d="M7 13h13"/><path d="M7 17h13"/><path d="M7 6h6"/></svg></span>
+          <h3 class="feature-title">Context compaction</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Long sessions no longer silently drop their history: when the context window overflows, the model itself summarizes the over-budget part into a dense briefing (task, decisions, files, errors, open steps) that becomes part of the session — fork and revert keep working, the summary is reused until the next overflow, and a summarizer failure falls back to the old trim instead of failing the turn.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">Relevance-ranked agent memory</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Memory recall now scores results by multi-token relevance (content-match strength, kind, importance and recency) instead of plain substring order; the digest injected into every turn ranks durable decisions above casual notes; and re-saving a known fact refreshes the existing memory instead of duplicating it — verified live through real model turns.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          <h3 class="feature-title">One-click file restore from checkpoints</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Every file-diff card now carries a Restore action (with confirmation) that reverts the file on disk to its pre-edit content — the restore backend existed since the first checkpoint system but had no UI caller for 21 rounds. A load-order race that could permanently hide the recorded snapshot on the first diff card was fixed along the way.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><circle cx="6.5" cy="6.5" r="0.6" fill="currentColor"/><circle cx="9" cy="6.5" r="0.6" fill="currentColor"/></svg></span>
+          <h3 class="feature-title">Browser cookies that survive restarts</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The embedded browser keeps cookies in the project database (parsed per the cookie spec, replayed and refreshed on every redirect hop), so logged-in sessions survive an app restart. Cookie values never reach logs, tool output, or the agent; cookies from the user&#39;s own browser can&#39;t be smuggled through; jars are kept per project profile.</p>
       </article>
     </div>
   </section>
@@ -783,13 +815,13 @@
         <article class="gap-item">
           <div class="gap-item-head">
             <span class="gap-id mono">P1-1</span>
-            <h4 class="gap-title">Revert UI — the endpoint exists with zero callers</h4>
+            <h4 class="gap-title">Revert UI — the endpoint exists with zero callers (FIXED in R46)</h4>
             <span class="gap-chips">
               <span class="gap-chip chip-impact-high">HIGH</span>
               <span class="gap-chip chip-effort-s">S</span>
             </span>
           </div>
-          <p class="gap-why">The owner&#39;s explicit &#39;revert to a previous session&#39; ask: a restore endpoint is implemented and tested, but the frontend can only view diffs. Add the button + turn-level revert. Depends on P0-7.</p>
+          <p class="gap-why">The owner&#39;s explicit &#39;revert to a previous session&#39; ask: a restore endpoint was implemented and tested, but the frontend could only view diffs. R46 closed the UI half: every file-diff card carries a confirmed Restore action that reverts the file on disk (hidden for file creations, where the backend would delete the file); turn-level revert shipped in R44. The binary-safe restore dependency (P0-7) remains open.</p>
         </article>
         <article class="gap-item">
           <div class="gap-item-head">
@@ -849,13 +881,13 @@
         <article class="gap-item">
           <div class="gap-item-head">
             <span class="gap-id mono">P1-7</span>
-            <h4 class="gap-title">Auto-compaction for long sessions</h4>
+            <h4 class="gap-title">Auto-compaction for long sessions (FIXED in R46)</h4>
             <span class="gap-chips">
               <span class="gap-chip chip-impact-high">HIGH</span>
               <span class="gap-chip chip-effort-m">M</span>
             </span>
           </div>
-          <p class="gap-why">Trim-only context silently amputates the original task mid-run. Summarize-and-continue with sticky context (task, key files, todos) — the researched Cline pattern.</p>
+          <p class="gap-why">Trim-only context silently amputates the original task mid-run. R46 closed it the researched way: the over-budget head is summarized by the model into a dense briefing persisted as a session event (fork/revert inherit it, the summary is reused until the next overflow, round-2 compactions fold the old summary); a summarizer failure degrades to the old trim, so compaction never becomes a new failure mode.</p>
         </article>
         <article class="gap-item">
           <div class="gap-item-head">
@@ -1296,7 +1328,7 @@
         <span class="seq-round mono">R46</span>
         <div class="seq-body">
           <span class="seq-track">Track 5 pt.1 — Capability Depth</span>
-          <p class="seq-why">Edit ladder + real web search + PTY. Capability compounds: every later automation benefits from reliable edits and real research. Requires Decision 1 by this round.</p>
+          <p class="seq-why">Edit ladder + real web search + PTY. Capability compounds: every later automation benefits from reliable edits and real research. Requires Decision 1 by this round. — DELIVERED in R46: context compaction + relevance-ranked memory + checkpoint restore UI + durable browser cookies + a provider-call timeout (a live-battery find); the edit-reliability ladder and in-app editing remain open.</p>
         </div>
       </li>
       <li class="seq-item">
@@ -1394,8 +1426,8 @@
     <div class="now-card">
       <span class="now-label">Now</span>
       <div class="now-body">
-        <h3 class="now-title">R45 delivered — security round closed the last three deferred audit holes, interactive terminal sessions shipped, packaging v1; awaiting the owner&#39;s verdict</h3>
-        <p class="now-detail">The owner-deferred security work landed, each control live-verified through a real model turn: spawned children no longer inherit provider keys (allowlist environment at every spawn site), auto-approved commands are contained to the project root (cat /etc/passwd now asks instead of running), and web fetches pass a host gate (default doc/source allowlist, per-project always-allow hosts, interactive approval) with search queries secret-scrubbed before leaving the machine. The terminal gained persistent interactive shells (node-pty engine with a pure-Node fallback, a Run | Shell toggle, command history, backlog replay). Version discipline is single-sourced at 0.45.0 with a changelog and a release workflow whose launcher-kit artifact has been built and verified on CI. CI status on this page is baked from the GitHub Actions API, never hand-claimed. Next: the owner&#39;s verdict on R45, then the bundled-installer workstream (the release kit is the launcher flow today) and memory relevance ranking.</p>
+        <h3 class="now-title">R46 delivered — agent intelligence depth (context compaction + relevance-ranked memory) and the orphaned checkpoint-restore feature closed; awaiting the owner&#39;s verdict</h3>
+        <p class="now-detail">The make-it-highly-capable round: when a long session overflows the context window, the over-budget history is now summarized by the model itself into a dense briefing that becomes part of the session (fork and revert keep working, the summary is reused until the next overflow, and a summarizer failure falls back to the old trim instead of failing the turn). Memory recall is ranked by relevance — content-match strength, kind, importance and recency — the digest injected into every turn ranks durable decisions above casual notes, and re-saving a known fact refreshes it instead of duplicating it; both were verified live through real model turns. The file-diff cards gained a confirmed Restore action that reverts the file on disk — the restore backend had existed since the first checkpoint system with no UI caller. The embedded browser now keeps cookies in the project database so logins survive restarts (cookie values never reach logs or agent-visible output). The live battery also exposed and fixed a real reliability hole: a stalled provider connection used to hang a turn forever (a session stuck at &#39;running&#39; with no way back) — provider calls now carry a 10-minute abort timeout that fails the turn cleanly and leaves it retryable. A mid-round sandbox re-provision cost time but no work: everything was already pushed and the round re-ran to completion. CI status on this page is baked from the GitHub Actions API, never hand-claimed. Next: the owner&#39;s verdict on R46, then the bundled installer, the one-line frontend wire-up that turns on per-project cookie isolation, memory digest budget tuning, and compaction validation across a real long session.</p>
       </div>
       <span class="now-live"><span class="live-dot" aria-hidden="true"></span>current focus</span>
     </div>
@@ -1429,10 +1461,10 @@
         </div>
       </li>
       <li class="upcoming-item">
-        <span class="status-chip status-ownergated">owner-gated</span>
+        <span class="status-chip status-planned">partially delivered (R44–R46)</span>
         <div class="upcoming-body">
           <span class="upcoming-phase">Track 5 — Capability Depth (recommended R46)</span>
-          <span class="upcoming-note">Edit-reliability ladder, real web search (delivered R44), PTY terminal (delivered R45), in-app file editing.</span>
+          <span class="upcoming-note">Real web search (delivered R44), PTY terminal (delivered R45), and agent-intelligence depth (delivered R46: context compaction, ranked memory, checkpoint restore UI, durable cookies). Remaining: the edit-reliability ladder, in-app file editing, worktree isolation + per-role tool limits.</span>
         </div>
       </li>
       <li class="upcoming-item">
@@ -1452,7 +1484,7 @@
       <div>
         <h2 id="quality-title">Quality</h2>
         <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
-        <p class="quality-note">Green on main — verified from the GitHub Actions API at build time: run 33184750437 on head 6f75087, conclusion success. That run was dispatched manually because the push itself failed to auto-trigger one (the dispatch fallback is standing protocol); the prior push run 33181641242 on fd70c5b was also success, and the one-off Release workflow ran green too (run 33182499163 — it produced the v0.45.0 launcher-kit artifact).</p>
+        <p class="quality-note">Green on main — verified from the GitHub Actions API at build time: run 33219573774 on head c4120e2 (the 0.46.0 code tip), conclusion success, and the docs push 7bb0b8b also ran green (run 33220123908 — round report, API truth page, and lesson entries). Neither run needed a manual dispatch this time: both were push-triggered.</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -1462,24 +1494,24 @@
         <div class="suite-row">
           <div class="suite-head">
             <span class="suite-name">unit (agent-core + frontend + shared, vitest)</span>
-            <span class="suite-count"><strong data-count="557">557</strong> tests</span>
+            <span class="suite-count"><strong data-count="610">610</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="557" aria-valuemin="0" aria-valuemax="557" aria-label="unit (agent-core + frontend + shared, vitest) test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="610" aria-valuemin="0" aria-valuemax="610" aria-label="unit (agent-core + frontend + shared, vitest) test count relative to largest suite">
             <div class="bar-fill" data-progress="100" style="--w:100%"></div>
           </div>
         </div>
         <div class="suite-row">
           <div class="suite-head">
-            <span class="suite-name">sidecar e2e (built dist)</span>
-            <span class="suite-count"><strong data-count="8">8</strong> tests</span>
+            <span class="suite-name">black-box e2e (built dist: sidecar + terminal sessions)</span>
+            <span class="suite-count"><strong data-count="12">12</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="8" aria-valuemin="0" aria-valuemax="557" aria-label="sidecar e2e (built dist) test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="610" aria-label="black-box e2e (built dist: sidecar + terminal sessions) test count relative to largest suite">
             <div class="bar-fill" data-progress="3" style="--w:3%"></div>
           </div>
         </div>
         <div class="suites-total">
           <span>Total</span>
-          <strong class="mono"><span data-count="565">565</span> tests passing · <span data-count="0">0</span> skipped</strong>
+          <strong class="mono"><span data-count="622">622</span> tests passing · <span data-count="0">0</span> skipped</strong>
         </div>
       </article>
       <div class="checks-col">
@@ -1807,9 +1839,14 @@
           <span class="timeline-label">R44 — complete-the-environment round: agent memory system · real web search (DDG) · session search/fork/revert · streaming terminal · sub-agent keys auto-provisioned from the launcher&#39;s local file · VLM-driven UI pass (2 real bugs found+fixed: dead recent-activity route, unreachable Sub-agents tab) · MAINTENANCE.md — 473 tests</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-08-28</span>
           <span class="timeline-label">R45 — security round: the last three deferred audit holes closed (child-env scrubbing, path-contained auto tier, host-gated web tools) · interactive terminal sessions (Run | Shell) · packaging v1 (version 0.45.0, changelog, verified release workflow) · session manager routed + mobile navigation drawer — 565 tests</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-08-28</span>
+          <span class="timeline-label">R46 — agent intelligence depth: context compaction (model-summarized, never silently dropped) · relevance-ranked memory with dedup-on-save · checkpoint restore UI (the round-25 orphan closed) · durable browser cookies · provider-call timeout · terminal-session e2e — 622 tests</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -1904,12 +1941,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-08-28 15:45 UTC · curated public data only — no product source · Acute v0.45.0</p>
+    <p class="footer-note">Generated 2026-08-28 23:28 UTC · curated public data only — no product source · Acute v0.46.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-08-28T15:45:49.978Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"}],"total":85}}</script>
-<script src="assets/app.js?v=20260828t154549978z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-08-28T23:28:35.090Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"}],"total":85}}</script>
+<script src="assets/app.js?v=20260828t232835090z" defer></script>
 </body>
 </html>

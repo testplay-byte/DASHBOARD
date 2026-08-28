@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.45.0",
+    "version": "0.46.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -34,8 +34,8 @@
   ],
   "plan": {
     "current": {
-      "title": "R45 delivered — security round closed the last three deferred audit holes, interactive terminal sessions shipped, packaging v1; awaiting the owner's verdict",
-      "detail": "The owner-deferred security work landed, each control live-verified through a real model turn: spawned children no longer inherit provider keys (allowlist environment at every spawn site), auto-approved commands are contained to the project root (cat /etc/passwd now asks instead of running), and web fetches pass a host gate (default doc/source allowlist, per-project always-allow hosts, interactive approval) with search queries secret-scrubbed before leaving the machine. The terminal gained persistent interactive shells (node-pty engine with a pure-Node fallback, a Run | Shell toggle, command history, backlog replay). Version discipline is single-sourced at 0.45.0 with a changelog and a release workflow whose launcher-kit artifact has been built and verified on CI. CI status on this page is baked from the GitHub Actions API, never hand-claimed. Next: the owner's verdict on R45, then the bundled-installer workstream (the release kit is the launcher flow today) and memory relevance ranking."
+      "title": "R46 delivered — agent intelligence depth (context compaction + relevance-ranked memory) and the orphaned checkpoint-restore feature closed; awaiting the owner's verdict",
+      "detail": "The make-it-highly-capable round: when a long session overflows the context window, the over-budget history is now summarized by the model itself into a dense briefing that becomes part of the session (fork and revert keep working, the summary is reused until the next overflow, and a summarizer failure falls back to the old trim instead of failing the turn). Memory recall is ranked by relevance — content-match strength, kind, importance and recency — the digest injected into every turn ranks durable decisions above casual notes, and re-saving a known fact refreshes it instead of duplicating it; both were verified live through real model turns. The file-diff cards gained a confirmed Restore action that reverts the file on disk — the restore backend had existed since the first checkpoint system with no UI caller. The embedded browser now keeps cookies in the project database so logins survive restarts (cookie values never reach logs or agent-visible output). The live battery also exposed and fixed a real reliability hole: a stalled provider connection used to hang a turn forever (a session stuck at 'running' with no way back) — provider calls now carry a 10-minute abort timeout that fails the turn cleanly and leaves it retryable. A mid-round sandbox re-provision cost time but no work: everything was already pushed and the round re-ran to completion. CI status on this page is baked from the GitHub Actions API, never hand-claimed. Next: the owner's verdict on R46, then the bundled installer, the one-line frontend wire-up that turns on per-project cookie isolation, memory digest budget tuning, and compaction validation across a real long session."
     },
     "upcoming": [
       {
@@ -60,8 +60,8 @@
       },
       {
         "phase": "Track 5 — Capability Depth (recommended R46)",
-        "status": "owner-gated",
-        "note": "Edit-reliability ladder, real web search (delivered R44), PTY terminal (delivered R45), in-app file editing."
+        "status": "partially delivered (R44–R46)",
+        "note": "Real web search (delivered R44), PTY terminal (delivered R45), and agent-intelligence depth (delivered R46: context compaction, ranked memory, checkpoint restore UI, durable cookies). Remaining: the edit-reliability ladder, in-app file editing, worktree isolation + per-role tool limits."
       },
       {
         "phase": "Track 6 — Ecosystem & Shipping",
@@ -79,7 +79,7 @@
     ]
   },
   "audit": {
-    "stamp": "2026-08-26 · Round 42 state (progress annotations through R43)",
+    "stamp": "2026-08-26 · Round 42 state (progress annotations through R46)",
     "method": "Five-agent audit fleet: four parallel domain audits (agent core & tools · autonomy & orchestration · workspace & project UX · platform & spec gaps) plus a synthesis pass producing the benchmark and roadmap. Every claim was verified against the actual source tree — file-and-line evidence, not doc claims.",
     "vision": "The review target, in the owner's words: a full-fledged system that works autonomously, supports different kinds of projects, is highly customized for different tasks, does research and file changes, has full-fledged automations, and can continue or revert sessions.",
     "headline": {
@@ -342,8 +342,8 @@
       "p1": [
         {
           "id": "P1-1",
-          "title": "Revert UI — the endpoint exists with zero callers",
-          "why": "The owner's explicit 'revert to a previous session' ask: a restore endpoint is implemented and tested, but the frontend can only view diffs. Add the button + turn-level revert. Depends on P0-7.",
+          "title": "Revert UI — the endpoint exists with zero callers (FIXED in R46)",
+          "why": "The owner's explicit 'revert to a previous session' ask: a restore endpoint was implemented and tested, but the frontend could only view diffs. R46 closed the UI half: every file-diff card carries a confirmed Restore action that reverts the file on disk (hidden for file creations, where the backend would delete the file); turn-level revert shipped in R44. The binary-safe restore dependency (P0-7) remains open.",
           "impact": "HIGH",
           "effort": "S"
         },
@@ -384,8 +384,8 @@
         },
         {
           "id": "P1-7",
-          "title": "Auto-compaction for long sessions",
-          "why": "Trim-only context silently amputates the original task mid-run. Summarize-and-continue with sticky context (task, key files, todos) — the researched Cline pattern.",
+          "title": "Auto-compaction for long sessions (FIXED in R46)",
+          "why": "Trim-only context silently amputates the original task mid-run. R46 closed it the researched way: the over-budget head is summarized by the model into a dense briefing persisted as a session event (fork/revert inherit it, the summary is reused until the next overflow, round-2 compactions fold the old summary); a summarizer failure degrades to the old trim, so compaction never becomes a new failure mode.",
           "impact": "HIGH",
           "effort": "M"
         },
@@ -652,7 +652,7 @@
       {
         "round": "R46",
         "track": "Track 5 pt.1 — Capability Depth",
-        "why": "Edit ladder + real web search + PTY. Capability compounds: every later automation benefits from reliable edits and real research. Requires Decision 1 by this round."
+        "why": "Edit ladder + real web search + PTY. Capability compounds: every later automation benefits from reliable edits and real research. Requires Decision 1 by this round. — DELIVERED in R46: context compaction + relevance-ranked memory + checkpoint restore UI + durable browser cookies + a provider-call timeout (a live-battery find); the edit-reliability ladder and in-app editing remain open."
       },
       {
         "round": "R47",
@@ -883,7 +883,7 @@
       "icon": "doc",
       "title": "Packaging v1: version discipline + release workflow",
       "status": "live",
-      "desc": "The app version is single-sourced at 0.45.0 across all four manifests and gated in CI; a Keep-a-Changelog changelog spans 0.37→0.45; the release workflow assembles a CRLF-verified launcher-kit artifact (built and verified on CI) and opens a draft release on version tags. The bundled installer is the documented next step."
+      "desc": "The app version is single-sourced across all four manifests and gated in CI (0.45.0 at introduction, 0.46.0 today); a Keep-a-Changelog changelog spans 0.37→0.46; the release workflow assembles a CRLF-verified launcher-kit artifact (built and verified on CI) and opens a draft release on version tags. The bundled installer is the documented next step."
     },
     {
       "id": "session-manager-mobile",
@@ -891,6 +891,34 @@
       "title": "Session manager reachable + mobile drawer",
       "status": "live",
       "desc": "The VLM verification pass found the session search/fork screen had shipped unrouted — unreachable at any size — and that phones had no navigation drawer at all (69px of content at 375px). Both fixed: the screen is live with sidebar navigation, and below desktop widths the sidebar is an overlay drawer (351px of content, auto-closing)."
+    },
+    {
+      "id": "context-compaction",
+      "icon": "index",
+      "title": "Context compaction",
+      "status": "live",
+      "desc": "Long sessions no longer silently drop their history: when the context window overflows, the model itself summarizes the over-budget part into a dense briefing (task, decisions, files, errors, open steps) that becomes part of the session — fork and revert keep working, the summary is reused until the next overflow, and a summarizer failure falls back to the old trim instead of failing the turn."
+    },
+    {
+      "id": "ranked-memory",
+      "icon": "spark",
+      "title": "Relevance-ranked agent memory",
+      "status": "live",
+      "desc": "Memory recall now scores results by multi-token relevance (content-match strength, kind, importance and recency) instead of plain substring order; the digest injected into every turn ranks durable decisions above casual notes; and re-saving a known fact refreshes the existing memory instead of duplicating it — verified live through real model turns."
+    },
+    {
+      "id": "checkpoint-restore-ui",
+      "icon": "arrow",
+      "title": "One-click file restore from checkpoints",
+      "status": "live",
+      "desc": "Every file-diff card now carries a Restore action (with confirmation) that reverts the file on disk to its pre-edit content — the restore backend existed since the first checkpoint system but had no UI caller for 21 rounds. A load-order race that could permanently hide the recorded snapshot on the first diff card was fixed along the way."
+    },
+    {
+      "id": "browser-cookies",
+      "icon": "browser",
+      "title": "Browser cookies that survive restarts",
+      "status": "live",
+      "desc": "The embedded browser keeps cookies in the project database (parsed per the cookie spec, replayed and refreshed on every redirect hop), so logged-in sessions survive an app restart. Cookie values never reach logs, tool output, or the agent; cookies from the user's own browser can't be smuggled through; jars are kept per project profile."
     }
   ],
   "documentation": [
@@ -981,15 +1009,15 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at build time: run 33184750437 on head 6f75087, conclusion success. That run was dispatched manually because the push itself failed to auto-trigger one (the dispatch fallback is standing protocol); the prior push run 33181641242 on fd70c5b was also success, and the one-off Release workflow ran green too (run 33182499163 — it produced the v0.45.0 launcher-kit artifact).",
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: run 33219573774 on head c4120e2 (the 0.46.0 code tip), conclusion success, and the docs push 7bb0b8b also ran green (run 33220123908 — round report, API truth page, and lesson entries). Neither run needed a manual dispatch this time: both were push-triggered.",
     "suites": [
       {
         "name": "unit (agent-core + frontend + shared, vitest)",
-        "tests": 557
+        "tests": 610
       },
       {
-        "name": "sidecar e2e (built dist)",
-        "tests": 8
+        "name": "black-box e2e (built dist: sidecar + terminal sessions)",
+        "tests": 12
       }
     ],
     "lint": "clean",
@@ -1108,6 +1136,10 @@
     {
       "date": "2026-08-28",
       "label": "R45 — security round: the last three deferred audit holes closed (child-env scrubbing, path-contained auto tier, host-gated web tools) · interactive terminal sessions (Run | Shell) · packaging v1 (version 0.45.0, changelog, verified release workflow) · session manager routed + mobile navigation drawer — 565 tests"
+    },
+    {
+      "date": "2026-08-28",
+      "label": "R46 — agent intelligence depth: context compaction (model-summarized, never silently dropped) · relevance-ranked memory with dedup-on-save · checkpoint restore UI (the round-25 orphan closed) · durable browser cookies · provider-call timeout · terminal-session e2e — 622 tests"
     }
   ],
   "chips": [
@@ -1205,5 +1237,5 @@
     ],
     "total": 85
   },
-  "lastUpdated": "2026-08-28T15:44:33.841Z"
+  "lastUpdated": "2026-08-28T23:28:14.770Z"
 }
