@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.46.0",
+    "version": "0.47.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -34,8 +34,8 @@
   ],
   "plan": {
     "current": {
-      "title": "R46 delivered — agent intelligence depth (context compaction + relevance-ranked memory) and the orphaned checkpoint-restore feature closed; awaiting the owner's verdict",
-      "detail": "The make-it-highly-capable round: when a long session overflows the context window, the over-budget history is now summarized by the model itself into a dense briefing that becomes part of the session (fork and revert keep working, the summary is reused until the next overflow, and a summarizer failure falls back to the old trim instead of failing the turn). Memory recall is ranked by relevance — content-match strength, kind, importance and recency — the digest injected into every turn ranks durable decisions above casual notes, and re-saving a known fact refreshes it instead of duplicating it; both were verified live through real model turns. The file-diff cards gained a confirmed Restore action that reverts the file on disk — the restore backend had existed since the first checkpoint system with no UI caller. The embedded browser now keeps cookies in the project database so logins survive restarts (cookie values never reach logs or agent-visible output). The live battery also exposed and fixed a real reliability hole: a stalled provider connection used to hang a turn forever (a session stuck at 'running' with no way back) — provider calls now carry a 10-minute abort timeout that fails the turn cleanly and leaves it retryable. A mid-round sandbox re-provision cost time but no work: everything was already pushed and the round re-ran to completion. CI status on this page is baked from the GitHub Actions API, never hand-claimed. Next: the owner's verdict on R46, then the bundled installer, the one-line frontend wire-up that turns on per-project cookie isolation, memory digest budget tuning, and compaction validation across a real long session."
+      "title": "R47 delivered — provider management is one clean, reliable surface (single API layer, honest key+model tests, served catalog, enabled actually stops turns) plus the launcher key scrub; awaiting the owner's verdict",
+      "detail": "The clean-and-reliable round for providers. Every provider screen now runs on one typed API layer — the settings tab's private HTTP plumbing (the third parallel copy) and the dead legacy tab behind it were deleted, so CRUD, keys, pool slots, connection tests, and model configs all share one code path. The connection test became a real instrument: it can target the primary key or any key-pool slot and optionally a concrete model, running a genuine one-token probe with measured latency — and it reports failures honestly (an empty slot says so, a bogus key reads 'User not found', a throttled free model reports 429; live-verified through the owner's real keys). Every model picker now reads the backend's served catalog instead of hand-copied lists, so the sub-agent picker, the agent form, and the connection-test selector can never drift apart again; the agent form also lists custom providers and suggests known model ids while still accepting free text. Disabling a provider now actually refuses its turns with a clear 'enable it in Settings' message instead of quietly proceeding — the toggle had been cosmetic since it shipped. On the launcher side the round closed a real security hole: the credentials template had shipped three live API keys since round 44 and the launcher had the same keys baked in — both scrubbed, the template is now a clean paste zone, and the launcher never writes key values; deleting the baked-in defaults exposed a three-round-old parser bug that had silently ignored the owner's own pool-key values (fixed). The owner is advised to rotate those three keys at his provider when convenient, since the old values remain in the repo's private history. CI status on this page is baked from the GitHub Actions API, never hand-claimed. Next: the owner's verdict on R47, then the bundled installer, a slot-aware key command for the desktop shell (pool keys pasted there currently land on the primary key), the one-line frontend wire-up that turns on per-project cookie isolation, and compaction validation across a real long session."
     },
     "upcoming": [
       {
@@ -79,7 +79,7 @@
     ]
   },
   "audit": {
-    "stamp": "2026-08-26 · Round 42 state (progress annotations through R46)",
+    "stamp": "2026-08-26 · Round 42 state (progress annotations through R47)",
     "method": "Five-agent audit fleet: four parallel domain audits (agent core & tools · autonomy & orchestration · workspace & project UX · platform & spec gaps) plus a synthesis pass producing the benchmark and roadmap. Every claim was verified against the actual source tree — file-and-line evidence, not doc claims.",
     "vision": "The review target, in the owner's words: a full-fledged system that works autonomously, supports different kinds of projects, is highly customized for different tasks, does research and file changes, has full-fledged automations, and can continue or revert sessions.",
     "headline": {
@@ -657,7 +657,7 @@
       {
         "round": "R47",
         "track": "Track 4 pt.1 — Autonomy gates",
-        "why": "Approval queue + remote approve + budgets. With gates closed (R43) and recovery solid (R44), overnight autonomy becomes safe; the queue turns existing push plumbing into the owner's remote-control surface."
+        "why": "Approval queue + remote approve + budgets. With gates closed (R43) and recovery solid (R44), overnight autonomy becomes safe; the queue turns existing push plumbing into the owner's remote-control surface. — R47 actually delivered the owner-directed provider-management round instead: one API layer, key+model-scoped connection tests, the served model catalog, enabled enforced at turn time, and the launcher key scrub; the approval queue, remote approve, and budgets remain open."
       },
       {
         "round": "R48+",
@@ -883,7 +883,7 @@
       "icon": "doc",
       "title": "Packaging v1: version discipline + release workflow",
       "status": "live",
-      "desc": "The app version is single-sourced across all four manifests and gated in CI (0.45.0 at introduction, 0.46.0 today); a Keep-a-Changelog changelog spans 0.37→0.46; the release workflow assembles a CRLF-verified launcher-kit artifact (built and verified on CI) and opens a draft release on version tags. The bundled installer is the documented next step."
+      "desc": "The app version is single-sourced across all four manifests and gated in CI (0.45.0 at introduction, 0.47.0 today); a Keep-a-Changelog changelog spans 0.37→0.47; the release workflow assembles a CRLF-verified launcher-kit artifact (built and verified on CI) and opens a draft release on version tags. The bundled installer is the documented next step."
     },
     {
       "id": "session-manager-mobile",
@@ -919,6 +919,34 @@
       "title": "Browser cookies that survive restarts",
       "status": "live",
       "desc": "The embedded browser keeps cookies in the project database (parsed per the cookie spec, replayed and refreshed on every redirect hop), so logged-in sessions survive an app restart. Cookie values never reach logs, tool output, or the agent; cookies from the user's own browser can't be smuggled through; jars are kept per project profile."
+    },
+    {
+      "id": "provider-one-layer",
+      "icon": "command",
+      "title": "One provider API layer",
+      "status": "live",
+      "desc": "All provider management — CRUD, API keys, key-pool slots, connection tests, per-provider model configs, the catalog — now lives in a single typed client layer every screen shares. The settings tab's private HTTP plumbing (a third parallel copy) and a dead legacy tab behind it were deleted in the same sweep. Disabling a provider genuinely stops its turns now: an honest 'enable it in Settings' refusal instead of quietly proceeding."
+    },
+    {
+      "id": "slot-model-tests",
+      "icon": "check",
+      "title": "Key + model-scoped connection tests",
+      "status": "live",
+      "desc": "The connection test can target the primary key or any key-pool slot, optionally with a concrete model — a real one-token probe with measured latency instead of a bare reachability ping. Failures are reported as the provider sees them: an empty slot says so, a wrong key reads 'User not found', a throttled free model reports 429. Adding a pool slot no longer silently overwrites an occupied slot when earlier slots have gaps."
+    },
+    {
+      "id": "served-model-catalog",
+      "icon": "index",
+      "title": "One served model catalog",
+      "status": "live",
+      "desc": "Every model picker — sub-agents, the agent form, the connection-test selector — now reads the backend's served catalog (46 models, free-first, tool and vision capability flags) instead of each screen keeping its own hand-copied list. New models appear everywhere at once; a deleted upstream model can no longer linger in one screen's stale copy. The agent form also lists custom providers and suggests known ids while still accepting free text."
+    },
+    {
+      "id": "launcher-key-scrub",
+      "icon": "shield",
+      "title": "Launcher ships zero key material",
+      "status": "live",
+      "desc": "The launcher template is a clean paste zone: two required lines, three clearly-optional sub-agent slots, every value a placeholder — the live keys it had shipped since round 44 are gone, and the launcher never writes key values. Scrubbing the baked-in defaults exposed and fixed a three-round-old parser bug that had silently ignored the owner's own pool-key values; a raw-key-reading API route with zero callers was removed in the same round."
     }
   ],
   "documentation": [
@@ -1009,11 +1037,11 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at build time: run 33219573774 on head c4120e2 (the 0.46.0 code tip), conclusion success, and the docs push 7bb0b8b also ran green (run 33220123908 — round report, API truth page, and lesson entries). Neither run needed a manual dispatch this time: both were push-triggered.",
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: run 33243501373 on head 0643ac9 (the 0.47.0 code tip), conclusion success, and the docs push 275d27b also ran green (run 33244308315 — round report, API truth page, and lesson entries). Both runs were push-triggered, no manual dispatch needed.",
     "suites": [
       {
         "name": "unit (agent-core + frontend + shared, vitest)",
-        "tests": 610
+        "tests": 671
       },
       {
         "name": "black-box e2e (built dist: sidecar + terminal sessions)",
@@ -1140,6 +1168,10 @@
     {
       "date": "2026-08-28",
       "label": "R46 — agent intelligence depth: context compaction (model-summarized, never silently dropped) · relevance-ranked memory with dedup-on-save · checkpoint restore UI (the round-25 orphan closed) · durable browser cookies · provider-call timeout · terminal-session e2e — 622 tests"
+    },
+    {
+      "date": "2026-08-29",
+      "label": "R47 — provider management, clean + reliable: one provider API layer (the third parallel HTTP plumbing layer deleted) · key + model-scoped connection tests with honest results · the served model catalog replacing every hand-copied duplicate · enabled enforced at turn time · raw-key route removed · launcher ships zero key material (the R44 leak scrubbed + the parser bug it exposed) — 683 tests"
     }
   ],
   "chips": [
@@ -1237,5 +1269,5 @@
     ],
     "total": 85
   },
-  "lastUpdated": "2026-08-28T23:28:14.770Z"
+  "lastUpdated": "2026-08-29T09:02:30.783Z"
 }
