@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.47.0",
+    "version": "0.48.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -34,8 +34,8 @@
   ],
   "plan": {
     "current": {
-      "title": "R47 delivered — provider management is one clean, reliable surface (single API layer, honest key+model tests, served catalog, enabled actually stops turns) plus the launcher key scrub; awaiting the owner's verdict",
-      "detail": "The clean-and-reliable round for providers. Every provider screen now runs on one typed API layer — the settings tab's private HTTP plumbing (the third parallel copy) and the dead legacy tab behind it were deleted, so CRUD, keys, pool slots, connection tests, and model configs all share one code path. The connection test became a real instrument: it can target the primary key or any key-pool slot and optionally a concrete model, running a genuine one-token probe with measured latency — and it reports failures honestly (an empty slot says so, a bogus key reads 'User not found', a throttled free model reports 429; live-verified through the owner's real keys). Every model picker now reads the backend's served catalog instead of hand-copied lists, so the sub-agent picker, the agent form, and the connection-test selector can never drift apart again; the agent form also lists custom providers and suggests known model ids while still accepting free text. Disabling a provider now actually refuses its turns with a clear 'enable it in Settings' message instead of quietly proceeding — the toggle had been cosmetic since it shipped. On the launcher side the round closed a real security hole: the credentials template had shipped three live API keys since round 44 and the launcher had the same keys baked in — both scrubbed, the template is now a clean paste zone, and the launcher never writes key values; deleting the baked-in defaults exposed a three-round-old parser bug that had silently ignored the owner's own pool-key values (fixed). The owner is advised to rotate those three keys at his provider when convenient, since the old values remain in the repo's private history. CI status on this page is baked from the GitHub Actions API, never hand-claimed. Next: the owner's verdict on R47, then the bundled installer, a slot-aware key command for the desktop shell (pool keys pasted there currently land on the primary key), the one-line frontend wire-up that turns on per-project cookie isolation, and compaction validation across a real long session."
+      "title": "R48 delivered — the owner-test round: sub-agents at near-main-agent parity (approvals, codes, live chat UI), the browser flash-loop fixed, a real files explorer, sidebar polish, and the modern folder picker; awaiting the owner's re-test",
+      "detail": "Every fix in this round came from the owner testing the app himself on Windows after round 47. Sub-agents are now an almost exact copy of the main agent: a child delegated from a live chat can ask for permission — the approval card appears in the parent chat labelled 'Sub-agent CODE · role', and Allow / Always allow / Deny releases it — can be stopped together with its parent, streams its tool calls live, and is identifiable at a glance by a four-character code shown on every surface (chat cards, tab picker, tab titles, panel header). The embedded browser's flash loop ('refreshes every one or two seconds… eventually a ticket error') is dead at the root: navigating and resizing no longer silently rotate the iframe's proxy ticket, and automatic recovery is bounded with a manual retry. The Files action opens a real two-pane explorer — the project tree on the left, the file's contents on the right (markdown rendered, code with line numbers). Projects get distinct colors from an 8-color palette with existing projects re-colored once on update; the logo is a sharper 'A_' prompt mark with a favicon; the collapsed sidebar rail no longer grows and clips the selected project; the Sessions nav entry is gone (deep links keep working); memory cards lost the colored accent bar. The Browse button now opens the modern File-Explorer-style folder picker, always on top of other windows. Chat bottom-bar and model-switcher improvements were explicitly deferred by the owner. CI status on this page is baked from the GitHub Actions API, never hand-claimed. Next: the owner's re-test (especially the Windows folder picker and the sub-agent approval flow on his machine), the chat bottom-bar round, the bundled installer, a slot-aware key command for the desktop shell, and the one-line frontend wire-up that turns on per-project cookie isolation."
     },
     "upcoming": [
       {
@@ -79,7 +79,7 @@
     ]
   },
   "audit": {
-    "stamp": "2026-08-26 · Round 42 state (progress annotations through R47)",
+    "stamp": "2026-08-26 · Round 42 state (progress annotations through R48)",
     "method": "Five-agent audit fleet: four parallel domain audits (agent core & tools · autonomy & orchestration · workspace & project UX · platform & spec gaps) plus a synthesis pass producing the benchmark and roadmap. Every claim was verified against the actual source tree — file-and-line evidence, not doc claims.",
     "vision": "The review target, in the owner's words: a full-fledged system that works autonomously, supports different kinds of projects, is highly customized for different tasks, does research and file changes, has full-fledged automations, and can continue or revert sessions.",
     "headline": {
@@ -662,7 +662,7 @@
       {
         "round": "R48+",
         "track": "Track 4 pt.2 → Track 6",
-        "why": "Scheduler MVP and auto-team, then the ecosystem bets in dependency order (MCP → packaging → vision)."
+        "why": "Scheduler MVP and auto-team, then the ecosystem bets in dependency order (MCP → packaging → vision). — R48 actually delivered the owner's Windows test-session fixes instead: sub-agent parity (approvals through the parent stream, codes, the live chat UI), the browser ticket flash-loop fix, the files explorer, sidebar polish, and the modern always-on-top folder picker; the scheduler MVP, auto-team, MCP, and vision bets remain open."
       }
     ],
     "decisions": [
@@ -722,7 +722,7 @@
       "icon": "browser",
       "title": "Embedded browser",
       "status": "live",
-      "desc": "In-sidebar browser that renders sites like github.com INSIDE the app via a sidecar proxy (per-tab ticket auth, HTML/CSS rewriting, framing headers stripped) — viewport presets 375→1920 + custom + zoom + rotate, and an agent browser_control tool sharing the same state; open-external is an explicit secondary."
+      "desc": "In-sidebar browser that renders sites like github.com INSIDE the app via a sidecar proxy (per-tab ticket auth, HTML/CSS rewriting, framing headers stripped) — viewport presets 375→1920 + custom + zoom + rotate, and an agent browser_control tool sharing the same state; open-external is an explicit secondary. Since round 48 a ticket rotates only on an explicit re-mint: navigating and resizing no longer invalidate the iframe's credential (the flash-loop fix), and automatic recovery is capped with a manual retry."
     },
     {
       "id": "right-sidebar",
@@ -883,7 +883,7 @@
       "icon": "doc",
       "title": "Packaging v1: version discipline + release workflow",
       "status": "live",
-      "desc": "The app version is single-sourced across all four manifests and gated in CI (0.45.0 at introduction, 0.47.0 today); a Keep-a-Changelog changelog spans 0.37→0.47; the release workflow assembles a CRLF-verified launcher-kit artifact (built and verified on CI) and opens a draft release on version tags. The bundled installer is the documented next step."
+      "desc": "The app version is single-sourced across all four manifests and gated in CI (0.45.0 at introduction, 0.48.0 today); a Keep-a-Changelog changelog spans 0.37→0.48; the release workflow assembles a CRLF-verified launcher-kit artifact (built and verified on CI) and opens a draft release on version tags. The bundled installer is the documented next step."
     },
     {
       "id": "session-manager-mobile",
@@ -947,6 +947,27 @@
       "title": "Launcher ships zero key material",
       "status": "live",
       "desc": "The launcher template is a clean paste zone: two required lines, three clearly-optional sub-agent slots, every value a placeholder — the live keys it had shipped since round 44 are gone, and the launcher never writes key values. Scrubbing the baked-in defaults exposed and fixed a three-round-old parser bug that had silently ignored the owner's own pool-key values; a raw-key-reading API route with zero callers was removed in the same round."
+    },
+    {
+      "id": "subagent-parity",
+      "icon": "agents",
+      "title": "Sub-agents at near-main-agent parity",
+      "status": "live",
+      "desc": "A sub-agent delegated from a live chat can now do what the main agent can: when it hits a needs-approval action (a non-read-only command, a web fetch outside the trusted hosts), it pauses and ASKS — the approval card appears in the parent chat labelled with the sub-agent's code and role, and the decision releases it. Every sub-agent carries a short code (like S23I) on the chat cards, the tab picker and its tab; the Delegated card lists each running child live and clicking one opens it; the sub-agent view is a real chat transcript — task, replies, tool calls with results, todo progress — with a per-second clock. Stopping the parent also stops its children; background retries still fail closed instead of hanging."
+    },
+    {
+      "id": "files-explorer",
+      "icon": "panels",
+      "title": "A real files explorer",
+      "status": "live",
+      "desc": "The Files action in the working sidebar opens a two-pane explorer: the project tree on the left (folders expand, files open on click, per-type icons) and the file's contents on the right — markdown rendered, code with line numbers and syntax colors, breadcrumb path. A Search button keeps the command-palette flow reachable, the tree collapses for narrow widths, and loading and error states are honest with retry."
+    },
+    {
+      "id": "modern-folder-picker",
+      "icon": "command",
+      "title": "The modern always-on-top folder picker",
+      "status": "live",
+      "desc": "Browsing for a project folder now opens the modern File-Explorer-style Windows picker — and it appears ON TOP of your windows instead of hiding behind them — both in the launcher/browser setup and in the desktop app. The old-style tree dialog remains only as a fallback if the modern one cannot load; both pickers fail honestly with an error line."
     }
   ],
   "documentation": [
@@ -1037,11 +1058,11 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at build time: run 33243501373 on head 0643ac9 (the 0.47.0 code tip), conclusion success, and the docs push 275d27b also ran green (run 33244308315 — round report, API truth page, and lesson entries). Both runs were push-triggered, no manual dispatch needed.",
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: run 33257534609 on head 3336283 (the 0.48.0 code tip), conclusion success, and the docs push 90e5cf0 also ran green (run 33258603674 — round report, API truth page, and lesson entries). Both runs were push-triggered, no manual dispatch needed.",
     "suites": [
       {
         "name": "unit (agent-core + frontend + shared, vitest)",
-        "tests": 671
+        "tests": 740
       },
       {
         "name": "black-box e2e (built dist: sidecar + terminal sessions)",
@@ -1172,6 +1193,10 @@
     {
       "date": "2026-08-29",
       "label": "R47 — provider management, clean + reliable: one provider API layer (the third parallel HTTP plumbing layer deleted) · key + model-scoped connection tests with honest results · the served model catalog replacing every hand-copied duplicate · enabled enforced at turn time · raw-key route removed · launcher ships zero key material (the R44 leak scrubbed + the parser bug it exposed) — 683 tests"
+    },
+    {
+      "date": "2026-08-29",
+      "label": "R48 — the owner-test round (every fix from the owner's own Windows session): sub-agents at near-main-agent parity (ask-tier approvals through the parent chat with codes + attribution · abort propagation · live chat-style panel · clickable live Delegated card) · the browser flash-loop + ticket-401 fix · a real files explorer · per-project colors + new A_ logo + collapsed-rail fix + Sessions-nav removal · the modern always-on-top folder picker — 752 tests"
     }
   ],
   "chips": [
@@ -1269,5 +1294,5 @@
     ],
     "total": 85
   },
-  "lastUpdated": "2026-08-29T09:02:30.783Z"
+  "lastUpdated": "2026-08-29T14:54:33.620Z"
 }
