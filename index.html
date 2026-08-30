@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260830t002912911z">
+<link rel="stylesheet" href="assets/style.css?v=20260830t080029841z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -49,6 +49,7 @@
       <a href="#next">Next</a>
       <a href="#quality">Quality</a>
       <a href="#milestones">Milestones</a>
+      <a href="usage.html">Usage</a>
     </nav>
     <div class="header-actions">
       <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle dark mode">
@@ -78,7 +79,7 @@
       <div class="hero-eyebrow">
         <span class="hero-availability">Private build · Windows 10 x64</span>
         <span class="hero-dot" aria-hidden="true">·</span>
-        <span class="hero-version">v0.48.0</span>
+        <span class="hero-version">v0.51.0</span>
       </div>
       <h1 id="hero-title">Acute</h1>
       <p class="tagline">Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.</p>
@@ -95,7 +96,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-08-30 00:29 UTC</span>
+      <span class="updated-time">2026-08-30 08:00 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -104,7 +105,7 @@
   <section class="stats-grid reveal" aria-label="Key numbers">
       <article class="stat-card card">
         <span class="stat-label">Tests passing</span>
-        <span class="stat-value"><span data-count="752">752</span></span>
+        <span class="stat-value"><span data-count="978">978</span></span>
         <span class="stat-sub">2 suites · 0 skipped · unit + e2e</span>
       </article>
       <article class="stat-card card">
@@ -114,8 +115,8 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="30">30</span></span>
-        <span class="stat-sub">Aug 21 – Aug 29 · 9-day run</span>
+        <span class="stat-value"><span data-count="33">33</span></span>
+        <span class="stat-sub">Aug 21 – Aug 30 · 10-day run</span>
       </article>
       <article class="stat-card card">
         <span class="stat-label">Dependencies audited</span>
@@ -198,7 +199,7 @@
           <h3 class="feature-title">Embedded browser</h3>
           <span class="feature-status">live</span>
         </div>
-        <p class="feature-desc">In-sidebar browser that renders sites like github.com INSIDE the app via a sidecar proxy (per-tab ticket auth, HTML/CSS rewriting, framing headers stripped) — viewport presets 375→1920 + custom + zoom + rotate, and an agent browser_control tool sharing the same state; open-external is an explicit secondary. Since round 48 a ticket rotates only on an explicit re-mint: navigating and resizing no longer invalidate the iframe&#39;s credential (the flash-loop fix), and automatic recovery is capped with a manual retry.</p>
+        <p class="feature-desc">A real Chromium browser inside the app: since round 50 every browser tab is a WebView2 child webview hosted in the main window — no proxy, no tickets, full CSS/JS, one shared profile so logins survive restarts — and since round 51 the desktop app itself installs in one click (the launcher downloads the CI-built NSIS installer, seeds the API keys into the Windows secure store, and launches it), so the native engine finally runs on the owner&#39;s machine with a visible engine badge and an automatic proxy fallback. The sidecar-proxy renderer remains the outside-the-shell fallback. Viewport presets 375→1920 + custom + zoom + rotate; the agent&#39;s browser_control tool shares the same state.</p>
       </article>
       <article class="feature-card card">
         <div class="feature-top">
@@ -222,7 +223,7 @@
           <h3 class="feature-title">Sub-agent live streaming</h3>
           <span class="feature-status">live</span>
         </div>
-        <p class="feature-desc">Multi-turn delegation with per-child sessions, live forwarded tokens, retry-from-event-log recovery, atomic concurrency slots, and per-provider key pools.</p>
+        <p class="feature-desc">Multi-turn delegation with per-child sessions, live forwarded tokens (raw thinking + text streamed as they generate), the full live todo checklist, a centered stats footer (time, tokens up/down, tok/s, model), retry-from-event-log recovery, atomic concurrency slots, and per-provider key pools.</p>
       </article>
       <article class="feature-card card">
         <div class="feature-top">
@@ -262,7 +263,7 @@
           <h3 class="feature-title">Streaming chat</h3>
           <span class="feature-status">live</span>
         </div>
-        <p class="feature-desc">SSE text deltas + interleaved tool calls + thinking blocks + per-reply usage stats; turns complete in the background and notify when you&#39;re away.</p>
+        <p class="feature-desc">SSE text deltas + interleaved tool calls + thinking blocks + per-reply usage stats; turns complete in the background and notify when you&#39;re away. The composer carries permission modes, thinking levels, a provider→model flyout picker, and a context donut with main/sub-agent/combined session stats; the runtime guards against no-progress loops (nudge at 3 identical calls, honest stop at 5) and the prompt teaches understand-first, fewest-steps execution.</p>
       </article>
       <article class="feature-card card">
         <div class="feature-top">
@@ -379,10 +380,10 @@
       <article class="feature-card card">
         <div class="feature-top">
           <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></span>
-          <h3 class="feature-title">Packaging v1: version discipline + release workflow</h3>
+          <h3 class="feature-title">Packaging v2: the installable desktop app</h3>
           <span class="feature-status">live</span>
         </div>
-        <p class="feature-desc">The app version is single-sourced across all four manifests and gated in CI (0.45.0 at introduction, 0.48.0 today); a Keep-a-Changelog changelog spans 0.37→0.48; the release workflow assembles a CRLF-verified launcher-kit artifact (built and verified on CI) and opens a draft release on version tags. The bundled installer is the documented next step.</p>
+        <p class="feature-desc">The app version is single-sourced across all four manifests and gated in CI (0.51.0 today); a Keep-a-Changelog changelog spans 0.37→0.51. The release workflow now builds TWO artifacts on version tags: the CRLF-verified launcher kit, and — new in round 51 — a Windows NSIS installer (ACUTE-CODE_&lt;v&gt;_x64-setup.exe, per-user, no admin) bundling a pinned Node 24 runtime and the staged agent sidecar, proven bootable before shipping; the launcher installs it silently and seeds the owner&#39;s API keys into the Windows secure store.</p>
       </article>
       <article class="feature-card card">
         <div class="feature-top">
@@ -1550,9 +1551,9 @@
         <div class="suite-row">
           <div class="suite-head">
             <span class="suite-name">unit (agent-core + frontend + shared, vitest)</span>
-            <span class="suite-count"><strong data-count="740">740</strong> tests</span>
+            <span class="suite-count"><strong data-count="966">966</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="740" aria-valuemin="0" aria-valuemax="740" aria-label="unit (agent-core + frontend + shared, vitest) test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="966" aria-valuemin="0" aria-valuemax="966" aria-label="unit (agent-core + frontend + shared, vitest) test count relative to largest suite">
             <div class="bar-fill" data-progress="100" style="--w:100%"></div>
           </div>
         </div>
@@ -1561,13 +1562,13 @@
             <span class="suite-name">black-box e2e (built dist: sidecar + terminal sessions)</span>
             <span class="suite-count"><strong data-count="12">12</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="740" aria-label="black-box e2e (built dist: sidecar + terminal sessions) test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="966" aria-label="black-box e2e (built dist: sidecar + terminal sessions) test count relative to largest suite">
             <div class="bar-fill" data-progress="3" style="--w:3%"></div>
           </div>
         </div>
         <div class="suites-total">
           <span>Total</span>
-          <strong class="mono"><span data-count="752">752</span> tests passing · <span data-count="0">0</span> skipped</strong>
+          <strong class="mono"><span data-count="978">978</span> tests passing · <span data-count="0">0</span> skipped</strong>
         </div>
       </article>
       <div class="checks-col">
@@ -1910,9 +1911,24 @@
           <span class="timeline-label">R47 — provider management, clean + reliable: one provider API layer (the third parallel HTTP plumbing layer deleted) · key + model-scoped connection tests with honest results · the served model catalog replacing every hand-copied duplicate · enabled enforced at turn time · raw-key route removed · launcher ships zero key material (the R44 leak scrubbed + the parser bug it exposed) — 683 tests</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-08-29</span>
           <span class="timeline-label">R48 — the owner-test round (every fix from the owner&#39;s own Windows session): sub-agents at near-main-agent parity (ask-tier approvals through the parent chat with codes + attribution · abort propagation · live chat-style panel · clickable live Delegated card) · the browser flash-loop + ticket-401 fix · a real files explorer · per-project colors + new A_ logo + collapsed-rail fix + Sessions-nav removal · the modern always-on-top folder picker — 752 tests</span>
+          
+        </li>
+        <li class="timeline-item">
+          <span class="timeline-date">2026-08-30</span>
+          <span class="timeline-label">R49 — the file-tools repair round: the agent allowlist bug that stripped every file tool on pre-R43 databases (migrations 0014+0015 appended onto an empty allowlist), the browser proxy absolute-URL rewrite (CSS/JS 404s), nested sub-agents to depth 3, the memory master switch, CORS preflight repair — 752 tests</span>
+          
+        </li>
+        <li class="timeline-item">
+          <span class="timeline-date">2026-08-30</span>
+          <span class="timeline-label">R50 — the native embedded browser (Chromium child webviews in the app window), sub-agents streaming raw thinking/text live + 5-attempt retries + the stats footer, the owner-spec composer (permission modes, thinking levels, attachments, the context donut, the provider-flyout model picker), the Models &amp; Providers rework — 930 tests</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-08-30</span>
+          <span class="timeline-label">R51 — the desktop shell ships: a CI-built Windows installer with the bundled sidecar (the fix for the recurring browser complaint — the owner finally runs the real app), the composer polish round (viewport-aware flyouts, the donut hover-bridge + main/sub/combined stats), the sub-agent panel de-sloped (full todo list, centered stats), main-agent efficiency (EFFICIENCY prompt + the loop-hygiene guard), the dashboard Usage page, pnpm smoke — 978 tests</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -2007,12 +2023,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-08-30 00:29 UTC · curated public data only — no product source · Acute v0.48.0</p>
+    <p class="footer-note">Generated 2026-08-30 08:00 UTC · curated public data only — no product source · Acute v0.51.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-08-30T00:29:12.911Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
-<script src="assets/app.js?v=20260830t002912911z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-08-30T08:00:29.841Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
+<script src="assets/app.js?v=20260830t080029841z" defer></script>
 </body>
 </html>
