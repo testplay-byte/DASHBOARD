@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.52.0",
+    "version": "0.53.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -34,8 +34,8 @@
   ],
   "plan": {
     "current": {
-      "title": "R52 delivered — command supervision: background jobs (the 10-minute hang fix), sub-agents stoppable + supervised, the real in-app Usage screen, and the plugin-based tool system; awaiting the owner's Windows re-test",
-      "detail": "Every workstream traces to the owner's fifth test session. A background command like `start /B node server.js > server.log 2>&1` showed 'running…' for 10+ minutes while the agent never checked — root cause: Node's close event only fires when the stdio pipes close, and a detached grandchild inherits the pipe handles for its whole lifetime. run_command now tracks exit and close separately: a pipe-holding grandchild registers a BACKGROUND JOB and the call returns IMMEDIATELY with the job id and exact polling instructions; a never-exiting shell is tree-killed by a 60s hard watchdog; and (found live in this round's battery) a Unix `cmd > log 2>&1 &` launch registers a detached job whose liveness is its process group. New job_status/job_stop tools + a Background-jobs view in the Terminal panel (live status, output tails, Stop buttons), plus live terminal output streaming into the chat while commands run. Sub-agents are now stoppable exactly like the main agent (a Stop button on the sub-agent panel; the parent gets an honest 'stopped by the owner' report) and supervised: a 15s heartbeat streams what each child is doing (last activity, tools, todos, elapsed) and a child silent for 5 minutes is auto-stopped and reported. The in-app Usage page is real now — stat cards, activity chart, tool leaderboard, model cards, and a projects-to-sessions drill-down with sub-agent runs nested under their parents. The tool layer became a plugin system (DeepSeek-harness style, pragmatic): every built-in tool group is a self-contained plugin behind a registry, the catalog is computed from the real declarations (it can never drift again), and external .mjs plugins load from ~/.acute/plugins or the project's .acute/plugins. 1035 tests green + a live battery that reproduced the owner's trap broken, then verified it fixed — including clicking the sub-agent Stop in the browser. Next: the owner's Windows re-test (the background-jobs flow with a real dev server, the sub-agent Stop, the Usage screen on his own DB), and the v0.52.0 tag ships the first release with the NSIS installer attached."
+      "title": "R53 delivered — the connection round: the packaged app's first-run failures are dead at every layer; awaiting the owner's Windows re-test",
+      "detail": "Every fix traces to the owner's sixth test session (the FIRST run of the NSIS-installed desktop app): 'Could not reach agent-core' while creating a project, 'Agent core unreachable' in Settings, and keys that looked missing — one root cause, three symptoms. The sidecar binds an EPHEMERAL port per launch and the UI PERSISTED that port to localStorage, so the next boot rehydrated a dead endpoint; and the shell answered the webview's one-shot sidecar_info call while its own handshake (up to 25s, blocking setup) was still running — losing that race stranded the app on the dead port for the whole session. Fixes: the store persists NOTHING inside Tauri (pre-R53 blobs retired on read), the handshake moved to a background thread (the window paints immediately), the webview POLLS until the engine is up, the whole app tree is gated by a connection splash so no query can ever fire at a stale endpoint, an offline screen shows the REAL shell error with a one-click Restart-engine (new restart_sidecar + sidecar_status commands), a child monitor + 20s ping watchdog recover mid-session deaths and re-fetch everything, and every lifecycle line lands in the app-data sidecar.log — the packaged app's failures are finally self-explaining. The keys were never lost: they sit in the OS credential store where the launcher seeded them; the screens just couldn't reach the engine that reports them (the spawn log now proves injection per boot, id + length only). 1058 tests, cargo check green on the Windows target, and a live browser battery that created a project through the owner's exact failing path."
     },
     "upcoming": [
       {
@@ -996,6 +996,13 @@
       "title": "A plugin-based tool system",
       "status": "live",
       "desc": "Every built-in tool group (filesystem, search, git, terminal, web, browser, memory, todo, delegation) is now a self-contained plugin module behind a registry — the tool catalog is computed from the real plugin declarations, so the app's tool list can never drift from the backend again. External tools ship as .mjs files dropped into ~/.acute/plugins (on by default) or the project's .acute/plugins (opt-in), with name rules, collision handling, and fail-soft loading."
+    },
+    {
+      "id": "connection-gate",
+      "icon": "plug",
+      "title": "Self-healing engine connection",
+      "status": "live",
+      "desc": "Since round 53 the app and its engine can never silently disagree: a branded splash holds the whole UI until agent-core is actually up (no screen can fire requests at a stale endpoint), the shell reports the REAL startup error when something breaks, a one-click Restart-engine re-runs the full lifecycle without an app restart, a watchdog notices mid-session deaths within ~20s and reconnects with a full data re-fetch, and every lifecycle line is written to sidecar.log for support. Root cause of the first-installer 'Could not reach agent-core' report — an ephemeral port persisted across launches plus a one-shot handshake race — fixed at every layer and pinned by regression tests."
     }
   ],
   "documentation": [
@@ -1086,17 +1093,8 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at build time: run 33320231764 on head 0045baf (the 0.52.0 code tip, R52: the command-supervision + sub-agent-control + usage-screen + plugin-tools round), conclusion success — all steps green on windows-latest including the 1035-test suite (36 skips: the 23 windows-PTY terminal tests + 12 e2e run in the dedicated step + 1 POSIX-only detached-job test). The round took 4 CI iterations, each catching a real Windows-only behavior the Linux sandbox cannot show: cmd.exe quote-mangling of inline node -e scripts, the watchdog's tree-kill masquerading as a normal failure, and start /B's pipe-handle-vs-stdout split on console-less runners — all documented in docs/ui-iterations/round-52.md. The v0.52.0 tag additionally runs the Release workflow: the FIRST shipped NSIS installer (ACUTE-CODE_0.52.0_x64-setup.exe) with the bundled Node 24 + sidecar.",
-    "suites": [
-      {
-        "name": "unit (agent-core + frontend + shared, vitest)",
-        "tests": 966
-      },
-      {
-        "name": "black-box e2e (built dist: sidecar + terminal sessions)",
-        "tests": 12
-      }
-    ],
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: run 33326762198 on head 7e0d838 (the 0.53.0 code tip, R53: the connection round), conclusion success — all steps green on windows-latest including the 1058-test suite and the Rust cargo check. The round's shell changes were additionally type-checked against the WINDOWS TARGET inside the Linux sandbox itself (a user-local mingw toolchain made x86_64-pc-windows-gnu cargo-checkable — every cfg(windows) path verified before the push, not just after). The R52 lesson applied: the packaged app is a production environment without a console, so this round ships sidecar.log + the sidecar_status command + the offline screen — every future failure on the owner's machine carries its own reason. The v0.53.0 tag runs the Release workflow: the second NSIS installer.",
+    "suites": "1058 tests · 75 files (vitest) + 12 e2e · cargo check (windows-latest CI + x86_64-pc-windows-gnu in-sandbox)",
     "lint": "clean",
     "typecheck": "clean",
     "cargoCheck": "green",
@@ -1241,6 +1239,10 @@
     {
       "date": "2026-08-30",
       "label": "R52 — command supervision (background jobs + the hang fix + live terminal output), sub-agents stoppable + supervised (the shared turn registry, the heartbeat watchdog, the panel Stop button), the real in-app Usage screen, the plugin-based tool system (ADR-0025), the model-flyout hover bridge — 1035 tests"
+    },
+    {
+      "date": "2026-08-30",
+      "label": "R53 — the connection round: the stale-port fix (the packaged app's '55963' error), the background handshake + polling connect loop, the connection splash + offline screen with Restart-engine, the mid-session watchdog, sidecar.log diagnostics — 1058 tests; v0.53.0 ships the second NSIS installer"
     }
   ],
   "chips": [
@@ -1345,5 +1347,5 @@
     ],
     "total": 97
   },
-  "lastUpdated": "2026-08-30T15:45:58.000Z"
+  "lastUpdated": "2026-08-30T18:08:28.000Z"
 }

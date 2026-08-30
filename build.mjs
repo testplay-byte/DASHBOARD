@@ -191,6 +191,9 @@ const ICONS = {
     '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>' +
     '<path d="m9 12 2 2 4-4"/>',
   ),
+  plug: svg(
+    '<path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/>',
+  ),
   command: svg(
     '<path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/>' +
     '<path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/>' +
