@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260830t082530783z">
+<link rel="stylesheet" href="assets/style.css?v=20260830t154558113z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -79,7 +79,7 @@
       <div class="hero-eyebrow">
         <span class="hero-availability">Private build · Windows 10 x64</span>
         <span class="hero-dot" aria-hidden="true">·</span>
-        <span class="hero-version">v0.51.0</span>
+        <span class="hero-version">v0.52.0</span>
       </div>
       <h1 id="hero-title">Acute</h1>
       <p class="tagline">Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.</p>
@@ -96,7 +96,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-08-30 08:25 UTC</span>
+      <span class="updated-time">2026-08-30 15:45 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -115,7 +115,7 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="33">33</span></span>
+        <span class="stat-value"><span data-count="34">34</span></span>
         <span class="stat-sub">Aug 21 – Aug 30 · 10-day run</span>
       </article>
       <article class="stat-card card">
@@ -480,6 +480,38 @@
           <span class="feature-status">live</span>
         </div>
         <p class="feature-desc">Browsing for a project folder now opens the modern File-Explorer-style Windows picker — and it appears ON TOP of your windows instead of hiding behind them — both in the launcher/browser setup and in the desktop app. The old-style tree dialog remains only as a fallback if the modern one cannot load; both pickers fail honestly with an error line.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg></span>
+          <h3 class="feature-title">Background jobs — commands that outlive their tool call</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">When run_command launches something detached (Windows `start /B`, Unix `&amp;`, nohup), the call returns immediately with a job id and polling instructions instead of hanging on a pipe-holding grandchild — the exact 10-minute stall the owner reported. job_status lists/inspects every tracked job with its live output tail and log-file tail; job_stop kills it (process tree, process group, or command-line match); a hard watchdog tree-kills any command whose shell never exits within the timeout. The Terminal panel gained a Background-jobs view with live status and a Stop button per job.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3"/><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><line x1="10.5" y1="10" x2="6.5" y2="16"/><line x1="13.5" y1="10" x2="17.5" y2="16"/></svg></span>
+          <h3 class="feature-title">Sub-agents are stoppable and supervised</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The Stop control now works on sub-agents exactly like the main agent — a Stop button on the sub-agent panel header aborts just that child, and the parent agent receives an honest &#39;sub-agent was stopped by the owner&#39; report instead of a silent hang. While a child runs, a supervisor heartbeat streams what it is doing every 15 seconds (last activity, elapsed time, tool count, todo progress) into the panel, and a child with no activity for 5 minutes is auto-stopped and reported as stalled. Both thresholds are configurable in Settings.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="15" y1="4" x2="15" y2="20"/><line x1="3" y1="9" x2="15" y2="9"/><line x1="3" y1="13" x2="15" y2="13"/><line x1="3" y1="17" x2="15" y2="17"/></svg></span>
+          <h3 class="feature-title">The real in-app Usage screen</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The Usage page inside the app (previously a placeholder) is now a full analytics view over the local ledger: overview stat cards, a token activity chart with a 7/14/30/90-day range selector, a tool leaderboard with failure counts, model cards with token and cost splits, and a projects-to-sessions drill-down with sub-agent runs nested under their parents and click-through to each conversation.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">A plugin-based tool system</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Every built-in tool group (filesystem, search, git, terminal, web, browser, memory, todo, delegation) is now a self-contained plugin module behind a registry — the tool catalog is computed from the real plugin declarations, so the app&#39;s tool list can never drift from the backend again. External tools ship as .mjs files dropped into ~/.acute/plugins (on by default) or the project&#39;s .acute/plugins (opt-in), with name rules, collision handling, and fail-soft loading.</p>
       </article>
     </div>
   </section>
@@ -1483,8 +1515,8 @@
     <div class="now-card">
       <span class="now-label">Now</span>
       <div class="now-body">
-        <h3 class="now-title">R48 delivered — the owner-test round: sub-agents at near-main-agent parity (approvals, codes, live chat UI), the browser flash-loop fixed, a real files explorer, sidebar polish, and the modern folder picker; awaiting the owner&#39;s re-test</h3>
-        <p class="now-detail">Every fix in this round came from the owner testing the app himself on Windows after round 47. Sub-agents are now an almost exact copy of the main agent: a child delegated from a live chat can ask for permission — the approval card appears in the parent chat labelled &#39;Sub-agent CODE · role&#39;, and Allow / Always allow / Deny releases it — can be stopped together with its parent, streams its tool calls live, and is identifiable at a glance by a four-character code shown on every surface (chat cards, tab picker, tab titles, panel header). The embedded browser&#39;s flash loop (&#39;refreshes every one or two seconds… eventually a ticket error&#39;) is dead at the root: navigating and resizing no longer silently rotate the iframe&#39;s proxy ticket, and automatic recovery is bounded with a manual retry. The Files action opens a real two-pane explorer — the project tree on the left, the file&#39;s contents on the right (markdown rendered, code with line numbers). Projects get distinct colors from an 8-color palette with existing projects re-colored once on update; the logo is a sharper &#39;A_&#39; prompt mark with a favicon; the collapsed sidebar rail no longer grows and clips the selected project; the Sessions nav entry is gone (deep links keep working); memory cards lost the colored accent bar. The Browse button now opens the modern File-Explorer-style folder picker, always on top of other windows. Chat bottom-bar and model-switcher improvements were explicitly deferred by the owner. CI status on this page is baked from the GitHub Actions API, never hand-claimed. Next: the owner&#39;s re-test (especially the Windows folder picker and the sub-agent approval flow on his machine), the chat bottom-bar round, the bundled installer, a slot-aware key command for the desktop shell, and the one-line frontend wire-up that turns on per-project cookie isolation.</p>
+        <h3 class="now-title">R52 delivered — command supervision: background jobs (the 10-minute hang fix), sub-agents stoppable + supervised, the real in-app Usage screen, and the plugin-based tool system; awaiting the owner&#39;s Windows re-test</h3>
+        <p class="now-detail">Every workstream traces to the owner&#39;s fifth test session. A background command like `start /B node server.js &gt; server.log 2&gt;&amp;1` showed &#39;running…&#39; for 10+ minutes while the agent never checked — root cause: Node&#39;s close event only fires when the stdio pipes close, and a detached grandchild inherits the pipe handles for its whole lifetime. run_command now tracks exit and close separately: a pipe-holding grandchild registers a BACKGROUND JOB and the call returns IMMEDIATELY with the job id and exact polling instructions; a never-exiting shell is tree-killed by a 60s hard watchdog; and (found live in this round&#39;s battery) a Unix `cmd &gt; log 2&gt;&amp;1 &amp;` launch registers a detached job whose liveness is its process group. New job_status/job_stop tools + a Background-jobs view in the Terminal panel (live status, output tails, Stop buttons), plus live terminal output streaming into the chat while commands run. Sub-agents are now stoppable exactly like the main agent (a Stop button on the sub-agent panel; the parent gets an honest &#39;stopped by the owner&#39; report) and supervised: a 15s heartbeat streams what each child is doing (last activity, tools, todos, elapsed) and a child silent for 5 minutes is auto-stopped and reported. The in-app Usage page is real now — stat cards, activity chart, tool leaderboard, model cards, and a projects-to-sessions drill-down with sub-agent runs nested under their parents. The tool layer became a plugin system (DeepSeek-harness style, pragmatic): every built-in tool group is a self-contained plugin behind a registry, the catalog is computed from the real declarations (it can never drift again), and external .mjs plugins load from ~/.acute/plugins or the project&#39;s .acute/plugins. 1035 tests green + a live battery that reproduced the owner&#39;s trap broken, then verified it fixed — including clicking the sub-agent Stop in the browser. Next: the owner&#39;s Windows re-test (the background-jobs flow with a real dev server, the sub-agent Stop, the Usage screen on his own DB), and the v0.52.0 tag ships the first release with the NSIS installer attached.</p>
       </div>
       <span class="now-live"><span class="live-dot" aria-hidden="true"></span>current focus</span>
     </div>
@@ -1541,7 +1573,7 @@
       <div>
         <h2 id="quality-title">Quality</h2>
         <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
-        <p class="quality-note">Green on main — verified from the GitHub Actions API at build time: run 33301179273 on head fe929d9 (the 0.51.0 code tip, R51: the desktop-installer + composer-polish + efficiency round), conclusion success — all steps green including the Rust shell type-check with the new bundle config and the 978-test suite. The DASHBOARD publish run 33300528292 and the Pages deployment on 9942d88 also completed success.</p>
+        <p class="quality-note">Green on main — verified from the GitHub Actions API at build time: run 33320231764 on head 0045baf (the 0.52.0 code tip, R52: the command-supervision + sub-agent-control + usage-screen + plugin-tools round), conclusion success — all steps green on windows-latest including the 1035-test suite (36 skips: the 23 windows-PTY terminal tests + 12 e2e run in the dedicated step + 1 POSIX-only detached-job test). The round took 4 CI iterations, each catching a real Windows-only behavior the Linux sandbox cannot show: cmd.exe quote-mangling of inline node -e scripts, the watchdog&#39;s tree-kill masquerading as a normal failure, and start /B&#39;s pipe-handle-vs-stdout split on console-less runners — all documented in docs/ui-iterations/round-52.md. The v0.52.0 tag additionally runs the Release workflow: the FIRST shipped NSIS installer (ACUTE-CODE_0.52.0_x64-setup.exe) with the bundled Node 24 + sidecar.</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -1926,9 +1958,14 @@
           <span class="timeline-label">R50 — the native embedded browser (Chromium child webviews in the app window), sub-agents streaming raw thinking/text live + 5-attempt retries + the stats footer, the owner-spec composer (permission modes, thinking levels, attachments, the context donut, the provider-flyout model picker), the Models &amp; Providers rework — 930 tests</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-08-30</span>
           <span class="timeline-label">R51 — the desktop shell ships: a CI-built Windows installer with the bundled sidecar (the fix for the recurring browser complaint — the owner finally runs the real app), the composer polish round (viewport-aware flyouts, the donut hover-bridge + main/sub/combined stats), the sub-agent panel de-sloped (full todo list, centered stats), main-agent efficiency (EFFICIENCY prompt + the loop-hygiene guard), the dashboard Usage page, pnpm smoke — 978 tests</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-08-30</span>
+          <span class="timeline-label">R52 — command supervision (background jobs + the hang fix + live terminal output), sub-agents stoppable + supervised (the shared turn registry, the heartbeat watchdog, the panel Stop button), the real in-app Usage screen, the plugin-based tool system (ADR-0025), the model-flyout hover bridge — 1035 tests</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -2023,12 +2060,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-08-30 08:25 UTC · curated public data only — no product source · Acute v0.51.0</p>
+    <p class="footer-note">Generated 2026-08-30 15:45 UTC · curated public data only — no product source · Acute v0.52.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-08-30T08:25:30.783Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
-<script src="assets/app.js?v=20260830t082530783z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-08-30T15:45:58.113Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
+<script src="assets/app.js?v=20260830t154558113z" defer></script>
 </body>
 </html>

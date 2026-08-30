@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.51.0",
+    "version": "0.52.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -34,8 +34,8 @@
   ],
   "plan": {
     "current": {
-      "title": "R48 delivered — the owner-test round: sub-agents at near-main-agent parity (approvals, codes, live chat UI), the browser flash-loop fixed, a real files explorer, sidebar polish, and the modern folder picker; awaiting the owner's re-test",
-      "detail": "Every fix in this round came from the owner testing the app himself on Windows after round 47. Sub-agents are now an almost exact copy of the main agent: a child delegated from a live chat can ask for permission — the approval card appears in the parent chat labelled 'Sub-agent CODE · role', and Allow / Always allow / Deny releases it — can be stopped together with its parent, streams its tool calls live, and is identifiable at a glance by a four-character code shown on every surface (chat cards, tab picker, tab titles, panel header). The embedded browser's flash loop ('refreshes every one or two seconds… eventually a ticket error') is dead at the root: navigating and resizing no longer silently rotate the iframe's proxy ticket, and automatic recovery is bounded with a manual retry. The Files action opens a real two-pane explorer — the project tree on the left, the file's contents on the right (markdown rendered, code with line numbers). Projects get distinct colors from an 8-color palette with existing projects re-colored once on update; the logo is a sharper 'A_' prompt mark with a favicon; the collapsed sidebar rail no longer grows and clips the selected project; the Sessions nav entry is gone (deep links keep working); memory cards lost the colored accent bar. The Browse button now opens the modern File-Explorer-style folder picker, always on top of other windows. Chat bottom-bar and model-switcher improvements were explicitly deferred by the owner. CI status on this page is baked from the GitHub Actions API, never hand-claimed. Next: the owner's re-test (especially the Windows folder picker and the sub-agent approval flow on his machine), the chat bottom-bar round, the bundled installer, a slot-aware key command for the desktop shell, and the one-line frontend wire-up that turns on per-project cookie isolation."
+      "title": "R52 delivered — command supervision: background jobs (the 10-minute hang fix), sub-agents stoppable + supervised, the real in-app Usage screen, and the plugin-based tool system; awaiting the owner's Windows re-test",
+      "detail": "Every workstream traces to the owner's fifth test session. A background command like `start /B node server.js > server.log 2>&1` showed 'running…' for 10+ minutes while the agent never checked — root cause: Node's close event only fires when the stdio pipes close, and a detached grandchild inherits the pipe handles for its whole lifetime. run_command now tracks exit and close separately: a pipe-holding grandchild registers a BACKGROUND JOB and the call returns IMMEDIATELY with the job id and exact polling instructions; a never-exiting shell is tree-killed by a 60s hard watchdog; and (found live in this round's battery) a Unix `cmd > log 2>&1 &` launch registers a detached job whose liveness is its process group. New job_status/job_stop tools + a Background-jobs view in the Terminal panel (live status, output tails, Stop buttons), plus live terminal output streaming into the chat while commands run. Sub-agents are now stoppable exactly like the main agent (a Stop button on the sub-agent panel; the parent gets an honest 'stopped by the owner' report) and supervised: a 15s heartbeat streams what each child is doing (last activity, tools, todos, elapsed) and a child silent for 5 minutes is auto-stopped and reported. The in-app Usage page is real now — stat cards, activity chart, tool leaderboard, model cards, and a projects-to-sessions drill-down with sub-agent runs nested under their parents. The tool layer became a plugin system (DeepSeek-harness style, pragmatic): every built-in tool group is a self-contained plugin behind a registry, the catalog is computed from the real declarations (it can never drift again), and external .mjs plugins load from ~/.acute/plugins or the project's .acute/plugins. 1035 tests green + a live battery that reproduced the owner's trap broken, then verified it fixed — including clicking the sub-agent Stop in the browser. Next: the owner's Windows re-test (the background-jobs flow with a real dev server, the sub-agent Stop, the Usage screen on his own DB), and the v0.52.0 tag ships the first release with the NSIS installer attached."
     },
     "upcoming": [
       {
@@ -968,6 +968,34 @@
       "title": "The modern always-on-top folder picker",
       "status": "live",
       "desc": "Browsing for a project folder now opens the modern File-Explorer-style Windows picker — and it appears ON TOP of your windows instead of hiding behind them — both in the launcher/browser setup and in the desktop app. The old-style tree dialog remains only as a fallback if the modern one cannot load; both pickers fail honestly with an error line."
+    },
+    {
+      "id": "background-jobs",
+      "icon": "terminal",
+      "title": "Background jobs — commands that outlive their tool call",
+      "status": "live",
+      "desc": "When run_command launches something detached (Windows `start /B`, Unix `&`, nohup), the call returns immediately with a job id and polling instructions instead of hanging on a pipe-holding grandchild — the exact 10-minute stall the owner reported. job_status lists/inspects every tracked job with its live output tail and log-file tail; job_stop kills it (process tree, process group, or command-line match); a hard watchdog tree-kills any command whose shell never exits within the timeout. The Terminal panel gained a Background-jobs view with live status and a Stop button per job."
+    },
+    {
+      "id": "subagent-supervision",
+      "icon": "agents",
+      "title": "Sub-agents are stoppable and supervised",
+      "status": "live",
+      "desc": "The Stop control now works on sub-agents exactly like the main agent — a Stop button on the sub-agent panel header aborts just that child, and the parent agent receives an honest 'sub-agent was stopped by the owner' report instead of a silent hang. While a child runs, a supervisor heartbeat streams what it is doing every 15 seconds (last activity, elapsed time, tool count, todo progress) into the panel, and a child with no activity for 5 minutes is auto-stopped and reported as stalled. Both thresholds are configurable in Settings."
+    },
+    {
+      "id": "usage-screen",
+      "icon": "panels",
+      "title": "The real in-app Usage screen",
+      "status": "live",
+      "desc": "The Usage page inside the app (previously a placeholder) is now a full analytics view over the local ledger: overview stat cards, a token activity chart with a 7/14/30/90-day range selector, a tool leaderboard with failure counts, model cards with token and cost splits, and a projects-to-sessions drill-down with sub-agent runs nested under their parents and click-through to each conversation."
+    },
+    {
+      "id": "plugin-tools",
+      "icon": "command",
+      "title": "A plugin-based tool system",
+      "status": "live",
+      "desc": "Every built-in tool group (filesystem, search, git, terminal, web, browser, memory, todo, delegation) is now a self-contained plugin module behind a registry — the tool catalog is computed from the real plugin declarations, so the app's tool list can never drift from the backend again. External tools ship as .mjs files dropped into ~/.acute/plugins (on by default) or the project's .acute/plugins (opt-in), with name rules, collision handling, and fail-soft loading."
     }
   ],
   "documentation": [
@@ -1058,7 +1086,7 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at build time: run 33301179273 on head fe929d9 (the 0.51.0 code tip, R51: the desktop-installer + composer-polish + efficiency round), conclusion success — all steps green including the Rust shell type-check with the new bundle config and the 978-test suite. The DASHBOARD publish run 33300528292 and the Pages deployment on 9942d88 also completed success.",
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: run 33320231764 on head 0045baf (the 0.52.0 code tip, R52: the command-supervision + sub-agent-control + usage-screen + plugin-tools round), conclusion success — all steps green on windows-latest including the 1035-test suite (36 skips: the 23 windows-PTY terminal tests + 12 e2e run in the dedicated step + 1 POSIX-only detached-job test). The round took 4 CI iterations, each catching a real Windows-only behavior the Linux sandbox cannot show: cmd.exe quote-mangling of inline node -e scripts, the watchdog's tree-kill masquerading as a normal failure, and start /B's pipe-handle-vs-stdout split on console-less runners — all documented in docs/ui-iterations/round-52.md. The v0.52.0 tag additionally runs the Release workflow: the FIRST shipped NSIS installer (ACUTE-CODE_0.52.0_x64-setup.exe) with the bundled Node 24 + sidecar.",
     "suites": [
       {
         "name": "unit (agent-core + frontend + shared, vitest)",
@@ -1209,6 +1237,10 @@
     {
       "date": "2026-08-30",
       "label": "R51 — the desktop shell ships: a CI-built Windows installer with the bundled sidecar (the fix for the recurring browser complaint — the owner finally runs the real app), the composer polish round (viewport-aware flyouts, the donut hover-bridge + main/sub/combined stats), the sub-agent panel de-sloped (full todo list, centered stats), main-agent efficiency (EFFICIENCY prompt + the loop-hygiene guard), the dashboard Usage page, pnpm smoke — 978 tests"
+    },
+    {
+      "date": "2026-08-30",
+      "label": "R52 — command supervision (background jobs + the hang fix + live terminal output), sub-agents stoppable + supervised (the shared turn registry, the heartbeat watchdog, the panel Stop button), the real in-app Usage screen, the plugin-based tool system (ADR-0025), the model-flyout hover bridge — 1035 tests"
     }
   ],
   "chips": [
@@ -1313,5 +1345,5 @@
     ],
     "total": 97
   },
-  "lastUpdated": "2026-08-30T08:23:57.000Z"
+  "lastUpdated": "2026-08-30T15:45:58.000Z"
 }
