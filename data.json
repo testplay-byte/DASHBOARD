@@ -1058,7 +1058,7 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at build time: run 33257534609 on head 3336283 (the 0.48.0 code tip), conclusion success, and the docs push 90e5cf0 also ran green (run 33258603674 — round report, API truth page, and lesson entries). Both runs were push-triggered, no manual dispatch needed.",
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: run 33301179273 on head fe929d9 (the 0.51.0 code tip, R51: the desktop-installer + composer-polish + efficiency round), conclusion success — all steps green including the Rust shell type-check with the new bundle config and the 978-test suite. The DASHBOARD publish run 33300528292 and the Pages deployment on 9942d88 also completed success.",
     "suites": [
       {
         "name": "unit (agent-core + frontend + shared, vitest)",
@@ -1313,5 +1313,5 @@
     ],
     "total": 97
   },
-  "lastUpdated": "2026-08-30T07:59:26.000Z"
+  "lastUpdated": "2026-08-30T08:23:57.000Z"
 }
