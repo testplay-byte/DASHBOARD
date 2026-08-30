@@ -1290,9 +1290,16 @@
         "count": 10,
         "size_kb": 814,
         "scope": "Chat continuity (Working section) + provider rebuild + approvals"
+      },
+      {
+        "round": 50,
+        "date": "2026-08-30",
+        "url": "screenshots/round-50.zip",
+        "count": 2,
+        "size_kb": 247
       }
     ],
-    "total": 85
+    "total": 97
   },
   "lastUpdated": "2026-08-29T14:54:33.620Z"
 }

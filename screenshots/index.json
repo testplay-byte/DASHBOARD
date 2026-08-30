@@ -69,6 +69,13 @@
       "size_bytes": 688703,
       "screenshots": 8,
       "scope": "Sub-agent orchestration live proof: parallel delegation, SubAgentCards, orchestration settings, key pool."
+    },
+    {
+      "round": 50,
+      "date": "2026-08-30",
+      "zip": "round-50.zip",
+      "size_bytes": 252448,
+      "screenshots": 2
     }
   ]
 }
