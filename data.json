@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.53.0",
+    "version": "0.54.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -34,8 +34,8 @@
   ],
   "plan": {
     "current": {
-      "title": "R53 delivered — the connection round: the packaged app's first-run failures are dead at every layer; awaiting the owner's Windows re-test",
-      "detail": "Every fix traces to the owner's sixth test session (the FIRST run of the NSIS-installed desktop app): 'Could not reach agent-core' while creating a project, 'Agent core unreachable' in Settings, and keys that looked missing — one root cause, three symptoms. The sidecar binds an EPHEMERAL port per launch and the UI PERSISTED that port to localStorage, so the next boot rehydrated a dead endpoint; and the shell answered the webview's one-shot sidecar_info call while its own handshake (up to 25s, blocking setup) was still running — losing that race stranded the app on the dead port for the whole session. Fixes: the store persists NOTHING inside Tauri (pre-R53 blobs retired on read), the handshake moved to a background thread (the window paints immediately), the webview POLLS until the engine is up, the whole app tree is gated by a connection splash so no query can ever fire at a stale endpoint, an offline screen shows the REAL shell error with a one-click Restart-engine (new restart_sidecar + sidecar_status commands), a child monitor + 20s ping watchdog recover mid-session deaths and re-fetch everything, and every lifecycle line lands in the app-data sidecar.log — the packaged app's failures are finally self-explaining. The keys were never lost: they sit in the OS credential store where the launcher seeded them; the screens just couldn't reach the engine that reports them (the spawn log now proves injection per boot, id + length only). 1058 tests, cargo check green on the Windows target, and a live browser battery that created a project through the owner's exact failing path."
+      "title": "R54 delivered — the reliability round: broken installs repair themselves and engine failures explain themselves; awaiting the owner's Windows re-test",
+      "detail": "Every fix traces to the owner's second desktop session: the packaged app still showed 'can't reach agent core' (restart never recovered it), and after a manual folder deletion the launcher claimed the app was current but the exe was gone — then fell back to the browser instead of reinstalling. Three root causes, all fixed: the launcher trusted the registry (which outlives the folder) over the files; the packaged app could not see its own engine's crash output (a windowed app has no stderr — the old inherit went nowhere) and a failed engine start orphaned a zombie process holding the database, so every restart raced it; and one-shot startup deadlines lost to cold first boots while antivirus scanned the fresh install. Now: disk-verified installs that reinstall when broken, precise pre-upgrade process cleanup, piped engine stderr into the log, three startup attempts, no orphans, the offline screen renders the engine log with a Copy-diagnostics button, and the launcher console confirms the engine booted. Verified: 1071 tests, the Rust shell type-checked against the Windows target in-sandbox, the launcher logic-tested against the owner's exact scenario, and a live browser battery of the owner's fallback flows."
     },
     "upcoming": [
       {
@@ -1003,6 +1003,13 @@
       "title": "Self-healing engine connection",
       "status": "live",
       "desc": "Since round 53 the app and its engine can never silently disagree: a branded splash holds the whole UI until agent-core is actually up (no screen can fire requests at a stale endpoint), the shell reports the REAL startup error when something breaks, a one-click Restart-engine re-runs the full lifecycle without an app restart, a watchdog notices mid-session deaths within ~20s and reconnects with a full data re-fetch, and every lifecycle line is written to sidecar.log for support. Root cause of the first-installer 'Could not reach agent-core' report — an ephemeral port persisted across launches plus a one-shot handshake race — fixed at every layer and pinned by regression tests."
+    },
+    {
+      "id": "self-repairing-installs",
+      "icon": "wrench",
+      "title": "Self-repairing installs + in-app engine diagnostics",
+      "status": "live",
+      "desc": "Since round 54 the launcher and the packaged app fix and explain themselves. The launcher verifies the install on DISK (app binary, pinned Node runtime, bundled engine) instead of trusting the Windows registry entry — which survives a manual folder deletion — so a deleted or half-written install is detected and REINSTALLED automatically, running copies are closed before upgrades so files are never replaced under a live app, and after launch the console watches the engine's own log and prints a plain 'engine is up — port' confirmation (or the failure log, right there). Inside the app, the engine's error channel is finally captured: its stderr is piped into the engine log, a failed start no longer leaves a zombie engine process holding the database (the real reason the restart button kept failing), cold boots retry three times before giving up, and the offline screen now shows the last log lines IN-APP with a one-click Copy-diagnostics button — any future failure explains itself on screen."
     }
   ],
   "documentation": [
@@ -1093,7 +1100,7 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at build time: run 33326762198 on head 7e0d838 (the 0.53.0 code tip, R53: the connection round), conclusion success — all steps green on windows-latest including the 1058-test suite and the Rust cargo check. The round's shell changes were additionally type-checked against the WINDOWS TARGET inside the Linux sandbox itself (a user-local mingw toolchain made x86_64-pc-windows-gnu cargo-checkable — every cfg(windows) path verified before the push, not just after). The R52 lesson applied: the packaged app is a production environment without a console, so this round ships sidecar.log + the sidecar_status command + the offline screen — every future failure on the owner's machine carries its own reason. The v0.53.0 tag runs the Release workflow: the second NSIS installer.",
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: run 33330618904 on head 4a2dcbf (the 0.54.0 code tip, R54: the reliability round), conclusion success — all steps green on windows-latest including the 1071-test suite and the Rust cargo check. The round's Rust changes were additionally type-checked against the WINDOWS TARGET inside the Linux sandbox (user-local mingw), and the Python launcher's new install-verification / engine-watch helpers were logic-tested against the owner's exact failure scenario before the push. The R52 lesson generalized this round: a packaged GUI app must observe its own children — stderr, exit codes, output — 'it compiled and spawned' was never evidence the engine booted.",
     "suites": "1058 tests · 75 files (vitest) + 12 e2e · cargo check (windows-latest CI + x86_64-pc-windows-gnu in-sandbox)",
     "lint": "clean",
     "typecheck": "clean",
@@ -1243,6 +1250,10 @@
     {
       "date": "2026-08-30",
       "label": "R53 — the connection round: the stale-port fix (the packaged app's '55963' error), the background handshake + polling connect loop, the connection splash + offline screen with Restart-engine, the mid-session watchdog, sidecar.log diagnostics — 1058 tests; v0.53.0 ships the second NSIS installer"
+    },
+    {
+      "date": "2026-08-30",
+      "label": "R54 — the reliability round: the registry-vs-disk install repair, piped engine stderr + zombie-engine fix + cold-boot retries, the in-app engine-log screen with Copy diagnostics, the launcher's engine boot watch, bounded browser folder picking — 1071 tests; v0.54.0 ships the third NSIS installer"
     }
   ],
   "chips": [
@@ -1347,5 +1358,5 @@
     ],
     "total": 97
   },
-  "lastUpdated": "2026-08-30T18:08:28.000Z"
+  "lastUpdated": "2026-08-30"
 }

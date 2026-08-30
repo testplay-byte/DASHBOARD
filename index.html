@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260830t180941515z">
+<link rel="stylesheet" href="assets/style.css?v=20260830t192922423z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -79,7 +79,7 @@
       <div class="hero-eyebrow">
         <span class="hero-availability">Private build · Windows 10 x64</span>
         <span class="hero-dot" aria-hidden="true">·</span>
-        <span class="hero-version">v0.53.0</span>
+        <span class="hero-version">v0.54.0</span>
       </div>
       <h1 id="hero-title">Acute</h1>
       <p class="tagline">Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.</p>
@@ -96,7 +96,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-08-30 18:09 UTC</span>
+      <span class="updated-time">2026-08-30 19:29 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -115,7 +115,7 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="35">35</span></span>
+        <span class="stat-value"><span data-count="36">36</span></span>
         <span class="stat-sub">Aug 21 – Aug 30 · 10-day run</span>
       </article>
       <article class="stat-card card">
@@ -520,6 +520,14 @@
           <span class="feature-status">live</span>
         </div>
         <p class="feature-desc">Since round 53 the app and its engine can never silently disagree: a branded splash holds the whole UI until agent-core is actually up (no screen can fire requests at a stale endpoint), the shell reports the REAL startup error when something breaks, a one-click Restart-engine re-runs the full lifecycle without an app restart, a watchdog notices mid-session deaths within ~20s and reconnects with a full data re-fetch, and every lifecycle line is written to sidecar.log for support. Root cause of the first-installer &#39;Could not reach agent-core&#39; report — an ephemeral port persisted across launches plus a one-shot handshake race — fixed at every layer and pinned by regression tests.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
+          <h3 class="feature-title">Self-repairing installs + in-app engine diagnostics</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Since round 54 the launcher and the packaged app fix and explain themselves. The launcher verifies the install on DISK (app binary, pinned Node runtime, bundled engine) instead of trusting the Windows registry entry — which survives a manual folder deletion — so a deleted or half-written install is detected and REINSTALLED automatically, running copies are closed before upgrades so files are never replaced under a live app, and after launch the console watches the engine&#39;s own log and prints a plain &#39;engine is up — port&#39; confirmation (or the failure log, right there). Inside the app, the engine&#39;s error channel is finally captured: its stderr is piped into the engine log, a failed start no longer leaves a zombie engine process holding the database (the real reason the restart button kept failing), cold boots retry three times before giving up, and the offline screen now shows the last log lines IN-APP with a one-click Copy-diagnostics button — any future failure explains itself on screen.</p>
       </article>
     </div>
   </section>
@@ -1523,8 +1531,8 @@
     <div class="now-card">
       <span class="now-label">Now</span>
       <div class="now-body">
-        <h3 class="now-title">R53 delivered — the connection round: the packaged app&#39;s first-run failures are dead at every layer; awaiting the owner&#39;s Windows re-test</h3>
-        <p class="now-detail">Every fix traces to the owner&#39;s sixth test session (the FIRST run of the NSIS-installed desktop app): &#39;Could not reach agent-core&#39; while creating a project, &#39;Agent core unreachable&#39; in Settings, and keys that looked missing — one root cause, three symptoms. The sidecar binds an EPHEMERAL port per launch and the UI PERSISTED that port to localStorage, so the next boot rehydrated a dead endpoint; and the shell answered the webview&#39;s one-shot sidecar_info call while its own handshake (up to 25s, blocking setup) was still running — losing that race stranded the app on the dead port for the whole session. Fixes: the store persists NOTHING inside Tauri (pre-R53 blobs retired on read), the handshake moved to a background thread (the window paints immediately), the webview POLLS until the engine is up, the whole app tree is gated by a connection splash so no query can ever fire at a stale endpoint, an offline screen shows the REAL shell error with a one-click Restart-engine (new restart_sidecar + sidecar_status commands), a child monitor + 20s ping watchdog recover mid-session deaths and re-fetch everything, and every lifecycle line lands in the app-data sidecar.log — the packaged app&#39;s failures are finally self-explaining. The keys were never lost: they sit in the OS credential store where the launcher seeded them; the screens just couldn&#39;t reach the engine that reports them (the spawn log now proves injection per boot, id + length only). 1058 tests, cargo check green on the Windows target, and a live browser battery that created a project through the owner&#39;s exact failing path.</p>
+        <h3 class="now-title">R54 delivered — the reliability round: broken installs repair themselves and engine failures explain themselves; awaiting the owner&#39;s Windows re-test</h3>
+        <p class="now-detail">Every fix traces to the owner&#39;s second desktop session: the packaged app still showed &#39;can&#39;t reach agent core&#39; (restart never recovered it), and after a manual folder deletion the launcher claimed the app was current but the exe was gone — then fell back to the browser instead of reinstalling. Three root causes, all fixed: the launcher trusted the registry (which outlives the folder) over the files; the packaged app could not see its own engine&#39;s crash output (a windowed app has no stderr — the old inherit went nowhere) and a failed engine start orphaned a zombie process holding the database, so every restart raced it; and one-shot startup deadlines lost to cold first boots while antivirus scanned the fresh install. Now: disk-verified installs that reinstall when broken, precise pre-upgrade process cleanup, piped engine stderr into the log, three startup attempts, no orphans, the offline screen renders the engine log with a Copy-diagnostics button, and the launcher console confirms the engine booted. Verified: 1071 tests, the Rust shell type-checked against the Windows target in-sandbox, the launcher logic-tested against the owner&#39;s exact scenario, and a live browser battery of the owner&#39;s fallback flows.</p>
       </div>
       <span class="now-live"><span class="live-dot" aria-hidden="true"></span>current focus</span>
     </div>
@@ -1581,7 +1589,7 @@
       <div>
         <h2 id="quality-title">Quality</h2>
         <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
-        <p class="quality-note">Green on main — verified from the GitHub Actions API at build time: run 33326762198 on head 7e0d838 (the 0.53.0 code tip, R53: the connection round), conclusion success — all steps green on windows-latest including the 1058-test suite and the Rust cargo check. The round&#39;s shell changes were additionally type-checked against the WINDOWS TARGET inside the Linux sandbox itself (a user-local mingw toolchain made x86_64-pc-windows-gnu cargo-checkable — every cfg(windows) path verified before the push, not just after). The R52 lesson applied: the packaged app is a production environment without a console, so this round ships sidecar.log + the sidecar_status command + the offline screen — every future failure on the owner&#39;s machine carries its own reason. The v0.53.0 tag runs the Release workflow: the second NSIS installer.</p>
+        <p class="quality-note">Green on main — verified from the GitHub Actions API at build time: run 33330618904 on head 4a2dcbf (the 0.54.0 code tip, R54: the reliability round), conclusion success — all steps green on windows-latest including the 1071-test suite and the Rust cargo check. The round&#39;s Rust changes were additionally type-checked against the WINDOWS TARGET inside the Linux sandbox (user-local mingw), and the Python launcher&#39;s new install-verification / engine-watch helpers were logic-tested against the owner&#39;s exact failure scenario before the push. The R52 lesson generalized this round: a packaged GUI app must observe its own children — stderr, exit codes, output — &#39;it compiled and spawned&#39; was never evidence the engine booted.</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -1959,9 +1967,14 @@
           <span class="timeline-label">R52 — command supervision (background jobs + the hang fix + live terminal output), sub-agents stoppable + supervised (the shared turn registry, the heartbeat watchdog, the panel Stop button), the real in-app Usage screen, the plugin-based tool system (ADR-0025), the model-flyout hover bridge — 1035 tests</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-08-30</span>
           <span class="timeline-label">R53 — the connection round: the stale-port fix (the packaged app&#39;s &#39;55963&#39; error), the background handshake + polling connect loop, the connection splash + offline screen with Restart-engine, the mid-session watchdog, sidecar.log diagnostics — 1058 tests; v0.53.0 ships the second NSIS installer</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-08-30</span>
+          <span class="timeline-label">R54 — the reliability round: the registry-vs-disk install repair, piped engine stderr + zombie-engine fix + cold-boot retries, the in-app engine-log screen with Copy diagnostics, the launcher&#39;s engine boot watch, bounded browser folder picking — 1071 tests; v0.54.0 ships the third NSIS installer</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -2056,12 +2069,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-08-30 18:09 UTC · curated public data only — no product source · Acute v0.53.0</p>
+    <p class="footer-note">Generated 2026-08-30 19:29 UTC · curated public data only — no product source · Acute v0.54.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-08-30T18:09:41.515Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
-<script src="assets/app.js?v=20260830t180941515z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-08-30T19:29:22.423Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
+<script src="assets/app.js?v=20260830t192922423z" defer></script>
 </body>
 </html>
