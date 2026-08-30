@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.48.0",
+    "version": "0.51.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -722,7 +722,7 @@
       "icon": "browser",
       "title": "Embedded browser",
       "status": "live",
-      "desc": "In-sidebar browser that renders sites like github.com INSIDE the app via a sidecar proxy (per-tab ticket auth, HTML/CSS rewriting, framing headers stripped) — viewport presets 375→1920 + custom + zoom + rotate, and an agent browser_control tool sharing the same state; open-external is an explicit secondary. Since round 48 a ticket rotates only on an explicit re-mint: navigating and resizing no longer invalidate the iframe's credential (the flash-loop fix), and automatic recovery is capped with a manual retry."
+      "desc": "A real Chromium browser inside the app: since round 50 every browser tab is a WebView2 child webview hosted in the main window — no proxy, no tickets, full CSS/JS, one shared profile so logins survive restarts — and since round 51 the desktop app itself installs in one click (the launcher downloads the CI-built NSIS installer, seeds the API keys into the Windows secure store, and launches it), so the native engine finally runs on the owner's machine with a visible engine badge and an automatic proxy fallback. The sidecar-proxy renderer remains the outside-the-shell fallback. Viewport presets 375→1920 + custom + zoom + rotate; the agent's browser_control tool shares the same state."
     },
     {
       "id": "right-sidebar",
@@ -743,7 +743,7 @@
       "icon": "agents",
       "title": "Sub-agent live streaming",
       "status": "live",
-      "desc": "Multi-turn delegation with per-child sessions, live forwarded tokens, retry-from-event-log recovery, atomic concurrency slots, and per-provider key pools."
+      "desc": "Multi-turn delegation with per-child sessions, live forwarded tokens (raw thinking + text streamed as they generate), the full live todo checklist, a centered stats footer (time, tokens up/down, tok/s, model), retry-from-event-log recovery, atomic concurrency slots, and per-provider key pools."
     },
     {
       "id": "approvals",
@@ -778,7 +778,7 @@
       "icon": "stream",
       "title": "Streaming chat",
       "status": "live",
-      "desc": "SSE text deltas + interleaved tool calls + thinking blocks + per-reply usage stats; turns complete in the background and notify when you're away."
+      "desc": "SSE text deltas + interleaved tool calls + thinking blocks + per-reply usage stats; turns complete in the background and notify when you're away. The composer carries permission modes, thinking levels, a provider→model flyout picker, and a context donut with main/sub-agent/combined session stats; the runtime guards against no-progress loops (nudge at 3 identical calls, honest stop at 5) and the prompt teaches understand-first, fewest-steps execution."
     },
     {
       "id": "background-turns",
@@ -881,9 +881,9 @@
     {
       "id": "packaging-v1",
       "icon": "doc",
-      "title": "Packaging v1: version discipline + release workflow",
+      "title": "Packaging v2: the installable desktop app",
       "status": "live",
-      "desc": "The app version is single-sourced across all four manifests and gated in CI (0.45.0 at introduction, 0.48.0 today); a Keep-a-Changelog changelog spans 0.37→0.48; the release workflow assembles a CRLF-verified launcher-kit artifact (built and verified on CI) and opens a draft release on version tags. The bundled installer is the documented next step."
+      "desc": "The app version is single-sourced across all four manifests and gated in CI (0.51.0 today); a Keep-a-Changelog changelog spans 0.37→0.51. The release workflow now builds TWO artifacts on version tags: the CRLF-verified launcher kit, and — new in round 51 — a Windows NSIS installer (ACUTE-CODE_<v>_x64-setup.exe, per-user, no admin) bundling a pinned Node 24 runtime and the staged agent sidecar, proven bootable before shipping; the launcher installs it silently and seeds the owner's API keys into the Windows secure store."
     },
     {
       "id": "session-manager-mobile",
@@ -1062,7 +1062,7 @@
     "suites": [
       {
         "name": "unit (agent-core + frontend + shared, vitest)",
-        "tests": 740
+        "tests": 966
       },
       {
         "name": "black-box e2e (built dist: sidecar + terminal sessions)",
@@ -1197,6 +1197,18 @@
     {
       "date": "2026-08-29",
       "label": "R48 — the owner-test round (every fix from the owner's own Windows session): sub-agents at near-main-agent parity (ask-tier approvals through the parent chat with codes + attribution · abort propagation · live chat-style panel · clickable live Delegated card) · the browser flash-loop + ticket-401 fix · a real files explorer · per-project colors + new A_ logo + collapsed-rail fix + Sessions-nav removal · the modern always-on-top folder picker — 752 tests"
+    },
+    {
+      "date": "2026-08-30",
+      "label": "R49 — the file-tools repair round: the agent allowlist bug that stripped every file tool on pre-R43 databases (migrations 0014+0015 appended onto an empty allowlist), the browser proxy absolute-URL rewrite (CSS/JS 404s), nested sub-agents to depth 3, the memory master switch, CORS preflight repair — 752 tests"
+    },
+    {
+      "date": "2026-08-30",
+      "label": "R50 — the native embedded browser (Chromium child webviews in the app window), sub-agents streaming raw thinking/text live + 5-attempt retries + the stats footer, the owner-spec composer (permission modes, thinking levels, attachments, the context donut, the provider-flyout model picker), the Models & Providers rework — 930 tests"
+    },
+    {
+      "date": "2026-08-30",
+      "label": "R51 — the desktop shell ships: a CI-built Windows installer with the bundled sidecar (the fix for the recurring browser complaint — the owner finally runs the real app), the composer polish round (viewport-aware flyouts, the donut hover-bridge + main/sub/combined stats), the sub-agent panel de-sloped (full todo list, centered stats), main-agent efficiency (EFFICIENCY prompt + the loop-hygiene guard), the dashboard Usage page, pnpm smoke — 978 tests"
     }
   ],
   "chips": [
@@ -1301,5 +1313,5 @@
     ],
     "total": 97
   },
-  "lastUpdated": "2026-08-29T14:54:33.620Z"
+  "lastUpdated": "2026-08-30T07:59:26.000Z"
 }

@@ -1,0 +1,2464 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acute — usage</title>
+<meta name="description" content="Detailed usage telemetry for Acute: per-project and per-session tokens, tool calls, sub-agent runs, model mix and estimated cost.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FF6B2C" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d0c0a" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="Acute — usage">
+<meta name="og:description" content="Detailed usage telemetry for Acute: per-project and per-session tokens, tool calls, sub-agent runs, model mix and estimated cost.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/usage.html">
+<link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/usage.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
+<link rel="stylesheet" href="assets/style.css?v=20260830t075954542z">
+<link rel="stylesheet" href="assets/usage.css?v=20260830t075954542z">
+<script>
+  // Apply persisted theme before paint to avoid a flash.
+  (function () {
+    try {
+      var stored = localStorage.getItem("acute-theme");
+      var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      var theme = stored === "dark" || stored === "light" ? stored : (prefersDark ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    } catch (_) { /* ignore */ }
+    document.documentElement.classList.add("js");
+  })();
+</script>
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" role="banner">
+  <div class="container header-inner">
+    <a class="brand" href="index.html" aria-label="Acute — back to the status dashboard">
+      <span class="brand-mark" aria-hidden="true">◐</span>
+      <span class="brand-text">
+        <span class="brand-name">Acute</span>
+        <span class="brand-sub">status dashboard</span>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="Usage sections">
+      <a href="index.html">← Dashboard</a>
+      <a href="#overview">Overview</a>
+      <a href="#activity">Activity</a>
+      <a href="#tools">Tools</a>
+      <a href="#models">Models</a>
+      <a href="#projects">Projects</a>
+    </nav>
+    <div class="header-actions">
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle dark mode">
+        <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M6.34 17.66l-1.41 1.41"/><path d="M19.07 4.93l-1.41 1.41"/>
+        </svg>
+        <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <a class="github-link" href="https://github.com/testplay-byte/DASHBOARD" target="_blank" rel="noopener noreferrer" aria-label="View source on GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 .5C5.37.5 0 5.78 0 12.292c0 5.211 3.438 9.63 8.205 11.18.6.111.82-.26.82-.577 0-.285-.01-1.04-.016-2.046-3.338.726-4.043-1.61-4.043-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.082-.73.082-.73 1.205.085 1.838 1.237 1.838 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.776.42-1.305.762-1.605-2.665-.305-5.466-1.332-5.466-5.93 0-1.31.47-2.383 1.236-3.221-.124-.303-.535-1.523.117-3.173 0 0 1.008-.323 3.301 1.23A11.51 11.51 0 0 1 12 6.802c1.025.005 2.058.139 3.022.408 2.29-1.553 3.297-1.23 3.297-1.23.653 1.65.242 2.87.119 3.172.77.838 1.234 1.91 1.234 3.221 0 4.61-2.807 5.622-5.48 5.92.43.371.81 1.103.81 2.222 0 1.604-.014 2.898-.014 3.293 0 .32.216.695.825.576C20.565 21.917 24 17.498 24 12.292 24 5.78 18.627.5 12 .5z"/>
+        </svg>
+      </a>
+      <span class="pill pill-ok header-status-pill"><span class="pill-dot" aria-hidden="true"></span>healthy</span>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="container main-area">
+
+  <!-- · usage hero · -->
+  <section class="hero card reveal usage-hero" aria-labelledby="usage-title">
+    <div class="hero-main">
+      <div class="hero-eyebrow">
+        <span class="hero-availability">Usage telemetry</span>
+        <span class="hero-dot" aria-hidden="true">·</span>
+        <span class="hero-version">schema v1</span>
+        <span class="hero-dot" aria-hidden="true">·</span>
+        <span class="hero-version">Aug 28 – Aug 30, 2026</span>
+      </div>
+      <h1 id="usage-title">Usage</h1>
+      <p class="tagline">Every project, every session, every tool call — tokens, cost, sub-agent runs and model mix, aggregated straight from the local Acute database. Titles are sanitized and ids are hashed; no message content ever leaves the machine.</p>
+      <div class="hero-chips">
+        <span class="pill pill-ok"><span class="pill-dot" aria-hidden="true"></span>snapshot 2026-08-30 07:58 UTC</span>
+        <span class="chip"><span class="chip-icon usage-chip-ico" aria-hidden="true"></span>20 sessions + 10 sub-agent runs</span>
+        <span class="chip"><span class="chip-icon usage-chip-ico" aria-hidden="true"></span>55 tool calls · 561k tokens</span>
+      </div>
+    </div>
+    <aside class="updated-box" aria-label="Page built">
+      <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg>
+      <span class="updated-label">Page built</span>
+      <span class="updated-time">2026-08-30 07:59 UTC</span>
+      <span class="updated-relative" id="updated-relative"></span>
+      <span class="updated-relative">snapshot 2026-08-30 07:58 UTC</span>
+    </aside>
+  </section>
+
+  <!-- · 01 usage overview · -->
+  <section id="overview" class="u-section reveal" aria-labelledby="usage-overview-title">
+    <header class="section-head">
+      <span class="section-index" aria-hidden="true">01</span>
+      <div>
+        <h2 id="usage-overview-title">Overview</h2>
+        <p class="section-desc">The whole workspace at a glance — everything below drills into exactly these numbers.</p>
+      </div>
+    </header>
+    <div class="stats-grid">
+      <article class="stat-card card">
+        <span class="stat-label">Projects</span>
+        <span class="stat-value" data-count="17">17</span>
+        <span class="stat-sub">14 with sessions · 3 idle</span>
+      </article>
+      <article class="stat-card card">
+        <span class="stat-label">Sessions</span>
+        <span class="stat-value" data-count="20">20</span>
+        <span class="stat-sub">main-agent chat sessions</span>
+      </article>
+      <article class="stat-card card">
+        <span class="stat-label">Sub-agent runs</span>
+        <span class="stat-value" data-count="10">10</span>
+        <span class="stat-sub">spawned via delegate_task</span>
+      </article>
+      <article class="stat-card card">
+        <span class="stat-label">Tool calls</span>
+        <span class="stat-value" data-count="55">55</span>
+        <span class="stat-sub">across 9 distinct tools</span>
+      </article>
+      <article class="stat-card card">
+        <span class="stat-label">Model requests</span>
+        <span class="stat-value" data-count="29">29</span>
+        <span class="stat-sub">provider calls in the ledger</span>
+      </article>
+      <article class="stat-card card">
+        <span class="stat-label">Tokens sent</span>
+        <span class="stat-value" data-count="547331">547,331</span>
+        <span class="stat-sub">16k cached · 3% hit rate</span>
+      </article>
+      <article class="stat-card card">
+        <span class="stat-label">Tokens received</span>
+        <span class="stat-value" data-count="13533">13,533</span>
+        <span class="stat-sub">model output tokens</span>
+      </article>
+      <article class="stat-card card">
+        <span class="stat-label">Est. cost</span>
+        <span class="stat-value" >$0.00</span>
+        <span class="stat-sub">free-tier models — zero spend</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- · 02 activity · -->
+  <section id="activity" class="u-section reveal" aria-labelledby="usage-activity-title">
+    <header class="section-head">
+      <span class="section-index" aria-hidden="true">02</span>
+      <div>
+        <h2 id="usage-activity-title">Activity</h2>
+        <p class="section-desc">Sessions started per day, straight from session timestamps (UTC).</p>
+      </div>
+    </header>
+    <div class="u-activity card">
+      <div class="u-activity-head">
+        <span class="u-activity-title">Sessions per day</span>
+        <span class="u-activity-sub">3 days · peak 18/day</span>
+      </div>
+      <div class="u-chart">
+        <div class="u-col" role="img" aria-label="Aug 28, 2026 — 2 sessions started">
+          <span class="u-col-count">2</span>
+          <div class="u-col-bar" style="height:11%"></div>
+        </div>
+        <div class="u-col" role="img" aria-label="Aug 29, 2026 — 18 sessions started">
+          <span class="u-col-count">18</span>
+          <div class="u-col-bar" style="height:100%"></div>
+        </div>
+        <div class="u-col" role="img" aria-label="Aug 30, 2026 — 10 sessions started">
+          <span class="u-col-count">10</span>
+          <div class="u-col-bar" style="height:56%"></div>
+        </div>
+      </div>
+      <div class="u-cols-days">
+          <span class="u-col-day">Aug 28</span>
+          <span class="u-col-day">Aug 29</span>
+          <span class="u-col-day">Aug 30</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- · 03 tools · -->
+  <section id="tools" class="u-section reveal" aria-labelledby="usage-tools-title">
+    <header class="section-head">
+      <span class="section-index" aria-hidden="true">03</span>
+      <div>
+        <h2 id="usage-tools-title">Tool usage</h2>
+        <p class="section-desc">Every tool call across every project — the agent's working habits, ranked. Bars are relative to the most-used tool.</p>
+      </div>
+    </header>
+    <div class="u-tools card">
+      <div class="u-rows">
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >todo_write</span>
+            <span class="suite-count"><strong>13</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="13" aria-valuemin="0" aria-valuemax="13" aria-label="todo_write share">
+            <div class="bar-fill" style="--w:100%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >delegate_task</span>
+            <span class="suite-count"><strong>8</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="8" aria-valuemin="0" aria-valuemax="13" aria-label="delegate_task share">
+            <div class="bar-fill" style="--w:62%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >read_file</span>
+            <span class="suite-count"><strong>8</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="8" aria-valuemin="0" aria-valuemax="13" aria-label="read_file share">
+            <div class="bar-fill" style="--w:62%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >write_file</span>
+            <span class="suite-count"><strong>7</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="13" aria-label="write_file share">
+            <div class="bar-fill" style="--w:54%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >search_code</span>
+            <span class="suite-count"><strong>6</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="6" aria-valuemin="0" aria-valuemax="13" aria-label="search_code share">
+            <div class="bar-fill" style="--w:46%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >run_command</span>
+            <span class="suite-count"><span class="u-tool-fail" title="1 failed call">1 failed · </span><strong>5</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="13" aria-label="run_command share">
+            <div class="bar-fill" style="--w:38%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >create_dir</span>
+            <span class="suite-count"><strong>3</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="13" aria-label="create_dir share">
+            <div class="bar-fill" style="--w:23%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >memory_save</span>
+            <span class="suite-count"><strong>3</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="13" aria-label="memory_save share">
+            <div class="bar-fill" style="--w:23%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >edit_file</span>
+            <span class="suite-count"><strong>2</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="13" aria-label="edit_file share">
+            <div class="bar-fill" style="--w:15%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- · 04 models · -->
+  <section id="models" class="u-section reveal" aria-labelledby="usage-models-title">
+    <header class="section-head">
+      <span class="section-index" aria-hidden="true">04</span>
+      <div>
+        <h2 id="usage-models-title">Models</h2>
+        <p class="section-desc">The model mix behind the numbers — provider calls, token flow and cost per model.</p>
+      </div>
+    </header>
+    <div class="u-models-grid">
+      <article class="u-model-card card">
+        <div class="u-model-top">
+          <span class="u-model-name" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+          <span class="u-model-calls">23 calls</span>
+        </div>
+        <div class="bar" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="23" aria-label="z-ai/glm-5.2:free calls relative to the busiest model">
+          <div class="bar-fill" style="--w:100%"></div>
+        </div>
+        <div class="u-model-nums">
+          <span class="u-model-num"><span class="u-model-num-label">Sent</span><span class="u-model-num-value" title="476,975 tokens">477k</span></span>
+          <span class="u-model-num"><span class="u-model-num-label">Received</span><span class="u-model-num-value" title="9,546 tokens">9.5k</span></span>
+          <span class="u-model-num"><span class="u-model-num-label">Cost</span><span class="u-model-num-value">$0.00</span></span>
+        </div>
+      </article>
+      <article class="u-model-card card">
+        <div class="u-model-top">
+          <span class="u-model-name" title="deepseek/deepseek-chat-v3.1">deepseek/deepseek-chat-v3.1</span>
+          <span class="u-model-calls">6 calls</span>
+        </div>
+        <div class="bar" role="progressbar" aria-valuenow="6" aria-valuemin="0" aria-valuemax="23" aria-label="deepseek/deepseek-chat-v3.1 calls relative to the busiest model">
+          <div class="bar-fill" style="--w:26%"></div>
+        </div>
+        <div class="u-model-nums">
+          <span class="u-model-num"><span class="u-model-num-label">Sent</span><span class="u-model-num-value" title="70,356 tokens">70k</span></span>
+          <span class="u-model-num"><span class="u-model-num-label">Received</span><span class="u-model-num-value" title="3,987 tokens">4.0k</span></span>
+          <span class="u-model-num"><span class="u-model-num-label">Cost</span><span class="u-model-num-value">$0.00</span></span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- · 05 projects · -->
+  <section id="projects" class="u-section reveal" aria-labelledby="usage-projects-title">
+    <header class="section-head">
+      <span class="section-index" aria-hidden="true">05</span>
+      <div>
+        <h2 id="usage-projects-title">Projects &amp; sessions</h2>
+        <p class="section-desc">Expand a project for its tool and model breakdown, then expand any session for the full per-session detail — sub-agent runs nest under the session that delegated them.</p>
+      </div>
+    </header>
+    <div class="u-controls">
+      <div class="u-filter" role="group" aria-label="Filter sessions">
+        <button type="button" class="u-filter-btn" data-mode="all" aria-pressed="true">All sessions</button>
+        <button type="button" class="u-filter-btn" data-mode="subs" aria-pressed="false">Sub-agents only</button>
+      </div>
+      <div class="u-bulk">
+        <button type="button" class="u-bulk-btn" id="u-expand-all">Expand all</button>
+        <button type="button" class="u-bulk-btn" id="u-collapse-all">Collapse all</button>
+      </div>
+    </div>
+      <details class="proj card" data-pid="p1o7zl8l">
+        <summary class="proj-summary">
+          <span class="proj-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="proj-dot" style="--pc:#FF6B2C" aria-hidden="true"></span>
+          <span class="proj-name">R51-battery-1788076147273</span>
+          
+          <span class="proj-meta">
+            <span class="proj-chip"><strong>1</strong> session</span>
+            <span class="proj-chip"><strong>1</strong> sub-agent</span>
+            <span class="proj-chip"><strong>1</strong> tool call</span>
+            <span class="proj-chip" title="30,170 sent · 3,067 received">↑ 30k · ↓ 3.1k</span>
+            <span class="proj-chip">$0.00</span>
+            <span class="proj-chip">Aug 30 – Aug 30, 2026</span>
+          </span>
+        </summary>
+        <div class="proj-body">
+          <div class="proj-stats">
+            <span class="proj-stat"><span class="proj-stat-label">Sessions</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sub-agents</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Tool calls</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Requests</span><span class="proj-stat-value">3</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sent ↑</span><span class="proj-stat-value" title="30,170 tokens">30k</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Received ↓</span><span class="proj-stat-value" title="3,067 tokens">3.1k</span></span>
+          </div>
+          <div class="proj-cols">
+            <div class="proj-panel">
+              <div class="proj-panel-title">Tool calls</div>
+              <div class="u-rows">
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >delegate_task</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" aria-label="delegate_task share">
+            <div class="bar-fill" style="--w:100%"></div>
+          </div>
+        </div>
+              </div>
+            </div>
+            <div class="proj-panel">
+              <div class="proj-panel-title">Models</div>
+          <div class="proj-mrow">
+            <span class="proj-mname" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+            <span class="proj-mnums">2 calls · ↑ 13k · ↓ 259 · $0.00</span>
+          </div>
+          <div class="proj-mrow">
+            <span class="proj-mname" title="deepseek/deepseek-chat-v3.1">deepseek/deepseek-chat-v3.1</span>
+            <span class="proj-mnums">1 call · ↑ 17k · ↓ 2.8k · $0.00</span>
+          </div>
+            </div>
+          </div>
+          <h4 class="sess-heading">Sessions · 1 main + 1 sub-agent</h4>
+          <div class="sess-list">
+        <details class="sess has-subs" data-sid="s0iip20s">
+          <summary class="sess-summary">
+            <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            <span class="sess-title" title="Reply with exactly the word: pinecone">Reply with exactly the word: pinecone</span>
+            <span class="sess-status st-queued">queued</span>
+            <span class="sess-nums">
+              <span class="sess-num is-model" title="deepseek/deepseek-chat-v3.1">deepseek/deepseek-chat-v3.1</span>
+              <span class="sess-num">47s</span>
+              <span class="sess-num"><span class="up" title="tokens sent">↑</span> 24k</span>
+              <span class="sess-num"><span class="down" title="tokens received">↓</span> 2.8k</span>
+              <span class="sess-num">$0.00</span>
+              <span class="sess-num"><strong>1</strong> call</span>
+              <span class="sess-num"><strong>1</strong> sub-agent</span>
+            </span>
+          </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">2</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="24,015 tokens">24k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="2,835 tokens">2.8k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="5 tokens">5</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-30 07:49 UTC · ended 2026-08-30 07:49 UTC · 47s · <span class="mono">deepseek/deepseek-chat-v3.1</span></p>
+                    <div class="sess-toolrows">
+          <div class="sess-toolrow">
+            <span class="sess-toolname">delegate_task</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" aria-label="delegate_task calls in this session">
+              <div class="bar-fill" style="--w:100%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          </div>
+        </div>
+          <div class="sess-subwrap">
+            <span class="sess-subslabel">Delegated sub-agents</span>
+          <details class="sess sess-sub">
+            <summary class="sess-summary">
+              <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              <span class="sess-sub-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3"/><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><line x1="10.5" y1="10" x2="6.5" y2="16"/><line x1="13.5" y1="10" x2="17.5" y2="16"/></svg>sub-agent · researcher</span>
+              <span class="sess-title" title="Reply with exactly the word: cedar. Nothing else.">Reply with exactly the word: cedar. Nothing else.</span>
+              <span class="sess-status st-completed">done</span>
+              <span class="sess-nums">
+                <span class="sess-num">20s</span>
+                <span class="sess-num"><span class="up">↑</span> 6.2k</span>
+                <span class="sess-num"><span class="down">↓</span> 232</span>
+                <span class="sess-num"><strong>0</strong> calls</span>
+              </span>
+            </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">1</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="6,155 tokens">6.2k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="232 tokens">232</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-30 07:49 UTC · ended 2026-08-30 07:49 UTC · 20s · <span class="mono">z-ai/glm-5.2:free</span></p>
+                    <p class="sess-meta">No tool calls recorded in this session.</p>
+        </div>
+          </details>
+          </div>
+        </details>
+
+          </div>
+        </div>
+      </details>
+      <details class="proj card" data-pid="p1s86eaj">
+        <summary class="proj-summary">
+          <span class="proj-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="proj-dot" style="--pc:#EC4899" aria-hidden="true"></span>
+          <span class="proj-name">R51-battery-1788075805516</span>
+          
+          <span class="proj-meta">
+            <span class="proj-chip"><strong>1</strong> session</span>
+            <span class="proj-chip"><strong>1</strong> sub-agent</span>
+            <span class="proj-chip"><strong>1</strong> tool call</span>
+            <span class="proj-chip" title="11,502 sent · 110 received">↑ 12k · ↓ 110</span>
+            <span class="proj-chip">$0.00</span>
+            <span class="proj-chip">Aug 30 – Aug 30, 2026</span>
+          </span>
+        </summary>
+        <div class="proj-body">
+          <div class="proj-stats">
+            <span class="proj-stat"><span class="proj-stat-label">Sessions</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sub-agents</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Tool calls</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Requests</span><span class="proj-stat-value">2</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sent ↑</span><span class="proj-stat-value" title="11,502 tokens">12k</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Received ↓</span><span class="proj-stat-value" title="110 tokens">110</span></span>
+          </div>
+          <div class="proj-cols">
+            <div class="proj-panel">
+              <div class="proj-panel-title">Tool calls</div>
+              <div class="u-rows">
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >delegate_task</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" aria-label="delegate_task share">
+            <div class="bar-fill" style="--w:100%"></div>
+          </div>
+        </div>
+              </div>
+            </div>
+            <div class="proj-panel">
+              <div class="proj-panel-title">Models</div>
+          <div class="proj-mrow">
+            <span class="proj-mname" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+            <span class="proj-mnums">2 calls · ↑ 12k · ↓ 110 · $0.00</span>
+          </div>
+            </div>
+          </div>
+          <h4 class="sess-heading">Sessions · 1 main + 1 sub-agent</h4>
+          <div class="sess-list">
+        <details class="sess has-subs" data-sid="s00djvzs">
+          <summary class="sess-summary">
+            <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            <span class="sess-title" title="Reply with exactly the word: pinecone">Reply with exactly the word: pinecone</span>
+            <span class="sess-status st-failed">failed</span>
+            <span class="sess-nums">
+              <span class="sess-num is-model" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+              <span class="sess-num">5m 39s</span>
+              <span class="sess-num"><span class="up" title="tokens sent">↑</span> 5.7k</span>
+              <span class="sess-num"><span class="down" title="tokens received">↓</span> 4</span>
+              <span class="sess-num">$0.00</span>
+              <span class="sess-num"><strong>1</strong> call</span>
+              <span class="sess-num"><strong>1</strong> sub-agent</span>
+            </span>
+          </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">1</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="5,686 tokens">5.7k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="4 tokens">4</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-30 07:43 UTC · ended 2026-08-30 07:49 UTC · 5m 39s · <span class="mono">z-ai/glm-5.2:free</span></p>
+                    <div class="sess-toolrows">
+          <div class="sess-toolrow">
+            <span class="sess-toolname">delegate_task</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" aria-label="delegate_task calls in this session">
+              <div class="bar-fill" style="--w:100%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          </div>
+        </div>
+          <div class="sess-subwrap">
+            <span class="sess-subslabel">Delegated sub-agents</span>
+          <details class="sess sess-sub">
+            <summary class="sess-summary">
+              <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              <span class="sess-sub-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3"/><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><line x1="10.5" y1="10" x2="6.5" y2="16"/><line x1="13.5" y1="10" x2="17.5" y2="16"/></svg>sub-agent · researcher</span>
+              <span class="sess-title" title="Reply with exactly the word: cedar. Nothing else.">Reply with exactly the word: cedar. Nothing else.</span>
+              <span class="sess-status st-completed">done</span>
+              <span class="sess-nums">
+                <span class="sess-num">5s</span>
+                <span class="sess-num"><span class="up">↑</span> 5.8k</span>
+                <span class="sess-num"><span class="down">↓</span> 106</span>
+                <span class="sess-num"><strong>0</strong> calls</span>
+              </span>
+            </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">1</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="5,816 tokens">5.8k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="106 tokens">106</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-30 07:43 UTC · ended 2026-08-30 07:43 UTC · 5s · <span class="mono">z-ai/glm-5.2:free</span></p>
+                    <p class="sess-meta">No tool calls recorded in this session.</p>
+        </div>
+          </details>
+          </div>
+        </details>
+
+          </div>
+        </div>
+      </details>
+      <details class="proj card" data-pid="p0owbr93">
+        <summary class="proj-summary">
+          <span class="proj-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="proj-dot" style="--pc:#84CC16" aria-hidden="true"></span>
+          <span class="proj-name">R50 Battery</span>
+          
+          <span class="proj-meta">
+            <span class="proj-chip"><strong>1</strong> session</span>
+            <span class="proj-chip"><strong>1</strong> sub-agent</span>
+            <span class="proj-chip"><strong>8</strong> tool calls</span>
+            <span class="proj-chip" title="103,304 sent · 1,565 received">↑ 103k · ↓ 1.6k</span>
+            <span class="proj-chip">$0.00</span>
+            <span class="proj-chip">Aug 30 – Aug 30, 2026</span>
+          </span>
+        </summary>
+        <div class="proj-body">
+          <div class="proj-stats">
+            <span class="proj-stat"><span class="proj-stat-label">Sessions</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sub-agents</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Tool calls</span><span class="proj-stat-value">8</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Requests</span><span class="proj-stat-value">3</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sent ↑</span><span class="proj-stat-value" title="103,304 tokens">103k</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Received ↓</span><span class="proj-stat-value" title="1,565 tokens">1.6k</span></span>
+          </div>
+          <div class="proj-cols">
+            <div class="proj-panel">
+              <div class="proj-panel-title">Tool calls</div>
+              <div class="u-rows">
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >read_file</span>
+            <span class="suite-count"><strong>3</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="3" aria-label="read_file share">
+            <div class="bar-fill" style="--w:100%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >todo_write</span>
+            <span class="suite-count"><strong>3</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="3" aria-label="todo_write share">
+            <div class="bar-fill" style="--w:100%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >delegate_task</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="delegate_task share">
+            <div class="bar-fill" style="--w:33%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >write_file</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="write_file share">
+            <div class="bar-fill" style="--w:33%"></div>
+          </div>
+        </div>
+              </div>
+            </div>
+            <div class="proj-panel">
+              <div class="proj-panel-title">Models</div>
+          <div class="proj-mrow">
+            <span class="proj-mname" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+            <span class="proj-mnums">3 calls · ↑ 103k · ↓ 1.6k · $0.00</span>
+          </div>
+            </div>
+          </div>
+          <h4 class="sess-heading">Sessions · 1 main + 1 sub-agent</h4>
+          <div class="sess-list">
+        <details class="sess has-subs" data-sid="s031ft21">
+          <summary class="sess-summary">
+            <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            <span class="sess-title" title="R50 battery">R50 battery</span>
+            <span class="sess-status st-queued">queued</span>
+            <span class="sess-nums">
+              <span class="sess-num is-model" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+              <span class="sess-num">42s</span>
+              <span class="sess-num"><span class="up" title="tokens sent">↑</span> 55k</span>
+              <span class="sess-num"><span class="down" title="tokens received">↓</span> 825</span>
+              <span class="sess-num">$0.00</span>
+              <span class="sess-num"><strong>3</strong> calls</span>
+              <span class="sess-num"><strong>1</strong> sub-agent</span>
+            </span>
+          </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">2</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="54,740 tokens">55k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="825 tokens">825</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="9,723 tokens">9.7k</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-30 00:09 UTC · ended 2026-08-30 00:10 UTC · 42s · <span class="mono">z-ai/glm-5.2:free</span></p>
+                    <div class="sess-toolrows">
+          <div class="sess-toolrow">
+            <span class="sess-toolname">read_file</span>
+            <div class="bar" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="2" aria-label="read_file calls in this session">
+              <div class="bar-fill" style="--w:100%"></div>
+            </div>
+            <span class="sess-toolcount">2 calls</span>
+          </div>
+          <div class="sess-toolrow">
+            <span class="sess-toolname">delegate_task</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="2" aria-label="delegate_task calls in this session">
+              <div class="bar-fill" style="--w:50%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          </div>
+        </div>
+          <div class="sess-subwrap">
+            <span class="sess-subslabel">Delegated sub-agents</span>
+          <details class="sess sess-sub">
+            <summary class="sess-summary">
+              <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              <span class="sess-sub-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3"/><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><line x1="10.5" y1="10" x2="6.5" y2="16"/><line x1="13.5" y1="10" x2="17.5" y2="16"/></svg>sub-agent · coder</span>
+              <span class="sess-title" title="Create a file battery-r50.md in the project root ([path]">Create a file battery-r50.md in the project root ([path]</span>
+              <span class="sess-status st-completed">done</span>
+              <span class="sess-nums">
+                <span class="sess-num">18s</span>
+                <span class="sess-num"><span class="up">↑</span> 49k</span>
+                <span class="sess-num"><span class="down">↓</span> 740</span>
+                <span class="sess-num"><strong>5</strong> calls</span>
+              </span>
+            </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">1</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="48,564 tokens">49k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="740 tokens">740</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="5,767 tokens">5.8k</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-30 00:09 UTC · ended 2026-08-30 00:09 UTC · 18s · <span class="mono">z-ai/glm-5.2:free</span></p>
+                    <div class="sess-toolrows">
+          <div class="sess-toolrow">
+            <span class="sess-toolname">todo_write</span>
+            <div class="bar" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="3" aria-label="todo_write calls in this session">
+              <div class="bar-fill" style="--w:100%"></div>
+            </div>
+            <span class="sess-toolcount">3 calls</span>
+          </div>
+          <div class="sess-toolrow">
+            <span class="sess-toolname">read_file</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="read_file calls in this session">
+              <div class="bar-fill" style="--w:33%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          <div class="sess-toolrow">
+            <span class="sess-toolname">write_file</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="write_file calls in this session">
+              <div class="bar-fill" style="--w:33%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          </div>
+        </div>
+          </details>
+          </div>
+        </details>
+
+          </div>
+        </div>
+      </details>
+      <details class="proj card" data-pid="p1t5k9yh">
+        <summary class="proj-summary">
+          <span class="proj-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="proj-dot" style="--pc:#F59E0B" aria-hidden="true"></span>
+          <span class="proj-name">R50 repro</span>
+          
+          <span class="proj-meta">
+            <span class="proj-chip"><strong>1</strong> session</span>
+            <span class="proj-chip"><strong>0</strong> sub-agents</span>
+            <span class="proj-chip"><strong>0</strong> tool calls</span>
+            <span class="proj-chip" title="4,605 sent · 79 received">↑ 4.6k · ↓ 79</span>
+            <span class="proj-chip">$0.00</span>
+            <span class="proj-chip">Aug 30 – Aug 30, 2026</span>
+          </span>
+        </summary>
+        <div class="proj-body">
+          <div class="proj-stats">
+            <span class="proj-stat"><span class="proj-stat-label">Sessions</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sub-agents</span><span class="proj-stat-value">0</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Tool calls</span><span class="proj-stat-value">0</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Requests</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sent ↑</span><span class="proj-stat-value" title="4,605 tokens">4.6k</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Received ↓</span><span class="proj-stat-value" title="79 tokens">79</span></span>
+          </div>
+          <div class="proj-cols">
+            <div class="proj-panel">
+              <div class="proj-panel-title">Tool calls</div>
+              <div class="u-rows">
+
+              </div>
+            </div>
+            <div class="proj-panel">
+              <div class="proj-panel-title">Models</div>
+          <div class="proj-mrow">
+            <span class="proj-mname" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+            <span class="proj-mnums">1 call · ↑ 4.6k · ↓ 79 · $0.00</span>
+          </div>
+            </div>
+          </div>
+          <h4 class="sess-heading">Sessions · 1 main + 0 sub-agent</h4>
+          <div class="sess-list">
+        <details class="sess" data-sid="s0quv3rr">
+          <summary class="sess-summary">
+            <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            <span class="sess-title" title="repro">repro</span>
+            <span class="sess-status st-queued">queued</span>
+            <span class="sess-nums">
+              <span class="sess-num is-model" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+              <span class="sess-num">2s</span>
+              <span class="sess-num"><span class="up" title="tokens sent">↑</span> 4.6k</span>
+              <span class="sess-num"><span class="down" title="tokens received">↓</span> 79</span>
+              <span class="sess-num">$0.00</span>
+              <span class="sess-num"><strong>0</strong> calls</span>
+              
+            </span>
+          </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">1</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="4,605 tokens">4.6k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="79 tokens">79</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-30 00:09 UTC · ended 2026-08-30 00:09 UTC · 2s · <span class="mono">z-ai/glm-5.2:free</span></p>
+                    <p class="sess-meta">No tool calls recorded in this session.</p>
+        </div>
+
+        </details>
+
+          </div>
+        </div>
+      </details>
+      <details class="proj card" data-pid="p0xzuouu">
+        <summary class="proj-summary">
+          <span class="proj-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="proj-dot" style="--pc:#F43F5E" aria-hidden="true"></span>
+          <span class="proj-name">R50 repro</span>
+          
+          <span class="proj-meta">
+            <span class="proj-chip"><strong>1</strong> session</span>
+            <span class="proj-chip"><strong>0</strong> sub-agents</span>
+            <span class="proj-chip"><strong>0</strong> tool calls</span>
+            <span class="proj-chip" title="6,187 sent · 50 received">↑ 6.2k · ↓ 50</span>
+            <span class="proj-chip">$0.00</span>
+            <span class="proj-chip">Aug 30 – Aug 30, 2026</span>
+          </span>
+        </summary>
+        <div class="proj-body">
+          <div class="proj-stats">
+            <span class="proj-stat"><span class="proj-stat-label">Sessions</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sub-agents</span><span class="proj-stat-value">0</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Tool calls</span><span class="proj-stat-value">0</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Requests</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sent ↑</span><span class="proj-stat-value" title="6,187 tokens">6.2k</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Received ↓</span><span class="proj-stat-value" title="50 tokens">50</span></span>
+          </div>
+          <div class="proj-cols">
+            <div class="proj-panel">
+              <div class="proj-panel-title">Tool calls</div>
+              <div class="u-rows">
+
+              </div>
+            </div>
+            <div class="proj-panel">
+              <div class="proj-panel-title">Models</div>
+          <div class="proj-mrow">
+            <span class="proj-mname" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+            <span class="proj-mnums">1 call · ↑ 6.2k · ↓ 50 · $0.00</span>
+          </div>
+            </div>
+          </div>
+          <h4 class="sess-heading">Sessions · 1 main + 0 sub-agent</h4>
+          <div class="sess-list">
+        <details class="sess" data-sid="s0uzal57">
+          <summary class="sess-summary">
+            <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            <span class="sess-title" title="repro">repro</span>
+            <span class="sess-status st-failed">failed</span>
+            <span class="sess-nums">
+              <span class="sess-num is-model" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+              <span class="sess-num">2s</span>
+              <span class="sess-num"><span class="up" title="tokens sent">↑</span> 6.2k</span>
+              <span class="sess-num"><span class="down" title="tokens received">↓</span> 50</span>
+              <span class="sess-num">$0.00</span>
+              <span class="sess-num"><strong>0</strong> calls</span>
+              
+            </span>
+          </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">1</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="6,187 tokens">6.2k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="50 tokens">50</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-30 00:07 UTC · ended 2026-08-30 00:07 UTC · 2s · <span class="mono">z-ai/glm-5.2:free</span></p>
+                    <p class="sess-meta">No tool calls recorded in this session.</p>
+        </div>
+
+        </details>
+
+          </div>
+        </div>
+      </details>
+      <details class="proj card" data-pid="p1d6k0bf">
+        <summary class="proj-summary">
+          <span class="proj-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="proj-dot" style="--pc:#8B5CF6" aria-hidden="true"></span>
+          <span class="proj-name">R50 Battery</span>
+          
+          <span class="proj-meta">
+            <span class="proj-chip"><strong>1</strong> session</span>
+            <span class="proj-chip"><strong>0</strong> sub-agents</span>
+            <span class="proj-chip"><strong>1</strong> tool call</span>
+            <span class="proj-chip" title="17,849 sent · 445 received">↑ 18k · ↓ 445</span>
+            <span class="proj-chip">$0.00</span>
+            <span class="proj-chip">Aug 30 – Aug 30, 2026</span>
+          </span>
+        </summary>
+        <div class="proj-body">
+          <div class="proj-stats">
+            <span class="proj-stat"><span class="proj-stat-label">Sessions</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sub-agents</span><span class="proj-stat-value">0</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Tool calls</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Requests</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sent ↑</span><span class="proj-stat-value" title="17,849 tokens">18k</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Received ↓</span><span class="proj-stat-value" title="445 tokens">445</span></span>
+          </div>
+          <div class="proj-cols">
+            <div class="proj-panel">
+              <div class="proj-panel-title">Tool calls</div>
+              <div class="u-rows">
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >read_file</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" aria-label="read_file share">
+            <div class="bar-fill" style="--w:100%"></div>
+          </div>
+        </div>
+              </div>
+            </div>
+            <div class="proj-panel">
+              <div class="proj-panel-title">Models</div>
+          <div class="proj-mrow">
+            <span class="proj-mname" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+            <span class="proj-mnums">1 call · ↑ 18k · ↓ 445 · $0.00</span>
+          </div>
+            </div>
+          </div>
+          <h4 class="sess-heading">Sessions · 1 main + 0 sub-agent</h4>
+          <div class="sess-list">
+        <details class="sess" data-sid="s1l24k70">
+          <summary class="sess-summary">
+            <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            <span class="sess-title" title="R50 battery">R50 battery</span>
+            <span class="sess-status st-failed">failed</span>
+            <span class="sess-nums">
+              <span class="sess-num is-model" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+              <span class="sess-num">9s</span>
+              <span class="sess-num"><span class="up" title="tokens sent">↑</span> 18k</span>
+              <span class="sess-num"><span class="down" title="tokens received">↓</span> 445</span>
+              <span class="sess-num">$0.00</span>
+              <span class="sess-num"><strong>1</strong> call</span>
+              
+            </span>
+          </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">1</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="17,849 tokens">18k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="445 tokens">445</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="128 tokens">128</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-30 00:04 UTC · ended 2026-08-30 00:04 UTC · 9s · <span class="mono">z-ai/glm-5.2:free</span></p>
+                    <div class="sess-toolrows">
+          <div class="sess-toolrow">
+            <span class="sess-toolname">read_file</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" aria-label="read_file calls in this session">
+              <div class="bar-fill" style="--w:100%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          </div>
+        </div>
+
+        </details>
+
+          </div>
+        </div>
+      </details>
+      <details class="proj card" data-pid="p0vt1hps">
+        <summary class="proj-summary">
+          <span class="proj-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="proj-dot" style="--pc:#14B8A6" aria-hidden="true"></span>
+          <span class="proj-name">R50 Battery</span>
+          
+          <span class="proj-meta">
+            <span class="proj-chip"><strong>1</strong> session</span>
+            <span class="proj-chip"><strong>0</strong> sub-agents</span>
+            <span class="proj-chip"><strong>0</strong> tool calls</span>
+            <span class="proj-chip" title="0 sent · 0 received">↑ 0 · ↓ 0</span>
+            <span class="proj-chip">$0.00</span>
+            <span class="proj-chip">Aug 30 – Aug 30, 2026</span>
+          </span>
+        </summary>
+        <div class="proj-body">
+          <div class="proj-stats">
+            <span class="proj-stat"><span class="proj-stat-label">Sessions</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sub-agents</span><span class="proj-stat-value">0</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Tool calls</span><span class="proj-stat-value">0</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Requests</span><span class="proj-stat-value">0</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sent ↑</span><span class="proj-stat-value" title="0 tokens">0</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Received ↓</span><span class="proj-stat-value" title="0 tokens">0</span></span>
+          </div>
+          <div class="proj-cols">
+            <div class="proj-panel">
+              <div class="proj-panel-title">Tool calls</div>
+              <div class="u-rows">
+
+              </div>
+            </div>
+            <div class="proj-panel">
+              <div class="proj-panel-title">Models</div>
+              <p class="u-models-empty">No model calls recorded.</p>
+            </div>
+          </div>
+          <h4 class="sess-heading">Sessions · 1 main + 0 sub-agent</h4>
+          <div class="sess-list">
+        <details class="sess" data-sid="s03dhufz">
+          <summary class="sess-summary">
+            <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            <span class="sess-title" title="R50 battery">R50 battery</span>
+            <span class="sess-status st-queued">queued</span>
+            <span class="sess-nums">
+              
+              <span class="sess-num">0s</span>
+              <span class="sess-num"><span class="up" title="tokens sent">↑</span> 0</span>
+              <span class="sess-num"><span class="down" title="tokens received">↓</span> 0</span>
+              <span class="sess-num">$0.00</span>
+              <span class="sess-num"><strong>0</strong> calls</span>
+              
+            </span>
+          </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">0</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-30 00:03 UTC · ended 2026-08-30 00:03 UTC · 0s</p>
+                    <p class="sess-meta">No tool calls recorded in this session.</p>
+        </div>
+
+        </details>
+
+          </div>
+        </div>
+      </details>
+      <details class="proj card" data-pid="p0l4q2b6">
+        <summary class="proj-summary">
+          <span class="proj-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="proj-dot" style="--pc:#EC4899" aria-hidden="true"></span>
+          <span class="proj-name">R49 Battery 1788025513294</span>
+          
+          <span class="proj-meta">
+            <span class="proj-chip"><strong>1</strong> session</span>
+            <span class="proj-chip"><strong>1</strong> sub-agent</span>
+            <span class="proj-chip"><strong>15</strong> tool calls</span>
+            <span class="proj-chip" title="127,321 sent · 2,015 received">↑ 127k · ↓ 2.0k</span>
+            <span class="proj-chip">$0.00</span>
+            <span class="proj-chip">Aug 29 – Aug 29, 2026</span>
+          </span>
+        </summary>
+        <div class="proj-body">
+          <div class="proj-stats">
+            <span class="proj-stat"><span class="proj-stat-label">Sessions</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sub-agents</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Tool calls</span><span class="proj-stat-value">15</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Requests</span><span class="proj-stat-value">2</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sent ↑</span><span class="proj-stat-value" title="127,321 tokens">127k</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Received ↓</span><span class="proj-stat-value" title="2,015 tokens">2.0k</span></span>
+          </div>
+          <div class="proj-cols">
+            <div class="proj-panel">
+              <div class="proj-panel-title">Tool calls</div>
+              <div class="u-rows">
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >search_code</span>
+            <span class="suite-count"><strong>6</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="6" aria-valuemin="0" aria-valuemax="6" aria-label="search_code share">
+            <div class="bar-fill" style="--w:100%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >todo_write</span>
+            <span class="suite-count"><strong>4</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="6" aria-label="todo_write share">
+            <div class="bar-fill" style="--w:67%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >create_dir</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="6" aria-label="create_dir share">
+            <div class="bar-fill" style="--w:17%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >delegate_task</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="6" aria-label="delegate_task share">
+            <div class="bar-fill" style="--w:17%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >read_file</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="6" aria-label="read_file share">
+            <div class="bar-fill" style="--w:17%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >run_command</span>
+            <span class="suite-count"><span class="u-tool-fail">1 failed · </span><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="6" aria-label="run_command share">
+            <div class="bar-fill" style="--w:17%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >write_file</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="6" aria-label="write_file share">
+            <div class="bar-fill" style="--w:17%"></div>
+          </div>
+        </div>
+              </div>
+            </div>
+            <div class="proj-panel">
+              <div class="proj-panel-title">Models</div>
+          <div class="proj-mrow">
+            <span class="proj-mname" title="deepseek/deepseek-chat-v3.1">deepseek/deepseek-chat-v3.1</span>
+            <span class="proj-mnums">1 call · ↑ 17k · ↓ 245 · $0.00</span>
+          </div>
+          <div class="proj-mrow">
+            <span class="proj-mname" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+            <span class="proj-mnums">1 call · ↑ 110k · ↓ 1.8k · $0.00</span>
+          </div>
+            </div>
+          </div>
+          <h4 class="sess-heading">Sessions · 1 main + 1 sub-agent</h4>
+          <div class="sess-list">
+        <details class="sess has-subs" data-sid="s0z32pqx">
+          <summary class="sess-summary">
+            <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            <span class="sess-title" title="Run a sub-agent (delegate_task, role coder) to do the follow…">Run a sub-agent (delegate_task, role coder) to do the follow…</span>
+            <span class="sess-status st-queued">queued</span>
+            <span class="sess-nums">
+              <span class="sess-num is-model" title="deepseek/deepseek-chat-v3.1">deepseek/deepseek-chat-v3.1</span>
+              <span class="sess-num">57s</span>
+              <span class="sess-num"><span class="up" title="tokens sent">↑</span> 17k</span>
+              <span class="sess-num"><span class="down" title="tokens received">↓</span> 245</span>
+              <span class="sess-num">$0.00</span>
+              <span class="sess-num"><strong>1</strong> call</span>
+              <span class="sess-num"><strong>1</strong> sub-agent</span>
+            </span>
+          </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">1</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="17,348 tokens">17k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="245 tokens">245</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-29 17:45 UTC · ended 2026-08-29 17:46 UTC · 57s · <span class="mono">deepseek/deepseek-chat-v3.1</span></p>
+                    <div class="sess-toolrows">
+          <div class="sess-toolrow">
+            <span class="sess-toolname">delegate_task</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" aria-label="delegate_task calls in this session">
+              <div class="bar-fill" style="--w:100%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          </div>
+        </div>
+          <div class="sess-subwrap">
+            <span class="sess-subslabel">Delegated sub-agents</span>
+          <details class="sess sess-sub">
+            <summary class="sess-summary">
+              <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              <span class="sess-sub-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3"/><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><line x1="10.5" y1="10" x2="6.5" y2="16"/><line x1="13.5" y1="10" x2="17.5" y2="16"/></svg>sub-agent · coder</span>
+              <span class="sess-title" title="Create a folder called ShortStories in the project root dire…">Create a folder called ShortStories in the project root dire…</span>
+              <span class="sess-status st-completed">done</span>
+              <span class="sess-nums">
+                <span class="sess-num">37s</span>
+                <span class="sess-num"><span class="up">↑</span> 110k</span>
+                <span class="sess-num"><span class="down">↓</span> 1.8k</span>
+                <span class="sess-num"><strong>14</strong> calls</span>
+              </span>
+            </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">1</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="109,973 tokens">110k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="1,770 tokens">1.8k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-29 17:45 UTC · ended 2026-08-29 17:46 UTC · 37s · <span class="mono">z-ai/glm-5.2:free</span></p>
+                    <div class="sess-toolrows">
+          <div class="sess-toolrow">
+            <span class="sess-toolname">search_code</span>
+            <div class="bar" role="progressbar" aria-valuenow="6" aria-valuemin="0" aria-valuemax="6" aria-label="search_code calls in this session">
+              <div class="bar-fill" style="--w:100%"></div>
+            </div>
+            <span class="sess-toolcount">6 calls</span>
+          </div>
+          <div class="sess-toolrow">
+            <span class="sess-toolname">todo_write</span>
+            <div class="bar" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="6" aria-label="todo_write calls in this session">
+              <div class="bar-fill" style="--w:67%"></div>
+            </div>
+            <span class="sess-toolcount">4 calls</span>
+          </div>
+          <div class="sess-toolrow">
+            <span class="sess-toolname">create_dir</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="6" aria-label="create_dir calls in this session">
+              <div class="bar-fill" style="--w:17%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          <div class="sess-toolrow">
+            <span class="sess-toolname">read_file</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="6" aria-label="read_file calls in this session">
+              <div class="bar-fill" style="--w:17%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          <div class="sess-toolrow">
+            <span class="sess-toolname">run_command</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="6" aria-label="run_command calls in this session">
+              <div class="bar-fill" style="--w:17%"></div>
+            </div>
+            <span class="sess-toolcount">1 call · <span class="u-tool-fail">1 failed</span></span>
+          </div>
+          <div class="sess-toolrow">
+            <span class="sess-toolname">write_file</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="6" aria-label="write_file calls in this session">
+              <div class="bar-fill" style="--w:17%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          </div>
+        </div>
+          </details>
+          </div>
+        </details>
+
+          </div>
+        </div>
+      </details>
+      <details class="proj card" data-pid="p02hztfk">
+        <summary class="proj-summary">
+          <span class="proj-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="proj-dot" style="--pc:#84CC16" aria-hidden="true"></span>
+          <span class="proj-name">R49 Battery 1788025367381</span>
+          
+          <span class="proj-meta">
+            <span class="proj-chip"><strong>1</strong> session</span>
+            <span class="proj-chip"><strong>1</strong> sub-agent</span>
+            <span class="proj-chip"><strong>8</strong> tool calls</span>
+            <span class="proj-chip" title="70,664 sent · 1,316 received">↑ 71k · ↓ 1.3k</span>
+            <span class="proj-chip">$0.00</span>
+            <span class="proj-chip">Aug 29 – Aug 29, 2026</span>
+          </span>
+        </summary>
+        <div class="proj-body">
+          <div class="proj-stats">
+            <span class="proj-stat"><span class="proj-stat-label">Sessions</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sub-agents</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Tool calls</span><span class="proj-stat-value">8</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Requests</span><span class="proj-stat-value">2</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sent ↑</span><span class="proj-stat-value" title="70,664 tokens">71k</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Received ↓</span><span class="proj-stat-value" title="1,316 tokens">1.3k</span></span>
+          </div>
+          <div class="proj-cols">
+            <div class="proj-panel">
+              <div class="proj-panel-title">Tool calls</div>
+              <div class="u-rows">
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >todo_write</span>
+            <span class="suite-count"><strong>3</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="3" aria-label="todo_write share">
+            <div class="bar-fill" style="--w:100%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >create_dir</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="create_dir share">
+            <div class="bar-fill" style="--w:33%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >delegate_task</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="delegate_task share">
+            <div class="bar-fill" style="--w:33%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >read_file</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="read_file share">
+            <div class="bar-fill" style="--w:33%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >run_command</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="run_command share">
+            <div class="bar-fill" style="--w:33%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >write_file</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="write_file share">
+            <div class="bar-fill" style="--w:33%"></div>
+          </div>
+        </div>
+              </div>
+            </div>
+            <div class="proj-panel">
+              <div class="proj-panel-title">Models</div>
+          <div class="proj-mrow">
+            <span class="proj-mname" title="deepseek/deepseek-chat-v3.1">deepseek/deepseek-chat-v3.1</span>
+            <span class="proj-mnums">1 call · ↑ 17k · ↓ 278 · $0.00</span>
+          </div>
+          <div class="proj-mrow">
+            <span class="proj-mname" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+            <span class="proj-mnums">1 call · ↑ 53k · ↓ 1.0k · $0.00</span>
+          </div>
+            </div>
+          </div>
+          <h4 class="sess-heading">Sessions · 1 main + 1 sub-agent</h4>
+          <div class="sess-list">
+        <details class="sess has-subs" data-sid="s0zhr62u">
+          <summary class="sess-summary">
+            <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            <span class="sess-title" title="Run a sub-agent (delegate_task, role coder) to do the follow…">Run a sub-agent (delegate_task, role coder) to do the follow…</span>
+            <span class="sess-status st-queued">queued</span>
+            <span class="sess-nums">
+              <span class="sess-num is-model" title="deepseek/deepseek-chat-v3.1">deepseek/deepseek-chat-v3.1</span>
+              <span class="sess-num">59s</span>
+              <span class="sess-num"><span class="up" title="tokens sent">↑</span> 17k</span>
+              <span class="sess-num"><span class="down" title="tokens received">↓</span> 278</span>
+              <span class="sess-num">$0.00</span>
+              <span class="sess-num"><strong>1</strong> call</span>
+              <span class="sess-num"><strong>1</strong> sub-agent</span>
+            </span>
+          </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">1</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="17,237 tokens">17k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="278 tokens">278</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-29 17:42 UTC · ended 2026-08-29 17:43 UTC · 59s · <span class="mono">deepseek/deepseek-chat-v3.1</span></p>
+                    <div class="sess-toolrows">
+          <div class="sess-toolrow">
+            <span class="sess-toolname">delegate_task</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" aria-label="delegate_task calls in this session">
+              <div class="bar-fill" style="--w:100%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          </div>
+        </div>
+          <div class="sess-subwrap">
+            <span class="sess-subslabel">Delegated sub-agents</span>
+          <details class="sess sess-sub">
+            <summary class="sess-summary">
+              <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              <span class="sess-sub-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3"/><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><line x1="10.5" y1="10" x2="6.5" y2="16"/><line x1="13.5" y1="10" x2="17.5" y2="16"/></svg>sub-agent · coder</span>
+              <span class="sess-title" title="Create a folder called ShortStories in the project root dire…">Create a folder called ShortStories in the project root dire…</span>
+              <span class="sess-status st-completed">done</span>
+              <span class="sess-nums">
+                <span class="sess-num">28s</span>
+                <span class="sess-num"><span class="up">↑</span> 53k</span>
+                <span class="sess-num"><span class="down">↓</span> 1.0k</span>
+                <span class="sess-num"><strong>7</strong> calls</span>
+              </span>
+            </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">1</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="53,427 tokens">53k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="1,038 tokens">1.0k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-29 17:42 UTC · ended 2026-08-29 17:43 UTC · 28s · <span class="mono">z-ai/glm-5.2:free</span></p>
+                    <div class="sess-toolrows">
+          <div class="sess-toolrow">
+            <span class="sess-toolname">todo_write</span>
+            <div class="bar" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="3" aria-label="todo_write calls in this session">
+              <div class="bar-fill" style="--w:100%"></div>
+            </div>
+            <span class="sess-toolcount">3 calls</span>
+          </div>
+          <div class="sess-toolrow">
+            <span class="sess-toolname">create_dir</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="create_dir calls in this session">
+              <div class="bar-fill" style="--w:33%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          <div class="sess-toolrow">
+            <span class="sess-toolname">read_file</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="read_file calls in this session">
+              <div class="bar-fill" style="--w:33%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          <div class="sess-toolrow">
+            <span class="sess-toolname">run_command</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="run_command calls in this session">
+              <div class="bar-fill" style="--w:33%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          <div class="sess-toolrow">
+            <span class="sess-toolname">write_file</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="write_file calls in this session">
+              <div class="bar-fill" style="--w:33%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          </div>
+        </div>
+          </details>
+          </div>
+        </details>
+
+          </div>
+        </div>
+      </details>
+      <details class="proj card" data-pid="p1ek8i9e">
+        <summary class="proj-summary">
+          <span class="proj-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="proj-dot" style="--pc:#F59E0B" aria-hidden="true"></span>
+          <span class="proj-name">R49 Battery 1788025290754</span>
+          
+          <span class="proj-meta">
+            <span class="proj-chip"><strong>1</strong> session</span>
+            <span class="proj-chip"><strong>1</strong> sub-agent</span>
+            <span class="proj-chip"><strong>7</strong> tool calls</span>
+            <span class="proj-chip" title="64,073 sent · 1,378 received">↑ 64k · ↓ 1.4k</span>
+            <span class="proj-chip">$0.00</span>
+            <span class="proj-chip">Aug 29 – Aug 29, 2026</span>
+          </span>
+        </summary>
+        <div class="proj-body">
+          <div class="proj-stats">
+            <span class="proj-stat"><span class="proj-stat-label">Sessions</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sub-agents</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Tool calls</span><span class="proj-stat-value">7</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Requests</span><span class="proj-stat-value">2</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sent ↑</span><span class="proj-stat-value" title="64,073 tokens">64k</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Received ↓</span><span class="proj-stat-value" title="1,378 tokens">1.4k</span></span>
+          </div>
+          <div class="proj-cols">
+            <div class="proj-panel">
+              <div class="proj-panel-title">Tool calls</div>
+              <div class="u-rows">
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >todo_write</span>
+            <span class="suite-count"><strong>3</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="3" aria-label="todo_write share">
+            <div class="bar-fill" style="--w:100%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >create_dir</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="create_dir share">
+            <div class="bar-fill" style="--w:33%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >delegate_task</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="delegate_task share">
+            <div class="bar-fill" style="--w:33%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >read_file</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="read_file share">
+            <div class="bar-fill" style="--w:33%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >write_file</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="write_file share">
+            <div class="bar-fill" style="--w:33%"></div>
+          </div>
+        </div>
+              </div>
+            </div>
+            <div class="proj-panel">
+              <div class="proj-panel-title">Models</div>
+          <div class="proj-mrow">
+            <span class="proj-mname" title="deepseek/deepseek-chat-v3.1">deepseek/deepseek-chat-v3.1</span>
+            <span class="proj-mnums">1 call · ↑ 18k · ↓ 399 · $0.00</span>
+          </div>
+          <div class="proj-mrow">
+            <span class="proj-mname" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+            <span class="proj-mnums">1 call · ↑ 46k · ↓ 979 · $0.00</span>
+          </div>
+            </div>
+          </div>
+          <h4 class="sess-heading">Sessions · 1 main + 1 sub-agent</h4>
+          <div class="sess-list">
+        <details class="sess has-subs" data-sid="s0ef2viu">
+          <summary class="sess-summary">
+            <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            <span class="sess-title" title="Run a sub-agent (delegate_task, role coder) to do the follow…">Run a sub-agent (delegate_task, role coder) to do the follow…</span>
+            <span class="sess-status st-queued">queued</span>
+            <span class="sess-nums">
+              <span class="sess-num is-model" title="deepseek/deepseek-chat-v3.1">deepseek/deepseek-chat-v3.1</span>
+              <span class="sess-num">42s</span>
+              <span class="sess-num"><span class="up" title="tokens sent">↑</span> 18k</span>
+              <span class="sess-num"><span class="down" title="tokens received">↓</span> 399</span>
+              <span class="sess-num">$0.00</span>
+              <span class="sess-num"><strong>1</strong> call</span>
+              <span class="sess-num"><strong>1</strong> sub-agent</span>
+            </span>
+          </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">1</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="18,005 tokens">18k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="399 tokens">399</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-29 17:41 UTC · ended 2026-08-29 17:42 UTC · 42s · <span class="mono">deepseek/deepseek-chat-v3.1</span></p>
+                    <div class="sess-toolrows">
+          <div class="sess-toolrow">
+            <span class="sess-toolname">delegate_task</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" aria-label="delegate_task calls in this session">
+              <div class="bar-fill" style="--w:100%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          </div>
+        </div>
+          <div class="sess-subwrap">
+            <span class="sess-subslabel">Delegated sub-agents</span>
+          <details class="sess sess-sub">
+            <summary class="sess-summary">
+              <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              <span class="sess-sub-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3"/><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><line x1="10.5" y1="10" x2="6.5" y2="16"/><line x1="13.5" y1="10" x2="17.5" y2="16"/></svg>sub-agent · coder</span>
+              <span class="sess-title" title="Create a folder called ShortStories in the project&#39;s root di…">Create a folder called ShortStories in the project&#39;s root di…</span>
+              <span class="sess-status st-completed">done</span>
+              <span class="sess-nums">
+                <span class="sess-num">26s</span>
+                <span class="sess-num"><span class="up">↑</span> 46k</span>
+                <span class="sess-num"><span class="down">↓</span> 979</span>
+                <span class="sess-num"><strong>6</strong> calls</span>
+              </span>
+            </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">1</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="46,068 tokens">46k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="979 tokens">979</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-29 17:41 UTC · ended 2026-08-29 17:42 UTC · 26s · <span class="mono">z-ai/glm-5.2:free</span></p>
+                    <div class="sess-toolrows">
+          <div class="sess-toolrow">
+            <span class="sess-toolname">todo_write</span>
+            <div class="bar" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="3" aria-label="todo_write calls in this session">
+              <div class="bar-fill" style="--w:100%"></div>
+            </div>
+            <span class="sess-toolcount">3 calls</span>
+          </div>
+          <div class="sess-toolrow">
+            <span class="sess-toolname">create_dir</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="create_dir calls in this session">
+              <div class="bar-fill" style="--w:33%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          <div class="sess-toolrow">
+            <span class="sess-toolname">read_file</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="read_file calls in this session">
+              <div class="bar-fill" style="--w:33%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          <div class="sess-toolrow">
+            <span class="sess-toolname">write_file</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="write_file calls in this session">
+              <div class="bar-fill" style="--w:33%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          </div>
+        </div>
+          </details>
+          </div>
+        </details>
+
+          </div>
+        </div>
+      </details>
+      <details class="proj card" data-pid="p1k8gbc2">
+        <summary class="proj-summary">
+          <span class="proj-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="proj-dot" style="--pc:#6B6660" aria-hidden="true"></span>
+          <span class="proj-name">Unassigned sessions</span>
+          <span class="proj-tag">no project</span>
+          <span class="proj-meta">
+            <span class="proj-chip"><strong>4</strong> sessions</span>
+            <span class="proj-chip"><strong>0</strong> sub-agents</span>
+            <span class="proj-chip"><strong>0</strong> tool calls</span>
+            <span class="proj-chip" title="689 sent · 605 received">↑ 689 · ↓ 605</span>
+            <span class="proj-chip">$0.00</span>
+            <span class="proj-chip">Aug 29 – Aug 29, 2026</span>
+          </span>
+        </summary>
+        <div class="proj-body">
+          <div class="proj-stats">
+            <span class="proj-stat"><span class="proj-stat-label">Sessions</span><span class="proj-stat-value">4</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sub-agents</span><span class="proj-stat-value">0</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Tool calls</span><span class="proj-stat-value">0</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Requests</span><span class="proj-stat-value">4</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sent ↑</span><span class="proj-stat-value" title="689 tokens">689</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Received ↓</span><span class="proj-stat-value" title="605 tokens">605</span></span>
+          </div>
+          <div class="proj-cols">
+            <div class="proj-panel">
+              <div class="proj-panel-title">Tool calls</div>
+              <div class="u-rows">
+
+              </div>
+            </div>
+            <div class="proj-panel">
+              <div class="proj-panel-title">Models</div>
+          <div class="proj-mrow">
+            <span class="proj-mname" title="deepseek/deepseek-chat-v3.1">deepseek/deepseek-chat-v3.1</span>
+            <span class="proj-mnums">2 calls · ↑ 334 · ↓ 257 · $0.00</span>
+          </div>
+          <div class="proj-mrow">
+            <span class="proj-mname" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+            <span class="proj-mnums">2 calls · ↑ 355 · ↓ 348 · $0.00</span>
+          </div>
+            </div>
+          </div>
+          <h4 class="sess-heading">Sessions · 4 main + 0 sub-agent</h4>
+          <div class="sess-list">
+        <details class="sess" data-sid="s0mqw8fn">
+          <summary class="sess-summary">
+            <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            <span class="sess-title" title="Run a sub-agent (delegate_task, role coder) to do the follow…">Run a sub-agent (delegate_task, role coder) to do the follow…</span>
+            <span class="sess-status st-queued">queued</span>
+            <span class="sess-nums">
+              <span class="sess-num is-model" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+              <span class="sess-num">14s</span>
+              <span class="sess-num"><span class="up" title="tokens sent">↑</span> 179</span>
+              <span class="sess-num"><span class="down" title="tokens received">↓</span> 219</span>
+              <span class="sess-num">$0.00</span>
+              <span class="sess-num"><strong>0</strong> calls</span>
+              
+            </span>
+          </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">1</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="179 tokens">179</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="219 tokens">219</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-29 17:15 UTC · ended 2026-08-29 17:15 UTC · 14s · <span class="mono">z-ai/glm-5.2:free</span></p>
+                    <p class="sess-meta">No tool calls recorded in this session.</p>
+        </div>
+
+        </details>
+        <details class="sess" data-sid="s0glt2n3">
+          <summary class="sess-summary">
+            <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            <span class="sess-title" title="Run a sub-agent (delegate_task, role coder) to do the follow…">Run a sub-agent (delegate_task, role coder) to do the follow…</span>
+            <span class="sess-status st-queued">queued</span>
+            <span class="sess-nums">
+              <span class="sess-num is-model" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+              <span class="sess-num">3s</span>
+              <span class="sess-num"><span class="up" title="tokens sent">↑</span> 176</span>
+              <span class="sess-num"><span class="down" title="tokens received">↓</span> 129</span>
+              <span class="sess-num">$0.00</span>
+              <span class="sess-num"><strong>0</strong> calls</span>
+              
+            </span>
+          </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">1</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="176 tokens">176</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="129 tokens">129</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-29 17:16 UTC · ended 2026-08-29 17:16 UTC · 3s · <span class="mono">z-ai/glm-5.2:free</span></p>
+                    <p class="sess-meta">No tool calls recorded in this session.</p>
+        </div>
+
+        </details>
+        <details class="sess" data-sid="s1dw1tc4">
+          <summary class="sess-summary">
+            <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            <span class="sess-title" title="Run a sub-agent (delegate_task, role coder) to do the follow…">Run a sub-agent (delegate_task, role coder) to do the follow…</span>
+            <span class="sess-status st-queued">queued</span>
+            <span class="sess-nums">
+              <span class="sess-num is-model" title="deepseek/deepseek-chat-v3.1">deepseek/deepseek-chat-v3.1</span>
+              <span class="sess-num">6s</span>
+              <span class="sess-num"><span class="up" title="tokens sent">↑</span> 167</span>
+              <span class="sess-num"><span class="down" title="tokens received">↓</span> 110</span>
+              <span class="sess-num">$0.00</span>
+              <span class="sess-num"><strong>0</strong> calls</span>
+              
+            </span>
+          </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">1</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="167 tokens">167</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="110 tokens">110</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-29 17:32 UTC · ended 2026-08-29 17:32 UTC · 6s · <span class="mono">deepseek/deepseek-chat-v3.1</span></p>
+                    <p class="sess-meta">No tool calls recorded in this session.</p>
+        </div>
+
+        </details>
+        <details class="sess" data-sid="s12m7lgm">
+          <summary class="sess-summary">
+            <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            <span class="sess-title" title="Run a sub-agent (delegate_task, role coder) to do the follow…">Run a sub-agent (delegate_task, role coder) to do the follow…</span>
+            <span class="sess-status st-queued">queued</span>
+            <span class="sess-nums">
+              <span class="sess-num is-model" title="deepseek/deepseek-chat-v3.1">deepseek/deepseek-chat-v3.1</span>
+              <span class="sess-num">6s</span>
+              <span class="sess-num"><span class="up" title="tokens sent">↑</span> 167</span>
+              <span class="sess-num"><span class="down" title="tokens received">↓</span> 147</span>
+              <span class="sess-num">$0.00</span>
+              <span class="sess-num"><strong>0</strong> calls</span>
+              
+            </span>
+          </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">1</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="167 tokens">167</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="147 tokens">147</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-29 17:39 UTC · ended 2026-08-29 17:39 UTC · 6s · <span class="mono">deepseek/deepseek-chat-v3.1</span></p>
+                    <p class="sess-meta">No tool calls recorded in this session.</p>
+        </div>
+
+        </details>
+
+          </div>
+        </div>
+      </details>
+      <details class="proj card" data-pid="p0lk1npw">
+        <summary class="proj-summary">
+          <span class="proj-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="proj-dot" style="--pc:#14B8A6" aria-hidden="true"></span>
+          <span class="proj-name">R48 Battery</span>
+          
+          <span class="proj-meta">
+            <span class="proj-chip"><strong>3</strong> sessions</span>
+            <span class="proj-chip"><strong>2</strong> sub-agents</span>
+            <span class="proj-chip"><strong>2</strong> tool calls</span>
+            <span class="proj-chip" title="28,638 sent · 285 received">↑ 29k · ↓ 285</span>
+            <span class="proj-chip">$0.00</span>
+            <span class="proj-chip">Aug 29 – Aug 29, 2026</span>
+          </span>
+        </summary>
+        <div class="proj-body">
+          <div class="proj-stats">
+            <span class="proj-stat"><span class="proj-stat-label">Sessions</span><span class="proj-stat-value">3</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sub-agents</span><span class="proj-stat-value">2</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Tool calls</span><span class="proj-stat-value">2</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Requests</span><span class="proj-stat-value">2</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sent ↑</span><span class="proj-stat-value" title="28,638 tokens">29k</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Received ↓</span><span class="proj-stat-value" title="285 tokens">285</span></span>
+          </div>
+          <div class="proj-cols">
+            <div class="proj-panel">
+              <div class="proj-panel-title">Tool calls</div>
+              <div class="u-rows">
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >delegate_task</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" aria-label="delegate_task share">
+            <div class="bar-fill" style="--w:100%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >run_command</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" aria-label="run_command share">
+            <div class="bar-fill" style="--w:100%"></div>
+          </div>
+        </div>
+              </div>
+            </div>
+            <div class="proj-panel">
+              <div class="proj-panel-title">Models</div>
+          <div class="proj-mrow">
+            <span class="proj-mname" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+            <span class="proj-mnums">2 calls · ↑ 29k · ↓ 285 · $0.00</span>
+          </div>
+            </div>
+          </div>
+          <h4 class="sess-heading">Sessions · 3 main + 2 sub-agent</h4>
+          <div class="sess-list">
+        <details class="sess" data-sid="s1uonmqp">
+          <summary class="sess-summary">
+            <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            <span class="sess-title" title="(untitled)">(untitled)</span>
+            <span class="sess-status st-queued">queued</span>
+            <span class="sess-nums">
+              
+              <span class="sess-num">—</span>
+              <span class="sess-num"><span class="up" title="tokens sent">↑</span> 0</span>
+              <span class="sess-num"><span class="down" title="tokens received">↓</span> 0</span>
+              <span class="sess-num">$0.00</span>
+              <span class="sess-num"><strong>0</strong> calls</span>
+              
+            </span>
+          </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">0</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-29 13:59 UTC · ended 2026-08-29 13:59 UTC · —</p>
+                    <p class="sess-meta">No tool calls recorded in this session.</p>
+        </div>
+
+        </details>
+        <details class="sess has-subs" data-sid="s0bf7zq3">
+          <summary class="sess-summary">
+            <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            <span class="sess-title" title="(untitled)">(untitled)</span>
+            <span class="sess-status st-queued">queued</span>
+            <span class="sess-nums">
+              
+              <span class="sess-num">10m 55s</span>
+              <span class="sess-num"><span class="up" title="tokens sent">↑</span> 0</span>
+              <span class="sess-num"><span class="down" title="tokens received">↓</span> 0</span>
+              <span class="sess-num">$0.00</span>
+              <span class="sess-num"><strong>0</strong> calls</span>
+              <span class="sess-num"><strong>1</strong> sub-agent</span>
+            </span>
+          </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">0</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-29 13:59 UTC · ended 2026-08-29 14:10 UTC · 10m 55s</p>
+                    <p class="sess-meta">No tool calls recorded in this session.</p>
+        </div>
+          <div class="sess-subwrap">
+            <span class="sess-subslabel">Delegated sub-agents</span>
+          <details class="sess sess-sub">
+            <summary class="sess-summary">
+              <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              <span class="sess-sub-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3"/><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><line x1="10.5" y1="10" x2="6.5" y2="16"/><line x1="13.5" y1="10" x2="17.5" y2="16"/></svg>sub-agent · coder</span>
+              <span class="sess-title" title="Run the shell command: curl -s -o /dev/null -w %{http_code} …">Run the shell command: curl -s -o /dev/null -w %{http_code} …</span>
+              <span class="sess-status st-failed">failed</span>
+              <span class="sess-nums">
+                <span class="sess-num">10m 40s</span>
+                <span class="sess-num"><span class="up">↑</span> 0</span>
+                <span class="sess-num"><span class="down">↓</span> 0</span>
+                <span class="sess-num"><strong>0</strong> calls</span>
+              </span>
+            </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">0</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-29 13:59 UTC · ended 2026-08-29 14:10 UTC · 10m 40s</p>
+                    <p class="sess-meta">No tool calls recorded in this session.</p>
+        </div>
+          </details>
+          </div>
+        </details>
+        <details class="sess has-subs" data-sid="s1d3rljj">
+          <summary class="sess-summary">
+            <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            <span class="sess-title" title="Use the delegate_task tool now to delegate exactly ONE sub-a…">Use the delegate_task tool now to delegate exactly ONE sub-a…</span>
+            <span class="sess-status st-queued">queued</span>
+            <span class="sess-nums">
+              <span class="sess-num is-model" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+              <span class="sess-num">12s</span>
+              <span class="sess-num"><span class="up" title="tokens sent">↑</span> 17k</span>
+              <span class="sess-num"><span class="down" title="tokens received">↓</span> 171</span>
+              <span class="sess-num">$0.00</span>
+              <span class="sess-num"><strong>1</strong> call</span>
+              <span class="sess-num"><strong>1</strong> sub-agent</span>
+            </span>
+          </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">1</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="17,107 tokens">17k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="171 tokens">171</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-29 14:12 UTC · ended 2026-08-29 14:12 UTC · 12s · <span class="mono">z-ai/glm-5.2:free</span></p>
+                    <div class="sess-toolrows">
+          <div class="sess-toolrow">
+            <span class="sess-toolname">delegate_task</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" aria-label="delegate_task calls in this session">
+              <div class="bar-fill" style="--w:100%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          </div>
+        </div>
+          <div class="sess-subwrap">
+            <span class="sess-subslabel">Delegated sub-agents</span>
+          <details class="sess sess-sub">
+            <summary class="sess-summary">
+              <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              <span class="sess-sub-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3"/><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><line x1="10.5" y1="10" x2="6.5" y2="16"/><line x1="13.5" y1="10" x2="17.5" y2="16"/></svg>sub-agent · coder</span>
+              <span class="sess-title" title="Run the shell command: echo R48_BATTERY_OK . Nothing else, t…">Run the shell command: echo R48_BATTERY_OK . Nothing else, t…</span>
+              <span class="sess-status st-completed">done</span>
+              <span class="sess-nums">
+                <span class="sess-num">5s</span>
+                <span class="sess-num"><span class="up">↑</span> 12k</span>
+                <span class="sess-num"><span class="down">↓</span> 114</span>
+                <span class="sess-num"><strong>1</strong> call</span>
+              </span>
+            </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">1</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="11,531 tokens">12k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="114 tokens">114</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-29 14:12 UTC · ended 2026-08-29 14:12 UTC · 5s · <span class="mono">z-ai/glm-5.2:free</span></p>
+                    <div class="sess-toolrows">
+          <div class="sess-toolrow">
+            <span class="sess-toolname">run_command</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" aria-label="run_command calls in this session">
+              <div class="bar-fill" style="--w:100%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          </div>
+        </div>
+          </details>
+          </div>
+        </details>
+
+          </div>
+        </div>
+      </details>
+      <details class="proj card" data-pid="p0znbnct">
+        <summary class="proj-summary">
+          <span class="proj-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="proj-dot" style="--pc:#3B82F6" aria-hidden="true"></span>
+          <span class="proj-name">R48-c Demo</span>
+          
+          <span class="proj-meta">
+            <span class="proj-chip"><strong>1</strong> session</span>
+            <span class="proj-chip"><strong>2</strong> sub-agents</span>
+            <span class="proj-chip"><strong>4</strong> tool calls</span>
+            <span class="proj-chip" title="8,000 sent · 1,540 received">↑ 8.0k · ↓ 1.5k</span>
+            <span class="proj-chip">$0.00</span>
+            <span class="proj-chip">Aug 29 – Aug 29, 2026</span>
+          </span>
+        </summary>
+        <div class="proj-body">
+          <div class="proj-stats">
+            <span class="proj-stat"><span class="proj-stat-label">Sessions</span><span class="proj-stat-value">1</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sub-agents</span><span class="proj-stat-value">2</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Tool calls</span><span class="proj-stat-value">4</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Requests</span><span class="proj-stat-value">2</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sent ↑</span><span class="proj-stat-value" title="8,000 tokens">8.0k</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Received ↓</span><span class="proj-stat-value" title="1,540 tokens">1.5k</span></span>
+          </div>
+          <div class="proj-cols">
+            <div class="proj-panel">
+              <div class="proj-panel-title">Tool calls</div>
+              <div class="u-rows">
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >write_file</span>
+            <span class="suite-count"><strong>2</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="2" aria-label="write_file share">
+            <div class="bar-fill" style="--w:100%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >delegate_task</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="2" aria-label="delegate_task share">
+            <div class="bar-fill" style="--w:50%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >run_command</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="2" aria-label="run_command share">
+            <div class="bar-fill" style="--w:50%"></div>
+          </div>
+        </div>
+              </div>
+            </div>
+            <div class="proj-panel">
+              <div class="proj-panel-title">Models</div>
+          <div class="proj-mrow">
+            <span class="proj-mname" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+            <span class="proj-mnums">2 calls · ↑ 8.0k · ↓ 1.5k · $0.00</span>
+          </div>
+            </div>
+          </div>
+          <h4 class="sess-heading">Sessions · 1 main + 2 sub-agent</h4>
+          <div class="sess-list">
+        <details class="sess has-subs" data-sid="s19vkl17">
+          <summary class="sess-summary">
+            <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            <span class="sess-title" title="Delegate the auth refactor">Delegate the auth refactor</span>
+            <span class="sess-status st-completed">done</span>
+            <span class="sess-nums">
+              
+              <span class="sess-num">4m 30s</span>
+              <span class="sess-num"><span class="up" title="tokens sent">↑</span> 0</span>
+              <span class="sess-num"><span class="down" title="tokens received">↓</span> 0</span>
+              <span class="sess-num">$0.00</span>
+              <span class="sess-num"><strong>1</strong> call</span>
+              <span class="sess-num"><strong>2</strong> sub-agents</span>
+            </span>
+          </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">0</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-29 13:15 UTC · ended 2026-08-29 13:19 UTC · 4m 30s</p>
+                    <div class="sess-toolrows">
+          <div class="sess-toolrow">
+            <span class="sess-toolname">delegate_task</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" aria-label="delegate_task calls in this session">
+              <div class="bar-fill" style="--w:100%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          </div>
+        </div>
+          <div class="sess-subwrap">
+            <span class="sess-subslabel">Delegated sub-agents</span>
+          <details class="sess sess-sub">
+            <summary class="sess-summary">
+              <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              <span class="sess-sub-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3"/><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><line x1="10.5" y1="10" x2="6.5" y2="16"/><line x1="13.5" y1="10" x2="17.5" y2="16"/></svg>sub-agent · coder</span>
+              <span class="sess-title" title="Refactor auth module">Refactor auth module</span>
+              <span class="sess-status st-failed">failed</span>
+              <span class="sess-nums">
+                <span class="sess-num">41m 14s</span>
+                <span class="sess-num"><span class="up">↑</span> 4.2k</span>
+                <span class="sess-num"><span class="down">↓</span> 900</span>
+                <span class="sess-num"><strong>2</strong> calls</span>
+              </span>
+            </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">1</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="4,200 tokens">4.2k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="900 tokens">900</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-29 13:15 UTC · ended 2026-08-29 13:56 UTC · 41m 14s · <span class="mono">z-ai/glm-5.2:free</span></p>
+                    <div class="sess-toolrows">
+          <div class="sess-toolrow">
+            <span class="sess-toolname">run_command</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" aria-label="run_command calls in this session">
+              <div class="bar-fill" style="--w:100%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          <div class="sess-toolrow">
+            <span class="sess-toolname">write_file</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" aria-label="write_file calls in this session">
+              <div class="bar-fill" style="--w:100%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          </div>
+        </div>
+          </details>
+          <details class="sess sess-sub">
+            <summary class="sess-summary">
+              <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              <span class="sess-sub-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3"/><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><line x1="10.5" y1="10" x2="6.5" y2="16"/><line x1="13.5" y1="10" x2="17.5" y2="16"/></svg>sub-agent · tester</span>
+              <span class="sess-title" title="Write auth regression tests">Write auth regression tests</span>
+              <span class="sess-status st-completed">done</span>
+              <span class="sess-nums">
+                <span class="sess-num">3m 40s</span>
+                <span class="sess-num"><span class="up">↑</span> 3.8k</span>
+                <span class="sess-num"><span class="down">↓</span> 640</span>
+                <span class="sess-num"><strong>1</strong> call</span>
+              </span>
+            </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">1</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="3,800 tokens">3.8k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="640 tokens">640</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-29 13:15 UTC · ended 2026-08-29 13:19 UTC · 3m 40s · <span class="mono">z-ai/glm-5.2:free</span></p>
+                    <div class="sess-toolrows">
+          <div class="sess-toolrow">
+            <span class="sess-toolname">write_file</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" aria-label="write_file calls in this session">
+              <div class="bar-fill" style="--w:100%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          </div>
+        </div>
+          </details>
+          </div>
+        </details>
+
+          </div>
+        </div>
+      </details>
+      <details class="proj card" data-pid="p0arnc73">
+        <summary class="proj-summary">
+          <span class="proj-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="proj-dot" style="--pc:#FF6B2C" aria-hidden="true"></span>
+          <span class="proj-name">R46 Live Battery</span>
+          
+          <span class="proj-meta">
+            <span class="proj-chip"><strong>2</strong> sessions</span>
+            <span class="proj-chip"><strong>0</strong> sub-agents</span>
+            <span class="proj-chip"><strong>8</strong> tool calls</span>
+            <span class="proj-chip" title="74,329 sent · 1,078 received">↑ 74k · ↓ 1.1k</span>
+            <span class="proj-chip">$0.00</span>
+            <span class="proj-chip">Aug 28 – Aug 28, 2026</span>
+          </span>
+        </summary>
+        <div class="proj-body">
+          <div class="proj-stats">
+            <span class="proj-stat"><span class="proj-stat-label">Sessions</span><span class="proj-stat-value">2</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sub-agents</span><span class="proj-stat-value">0</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Tool calls</span><span class="proj-stat-value">8</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Requests</span><span class="proj-stat-value">4</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Sent ↑</span><span class="proj-stat-value" title="74,329 tokens">74k</span></span>
+            <span class="proj-stat"><span class="proj-stat-label">Received ↓</span><span class="proj-stat-value" title="1,078 tokens">1.1k</span></span>
+          </div>
+          <div class="proj-cols">
+            <div class="proj-panel">
+              <div class="proj-panel-title">Tool calls</div>
+              <div class="u-rows">
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >memory_save</span>
+            <span class="suite-count"><strong>3</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="3" aria-label="memory_save share">
+            <div class="bar-fill" style="--w:100%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >edit_file</span>
+            <span class="suite-count"><strong>2</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="3" aria-label="edit_file share">
+            <div class="bar-fill" style="--w:67%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >read_file</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="read_file share">
+            <div class="bar-fill" style="--w:33%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >run_command</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="run_command share">
+            <div class="bar-fill" style="--w:33%"></div>
+          </div>
+        </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name" >write_file</span>
+            <span class="suite-count"><strong>1</strong></span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3" aria-label="write_file share">
+            <div class="bar-fill" style="--w:33%"></div>
+          </div>
+        </div>
+              </div>
+            </div>
+            <div class="proj-panel">
+              <div class="proj-panel-title">Models</div>
+          <div class="proj-mrow">
+            <span class="proj-mname" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+            <span class="proj-mnums">4 calls · ↑ 74k · ↓ 1.1k · $0.00</span>
+          </div>
+            </div>
+          </div>
+          <h4 class="sess-heading">Sessions · 2 main + 0 sub-agent</h4>
+          <div class="sess-list">
+        <details class="sess" data-sid="s0nfc1j8">
+          <summary class="sess-summary">
+            <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            <span class="sess-title" title="Please use memory_save twice: (1) save the decision &#39;this pr…">Please use memory_save twice: (1) save the decision &#39;this pr…</span>
+            <span class="sess-status st-queued">queued</span>
+            <span class="sess-nums">
+              <span class="sess-num is-model" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+              <span class="sess-num">41s</span>
+              <span class="sess-num"><span class="up" title="tokens sent">↑</span> 39k</span>
+              <span class="sess-num"><span class="down" title="tokens received">↓</span> 335</span>
+              <span class="sess-num">$0.00</span>
+              <span class="sess-num"><strong>3</strong> calls</span>
+              
+            </span>
+          </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">2</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="38,885 tokens">39k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="335 tokens">335</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-28 22:55 UTC · ended 2026-08-28 22:56 UTC · 41s · <span class="mono">z-ai/glm-5.2:free</span></p>
+                    <div class="sess-toolrows">
+          <div class="sess-toolrow">
+            <span class="sess-toolname">memory_save</span>
+            <div class="bar" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="3" aria-label="memory_save calls in this session">
+              <div class="bar-fill" style="--w:100%"></div>
+            </div>
+            <span class="sess-toolcount">3 calls</span>
+          </div>
+          </div>
+        </div>
+
+        </details>
+        <details class="sess" data-sid="s0tv2f2w">
+          <summary class="sess-summary">
+            <span class="sess-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            <span class="sess-title" title="Create a file called NOTES…">Create a file called NOTES…</span>
+            <span class="sess-status st-queued">queued</span>
+            <span class="sess-nums">
+              <span class="sess-num is-model" title="z-ai/glm-5.2:free">z-ai/glm-5.2:free</span>
+              <span class="sess-num">12m 04s</span>
+              <span class="sess-num"><span class="up" title="tokens sent">↑</span> 35k</span>
+              <span class="sess-num"><span class="down" title="tokens received">↓</span> 743</span>
+              <span class="sess-num">$0.00</span>
+              <span class="sess-num"><strong>5</strong> calls</span>
+              
+            </span>
+          </summary>
+        <div class="sess-body">
+          <div class="sess-facts">
+            <span class="sess-fact"><span class="sess-fact-label">Requests</span><span class="sess-fact-value">2</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Sent ↑</span><span class="sess-fact-value" title="35,444 tokens">35k</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Received ↓</span><span class="sess-fact-value" title="743 tokens">743</span></span>
+            <span class="sess-fact"><span class="sess-fact-label">Cached</span><span class="sess-fact-value" title="0 tokens">0</span></span>
+          </div>
+          <p class="sess-meta">Started 2026-08-28 22:56 UTC · ended 2026-08-28 23:08 UTC · 12m 04s · <span class="mono">z-ai/glm-5.2:free</span></p>
+                    <div class="sess-toolrows">
+          <div class="sess-toolrow">
+            <span class="sess-toolname">edit_file</span>
+            <div class="bar" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="2" aria-label="edit_file calls in this session">
+              <div class="bar-fill" style="--w:100%"></div>
+            </div>
+            <span class="sess-toolcount">2 calls</span>
+          </div>
+          <div class="sess-toolrow">
+            <span class="sess-toolname">read_file</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="2" aria-label="read_file calls in this session">
+              <div class="bar-fill" style="--w:50%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          <div class="sess-toolrow">
+            <span class="sess-toolname">run_command</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="2" aria-label="run_command calls in this session">
+              <div class="bar-fill" style="--w:50%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          <div class="sess-toolrow">
+            <span class="sess-toolname">write_file</span>
+            <div class="bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="2" aria-label="write_file calls in this session">
+              <div class="bar-fill" style="--w:50%"></div>
+            </div>
+            <span class="sess-toolcount">1 call</span>
+          </div>
+          </div>
+        </div>
+
+        </details>
+
+          </div>
+        </div>
+      </details>
+      <details class="proj card" data-pid="p1xgou19">
+        <summary class="proj-summary">
+          <span class="proj-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="proj-dot" style="--pc:#8B5CF6" aria-hidden="true"></span>
+          <span class="proj-name">R48 Second Color</span>
+          
+          <span class="proj-meta">
+            <span class="proj-chip"><strong>0</strong> sessions</span>
+            <span class="proj-chip"><strong>0</strong> sub-agents</span>
+            <span class="proj-chip"><strong>0</strong> tool calls</span>
+            <span class="proj-chip" title="0 sent · 0 received">↑ 0 · ↓ 0</span>
+            <span class="proj-chip">$0.00</span>
+            <span class="proj-chip">no activity</span>
+          </span>
+        </summary>
+        <div class="proj-body">
+          <p class="proj-nosessions">No sessions recorded for this project yet — it shows up here as soon as the first chat session lands in the database.</p>
+        </div>
+      </details>
+      <details class="proj card" data-pid="p0o8bzgc">
+        <summary class="proj-summary">
+          <span class="proj-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="proj-dot" style="--pc:#F43F5E" aria-hidden="true"></span>
+          <span class="proj-name">R49 Battery 1788023705978</span>
+          
+          <span class="proj-meta">
+            <span class="proj-chip"><strong>0</strong> sessions</span>
+            <span class="proj-chip"><strong>0</strong> sub-agents</span>
+            <span class="proj-chip"><strong>0</strong> tool calls</span>
+            <span class="proj-chip" title="0 sent · 0 received">↑ 0 · ↓ 0</span>
+            <span class="proj-chip">$0.00</span>
+            <span class="proj-chip">no activity</span>
+          </span>
+        </summary>
+        <div class="proj-body">
+          <p class="proj-nosessions">No sessions recorded for this project yet — it shows up here as soon as the first chat session lands in the database.</p>
+        </div>
+      </details>
+      <details class="proj card" data-pid="p0dv637y">
+        <summary class="proj-summary">
+          <span class="proj-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="proj-dot" style="--pc:#FF6B2C" aria-hidden="true"></span>
+          <span class="proj-name">R50 Battery</span>
+          
+          <span class="proj-meta">
+            <span class="proj-chip"><strong>0</strong> sessions</span>
+            <span class="proj-chip"><strong>0</strong> sub-agents</span>
+            <span class="proj-chip"><strong>0</strong> tool calls</span>
+            <span class="proj-chip" title="0 sent · 0 received">↑ 0 · ↓ 0</span>
+            <span class="proj-chip">$0.00</span>
+            <span class="proj-chip">no activity</span>
+          </span>
+        </summary>
+        <div class="proj-body">
+          <p class="proj-nosessions">No sessions recorded for this project yet — it shows up here as soon as the first chat session lands in the database.</p>
+        </div>
+      </details>
+      <details class="proj card" data-pid="p04nu8n3">
+        <summary class="proj-summary">
+          <span class="proj-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="proj-dot" style="--pc:#3B82F6" aria-hidden="true"></span>
+          <span class="proj-name">R50 Battery</span>
+          
+          <span class="proj-meta">
+            <span class="proj-chip"><strong>0</strong> sessions</span>
+            <span class="proj-chip"><strong>0</strong> sub-agents</span>
+            <span class="proj-chip"><strong>0</strong> tool calls</span>
+            <span class="proj-chip" title="0 sent · 0 received">↑ 0 · ↓ 0</span>
+            <span class="proj-chip">$0.00</span>
+            <span class="proj-chip">no activity</span>
+          </span>
+        </summary>
+        <div class="proj-body">
+          <p class="proj-nosessions">No sessions recorded for this project yet — it shows up here as soon as the first chat session lands in the database.</p>
+        </div>
+      </details>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-note">Usage snapshot 2026-08-30 07:58 UTC · sanitized titles · hashed ids · zero message content · Acute v0.51.0</p>
+    <a class="top-link" href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+<script type="application/json" id="dash-data">{"buildIso":"2026-08-30T07:59:54.542Z","page":"usage","usage":{"generatedAt":"2026-08-30T07:58:32.162Z","schemaVersion":1}}</script>
+<script src="assets/app.js?v=20260830t075954542z" defer></script>
+<script src="assets/usage.js?v=20260830t075954542z" defer></script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="{{LANG}}" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FF6B2C" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d0c0a" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="{{TITLE}}">
+<meta name="og:description" content="{{DESCRIPTION}}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{PAGE_URL}}">
+<link rel="canonical" href="{{PAGE_URL}}">
+<link rel="icon" href="{{FAVICON}}">
+<link rel="stylesheet" href="{{CSS_URL}}">
+<link rel="stylesheet" href="{{USAGE_CSS_URL}}">
+<script>
+  // Apply persisted theme before paint to avoid a flash.
+  (function () {
+    try {
+      var stored = localStorage.getItem("acute-theme");
+      var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      var theme = stored === "dark" || stored === "light" ? stored : (prefersDark ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    } catch (_) { /* ignore */ }
+    document.documentElement.classList.add("js");
+  })();
+</script>
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" role="banner">
+  <div class="container header-inner">
+    <a class="brand" href="index.html" aria-label="Acute — back to the status dashboard">
+      <span class="brand-mark" aria-hidden="true">◐</span>
+      <span class="brand-text">
+        <span class="brand-name">Acute</span>
+        <span class="brand-sub">status dashboard</span>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="Usage sections">
+      <a href="index.html">← Dashboard</a>
+      <a href="#overview">Overview</a>
+      <a href="#activity">Activity</a>
+      <a href="#tools">Tools</a>
+      <a href="#models">Models</a>
+      <a href="#projects">Projects</a>
+    </nav>
+    <div class="header-actions">
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle dark mode">
+        <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M6.34 17.66l-1.41 1.41"/><path d="M19.07 4.93l-1.41 1.41"/>
+        </svg>
+        <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <a class="github-link" href="{{GITHUB_URL}}" target="_blank" rel="noopener noreferrer" aria-label="View source on GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 .5C5.37.5 0 5.78 0 12.292c0 5.211 3.438 9.63 8.205 11.18.6.111.82-.26.82-.577 0-.285-.01-1.04-.016-2.046-3.338.726-4.043-1.61-4.043-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.082-.73.082-.73 1.205.085 1.838 1.237 1.838 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.776.42-1.305.762-1.605-2.665-.305-5.466-1.332-5.466-5.93 0-1.31.47-2.383 1.236-3.221-.124-.303-.535-1.523.117-3.173 0 0 1.008-.323 3.301 1.23A11.51 11.51 0 0 1 12 6.802c1.025.005 2.058.139 3.022.408 2.29-1.553 3.297-1.23 3.297-1.23.653 1.65.242 2.87.119 3.172.77.838 1.234 1.91 1.234 3.221 0 4.61-2.807 5.622-5.48 5.92.43.371.81 1.103.81 2.222 0 1.604-.014 2.898-.014 3.293 0 .32.216.695.825.576C20.565 21.917 24 17.498 24 12.292 24 5.78 18.627.5 12 .5z"/>
+        </svg>
+      </a>
+      <span class="pill pill-ok header-status-pill"><span class="pill-dot" aria-hidden="true"></span>{{STATUS_SHORT}}</span>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="container main-area">
+
+  <!-- · usage hero · -->
+  <section class="hero card reveal usage-hero" aria-labelledby="usage-title">
+    <div class="hero-main">
+      <div class="hero-eyebrow">
+        <span class="hero-availability">Usage telemetry</span>
+        <span class="hero-dot" aria-hidden="true">·</span>
+        <span class="hero-version">schema v{{SCHEMA_VERSION}}</span>
+        <span class="hero-dot" aria-hidden="true">·</span>
+        <span class="hero-version">{{RANGE_HUMAN}}</span>
+      </div>
+      <h1 id="usage-title">Usage</h1>
+      <p class="tagline">Every project, every session, every tool call — tokens, cost, sub-agent runs and model mix, aggregated straight from the local Acute database. Titles are sanitized and ids are hashed; no message content ever leaves the machine.</p>
+      <div class="hero-chips">
+        <span class="pill pill-ok"><span class="pill-dot" aria-hidden="true"></span>{{SNAPSHOT_STAMP}}</span>
+        <span class="chip"><span class="chip-icon usage-chip-ico" aria-hidden="true"></span>{{TOTAL_SESSIONS_HUMAN}} sessions + {{TOTAL_SUBS_HUMAN}} sub-agent runs</span>
+        <span class="chip"><span class="chip-icon usage-chip-ico" aria-hidden="true"></span>{{TOTAL_TOOLS_HUMAN}} tool calls · {{TOTAL_TOKENS_HUMAN}} tokens</span>
+      </div>
+    </div>
+    <aside class="updated-box" aria-label="Page built">
+      <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg>
+      <span class="updated-label">Page built</span>
+      <span class="updated-time">{{BUILD_STAMP}}</span>
+      <span class="updated-relative" id="updated-relative"></span>
+      <span class="updated-relative">snapshot {{GENERATED_STAMP}}</span>
+    </aside>
+  </section>
+
+{{USAGE_BODY}}
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-note">{{FOOTER_NOTE}}</p>
+    <a class="top-link" href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+<script type="application/json" id="dash-data">{{DATA_JSON}}</script>
+<script src="{{JS_URL}}" defer></script>
+<script src="{{USAGE_JS_URL}}" defer></script>
+</body>
+</html>

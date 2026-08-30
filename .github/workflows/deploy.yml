@@ -1,9 +1,10 @@
 name: Build & publish dashboard
 
-# GitHub Pages serves the root of `main`, and the generated index.html is
-# committed with the repo. This workflow is a safety net: it re-runs the
-# build on every push so the committed output always matches data.json,
-# even when data.json was edited in the GitHub UI without a local build.
+# GitHub Pages serves the root of `main`, and the generated index.html +
+# usage.html are committed with the repo. This workflow is a safety net: it
+# re-runs the build on every push so the committed output always matches
+# data.json / usage.json, even when they were edited in the GitHub UI or
+# committed without a local build.
 
 on:
   push:
@@ -36,7 +37,7 @@ jobs:
         run: |
           git config user.name "acute-dashboard-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html assets/
+          git add index.html usage.html assets/
           if git diff --cached --quiet; then
             echo "Generated output is already up to date."
           else

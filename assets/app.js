@@ -52,6 +52,9 @@
   }
 
   /* ── count-up numbers (on load, slightly staggered) ──────────────────── */
+  /* Locale-formatted (505,659) so the usage page's big token counts stay
+     readable while they animate; the index page's values are all < 1000 so
+     their rendering is unchanged. */
   function animateCount(node, delayMs) {
     var target = Number(node.getAttribute("data-count")) || 0;
     if (!target) {
@@ -64,7 +67,7 @@
       if (!t0) t0 = now;
       var p = Math.min(1, (now - t0) / dur);
       var eased = 1 - Math.pow(1 - p, 3);
-      node.textContent = String(Math.round(target * eased));
+      node.textContent = Math.round(target * eased).toLocaleString("en-US");
       if (p < 1) window.requestAnimationFrame(frame);
     }
     window.setTimeout(function () {
