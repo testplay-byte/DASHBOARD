@@ -1,20 +1,20 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-31T10:32:28.133Z",
+  "generatedAt": "2026-08-31T11:33:23.563Z",
   "range": {
     "from": "2026-08-30T14:24:43.935Z",
-    "to": "2026-08-31T09:47:13.026Z",
+    "to": "2026-08-31T11:23:30.291Z",
     "days": 1
   },
   "totals": {
-    "projects": 4,
-    "sessions": 3,
+    "projects": 6,
+    "sessions": 4,
     "subagentSessions": 5,
     "toolCalls": 53,
-    "requests": 13,
+    "requests": 14,
     "tokens": {
-      "input": 652670,
-      "output": 14578,
+      "input": 659421,
+      "output": 14661,
       "cached": 259390
     },
     "costUsd": 0
@@ -59,10 +59,10 @@
   "models": [
     {
       "model": "z-ai/glm-5.2:free",
-      "calls": 13,
+      "calls": 14,
       "tokens": {
-        "input": 652670,
-        "output": 14578,
+        "input": 659421,
+        "output": 14661,
         "cached": 259390
       },
       "costUsd": 0
@@ -75,7 +75,7 @@
     },
     {
       "day": "2026-08-31",
-      "count": 1
+      "count": 2
     }
   ],
   "projects": [
@@ -560,6 +560,110 @@
           "tokens": {
             "input": 7298,
             "output": 32,
+            "cached": 0
+          },
+          "costUsd": 0,
+          "requests": 1,
+          "toolCalls": [],
+          "toolCallCount": 0,
+          "subagentCount": 0,
+          "isSubagent": false,
+          "parentId": null,
+          "role": null
+        }
+      ]
+    },
+    {
+      "id": "p0oh1pm3",
+      "name": "R56-battery-1788175379834",
+      "color": "#F43F5E",
+      "synthetic": false,
+      "sessionCount": 0,
+      "firstActivity": null,
+      "lastActivity": null,
+      "totals": {
+        "sessions": 0,
+        "subagents": 0,
+        "toolCalls": 0,
+        "requests": 0,
+        "costUsd": 0,
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "cached": 0
+        }
+      },
+      "toolCalls": [],
+      "subagents": {
+        "count": 0,
+        "toolCalls": 0,
+        "requests": 0,
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "cached": 0
+        },
+        "costUsd": 0
+      },
+      "models": [],
+      "sessions": []
+    },
+    {
+      "id": "p0ojo1dh",
+      "name": "R56-battery-1788175408507",
+      "color": "#F59E0B",
+      "synthetic": false,
+      "sessionCount": 1,
+      "firstActivity": "2026-08-31T11:23:28.527Z",
+      "lastActivity": "2026-08-31T11:23:30.291Z",
+      "totals": {
+        "sessions": 1,
+        "subagents": 0,
+        "toolCalls": 0,
+        "requests": 1,
+        "costUsd": 0,
+        "tokens": {
+          "input": 6751,
+          "output": 83,
+          "cached": 0
+        }
+      },
+      "toolCalls": [],
+      "subagents": {
+        "count": 0,
+        "toolCalls": 0,
+        "requests": 0,
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "cached": 0
+        },
+        "costUsd": 0
+      },
+      "models": [
+        {
+          "model": "z-ai/glm-5.2:free",
+          "calls": 1,
+          "tokens": {
+            "input": 6751,
+            "output": 83,
+            "cached": 0
+          },
+          "costUsd": 0
+        }
+      ],
+      "sessions": [
+        {
+          "id": "s10ywbji",
+          "title": "R56 battery",
+          "status": "queued",
+          "model": "z-ai/glm-5.2:free",
+          "startedAt": "2026-08-31T11:23:28.527Z",
+          "endedAt": "2026-08-31T11:23:30.291Z",
+          "durationMs": 1764,
+          "tokens": {
+            "input": 6751,
+            "output": 83,
             "cached": 0
           },
           "costUsd": 0,
