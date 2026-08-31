@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.54.0",
+    "version": "0.55.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -34,8 +34,8 @@
   ],
   "plan": {
     "current": {
-      "title": "R54 delivered — the reliability round: broken installs repair themselves and engine failures explain themselves; awaiting the owner's Windows re-test",
-      "detail": "Every fix traces to the owner's second desktop session: the packaged app still showed 'can't reach agent core' (restart never recovered it), and after a manual folder deletion the launcher claimed the app was current but the exe was gone — then fell back to the browser instead of reinstalling. Three root causes, all fixed: the launcher trusted the registry (which outlives the folder) over the files; the packaged app could not see its own engine's crash output (a windowed app has no stderr — the old inherit went nowhere) and a failed engine start orphaned a zombie process holding the database, so every restart raced it; and one-shot startup deadlines lost to cold first boots while antivirus scanned the fresh install. Now: disk-verified installs that reinstall when broken, precise pre-upgrade process cleanup, piped engine stderr into the log, three startup attempts, no orphans, the offline screen renders the engine log with a Copy-diagnostics button, and the launcher console confirms the engine booted. Verified: 1071 tests, the Rust shell type-checked against the Windows target in-sandbox, the launcher logic-tested against the owner's exact scenario, and a live browser battery of the owner's fallback flows."
+      "title": "R55 delivered — the engine-boot round: the packaged engine actually starts now; awaiting the owner's Windows re-test (expect 'agent-core is up — port N' in the ACUTE.bat console for the first time)",
+      "detail": "The owner's third desktop session finally captured the crash behind every 'Can't reach agent-core': node.exe dying with 'EISDIR: lstat C:' before the first line of engine code — Tauri's resource_dir() hands back Windows verbatim (\\?-prefixed) paths and the shell passed them to the engine as the program, the script, AND the cwd; node's module resolver cannot handle verbatim script paths. Every path that reaches a child process is now stripped to a plain Win32 path first. Second root cause in the same log: 'no provider keys found' one second after the launcher stored all four keys — the keyring crate read credentials at api-key.ACUTE-CODE/provider/x while the launcher's cmdkey stores ACUTE-CODE/provider/x: two disjoint namespaces since the first packaged build. The keyring crate is gone, replaced by direct CredReadW/CredWriteW FFI at the launcher's canonical targets, with the old form still read as a legacy fallback. The launcher also prints the 'What's new' changelog panel after each update."
     },
     "upcoming": [
       {
@@ -1010,6 +1010,13 @@
       "title": "Self-repairing installs + in-app engine diagnostics",
       "status": "live",
       "desc": "Since round 54 the launcher and the packaged app fix and explain themselves. The launcher verifies the install on DISK (app binary, pinned Node runtime, bundled engine) instead of trusting the Windows registry entry — which survives a manual folder deletion — so a deleted or half-written install is detected and REINSTALLED automatically, running copies are closed before upgrades so files are never replaced under a live app, and after launch the console watches the engine's own log and prints a plain 'engine is up — port' confirmation (or the failure log, right there). Inside the app, the engine's error channel is finally captured: its stderr is piped into the engine log, a failed start no longer leaves a zombie engine process holding the database (the real reason the restart button kept failing), cold boots retry three times before giving up, and the offline screen now shows the last log lines IN-APP with a one-click Copy-diagnostics button — any future failure explains itself on screen."
+    },
+    {
+      "id": "engine-boot-fix",
+      "icon": "zap",
+      "title": "The engine-boot fix (EISDIR + the key namespace)",
+      "status": "live",
+      "desc": "Since round 55 the packaged engine actually boots. Tauri's resource_dir() on Windows returns \\?-prefixed verbatim paths, and the shell handed them to the bundled Node as the program, the script argument, AND the working directory — Node starts from a verbatim program path but its module resolver cannot handle a verbatim entry script, dying with 'EISDIR: lstat C:' before running one line of engine code. Every packaged session since the first build showed 'Can't reach agent-core' while dev mode (plain paths) never saw it. All child paths are now stripped to plain Win32 form. The same round unified the credential namespace: reads and writes use the launcher's cmdkey targets (ACUTE-CODE/provider/<id>) so the seeded keys are finally found, with the pre-R55 keyring form kept as a read fallback."
     }
   ],
   "documentation": [
@@ -1100,7 +1107,7 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at build time: run 33330618904 on head 4a2dcbf (the 0.54.0 code tip, R54: the reliability round), conclusion success — all steps green on windows-latest including the 1071-test suite and the Rust cargo check. The round's Rust changes were additionally type-checked against the WINDOWS TARGET inside the Linux sandbox (user-local mingw), and the Python launcher's new install-verification / engine-watch helpers were logic-tested against the owner's exact failure scenario before the push. The R52 lesson generalized this round: a packaged GUI app must observe its own children — stderr, exit codes, output — 'it compiled and spawned' was never evidence the engine booted.",
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: run 33379689900 on head a7c3ea0 (the 0.55.0 code tip, R55: the engine-boot round), conclusion success — all steps green on windows-latest including the 1071-test suite and the Rust cargo check; the docs follow-up (run 33382219745 on ec42af3) is green too. The round's Rust changes (new wincred.rs FFI module + the verbatim-path stripper) were type-checked against the WINDOWS TARGET inside the Linux sandbox (user-local mingw, cargo check --all-targets) before the push, and the new Rust unit tests pin the exact paths and credential targets from the owner's crash log. The R55 lesson: trust the crash text — the owner's log finally carried node's own EISDIR stack and the whole failure shrank to two unambiguous root causes.",
     "suites": "1058 tests · 75 files (vitest) + 12 e2e · cargo check (windows-latest CI + x86_64-pc-windows-gnu in-sandbox)",
     "lint": "clean",
     "typecheck": "clean",
@@ -1254,6 +1261,10 @@
     {
       "date": "2026-08-30",
       "label": "R54 — the reliability round: the registry-vs-disk install repair, piped engine stderr + zombie-engine fix + cold-boot retries, the in-app engine-log screen with Copy diagnostics, the launcher's engine boot watch, bounded browser folder picking — 1071 tests; v0.54.0 ships the third NSIS installer"
+    },
+    {
+      "date": "2026-08-31",
+      "label": "R55 — the engine-boot round: the EISDIR verbatim-path crash fixed (the packaged engine never once booted before), the Credential-Manager namespace split unified behind direct CredReadW/CredWriteW FFI, the launcher's What's-new panel — 1071 tests; v0.55.0 ships the fourth NSIS installer"
     }
   ],
   "chips": [
@@ -1358,5 +1369,5 @@
     ],
     "total": 97
   },
-  "lastUpdated": "2026-08-30"
+  "lastUpdated": "2026-08-31"
 }
