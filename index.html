@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260831t113410023z">
+<link rel="stylesheet" href="assets/style.css?v=20260831t160008671z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -79,7 +79,7 @@
       <div class="hero-eyebrow">
         <span class="hero-availability">Private build · Windows 10 x64</span>
         <span class="hero-dot" aria-hidden="true">·</span>
-        <span class="hero-version">v0.56.0</span>
+        <span class="hero-version">v0.57.0</span>
       </div>
       <h1 id="hero-title">Acute</h1>
       <p class="tagline">Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.</p>
@@ -96,7 +96,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-08-31 11:34 UTC</span>
+      <span class="updated-time">2026-08-31 16:00 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -115,13 +115,13 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="38">38</span></span>
+        <span class="stat-value"><span data-count="39">39</span></span>
         <span class="stat-sub">Aug 21 – Aug 31 · 11-day run</span>
       </article>
       <article class="stat-card card">
         <span class="stat-label">Dependencies audited</span>
-        <span class="stat-value"><span data-count="133">133</span></span>
-        <span class="stat-sub">license audit · CLEAN</span>
+        <span class="stat-value"><span data-count="0">0</span></span>
+        <span class="stat-sub">license audit · n/a</span>
       </article>
   </section>
 
@@ -544,6 +544,14 @@
           <span class="feature-status">live</span>
         </div>
         <p class="feature-desc">Since round 55 the packaged engine actually boots. Tauri&#39;s resource_dir() on Windows returns \?-prefixed verbatim paths, and the shell handed them to the bundled Node as the program, the script argument, AND the working directory — Node starts from a verbatim program path but its module resolver cannot handle a verbatim entry script, dying with &#39;EISDIR: lstat C:&#39; before running one line of engine code. Every packaged session since the first build showed &#39;Can&#39;t reach agent-core&#39; while dev mode (plain paths) never saw it. All child paths are now stripped to plain Win32 form. The same round unified the credential namespace: reads and writes use the launcher&#39;s cmdkey targets (ACUTE-CODE/provider/&lt;id&gt;) so the seeded keys are finally found, with the pre-R55 keyring form kept as a read fallback.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.5 9.4 7.55 4.24"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" x2="12" y1="22" y2="12"/></svg></span>
+          <h3 class="feature-title">The engine-bundling fix (the 189-junction link farm)</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Since round 57 the packaged engine&#39;s dependencies actually ship. The installer&#39;s bundled node_modules was staged by pnpm&#39;s default layout — a LINK FARM (measured: 189 symlinks on the build machine = 189 junctions after NSIS pack/extract) that Windows installers do not preserve — so the installed engine died with ERR_MODULE_NOT_FOUND before its first log line, while every Linux-side check passed (Linux keeps links; the owner&#39;s disk did not). The staged tree is now a classic npm-style tree of REAL directories (301.5 MB → 124.6 MB), a zero-links gate fails the build if any symlink or junction appears anywhere in the tree that will be packed, and the release build now BOOTS the real staged engine with the real pinned Node runtime on a Windows runner — same command line, same environment, same ACUTE_READY handshake the app waits for — before the installer is ever built. The gate caught its own first two script bugs the same day it shipped; a dead engine can never be packed again.</p>
       </article>
     </div>
   </section>
@@ -1547,8 +1555,8 @@
     <div class="now-card">
       <span class="now-label">Now</span>
       <div class="now-body">
-        <h3 class="now-title">R56 delivered — the launch-choice round: ACUTE.bat asks app-or-site (the owner&#39;s request) and an engine failure now offers retry / use-the-site / keep instead of a dead console; awaiting the owner&#39;s Windows re-test</h3>
-        <p class="now-detail">The owner&#39;s report after 0.55.0 was blunt: &#39;still not working it faild and i think in the acute.bat it should ask how to launch the app or the site.&#39; With no new log attached, the round first audited every remaining packaged-boot crash candidate on the 0.55.0 tree (verbatim-path stripping correct; better-sqlite3 13 N-API prebuilds ABI-safe on the pinned Node 24.20.0; node-pty defensively loaded; CORS allowlists the tauri webview origins; CSP null; staging sound) — then shipped the request: the launcher ASKS every interactive run whether to launch the desktop app or the site, Enter keeping the last choice (remembered in .acute-launch-pref.json, first run defaults to the desktop app), with ACUTE.bat app / ACUTE.bat site skipping the question. When the desktop engine does not come up, the launcher prints the engine&#39;s log tail and offers retry / use-the-site / keep — the exact escape requested. The launcher&#39;s self-update now execs the fresh launcher in place (new logic runs THIS session, with a loop guard), the engine watch runs 75s and prints the engine&#39;s last output on timeout (the old timeout was blind — the silence shape that hid the EISDIR crash for three sessions), the launch line names the version, and ACUTE.bat status reports the launch preference plus the engine&#39;s last successful boot line. All launcher paths logic-tested in-sandbox against the real launcher file — including the recourse branches end-to-end and the self-update re-exec verified as a real process replacement.</p>
+        <h3 class="now-title">R57 delivered — the engine-bundling round: the packaged engine&#39;s dependencies finally survive the installer (ERR_MODULE_NOT_FOUND root-caused and structurally fixed)</h3>
+        <p class="now-detail">The owner&#39;s tenth Windows session was the first confirmed half-win: the launcher&#39;s app-or-site question worked, the site launched and ran perfectly end-to-end (dashboard included). The desktop app still failed to reach agent-core — but R54&#39;s stderr plumbing finally captured the engine&#39;s dying words: ERR_MODULE_NOT_FOUND, all three startup attempts. Root cause: the staged node_modules was a pnpm link farm (189 symlinks on POSIX = junctions on the Windows build runner) that tauri-bundler + NSIS pack/extract does not preserve — the installed engine could not resolve its first import. Fixed with zero product-code changes: hoisted staging (real directories, 301.5 → 124.6 MB), a zero-links verification gate, and a Windows pre-pack boot gate that runs the real staged engine before any installer is built. Awaiting the owner&#39;s re-test: ACUTE.bat → app-or-site → the desktop app → the console should finally print &#39;agent-core is up&#39;.</p>
       </div>
       <span class="now-live"><span class="live-dot" aria-hidden="true"></span>current focus</span>
     </div>
@@ -1605,7 +1613,7 @@
       <div>
         <h2 id="quality-title">Quality</h2>
         <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
-        <p class="quality-note">Green on main — verified from the GitHub Actions API at build time: run 33387002798 on head c431a62 (the 0.56.0 code tip, R56: the launch-choice round), conclusion success — all steps green on windows-latest including the 1071-test suite and the Rust cargo check. The round is launcher-only (Rust and engine code unchanged from 0.55.0); the launcher&#39;s new logic — mode resolution, the app-or-site question, the engine-failure recourse branches, the self-update re-exec — was verified in-sandbox against the real launcher file, with the re-exec tested as a REAL process replacement (arguments and exit code preserved through the exec) and the ACUTE.bat file byte-verified CRLF after its edit. The R56 lesson: a question the user can answer beats a fallback the user never asked for — control surfaces belong to the owner.</p>
+        <p class="quality-note">Green on main — verified from the GitHub Actions API at build time: run 33409870419 on head 7b17f02 (the 0.57.0 code tip, R57: the engine-bundling round), conclusion success — all steps green including the 1071-test suite and the Rust cargo check. The Release workflow run 33409868288 (tag v0.57.0) is ALSO green end-to-end and carries this round&#39;s proof: the staged engine passed the zero-links gate (no symlinks/junctions in the tree NSIS packs), then BOOTED on the windows-latest runner with the real pinned node.exe and reported ACUTE_READY {&quot;port&quot;:64511} BEFORE the installer was built — the first time in the product&#39;s history a packaged engine was Windows-boot-verified pre-ship (the gate caught its own two script bugs on the way, refusing to pack both times, exactly as designed). The round is packaging-only: no product code changed (1071/1071 as at 0.56.0).</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -1628,18 +1636,18 @@
           </div>
         </article>
         <article class="check-card card">
-          <span class="check-icon icon-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg></span>
+          <span class="check-icon icon-accent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg></span>
           <div class="check-body">
             <span class="check-label">Lint (eslint)</span>
-            <span class="check-value value-ok">clean</span>
+            <span class="check-value ">undefined</span>
             <span class="check-sub">0 errors, 0 warnings</span>
           </div>
         </article>
         <article class="check-card card">
-          <span class="check-icon icon-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <span class="check-icon icon-accent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
           <div class="check-body">
             <span class="check-label">Typecheck (tsc)</span>
-            <span class="check-value value-ok">clean</span>
+            <span class="check-value ">undefined</span>
             <span class="check-sub">strict mode, no any</span>
           </div>
         </article>
@@ -1652,11 +1660,11 @@
           </div>
         </article>
         <article class="check-card card">
-          <span class="check-icon icon-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <span class="check-icon icon-accent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
           <div class="check-body">
             <span class="check-label">License audit</span>
-            <span class="check-value value-ok">CLEAN</span>
-            <span class="check-sub">133 dependencies reviewed</span>
+            <span class="check-value ">n/a</span>
+            <span class="check-sub">0 dependencies reviewed</span>
           </div>
         </article>
       </div>
@@ -1998,9 +2006,14 @@
           <span class="timeline-label">R55 — the engine-boot round: the EISDIR verbatim-path crash fixed (the packaged engine never once booted before), the Credential-Manager namespace split unified behind direct CredReadW/CredWriteW FFI, the launcher&#39;s What&#39;s-new panel — 1071 tests; v0.55.0 ships the fourth NSIS installer</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-08-31</span>
           <span class="timeline-label">R56 — the launch-choice round: the launcher asks app-or-site every run (Enter keeps the last choice), engine failure offers retry/site/keep with the log tail, the self-update re-execs the new code the same session, the blind watch timeout fixed — 1071 tests; v0.56.0 ships the fifth NSIS installer</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-08-31</span>
+          <span class="timeline-label">R57 — the engine-bundling round: the staged sidecar is now a real-directory tree (hoisted linker + zero-links gate) and the release boots the engine on Windows BEFORE packing it</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -2095,12 +2108,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-08-31 11:34 UTC · curated public data only — no product source · Acute v0.56.0</p>
+    <p class="footer-note">Generated 2026-08-31 16:00 UTC · curated public data only — no product source · Acute v0.57.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-08-31T11:34:10.023Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
-<script src="assets/app.js?v=20260831t113410023z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-08-31T16:00:08.671Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
+<script src="assets/app.js?v=20260831t160008671z" defer></script>
 </body>
 </html>
