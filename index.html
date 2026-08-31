@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260831t160024558z">
+<link rel="stylesheet" href="assets/style.css?v=20260831t212848392z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -79,7 +79,7 @@
       <div class="hero-eyebrow">
         <span class="hero-availability">Private build · Windows 10 x64</span>
         <span class="hero-dot" aria-hidden="true">·</span>
-        <span class="hero-version">v0.57.0</span>
+        <span class="hero-version">v0.58.0</span>
       </div>
       <h1 id="hero-title">Acute</h1>
       <p class="tagline">Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.</p>
@@ -96,7 +96,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-08-31 16:00 UTC</span>
+      <span class="updated-time">2026-08-31 21:28 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -115,7 +115,7 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="39">39</span></span>
+        <span class="stat-value"><span data-count="40">40</span></span>
         <span class="stat-sub">Aug 21 – Aug 31 · 11-day run</span>
       </article>
       <article class="stat-card card">
@@ -552,6 +552,46 @@
           <span class="feature-status">live</span>
         </div>
         <p class="feature-desc">Since round 57 the packaged engine&#39;s dependencies actually ship. The installer&#39;s bundled node_modules was staged by pnpm&#39;s default layout — a LINK FARM (measured: 189 symlinks on the build machine = 189 junctions after NSIS pack/extract) that Windows installers do not preserve — so the installed engine died with ERR_MODULE_NOT_FOUND before its first log line, while every Linux-side check passed (Linux keeps links; the owner&#39;s disk did not). The staged tree is now a classic npm-style tree of REAL directories (301.5 MB → 124.6 MB), a zero-links gate fails the build if any symlink or junction appears anywhere in the tree that will be packed, and the release build now BOOTS the real staged engine with the real pinned Node runtime on a Windows runner — same command line, same environment, same ACUTE_READY handshake the app waits for — before the installer is ever built. The gate caught its own first two script bugs the same day it shipped; a dead engine can never be packed again.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">Frameless window + integrated title bar</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Since round 58 the app looks like a full-fledged application, not a page in an OS frame: the native title bar (close/restore/minimize + app-name strip) is gone, replaced by a slim in-app bar — full-width drag region with double-click maximize, app identity at left, min/max/close at right, translucent over the shell&#39;s ambient background. Web mode unchanged.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">Live file-write preview</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Since round 58 the agent&#39;s file writes stream LIVE: while the model is still generating the file&#39;s content, the working section renders a &#39;writing &lt;file&gt; — N chars&#39; box with the partial content (tolerantly decoded from the streamed JSON), replaced by the final diff on completion. Battery-verified on the owner&#39;s exact 3-file task — 40+ content deltas stream during generation.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">Honest stops + Continue</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Since round 58 stopping a turn is quiet and honest: a &#39;Stopped by user&#39; card (no more &#39;generation failed / body stream buffer was aborted&#39;), the sidebar spinner stops the moment you stop, the partial reply is kept, and a Continue button resumes the response from where it stopped. Sub-agent stops report &#39;stopped by the owner&#39;.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg></span>
+          <h3 class="feature-title">Terminal chat harness</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Since round 58 whole agent sessions run from the command line: acute chat:stream renders live text/thinking/tool/approval output, Ctrl-C stops the turn (and exercises the real stop path), --auto-approve decides in-turn approvals, --raw emits JSONL for scripting. Long-session testing no longer needs the UI.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">Settings restructure + visible keys</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Since round 58 Settings tells the truth: unconfigured preset providers sit in a collapsed &#39;Not configured&#39; group; preset providers hide base-URL/API-format; the provider list sizes to its content; disable is a proper toggle with an agent-impact warning; Sub-agents and Advanced are two real pages; the chat picker honors hidden models and display names; and every stored API key — primary and pool slots — is one click away to reveal and copy.</p>
       </article>
     </div>
   </section>
@@ -1555,8 +1595,8 @@
     <div class="now-card">
       <span class="now-label">Now</span>
       <div class="now-body">
-        <h3 class="now-title">R57 delivered — the engine-bundling round: the packaged engine&#39;s dependencies finally survive the installer (ERR_MODULE_NOT_FOUND root-caused and structurally fixed)</h3>
-        <p class="now-detail">The owner&#39;s tenth Windows session was the first confirmed half-win: the launcher&#39;s app-or-site question worked, the site launched and ran perfectly end-to-end (dashboard included). The desktop app still failed to reach agent-core — but R54&#39;s stderr plumbing finally captured the engine&#39;s dying words: ERR_MODULE_NOT_FOUND, all three startup attempts. Root cause: the staged node_modules was a pnpm link farm (189 symlinks on POSIX = junctions on the Windows build runner) that tauri-bundler + NSIS pack/extract does not preserve — the installed engine could not resolve its first import. Fixed with zero product-code changes: hoisted staging (real directories, 301.5 → 124.6 MB), a zero-links verification gate, and a Windows pre-pack boot gate that runs the real staged engine before any installer is built. Awaiting the owner&#39;s re-test: ACUTE.bat → app-or-site → the desktop app → the console should finally print &#39;agent-core is up&#39;.</p>
+        <h3 class="now-title">R58 delivered — the desktop-polish round: the first fully-working Windows session, every reported defect fixed</h3>
+        <p class="now-detail">The owner&#39;s eleventh Windows test session: &#39;This time the application works properly. The app opens up without any errors or any issues at all.&#39; — the R57 engine-bundling fix held, and the session&#39;s precise defect list became this round: the frameless title bar, the browser panel&#39;s five bugs (white pop-out, system-browser open, URL typing, honest readouts, profile copy), honest stops + Continue, the live file-write preview, the session-regurgitation cap, the thinking redesign, the hover-intent popover, the settings restructure with visible keys, and the terminal chat harness. LIVE battery 5/5 (scripts/battery-r58.mjs): the owner&#39;s exact 3-file task with live tool-input frame assertions, stop → stopped frame + queued status + persisted partial, continue completes, the reveal route returns the real key. Verification: 1169/1169 root (80 files) + 631/631 agent-core (38 files), lint/typecheck clean, docs:check 150/0, CI green, release green with the Windows boot gate.</p>
       </div>
       <span class="now-live"><span class="live-dot" aria-hidden="true"></span>current focus</span>
     </div>
@@ -1613,7 +1653,7 @@
       <div>
         <h2 id="quality-title">Quality</h2>
         <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
-        <p class="quality-note">Green on main — verified from the GitHub Actions API at build time: run 33409870419 on head 7b17f02 (the 0.57.0 code tip, R57: the engine-bundling round), conclusion success — all steps green including the 1071-test suite and the Rust cargo check. The Release workflow run 33409868288 (tag v0.57.0) is ALSO green end-to-end and carries this round&#39;s proof: the staged engine passed the zero-links gate (no symlinks/junctions in the tree NSIS packs), then BOOTED on the windows-latest runner with the real pinned node.exe and reported ACUTE_READY {&quot;port&quot;:64511} BEFORE the installer was built — the first time in the product&#39;s history a packaged engine was Windows-boot-verified pre-ship (the gate caught its own two script bugs on the way, refusing to pack both times, exactly as designed). The round is packaging-only: no product code changed (1071/1071 as at 0.56.0).</p>
+        <p class="quality-note">Green on main — verified from the GitHub Actions API at build time: CI run 33439446308 on head 14966d4 (the 0.58.0 code tip, R58: the desktop-polish round), conclusion success — all steps green including the Windows cargo check for the frameless-window + browser Rust changes (1169/1169 root + 631/631 agent-core). Release run 33440053756 on tag v0.58.0: success — the Windows pre-pack boot gate passed (engine UP before packing) and the installer ACUTE-CODE_0.58.0_x64-setup.exe (37.0 MB) published with the launcher kit.</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -2011,9 +2051,14 @@
           <span class="timeline-label">R56 — the launch-choice round: the launcher asks app-or-site every run (Enter keeps the last choice), engine failure offers retry/site/keep with the log tail, the self-update re-execs the new code the same session, the blind watch timeout fixed — 1071 tests; v0.56.0 ships the fifth NSIS installer</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-08-31</span>
           <span class="timeline-label">R57 — the engine-bundling round: the staged sidecar is now a real-directory tree (hoisted linker + zero-links gate) and the release boots the engine on Windows BEFORE packing it</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-08-31</span>
+          <span class="timeline-label">R58 — the desktop-polish round: the first fully-working Windows session (the R57 fix held); the frameless title bar, honest stops + Continue, live file-write preview, session-replay capping, the settings restructure with visible keys, and the CLI chat harness</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -2108,12 +2153,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-08-31 16:00 UTC · curated public data only — no product source · Acute v0.57.0</p>
+    <p class="footer-note">Generated 2026-08-31 21:28 UTC · curated public data only — no product source · Acute v0.58.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-08-31T16:00:24.558Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
-<script src="assets/app.js?v=20260831t160024558z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-08-31T21:28:48.392Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
+<script src="assets/app.js?v=20260831t212848392z" defer></script>
 </body>
 </html>
