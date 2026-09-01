@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.58.0",
+    "version": "0.59.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -1066,6 +1066,48 @@
       "title": "Settings restructure + visible keys",
       "status": "live",
       "desc": "Since round 58 Settings tells the truth: unconfigured preset providers sit in a collapsed 'Not configured' group; preset providers hide base-URL/API-format; the provider list sizes to its content; disable is a proper toggle with an agent-impact warning; Sub-agents and Advanced are two real pages; the chat picker honors hidden models and display names; and every stored API key — primary and pool slots — is one click away to reveal and copy."
+    },
+    {
+      "id": "rounded-window",
+      "icon": "app-window",
+      "title": "The rounded window",
+      "status": "live",
+      "desc": "Since round 59 the desktop app paints a soft inset frame: 8px of breathing room on every side, the title bar and the content area as separate rounded cards, and window controls as inset rounded buttons (hovers never break the corners). The owner: 'make that top navigation bar rounded and give it padding on all four sides.'"
+    },
+    {
+      "id": "pill-scrollbars",
+      "icon": "grip-horizontal",
+      "title": "Floating-pill scrollbars",
+      "status": "live",
+      "desc": "Since round 59 every scroll gutter in the app is minimal: a transparent track with a rounded pill thumb floating inset from the edges, visible in every theme and mode, vertical and horizontal, with a subtle hover state."
+    },
+    {
+      "id": "popout-custom-chrome",
+      "icon": "panels-top-left",
+      "title": "Pop-out browser with custom chrome",
+      "status": "live",
+      "desc": "Since round 59 the pop-out browser window has OUR chrome everywhere: a frameless window hosting a small dedicated app page (drag-region title bar with min/max/close, a themed editable URL bar, open-in-system-browser) with the page content in the same shared-profile embedded webview the in-app panel uses, sized to 70% of your monitor's work area."
+    },
+    {
+      "id": "response-ratings",
+      "icon": "thumbs-up-down",
+      "title": "Response ratings with full context",
+      "status": "live",
+      "desc": "Since round 59 every assistant reply carries thumbs up/down; bad ratings prompt an optional note; and the rating snapshots the complete evidence at the moment you rate it (your message, the reply with token usage, every tool event, any error). 'acute ratings --full' dumps the evidence for analysis so system prompts can be tuned on real failures."
+    },
+    {
+      "id": "diagnostics-console",
+      "icon": "activity",
+      "title": "Diagnostics console",
+      "status": "live",
+      "desc": "Since round 59 a right-sidebar Console tab shows every error the app knows about, newest-first with counts and expandable details: render crashes show an honest recovery card instead of a blank screen, and engine-side thrown errors land in the same view (secrets scrubbed, one click to copy or clear)."
+    },
+    {
+      "id": "prompt-modules",
+      "icon": "blocks",
+      "title": "Modular system prompts",
+      "status": "live",
+      "desc": "Since round 59 every section of the agent's system prompt is a registry entry a project can override with a file — .acute/prompts/<section>.md replaces that section wholesale, an empty file removes it, _order.txt reorders. 'acute prompt:sections' lists them all. Without overrides the prompt is byte-identical to before."
     }
   ],
   "documentation": [
@@ -1156,9 +1198,26 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at build time: CI run 33439446308 on head 14966d4 (the 0.58.0 code tip, R58: the desktop-polish round), conclusion success — all steps green including the Windows cargo check for the frameless-window + browser Rust changes (1169/1169 root + 631/631 agent-core). Release run 33440053756 on tag v0.58.0: success — the Windows pre-pack boot gate passed (engine UP before packing) and the installer ACUTE-CODE_0.58.0_x64-setup.exe (37.0 MB) published with the launcher kit.",
-    "suites": "1058 tests · 75 files (vitest) + 12 e2e · cargo check (windows-latest CI + x86_64-pc-windows-gnu in-sandbox)",
-    "cargoCheck": "green"
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: CI run 33500772579 on head 9420206 (the 0.59.0 code tip, R59: the owner-feedback round), conclusion success (1302/1302 root in 88 files + 693/693 agent-core in 42 files, including the Windows cargo check for the popout-browser Rust changes). One mid-round red — run 33500181376 failed the prompt-golden byte-identity fixture on windows-latest (an autocrlf CRLF rewrite of the committed-LF fixture; the R57 lesson's second appearance) — was watched, root-caused, fixed (.gitattributes eol pin + test-side normalization), and re-run to green the same round. Release run 33501268506 on tag v0.59.0: success with the pre-pack boot gate passed — installer ACUTE-CODE_0.59.0_x64-setup.exe (35.3 MB) + acute-launcher-kit-v0.59.0.zip published.",
+    "suites": [
+      {
+        "name": "frontend",
+        "tests": 601
+      },
+      {
+        "name": "agent-core",
+        "tests": 693
+      },
+      {
+        "name": "sidecar e2e",
+        "tests": 8
+      }
+    ],
+    "cargoCheck": "green",
+    "licenseAudit": {
+      "deps": 107,
+      "verdict": "CLEAN"
+    }
   },
   "milestones": [
     {
@@ -1320,6 +1379,10 @@
     {
       "date": "2026-08-31",
       "label": "R58 — the desktop-polish round: the first fully-working Windows session (the R57 fix held); the frameless title bar, honest stops + Continue, live file-write preview, session-replay capping, the settings restructure with visible keys, and the CLI chat harness"
+    },
+    {
+      "date": "2026-09-01",
+      "label": "R59 — the owner-feedback round: the rounded window + pill scrollbars, the pop-out browser with custom chrome, Models & Providers honesty (presets gone, masked key + one Show, outright disable, pre-select), the response-rating loop with immutable full-context capture, the diagnostics Console tab, and the prompt-section registry (1302 tests)"
     }
   ],
   "chips": [

@@ -317,6 +317,33 @@ const renderDecision = (d) => `      <article class="decision-card card">
 const STATES = {
   usable: { cls: "state-usable", label: "Usable" },
   building: { cls: "state-building", label: "Building" },
+  // ROUND-59 feature-card icons
+  "app-window": svg(
+    '<rect x="3" y="4" width="18" height="16" rx="4"/>' +
+    '<line x1="3" y1="9" x2="21" y2="9"/>',
+  ),
+  "grip-horizontal": svg(
+    '<circle cx="9" cy="6" r="1" fill="currentColor"/><circle cx="15" cy="6" r="1" fill="currentColor"/>' +
+    '<circle cx="9" cy="12" r="1" fill="currentColor"/><circle cx="15" cy="12" r="1" fill="currentColor"/>' +
+    '<circle cx="9" cy="18" r="1" fill="currentColor"/><circle cx="15" cy="18" r="1" fill="currentColor"/>',
+  ),
+  "panels-top-left": svg(
+    '<rect x="3" y="3" width="18" height="18" rx="2"/>' +
+    '<line x1="9" y1="3" x2="9" y2="21"/>' +
+    '<line x1="3" y1="9" x2="9" y2="9"/>',
+  ),
+  "thumbs-up-down": svg(
+    '<path d="M10 11H6.5a1.5 1.5 0 0 0-1.5 1.5v6a1.5 1.5 0 0 0 1.5 1.5H10"/>' +
+    '<path d="M10 11l2.5-6a1.5 1.5 0 0 1 3 0v6H19a1.5 1.5 0 0 1 1.5 1.5l-1.5 7a1.5 1.5 0 0 1-1.5 1.5H10"/>' +
+    '<line x1="10" y1="20" x2="10" y2="11"/>',
+  ),
+  activity: svg(
+    '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
+  ),
+  blocks: svg(
+    '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>' +
+    '<rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+  ),
   planned: { cls: "state-planned", label: "Planned" },
 };
 
