@@ -1216,6 +1216,12 @@
       "icon": "panels",
       "title": "A calmer, roomier layout",
       "summary": "The chat screen's gradient backdrop is gone — the three panels sit on the flat theme background with the side padding and rounded corners kept, so the workspace reads cleaner and the content gets the room."
+    },
+    {
+      "id": "desktop-update-verified",
+      "icon": "monitor",
+      "title": "The desktop app PROVES it's current",
+      "summary": "The launcher now checks three versions on every launch — the registry, the exe on disk, and the running engine's /health — against the newest GitHub release, and a stale or half-replaced install is deleted completely and reinstalled from a sha256-verified download. ACUTE.bat reinstall / uninstall included."
     }
   ],
   "documentation": [
@@ -1306,7 +1312,7 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at build time: CI run 33655151503 on head ed9d631 (the 0.62.0 code tip, R62: the owner-feedback round — the sidebar rail, true browser dimensions, the overlay z-order fix, the agent-browser surface with its command bridge + the new browser_tab_eval Rust command, Appearance simplified, models reflecting on the session page), conclusion success (1542/1542 root tests in 104 files + agent-core 801/801 + the Windows cargo check for the new eval command).",
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: the Release run 33661771984 on tag v0.63.0 (the desktop-update round — the version-truth launcher + the first tagged release since 0.60.0: launcher-kit quality gate green, the Windows desktop-installer job green including the staged-engine boot gate, and the draft release carries ACUTE-CODE_0.63.0_x64-setup.exe with its sha256 digest) plus CI green on the round's commits (1542/1542 root tests in 104 files + agent-core 801/801; one Windows-runner 5s-timeout flake in a computer-use plugin test passed on re-run — same suite green on the round's first commit).",
     "suites": [
       {
         "name": "frontend",
@@ -1503,6 +1509,10 @@
     {
       "date": "2026-09-02",
       "label": "R62 — the owner-feedback round: the minimizable sidebar rail, the flat session layout, true browser dimensions, menus-over-webview, the agent-browser surface (read/eval/screenshot/tabs), Appearance simplified, models reflecting on the session page (1542 tests)"
+    },
+    {
+      "date": "2026-09-02",
+      "label": "R63 — the desktop-update round: the missing release-tag pipeline closed (0.61/0.62 shipped no installer — the site served the tip while the desktop froze at 0.60.0), the launcher's version-truth chain (registry · exe · engine) with full uninstall/reinstall repair, sha256-verified downloads, /health telling the truth (1542 tests)"
     }
   ],
   "chips": [

@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260902t163907006z">
+<link rel="stylesheet" href="assets/style.css?v=20260902t180630953z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -96,7 +96,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-09-02 16:39 UTC</span>
+      <span class="updated-time">2026-09-02 18:06 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -115,7 +115,7 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="44">44</span></span>
+        <span class="stat-value"><span data-count="45">45</span></span>
         <span class="stat-sub">Aug 21 – Sep 2 · 13-day run</span>
       </article>
       <article class="stat-card card">
@@ -781,6 +781,14 @@
         <div class="feature-top">
           <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="15" y1="4" x2="15" y2="20"/><line x1="3" y1="9" x2="15" y2="9"/><line x1="3" y1="13" x2="15" y2="13"/><line x1="3" y1="17" x2="15" y2="17"/></svg></span>
           <h3 class="feature-title">A calmer, roomier layout</h3>
+          <span class="feature-status">undefined</span>
+        </div>
+        <p class="feature-desc">undefined</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">The desktop app PROVES it&#39;s current</h3>
           <span class="feature-status">undefined</span>
         </div>
         <p class="feature-desc">undefined</p>
@@ -1845,7 +1853,7 @@
       <div>
         <h2 id="quality-title">Quality</h2>
         <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
-        <p class="quality-note">Green on main — verified from the GitHub Actions API at build time: CI run 33655151503 on head ed9d631 (the 0.62.0 code tip, R62: the owner-feedback round — the sidebar rail, true browser dimensions, the overlay z-order fix, the agent-browser surface with its command bridge + the new browser_tab_eval Rust command, Appearance simplified, models reflecting on the session page), conclusion success (1542/1542 root tests in 104 files + agent-core 801/801 + the Windows cargo check for the new eval command).</p>
+        <p class="quality-note">Green on main — verified from the GitHub Actions API at build time: the Release run 33661771984 on tag v0.63.0 (the desktop-update round — the version-truth launcher + the first tagged release since 0.60.0: launcher-kit quality gate green, the Windows desktop-installer job green including the staged-engine boot gate, and the draft release carries ACUTE-CODE_0.63.0_x64-setup.exe with its sha256 digest) plus CI green on the round&#39;s commits (1542/1542 root tests in 104 files + agent-core 801/801; one Windows-runner 5s-timeout flake in a computer-use plugin test passed on re-run — same suite green on the round&#39;s first commit).</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -2294,9 +2302,14 @@
           <span class="timeline-label">R61 — computer use: 30 gated desktop-control tools (a11y-first with pixel fallback, approval postures, enforced kill switch, audit journal) + the separate vision model + skills + MCP servers + the live monitor with the floating mini window + the prompts upgrade (1491 tests)</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-09-02</span>
           <span class="timeline-label">R62 — the owner-feedback round: the minimizable sidebar rail, the flat session layout, true browser dimensions, menus-over-webview, the agent-browser surface (read/eval/screenshot/tabs), Appearance simplified, models reflecting on the session page (1542 tests)</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-09-02</span>
+          <span class="timeline-label">R63 — the desktop-update round: the missing release-tag pipeline closed (0.61/0.62 shipped no installer — the site served the tip while the desktop froze at 0.60.0), the launcher&#39;s version-truth chain (registry · exe · engine) with full uninstall/reinstall repair, sha256-verified downloads, /health telling the truth (1542 tests)</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -2391,12 +2404,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-09-02 16:39 UTC · curated public data only — no product source · Acute v0.61.0</p>
+    <p class="footer-note">Generated 2026-09-02 18:06 UTC · curated public data only — no product source · Acute v0.61.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-09-02T16:39:07.006Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
-<script src="assets/app.js?v=20260902t163907006z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-09-02T18:06:30.953Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
+<script src="assets/app.js?v=20260902t180630953z" defer></script>
 </body>
 </html>
