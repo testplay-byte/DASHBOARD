@@ -1270,7 +1270,7 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at build time: CI run 33621715547 on head 65d62fd (the 0.61.0 code tip, R61: computer use + the separate vision model + skills + MCP servers + the live monitor), conclusion success (1491/1491 root tests in 102 files + agent-core 786/786 + the Windows cargo check for the vision-key shell commands; the first two pushes caught a missed manifest + two Rust type errors in the sandbox-unverifiable shell code — both fixed, CI re-watched to green).",
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: CI run 33623307567 on head 273e8b0 (the 0.61.0 code tip, R61: computer use + the separate vision model + skills + MCP servers + the live monitor, closed out with the kill-switch re-arm fix), conclusion success (1492/1492 root tests in 102 files + agent-core 787/787 + the Windows cargo check for the vision-key shell commands; early catches — a missed manifest, two Rust type errors, and a bricked-after-stop session — all fixed and re-watched to green).",
     "suites": [
       {
         "name": "frontend",
