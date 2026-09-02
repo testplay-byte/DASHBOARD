@@ -1222,6 +1222,18 @@
       "icon": "monitor",
       "title": "The desktop app PROVES it's current",
       "summary": "The launcher now checks three versions on every launch — the registry, the exe on disk, and the running engine's /health — against the newest GitHub release, and a stale or half-replaced install is deleted completely and reinstalled from a sha256-verified download. ACUTE.bat reinstall / uninstall included."
+    },
+    {
+      "id": "computer-use-sees-desktop",
+      "icon": "eye",
+      "title": "Computer use actually sees your desktop",
+      "summary": "The Windows backend's silent JSON array collapse is fixed (why list_apps came back empty), app enumeration now walks the REAL window list with process names, and app references resolve by title OR executable — an app_not_found refusal lists the running apps so the agent self-corrects in one step."
+    },
+    {
+      "id": "floating-stop-bar",
+      "icon": "monitor",
+      "title": "The always-on-top STOP bar",
+      "summary": "A minimal floating monitor appears at the top of your screen the moment the agent starts using the computer — status, live activity, and a STOP kill switch floating above EVERY app, so you can halt it whenever something looks wrong. The right-sidebar computer tab is gone; one surface."
     }
   ],
   "documentation": [
@@ -1312,18 +1324,18 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at build time: the Release run 33661771984 on tag v0.63.0 (the desktop-update round — the version-truth launcher + the first tagged release since 0.60.0: launcher-kit quality gate green, the Windows desktop-installer job green including the staged-engine boot gate, and the draft release carries ACUTE-CODE_0.63.0_x64-setup.exe with its sha256 digest) plus CI green on the round's commits (1542/1542 root tests in 104 files + agent-core 801/801; one Windows-runner 5s-timeout flake in a computer-use plugin test passed on re-run — same suite green on the round's first commit).",
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: the Release run 33682106917 on tag v0.64.0 (the capability round — computer use actually sees the desktop: the PowerShell JSON array-collapse fix + EnumWindows enumeration + tiered app resolution; the always-on-top floating STOP bar as a third vite entry/Rust window; the chat polish backlog; per-key usage + the BPE-style estimator) plus CI green on the round's commit (1664/1664 root tests in 109 files + agent-core 885/885 in 52 files).",
     "suites": [
       {
         "name": "frontend",
-        "tests": 733
+        "tests": 771
       },
       {
         "name": "agent-core",
-        "tests": 801
+        "tests": 885
       },
       {
-        "name": "sidecar e2e",
+        "name": "e2e",
         "tests": 8
       }
     ],
@@ -1513,6 +1525,10 @@
     {
       "date": "2026-09-02",
       "label": "R63 — the desktop-update round: the missing release-tag pipeline closed (0.61/0.62 shipped no installer — the site served the tip while the desktop froze at 0.60.0), the launcher's version-truth chain (registry · exe · engine) with full uninstall/reinstall repair, sha256-verified downloads, /health telling the truth (1542 tests)"
+    },
+    {
+      "date": "2026-09-02",
+      "label": "R64 — the capability round: the Windows computer-use fixes (JSON array collapse + EnumWindows + tiered app resolution with runningApps recovery), the always-on-top floating STOP bar (a 360×96 OS window that auto-shows on first computer-use activity), full markdown chat formatting + the chat polish backlog (live context popover, 1.5s toasts, one-sub-agent-per-delegated-row), config-only model picker, live permission-mode re-read + the Windows safe-command list, per-API-key usage stats + the GPT-style token estimator (1664 tests)"
     }
   ],
   "chips": [
