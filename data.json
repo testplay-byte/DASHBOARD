@@ -1180,6 +1180,42 @@
       "icon": "brain",
       "title": "Sharper tool discipline",
       "summary": "The system prompts gained hard rules: read tool errors before reacting, pick the most specific tool, never fabricate results, report failures honestly, and close every task with what was done + what was verified."
+    },
+    {
+      "id": "sidebar-rail",
+      "icon": "panel-left",
+      "title": "A sidebar that minimizes",
+      "summary": "The left sidebar collapses to a 64px icon rail (one click at its very top) — nav icons, your project tiles with live-running dots, notifications and settings stay reachable, and the full panel restores the same way. The state survives restarts."
+    },
+    {
+      "id": "browser-true-dims",
+      "icon": "app-window",
+      "title": "The browser respects your dimensions",
+      "summary": "Set a display size and the page actually renders at it: larger presets (a 1920×1080 layout in a side panel) scale down as a true view of the full-size page — the page sees the real CSS pixels, and the readout says exactly what renders, including the fit percentage."
+    },
+    {
+      "id": "overlay-zorder",
+      "icon": "layers",
+      "title": "Menus over the browser, finally",
+      "summary": "The embedded browser is an OS-level layer, so app menus used to render underneath it. A DOM overlay watcher now hides the webview while any menu, dialog or popover is open — every UI surface paints above the page."
+    },
+    {
+      "id": "agent-browser",
+      "icon": "browser",
+      "title": "The agent uses your browser",
+      "summary": "browser_control grew teeth: read a page's text, run JavaScript in the live page (click links, fill forms, extract DOM state), take a screenshot with a vision-model description, and list every open tab — all against the browser you watch live."
+    },
+    {
+      "id": "settings-reflection",
+      "icon": "activity",
+      "title": "Settings changes land instantly",
+      "summary": "Model and provider edits (renames, hides, prices, new models) reflect on the chat's model picker immediately; per-million input/output prices are clearly labeled with decimal support; partially-priced models now cost what their known sides cost."
+    },
+    {
+      "id": "calmer-layout",
+      "icon": "panels",
+      "title": "A calmer, roomier layout",
+      "summary": "The chat screen's gradient backdrop is gone — the three panels sit on the flat theme background with the side padding and rounded corners kept, so the workspace reads cleaner and the content gets the room."
     }
   ],
   "documentation": [
@@ -1270,15 +1306,15 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at build time: CI run 33623307567 on head 273e8b0 (the 0.61.0 code tip, R61: computer use + the separate vision model + skills + MCP servers + the live monitor, closed out with the kill-switch re-arm fix), conclusion success (1492/1492 root tests in 102 files + agent-core 787/787 + the Windows cargo check for the vision-key shell commands; early catches — a missed manifest, two Rust type errors, and a bricked-after-stop session — all fixed and re-watched to green).",
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: CI run 33655151503 on head ed9d631 (the 0.62.0 code tip, R62: the owner-feedback round — the sidebar rail, true browser dimensions, the overlay z-order fix, the agent-browser surface with its command bridge + the new browser_tab_eval Rust command, Appearance simplified, models reflecting on the session page), conclusion success (1542/1542 root tests in 104 files + agent-core 801/801 + the Windows cargo check for the new eval command).",
     "suites": [
       {
         "name": "frontend",
-        "tests": 647
+        "tests": 733
       },
       {
         "name": "agent-core",
-        "tests": 693
+        "tests": 801
       },
       {
         "name": "sidecar e2e",
@@ -1463,6 +1499,10 @@
     {
       "date": "2026-09-02",
       "label": "R61 — computer use: 30 gated desktop-control tools (a11y-first with pixel fallback, approval postures, enforced kill switch, audit journal) + the separate vision model + skills + MCP servers + the live monitor with the floating mini window + the prompts upgrade (1491 tests)"
+    },
+    {
+      "date": "2026-09-02",
+      "label": "R62 — the owner-feedback round: the minimizable sidebar rail, the flat session layout, true browser dimensions, menus-over-webview, the agent-browser surface (read/eval/screenshot/tabs), Appearance simplified, models reflecting on the session page (1542 tests)"
     }
   ],
   "chips": [
