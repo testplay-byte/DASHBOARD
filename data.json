@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.61.0",
+    "version": "0.65.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -34,8 +34,8 @@
   ],
   "plan": {
     "current": {
-      "title": "R58 delivered — the desktop-polish round: the first fully-working Windows session, every reported defect fixed",
-      "detail": "The owner's eleventh Windows test session: 'This time the application works properly. The app opens up without any errors or any issues at all.' — the R57 engine-bundling fix held, and the session's precise defect list became this round: the frameless title bar, the browser panel's five bugs (white pop-out, system-browser open, URL typing, honest readouts, profile copy), honest stops + Continue, the live file-write preview, the session-regurgitation cap, the thinking redesign, the hover-intent popover, the settings restructure with visible keys, and the terminal chat harness. LIVE battery 5/5 (scripts/battery-r58.mjs): the owner's exact 3-file task with live tool-input frame assertions, stop → stopped frame + queued status + persisted partial, continue completes, the reveal route returns the real key. Verification: 1169/1169 root (80 files) + 631/631 agent-core (38 files), lint/typecheck clean, docs:check 150/0, CI green, release green with the Windows boot gate."
+      "title": "R65 delivered — the honesty patch: the surface boundary, the auto-opening browser, debug mode",
+      "detail": "The four owner-feedback items outside R64's scope: (1) THE SURFACE BOUNDARY — the 0.63.0 hallucination root cause closed at the prompt layer; both the computer-use and the embedded-browser sections now carry an explicit boundary line naming the other surface, so 'I opened Edge' narration of an embedded-panel navigation is instruction-level forbidden. (2) THE BROWSER TAB AUTO-OPENS when the agent browses — a burst-gated, project-scoped signal; the embedded browser was previously driven invisibly. (3) DEBUG MODE (Settings → Advanced): every agent answer ends with a raw execution report while ON — each tool call, outcome, verification — read per turn. (4) THE ADVANCED CLEANUP: the agent-core connection/bearer-token card removed; google.com/bing.com joined the default web allowlist so simple browsing asks nothing. A sub-agent review before ship caught and fixed three real bugs (duplicate blank browser tabs, cross-project tab popping, a persisted burst gate). Verification: 1686/1686 root (110 files) + 894/894 agent-core (53 files), lint/typecheck/docs:check clean, CI + Release green on tag v0.65.0."
     },
     "upcoming": [
       {
@@ -1234,6 +1234,18 @@
       "icon": "monitor",
       "title": "The always-on-top STOP bar",
       "summary": "A minimal floating monitor appears at the top of your screen the moment the agent starts using the computer — status, live activity, and a STOP kill switch floating above EVERY app, so you can halt it whenever something looks wrong. The right-sidebar computer tab is gone; one surface."
+    },
+    {
+      "id": "surface-boundary",
+      "icon": "shield",
+      "title": "The surface boundary: embedded browser ≠ your desktop",
+      "summary": "The agent's instructions now explicitly separate the two worlds — browser_control drives the in-app panel and can NEVER open your real Edge/Chrome or touch your desktop, while computer-use tools drive the real machine. The exact 'I opened Edge' hallucination from the first live run is now instruction-level forbidden, with honest narration required for both surfaces."
+    },
+    {
+      "id": "browser-auto-open-debug-mode",
+      "icon": "zap",
+      "title": "The auto-opening browser + debug mode",
+      "summary": "The embedded browser tab now opens itself the moment the agent starts browsing (once per burst, scoped to that project — no more invisible browsing after an approval), and a new Debug mode switch (Settings → Advanced) makes every agent answer end with a raw execution report: each tool call, its outcome, what was verified — nothing hidden."
     }
   ],
   "documentation": [
@@ -1324,15 +1336,15 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at build time: the Release run 33682106917 on tag v0.64.0 (the capability round — computer use actually sees the desktop: the PowerShell JSON array-collapse fix + EnumWindows enumeration + tiered app resolution; the always-on-top floating STOP bar as a third vite entry/Rust window; the chat polish backlog; per-key usage + the BPE-style estimator) plus CI green on the round's commit (1664/1664 root tests in 109 files + agent-core 885/885 in 52 files).",
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: the Release run 33795353477 on tag v0.65.0 (the honesty patch — the surface-boundary prompt lines; the browser tab auto-open; debug mode; the Advanced cleanup) plus CI green on the round's commit (1686/1686 root tests in 110 files + agent-core 894/894 in 53 files).",
     "suites": [
       {
         "name": "frontend",
-        "tests": 771
+        "tests": 792
       },
       {
         "name": "agent-core",
-        "tests": 885
+        "tests": 894
       },
       {
         "name": "e2e",
@@ -1529,6 +1541,10 @@
     {
       "date": "2026-09-02",
       "label": "R64 — the capability round: the Windows computer-use fixes (JSON array collapse + EnumWindows + tiered app resolution with runningApps recovery), the always-on-top floating STOP bar (a 360×96 OS window that auto-shows on first computer-use activity), full markdown chat formatting + the chat polish backlog (live context popover, 1.5s toasts, one-sub-agent-per-delegated-row), config-only model picker, live permission-mode re-read + the Windows safe-command list, per-API-key usage stats + the GPT-style token estimator (1664 tests)"
+    },
+    {
+      "date": "2026-09-03",
+      "label": "R65 — the honesty patch: the surface-boundary prompt lines (embedded browser ≠ real desktop — the hallucination's prompt leg), the auto-opening browser tab (burst-gated, project-scoped), debug mode with the execution-report switch, the Advanced cleanup + the search-engine allowlist; a sub-agent review caught three real bugs pre-ship."
     }
   ],
   "chips": [
@@ -1633,5 +1649,5 @@
     ],
     "total": 97
   },
-  "lastUpdated": "2026-09-02"
+  "lastUpdated": "2026-09-03"
 }
