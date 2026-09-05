@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.65.0",
+    "version": "0.66.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -34,8 +34,8 @@
   ],
   "plan": {
     "current": {
-      "title": "R65 delivered — the honesty patch: the surface boundary, the auto-opening browser, debug mode",
-      "detail": "The four owner-feedback items outside R64's scope: (1) THE SURFACE BOUNDARY — the 0.63.0 hallucination root cause closed at the prompt layer; both the computer-use and the embedded-browser sections now carry an explicit boundary line naming the other surface, so 'I opened Edge' narration of an embedded-panel navigation is instruction-level forbidden. (2) THE BROWSER TAB AUTO-OPENS when the agent browses — a burst-gated, project-scoped signal; the embedded browser was previously driven invisibly. (3) DEBUG MODE (Settings → Advanced): every agent answer ends with a raw execution report while ON — each tool call, outcome, verification — read per turn. (4) THE ADVANCED CLEANUP: the agent-core connection/bearer-token card removed; google.com/bing.com joined the default web allowlist so simple browsing asks nothing. A sub-agent review before ship caught and fixed three real bugs (duplicate blank browser tabs, cross-project tab popping, a persisted burst gate). Verification: 1686/1686 root (110 files) + 894/894 agent-core (53 files), lint/typecheck/docs:check clean, CI + Release green on tag v0.65.0."
+      "title": "R66 delivered — the live-fire patch: the owner's 0.65.0 field report, closed end to end",
+      "detail": "Every item from the owner's live Windows session: (1) THE AGENT USES THE EMBEDDED BROWSER LIKE A USER — browser_control grew to 15 actions: click (by CSS selector or a label's visible text), type (the native value setter + input/change events so React/Vue pages register it, then real form submission), press_key (Enter triggers form.requestSubmit — the 'typed a Google query but never submitted' fix), read_dom (a structured page outline — headings, every visible interactive element with a selector, forms), source (html | css | scripts), and wait_for_verification. (2) BOT WALLS ARE OWNER-SOLVABLE — captcha/Cloudflare/age detection opens a live 15s countdown card in the owner's chat with Mark as done / Stop waiting, a REST resolve route, and an honest re-probe. (3) AGENT VIEWPORT CHANGES APPLY INSTANTLY (a dedicated SSE frame exits the panel's natural mode). (4) THE VISION SPLIT — Settings → Image Analysis (provider + model + its own key slot, migration-seeded) now serves computer-use screenshots, browser screenshots, AND a general analyze_image tool usable without computer use. (5) DEBUG MODE IS A POST-TURN CONTEXT-FREE ANALYST — a fresh no-tools model call receives the whole transcript with full tool results and streams its execution report live under the answer; persisted as debug.report, which follow-up turns never see. (6) WINDOWS GOES ELEMENT-FIRST — the UIA walk probes 17 interactive kinds in one pass and reaches 2400 elements, plus find_elements to search the a11y tree by name/kind instead of screenshot-looping. (7) THE FLOATING MONITOR is top-center 460×56 with a decayed real-control live signal — browser turns never show 'agent is using your computer' — and the minimized settings sidebar shows the settings rail. A CI-stability follow-up (two Windows-runner test flakes) shipped the same day. Verification: 1807/1807 root tests in 118 files + 980/980 agent-core in 58 files, lint/typecheck/docs:check clean, CI green on the round's commit, Release green on tag v0.66.0."
     },
     "upcoming": [
       {
@@ -1246,6 +1246,36 @@
       "icon": "zap",
       "title": "The auto-opening browser + debug mode",
       "summary": "The embedded browser tab now opens itself the moment the agent starts browsing (once per burst, scoped to that project — no more invisible browsing after an approval), and a new Debug mode switch (Settings → Advanced) makes every agent answer end with a raw execution report: each tool call, its outcome, what was verified — nothing hidden."
+    },
+    {
+      "id": "browser-page-actions",
+      "icon": "mouse-pointer-click",
+      "title": "The agent drives the browser like a user",
+      "summary": "browser_control grew to 15 actions: click elements by CSS selector or a button's visible label, type into inputs with the native value setter + input/change events (React and Vue pages actually register it) and real form submission, press Enter inside a form (native requestSubmit — the 'typed a Google query but never submitted' report), read a structured DOM outline, pull raw html/css/scripts, and run page JavaScript — the embedded panel is now a real working surface, not a viewport."
+    },
+    {
+      "id": "bot-wall-checkpoints",
+      "icon": "shield-alert",
+      "title": "Bot walls the OWNER solves — a countdown card in chat",
+      "summary": "When a page is blocked by a CAPTCHA, Cloudflare check, or age gate, the agent opens a live checkpoint card right in the chat: what kind of wall, the page URL, a draining 15-second countdown (60s hard cap), and two controls — Mark as done (the agent re-checks the page and continues) or Stop waiting (it reports back and asks how to proceed). Tool results carry the wall warning so the model calls it by itself."
+    },
+    {
+      "id": "image-analysis-section",
+      "icon": "scan-eye",
+      "title": "A dedicated Image Analysis section + the analyze_image tool",
+      "summary": "The vision model moved OUT of Computer Use into its own Settings → Image Analysis section: analysis mode, provider, model, and its own API-key slot (existing computer-use vision settings migrate automatically). It now serves computer-use screenshots, browser screenshots, and a general analyze_image tool (path or URL, ≤8 MB) that works WITHOUT computer use being enabled — with an honest refusal while off."
+    },
+    {
+      "id": "debug-analyst",
+      "icon": "flask-conical",
+      "title": "Debug mode: a post-turn, context-free execution analyst",
+      "summary": "No more agent self-reports: after a completed turn, a FRESH model call with no tools receives the whole conversation transcript — every tool call's full result — and streams its execution report live in a dedicated section under the answer (structured report, tool trace, anomalies, verdict). It's persisted as a debug.report event that follow-up turns never see, so the analysis never pollutes the conversation."
+    },
+    {
+      "id": "windows-find-elements",
+      "icon": "search",
+      "title": "Windows goes element-first in big apps",
+      "summary": "The UIA accessibility walk now probes patterns only for the 17 interactive control kinds (one 4-probe pass — was up to 8 probes on every node) and reaches 2400 elements (was 800), and a new find_elements tool searches an app's tree by name or kind, returning indexed matches with bounds — the agent targets a specific control instead of looping on screenshots. The floating monitor shrank to a top-center 460×56 row, and browser turns never trip the 'agent is using your computer' indicator (live = decayed real-control events only)."
     }
   ],
   "documentation": [
@@ -1336,24 +1366,24 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at build time: the Release run 33795353477 on tag v0.65.0 (the honesty patch — the surface-boundary prompt lines; the browser tab auto-open; debug mode; the Advanced cleanup) plus CI green on the round's commit (1686/1686 root tests in 110 files + agent-core 894/894 in 53 files).",
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: CI run 33952264863 green on commit 96cf8f6 (the R66 live-fire patch + the same-day CI-stability follow-up for two Windows-runner test flakes) and Release run 33952608589 green on tag v0.66.0 (launcher kit + NSIS installer + the draft release with both assets). Round totals: 1807/1807 root tests in 118 files + agent-core 980/980 in 58 files; lint, typecheck, and docs:check clean.",
     "suites": [
       {
         "name": "frontend",
-        "tests": 792
+        "tests": 815
       },
       {
         "name": "agent-core",
-        "tests": 894
+        "tests": 980
       },
       {
         "name": "e2e",
-        "tests": 8
+        "tests": 12
       }
     ],
     "cargoCheck": "green",
     "licenseAudit": {
-      "deps": 107,
+      "deps": 133,
       "verdict": "CLEAN"
     }
   },
@@ -1545,6 +1575,10 @@
     {
       "date": "2026-09-03",
       "label": "R65 — the honesty patch: the surface-boundary prompt lines (embedded browser ≠ real desktop — the hallucination's prompt leg), the auto-opening browser tab (burst-gated, project-scoped), debug mode with the execution-report switch, the Advanced cleanup + the search-engine allowlist; a sub-agent review caught three real bugs pre-ship."
+    },
+    {
+      "date": "2026-09-05",
+      "label": "R66 — the live-fire patch: the owner's 0.65.0 field report closed end to end — the 15-action browser (click/type/press_key with native form submission, read_dom, source), owner-solvable bot-wall checkpoints with a live countdown card, instant viewport apply, the Image Analysis split + analyze_image, the post-turn context-free debug analyst, Windows find_elements + the 2400-element walk, and the top-center 460×56 monitor; a same-day CI-stability patch fixed the two Windows-runner flakes the round shipped red with (1807 tests)."
     }
   ],
   "chips": [
