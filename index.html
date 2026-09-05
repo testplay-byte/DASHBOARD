@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260905t130715422z">
+<link rel="stylesheet" href="assets/style.css?v=20260905t232130169z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -79,7 +79,7 @@
       <div class="hero-eyebrow">
         <span class="hero-availability">Private build · Windows 10 x64</span>
         <span class="hero-dot" aria-hidden="true">·</span>
-        <span class="hero-version">v0.67.0</span>
+        <span class="hero-version">v0.69.0</span>
       </div>
       <h1 id="hero-title">Acute</h1>
       <p class="tagline">Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.</p>
@@ -96,7 +96,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-09-05 13:07 UTC</span>
+      <span class="updated-time">2026-09-05 23:21 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -105,7 +105,7 @@
   <section class="stats-grid reveal" aria-label="Key numbers">
       <article class="stat-card card">
         <span class="stat-label">Tests passing</span>
-        <span class="stat-value"><span data-count="1961">1961</span></span>
+        <span class="stat-value"><span data-count="2082">2082</span></span>
         <span class="stat-sub">3 suites · 0 skipped · unit + e2e</span>
       </article>
       <article class="stat-card card">
@@ -115,12 +115,12 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="49">49</span></span>
+        <span class="stat-value"><span data-count="50">50</span></span>
         <span class="stat-sub">Aug 21 – Sep 6 · 17-day run</span>
       </article>
       <article class="stat-card card">
         <span class="stat-label">Dependencies audited</span>
-        <span class="stat-value"><span data-count="133">133</span></span>
+        <span class="stat-value"><span data-count="134">134</span></span>
         <span class="stat-sub">license audit · CLEAN</span>
       </article>
   </section>
@@ -912,6 +912,62 @@
           <span class="feature-status">live</span>
         </div>
         <p class="feature-desc">PowerShell scripts now ride EncodedCommand capsules through argv — no stdin pipe to lose and no exit-zero-with-no-output quirk (&#39;the PowerShell session died before emitting JSON&#39; is gone), with a Get-Process fallback when the window-enumeration probe stalls. The key tool maps real SendKeys chords from a key table — Tab is a keypress now, not the letters t-a-b, so the walk-a-form-with-Tab technique works — and the floating monitor holds through the agent&#39;s thinking gaps instead of vanishing after six idle seconds.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span>
+          <h3 class="feature-title">Every action returns an observation — the agent stops re-capturing</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The computer-use agent&#39;s 11 mutating tools (the clicks, scroll, type, key, set-value, select-text and drag actions) now attach an observation receipt to every result: a fresh frame id, whether the screen changed (a perceptual hash, not a guess), the focused element&#39;s name, and the frontmost app&#39;s title — read after a 600 ms settle. The verification the agent used to buy with a 5–25 second screenshot-and-vision round now rides the action itself, and the post-action frame renders inline in the chat at the moment it was captured.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <h3 class="feature-title">Clicks verify what they hit — and the screenshot loop is refused</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Coordinate clicks upgrade from a blind &#39;unverified&#39; to &#39;changed&#39; or &#39;unchanged&#39; via a perceptual pixel-diff of the frame before and after, and the hit-test the engine already ran now names the element the point landed on. Stale frames auto-refresh instead of dead-ending: an action on a frame older than 30 seconds re-captures and compares first — a static screen proceeds, a genuinely changed screen returns the already-registered fresh frame with zoom-then-retry guidance, and only set-value and raw left-mouse-down keep the hard refusal. A third consecutive near-identical capture with no intervening action is refused outright with three productive alternatives: act, wait, or find elements.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg></span>
+          <h3 class="feature-title">Real Windows input: SendInput typing, honest scroll, clipboard paste</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Keyboard input rides raw SendInput — per-character Unicode events and real virtual-key chords, including the win key; the deprecated SendKeys path that failed on modern .NET runtimes is gone entirely. The scroll tool was accidentally quadratic (it sent N wheel events each carrying N×120, so a 10-tick scroll moved 100× the intent); now one event carries the exact delta and horizontal scrolling rides a real hardware-wheel event instead of arrow-key taps that never scrolled page content. Typing over 300 characters rides a stdin-delivered clipboard paste, so the Windows command-line length ceiling no longer caps what can be typed into an editor.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><circle cx="6.5" cy="6.5" r="0.6" fill="currentColor"/><circle cx="9" cy="6.5" r="0.6" fill="currentColor"/></svg></span>
+          <h3 class="feature-title">Edge and Chrome elements, recognized by name</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Chromium only builds its web accessibility tree after an assistive technology pokes it — which is why element trees came back sparse. Every snapshot now pokes the render widget in both dialects (the MSAA and UIA object requests), polls up to two seconds for a cold tree, and freshly launched Edge or Chrome carries the renderer-accessibility flag so the tree exists from startup. Element searches return real links, buttons and inputs by name, element targets replace coordinate guessing, and middle-click and right-click take element targets now — open-in-new-tab flows without coordinate math.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <h3 class="feature-title">The floating monitor: invisible to captures, never steals focus</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The &#39;Agent is using your computer&#39; bar is now excluded from every screen-capture API: it renders fully on the physical display but never appears in the agent&#39;s own screenshots — which show what is behind it — so the vision model can no longer read the indicator text it used to &#39;detect&#39;. It also no longer steals focus: re-opening the monitor no longer force-activates its window (the old call synthesized a stray ALT keystroke to grab the foreground — exactly the synthetic-input class the input rewrite eliminates), and the window is styled to never activate on click. The STOP button and dragging stay fully interactive.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="15" y1="4" x2="15" y2="20"/><line x1="3" y1="9" x2="15" y2="9"/><line x1="3" y1="13" x2="15" y2="13"/><line x1="3" y1="17" x2="15" y2="17"/></svg></span>
+          <h3 class="feature-title">Screenshots appear in chat at the moment they are taken</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Every capture — the agent&#39;s own screenshots, zooms and window states, plus the new automatic post-action observation frames — becomes a working entry pushed onto the live turn&#39;s stream at frame arrival, rendered inline between the tool rows as a compact click-to-enlarge tile exactly where it happened. The old bottom screenshot strip and its capped sidecar array are gone; tiles lazy-fetch their raster over an authenticated route and say so honestly when the ten-minute server lifetime has expired.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">wait() reports what changed — frames are remembered perceptually</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The wait tool no longer returns an empty receipt: it reads the frontmost title before the sleep, then attaches the same compact observation afterward — a fresh frame, whether the screen changed, what is focused, and whether the app title flipped. After a navigation the agent waits and reads the change instead of screenshotting. Underneath it all, every registered frame carries a compact perceptual hash, so old-vs-new comparisons survive raster eviction and the spam guard judges near-identical captures without a vision round.</p>
       </article>
     </div>
   </section>
@@ -1915,8 +1971,8 @@
     <div class="now-card">
       <span class="now-label">Now</span>
       <div class="now-body">
-        <h3 class="now-title">R67 delivered — the owner&#39;s 0.66.0 field report: the embedded browser and Windows computer use, closed end to end</h3>
-        <p class="now-detail">Every cluster from the owner&#39;s live Windows session on v0.66.0: (1) THE EMBEDDED BROWSER IS PER CHAT SESSION — the agent&#39;s tab is bound to the chat session before the turn, navigation arrives as a transport frame that creates the web view instantly (the blank-panel fix), get_state is scoped to the addressed tab, and background sessions never steal the visible one (the cross-session leak; cookie profiles are per-project). (2) THE WINDOWS BRIDGE DECODES REALITY — WebView2 returns eval results JSON-encoded, so every click/type/eval/read_dom failed on real hardware while the mocked harness stayed green; the bridge now tolerantly double-decodes. (3) IMAGE ATTACHMENTS ACTUALLY UPLOAD — dropped/pasted bytes (up to 8 MB) persist at attachments/&lt;name&gt; through a dedicated route, and the history teaches the model the exact analyze_image call. (4) LIVE SCREENSHOT THUMBNAILS — every capture streams a frame to the open turn; the chat shows the strip while the agent thinks. (5) DEBUG REPORTS ARE COPYABLE — the analyst card auto-collapses and carries a Copy report (model + full text); debug mode adds a full-turn export on every reply. (6) WINDOWS COMPUTER USE HARDENED — EncodedCommand PowerShell capsules, the SendKeys key table with chords (the Tab-walk works), a Get-Process fallback for list_apps, and a monitor that holds through thinking gaps. The round&#39;s first push tripped one pre-existing Windows-runner timing flake (a migration test finishing at 6.3s under the 5s default); fixed deterministically before the round tip, no app behavior changed. Verification: 1961/1961 tests in 122 files (agent-core 1064 in 59 · frontend 885 in 61 · e2e 12), lint and typecheck clean, CI green on the round tip, Release green on tag v0.67.0. Known limitation: Windows behavior is construction-pinned — the owner&#39;s live run remains the real gate.</p>
+        <h3 class="now-title">R68–R69 delivered — the computer-use overhaul + enforcement layer: every action observes, verifies and reports</h3>
+        <p class="now-detail">Both rounds ship in 0.69.0. R68 closed the owner&#39;s live Windows field report; R69 (no new field report — it closes the residuals R68&#39;s own close-out named) makes the mechanisms AUTOMATIC so the agent stops re-capturing and starts knowing. (1) EVERY ACTION RETURNS AN OBSERVATION — the 11 mutating tools attach a fresh frame id, screenChanged (a perceptual hash), the focused element&#39;s name and the frontmost app&#39;s title after a 600 ms settle (returnState: compact default / none / full); the post-action frame renders inline in the chat at its capture moment. (2) CLICKS VERIFY WHAT THEY HIT — changed/unchanged via the pixel-diff, hit-element names, stale frames auto-refresh before acting (a genuinely changed screen returns the already-registered fresh frame with zoom-then-retry guidance), and the third consecutive near-identical capture is refused with act / wait / find-elements alternatives — the screenshot-after-action loop is structurally unfed. (3) REAL WINDOWS INPUT — raw SendInput per-character Unicode text and virtual-key chords (the win key works); the quadratic over-scroll fixed (one wheel event, real horizontal hardware-wheel scrolling); typing over 300 characters rides a stdin clipboard paste. (4) EDGE/CHROME ELEMENT RECOGNITION — the dual-dialect accessibility poke (MSAA + UIA) with a sparse-poll, the renderer-accessibility flag on launch, and element targets for middle/right clicks (open-in-new-tab without coordinate guessing). (5) THE MONITOR IS CAPTURE-SAFE AND NEVER STEALS FOCUS — excluded from every capture API, styled never-activate, no synthetic ALT on re-open; STOP and dragging stay interactive. (6) INLINE SCREENSHOTS AT THEIR CAPTURE MOMENT and wait() REPORTS WHAT CHANGED — the prompts, the built-in skill and the tool descriptions all teach the receipt-driven loop. Verification: 2082/2082 root tests in 123 files (agent-core 1180 in 60 · frontend 890 in 61 · e2e 12), lint and typecheck clean, cargo check clean on the Windows target, CI green on the round tip (run 33996882916), Release green on tag v0.69.0 (run 33997530249) with the launcher kit + NSIS installer assets on the draft release, license audit CLEAN with 134 dependencies. Known limitation: Windows behavior is construction-pinned — the owner&#39;s live run remains the real gate.</p>
       </div>
       <span class="now-live"><span class="live-dot" aria-hidden="true"></span>current focus</span>
     </div>
@@ -1973,7 +2029,7 @@
       <div>
         <h2 id="quality-title">Quality</h2>
         <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
-        <p class="quality-note">Green on main — verified from the GitHub Actions API at build time: CI run 33966493495 green on commit bd543e4 (the R67 round tip; the round&#39;s first push, run 33965926186, tripped one pre-existing Windows-runner timing flake — migration-0024&#39;s re-apply test finishing at 6.3s under vitest&#39;s 5-second default — fixed deterministically before the tip; no app behavior changed) and Release run 33966858382 green on tag v0.67.0 (launcher kit + NSIS installer + the draft release with both assets). Round totals: 1961/1961 root tests in 122 files + agent-core 1064/1064 in 59 files; lint and typecheck clean. License audit: 133 dependencies, CLEAN — the R66 compliance audit&#39;s verdict; R67 changed no dependency.</p>
+        <p class="quality-note">Green on main — verified from the GitHub Actions API at build time: CI run 33996882916 green on commit b8254f6 (the R69 round tip) and Release run 33997530249 green on tag v0.69.0 (launcher kit + NSIS installer + the draft release with both assets); the R68 round underneath (commit 9e52170, CI run 33992206774) also green. Round totals: 2082/2082 root tests in 123 files + agent-core 1180/1180 in 60 files; lint and typecheck clean; cargo check clean on the Windows target. License audit: 134 dependencies, CLEAN — a fresh audit this round (pngjs 7.0.0, MIT, joined for the perceptual frame hash).</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -1983,18 +2039,18 @@
         <div class="suite-row">
           <div class="suite-head">
             <span class="suite-name">frontend</span>
-            <span class="suite-count"><strong data-count="885">885</strong> tests</span>
+            <span class="suite-count"><strong data-count="890">890</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="885" aria-valuemin="0" aria-valuemax="1064" aria-label="frontend test count relative to largest suite">
-            <div class="bar-fill" data-progress="83" style="--w:83%"></div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="890" aria-valuemin="0" aria-valuemax="1180" aria-label="frontend test count relative to largest suite">
+            <div class="bar-fill" data-progress="75" style="--w:75%"></div>
           </div>
         </div>
         <div class="suite-row">
           <div class="suite-head">
             <span class="suite-name">agent-core</span>
-            <span class="suite-count"><strong data-count="1064">1064</strong> tests</span>
+            <span class="suite-count"><strong data-count="1180">1180</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="1064" aria-valuemin="0" aria-valuemax="1064" aria-label="agent-core test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1180" aria-valuemin="0" aria-valuemax="1180" aria-label="agent-core test count relative to largest suite">
             <div class="bar-fill" data-progress="100" style="--w:100%"></div>
           </div>
         </div>
@@ -2003,13 +2059,13 @@
             <span class="suite-name">e2e</span>
             <span class="suite-count"><strong data-count="12">12</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="1064" aria-label="e2e test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="1180" aria-label="e2e test count relative to largest suite">
             <div class="bar-fill" data-progress="3" style="--w:3%"></div>
           </div>
         </div>
         <div class="suites-total">
           <span>Total</span>
-          <strong class="mono"><span data-count="1961">1961</span> tests passing · <span data-count="0">0</span> skipped</strong>
+          <strong class="mono"><span data-count="2082">2082</span> tests passing · <span data-count="0">0</span> skipped</strong>
         </div>
       </article>
       <div class="checks-col">
@@ -2050,7 +2106,7 @@
           <div class="check-body">
             <span class="check-label">License audit</span>
             <span class="check-value value-ok">CLEAN</span>
-            <span class="check-sub">133 dependencies reviewed</span>
+            <span class="check-sub">134 dependencies reviewed</span>
           </div>
         </article>
       </div>
@@ -2447,9 +2503,14 @@
           <span class="timeline-label">R66 — the live-fire patch: the owner&#39;s 0.65.0 field report closed end to end — the 15-action browser (click/type/press_key with native form submission, read_dom, source), owner-solvable bot-wall checkpoints with a live countdown card, instant viewport apply, the Image Analysis split + analyze_image, the post-turn context-free debug analyst, Windows find_elements + the 2400-element walk, and the top-center 460×56 monitor; a same-day CI-stability series fixed the three Windows-runner test flakes the round shipped red with (1807 tests).</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-09-06</span>
           <span class="timeline-label">R67 — the field-report round: the owner&#39;s 0.66.0 live Windows feedback closed end to end — the per-chat-session embedded browser (bindings, instant navigate, scoped state, per-project cookies), the WebView2 eval double-decode fix (click/type/eval/read_dom on real Windows), image attachments that actually upload (attachments/ + the analyze_image path), live screenshot thumbnails in chat, the debug-report copy/collapse + the debug-gated full-turn export, and Windows computer-use hardening (EncodedCommand capsules, the SendKeys key table + Tab-walk, the persistent turn indicator); 1961 tests.</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-09-06</span>
+          <span class="timeline-label">R68–R69 — the computer-use arc, closed and then made automatic: the owner&#39;s live field report fixed end to end (screenshots inline at their capture moment, the capture-excluded never-focus-stealing monitor, raw SendInput input, the self-healing foreground gate, the poked Chromium tree, 30-second frames, vision retries), then the enforcement layer (every action returns an observation receipt, clicks verify changed/unchanged and name their target, stale frames auto-refresh, the screenshot loop refused, wait() reports what changed, the quadratic scroll fixed, long typing via clipboard paste); 2082 tests.</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -2544,12 +2605,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-09-05 13:07 UTC · curated public data only — no product source · Acute v0.67.0</p>
+    <p class="footer-note">Generated 2026-09-05 23:21 UTC · curated public data only — no product source · Acute v0.69.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-09-05T13:07:15.422Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
-<script src="assets/app.js?v=20260905t130715422z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-09-05T23:21:30.169Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
+<script src="assets/app.js?v=20260905t232130169z" defer></script>
 </body>
 </html>

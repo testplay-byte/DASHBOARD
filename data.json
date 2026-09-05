@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.67.0",
+    "version": "0.69.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -34,8 +34,8 @@
   ],
   "plan": {
     "current": {
-      "title": "R67 delivered — the owner's 0.66.0 field report: the embedded browser and Windows computer use, closed end to end",
-      "detail": "Every cluster from the owner's live Windows session on v0.66.0: (1) THE EMBEDDED BROWSER IS PER CHAT SESSION — the agent's tab is bound to the chat session before the turn, navigation arrives as a transport frame that creates the web view instantly (the blank-panel fix), get_state is scoped to the addressed tab, and background sessions never steal the visible one (the cross-session leak; cookie profiles are per-project). (2) THE WINDOWS BRIDGE DECODES REALITY — WebView2 returns eval results JSON-encoded, so every click/type/eval/read_dom failed on real hardware while the mocked harness stayed green; the bridge now tolerantly double-decodes. (3) IMAGE ATTACHMENTS ACTUALLY UPLOAD — dropped/pasted bytes (up to 8 MB) persist at attachments/<name> through a dedicated route, and the history teaches the model the exact analyze_image call. (4) LIVE SCREENSHOT THUMBNAILS — every capture streams a frame to the open turn; the chat shows the strip while the agent thinks. (5) DEBUG REPORTS ARE COPYABLE — the analyst card auto-collapses and carries a Copy report (model + full text); debug mode adds a full-turn export on every reply. (6) WINDOWS COMPUTER USE HARDENED — EncodedCommand PowerShell capsules, the SendKeys key table with chords (the Tab-walk works), a Get-Process fallback for list_apps, and a monitor that holds through thinking gaps. The round's first push tripped one pre-existing Windows-runner timing flake (a migration test finishing at 6.3s under the 5s default); fixed deterministically before the round tip, no app behavior changed. Verification: 1961/1961 tests in 122 files (agent-core 1064 in 59 · frontend 885 in 61 · e2e 12), lint and typecheck clean, CI green on the round tip, Release green on tag v0.67.0. Known limitation: Windows behavior is construction-pinned — the owner's live run remains the real gate."
+      "title": "R68–R69 delivered — the computer-use overhaul + enforcement layer: every action observes, verifies and reports",
+      "detail": "Both rounds ship in 0.69.0. R68 closed the owner's live Windows field report; R69 (no new field report — it closes the residuals R68's own close-out named) makes the mechanisms AUTOMATIC so the agent stops re-capturing and starts knowing. (1) EVERY ACTION RETURNS AN OBSERVATION — the 11 mutating tools attach a fresh frame id, screenChanged (a perceptual hash), the focused element's name and the frontmost app's title after a 600 ms settle (returnState: compact default / none / full); the post-action frame renders inline in the chat at its capture moment. (2) CLICKS VERIFY WHAT THEY HIT — changed/unchanged via the pixel-diff, hit-element names, stale frames auto-refresh before acting (a genuinely changed screen returns the already-registered fresh frame with zoom-then-retry guidance), and the third consecutive near-identical capture is refused with act / wait / find-elements alternatives — the screenshot-after-action loop is structurally unfed. (3) REAL WINDOWS INPUT — raw SendInput per-character Unicode text and virtual-key chords (the win key works); the quadratic over-scroll fixed (one wheel event, real horizontal hardware-wheel scrolling); typing over 300 characters rides a stdin clipboard paste. (4) EDGE/CHROME ELEMENT RECOGNITION — the dual-dialect accessibility poke (MSAA + UIA) with a sparse-poll, the renderer-accessibility flag on launch, and element targets for middle/right clicks (open-in-new-tab without coordinate guessing). (5) THE MONITOR IS CAPTURE-SAFE AND NEVER STEALS FOCUS — excluded from every capture API, styled never-activate, no synthetic ALT on re-open; STOP and dragging stay interactive. (6) INLINE SCREENSHOTS AT THEIR CAPTURE MOMENT and wait() REPORTS WHAT CHANGED — the prompts, the built-in skill and the tool descriptions all teach the receipt-driven loop. Verification: 2082/2082 root tests in 123 files (agent-core 1180 in 60 · frontend 890 in 61 · e2e 12), lint and typecheck clean, cargo check clean on the Windows target, CI green on the round tip (run 33996882916), Release green on tag v0.69.0 (run 33997530249) with the launcher kit + NSIS installer assets on the draft release, license audit CLEAN with 134 dependencies. Known limitation: Windows behavior is construction-pinned — the owner's live run remains the real gate."
     },
     "upcoming": [
       {
@@ -1346,6 +1346,55 @@
       "title": "Windows computer use, hardened for real hardware",
       "status": "live",
       "desc": "PowerShell scripts now ride EncodedCommand capsules through argv — no stdin pipe to lose and no exit-zero-with-no-output quirk ('the PowerShell session died before emitting JSON' is gone), with a Get-Process fallback when the window-enumeration probe stalls. The key tool maps real SendKeys chords from a key table — Tab is a keypress now, not the letters t-a-b, so the walk-a-form-with-Tab technique works — and the floating monitor holds through the agent's thinking gaps instead of vanishing after six idle seconds."
+    },
+    {
+      "id": "action-observation-receipts",
+      "icon": "stream",
+      "title": "Every action returns an observation — the agent stops re-capturing",
+      "status": "live",
+      "desc": "The computer-use agent's 11 mutating tools (the clicks, scroll, type, key, set-value, select-text and drag actions) now attach an observation receipt to every result: a fresh frame id, whether the screen changed (a perceptual hash, not a guess), the focused element's name, and the frontmost app's title — read after a 600 ms settle. The verification the agent used to buy with a 5–25 second screenshot-and-vision round now rides the action itself, and the post-action frame renders inline in the chat at the moment it was captured."
+    },
+    {
+      "id": "click-verification-frame-loop-guards",
+      "icon": "check",
+      "title": "Clicks verify what they hit — and the screenshot loop is refused",
+      "status": "live",
+      "desc": "Coordinate clicks upgrade from a blind 'unverified' to 'changed' or 'unchanged' via a perceptual pixel-diff of the frame before and after, and the hit-test the engine already ran now names the element the point landed on. Stale frames auto-refresh instead of dead-ending: an action on a frame older than 30 seconds re-captures and compares first — a static screen proceeds, a genuinely changed screen returns the already-registered fresh frame with zoom-then-retry guidance, and only set-value and raw left-mouse-down keep the hard refusal. A third consecutive near-identical capture with no intervening action is refused outright with three productive alternatives: act, wait, or find elements."
+    },
+    {
+      "id": "sendinput-windows-input",
+      "icon": "terminal",
+      "title": "Real Windows input: SendInput typing, honest scroll, clipboard paste",
+      "status": "live",
+      "desc": "Keyboard input rides raw SendInput — per-character Unicode events and real virtual-key chords, including the win key; the deprecated SendKeys path that failed on modern .NET runtimes is gone entirely. The scroll tool was accidentally quadratic (it sent N wheel events each carrying N×120, so a 10-tick scroll moved 100× the intent); now one event carries the exact delta and horizontal scrolling rides a real hardware-wheel event instead of arrow-key taps that never scrolled page content. Typing over 300 characters rides a stdin-delivered clipboard paste, so the Windows command-line length ceiling no longer caps what can be typed into an editor."
+    },
+    {
+      "id": "chromium-accessibility-recognition",
+      "icon": "browser",
+      "title": "Edge and Chrome elements, recognized by name",
+      "status": "live",
+      "desc": "Chromium only builds its web accessibility tree after an assistive technology pokes it — which is why element trees came back sparse. Every snapshot now pokes the render widget in both dialects (the MSAA and UIA object requests), polls up to two seconds for a cold tree, and freshly launched Edge or Chrome carries the renderer-accessibility flag so the tree exists from startup. Element searches return real links, buttons and inputs by name, element targets replace coordinate guessing, and middle-click and right-click take element targets now — open-in-new-tab flows without coordinate math."
+    },
+    {
+      "id": "capture-safe-focus-safe-monitor",
+      "icon": "shield",
+      "title": "The floating monitor: invisible to captures, never steals focus",
+      "status": "live",
+      "desc": "The 'Agent is using your computer' bar is now excluded from every screen-capture API: it renders fully on the physical display but never appears in the agent's own screenshots — which show what is behind it — so the vision model can no longer read the indicator text it used to 'detect'. It also no longer steals focus: re-opening the monitor no longer force-activates its window (the old call synthesized a stray ALT keystroke to grab the foreground — exactly the synthetic-input class the input rewrite eliminates), and the window is styled to never activate on click. The STOP button and dragging stay fully interactive."
+    },
+    {
+      "id": "inline-capture-moment-screenshots",
+      "icon": "panels",
+      "title": "Screenshots appear in chat at the moment they are taken",
+      "status": "live",
+      "desc": "Every capture — the agent's own screenshots, zooms and window states, plus the new automatic post-action observation frames — becomes a working entry pushed onto the live turn's stream at frame arrival, rendered inline between the tool rows as a compact click-to-enlarge tile exactly where it happened. The old bottom screenshot strip and its capped sidecar array are gone; tiles lazy-fetch their raster over an authenticated route and say so honestly when the ten-minute server lifetime has expired."
+    },
+    {
+      "id": "observable-wait-and-frame-memory",
+      "icon": "activity",
+      "title": "wait() reports what changed — frames are remembered perceptually",
+      "status": "live",
+      "desc": "The wait tool no longer returns an empty receipt: it reads the frontmost title before the sleep, then attaches the same compact observation afterward — a fresh frame, whether the screen changed, what is focused, and whether the app title flipped. After a navigation the agent waits and reads the change instead of screenshotting. Underneath it all, every registered frame carries a compact perceptual hash, so old-vs-new comparisons survive raster eviction and the spam guard judges near-identical captures without a vision round."
     }
   ],
   "documentation": [
@@ -1436,15 +1485,15 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at build time: CI run 33966493495 green on commit bd543e4 (the R67 round tip; the round's first push, run 33965926186, tripped one pre-existing Windows-runner timing flake — migration-0024's re-apply test finishing at 6.3s under vitest's 5-second default — fixed deterministically before the tip; no app behavior changed) and Release run 33966858382 green on tag v0.67.0 (launcher kit + NSIS installer + the draft release with both assets). Round totals: 1961/1961 root tests in 122 files + agent-core 1064/1064 in 59 files; lint and typecheck clean. License audit: 133 dependencies, CLEAN — the R66 compliance audit's verdict; R67 changed no dependency.",
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: CI run 33996882916 green on commit b8254f6 (the R69 round tip) and Release run 33997530249 green on tag v0.69.0 (launcher kit + NSIS installer + the draft release with both assets); the R68 round underneath (commit 9e52170, CI run 33992206774) also green. Round totals: 2082/2082 root tests in 123 files + agent-core 1180/1180 in 60 files; lint and typecheck clean; cargo check clean on the Windows target. License audit: 134 dependencies, CLEAN — a fresh audit this round (pngjs 7.0.0, MIT, joined for the perceptual frame hash).",
     "suites": [
       {
         "name": "frontend",
-        "tests": 885
+        "tests": 890
       },
       {
         "name": "agent-core",
-        "tests": 1064
+        "tests": 1180
       },
       {
         "name": "e2e",
@@ -1455,7 +1504,7 @@
     "typecheck": "clean",
     "cargoCheck": "green",
     "licenseAudit": {
-      "deps": 133,
+      "deps": 134,
       "verdict": "CLEAN"
     }
   },
@@ -1655,6 +1704,10 @@
     {
       "date": "2026-09-06",
       "label": "R67 — the field-report round: the owner's 0.66.0 live Windows feedback closed end to end — the per-chat-session embedded browser (bindings, instant navigate, scoped state, per-project cookies), the WebView2 eval double-decode fix (click/type/eval/read_dom on real Windows), image attachments that actually upload (attachments/ + the analyze_image path), live screenshot thumbnails in chat, the debug-report copy/collapse + the debug-gated full-turn export, and Windows computer-use hardening (EncodedCommand capsules, the SendKeys key table + Tab-walk, the persistent turn indicator); 1961 tests."
+    },
+    {
+      "date": "2026-09-06",
+      "label": "R68–R69 — the computer-use arc, closed and then made automatic: the owner's live field report fixed end to end (screenshots inline at their capture moment, the capture-excluded never-focus-stealing monitor, raw SendInput input, the self-healing foreground gate, the poked Chromium tree, 30-second frames, vision retries), then the enforcement layer (every action returns an observation receipt, clicks verify changed/unchanged and name their target, stale frames auto-refresh, the screenshot loop refused, wait() reports what changed, the quadratic scroll fixed, long typing via clipboard paste); 2082 tests."
     }
   ],
   "chips": [
