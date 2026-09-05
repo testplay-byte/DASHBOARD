@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.66.0",
+    "version": "0.67.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -34,8 +34,8 @@
   ],
   "plan": {
     "current": {
-      "title": "R66 delivered — the live-fire patch: the owner's 0.65.0 field report, closed end to end",
-      "detail": "Every item from the owner's live Windows session: (1) THE AGENT USES THE EMBEDDED BROWSER LIKE A USER — browser_control grew to 15 actions: click (by CSS selector or a label's visible text), type (the native value setter + input/change events so React/Vue pages register it, then real form submission), press_key (Enter triggers form.requestSubmit — the 'typed a Google query but never submitted' fix), read_dom (a structured page outline — headings, every visible interactive element with a selector, forms), source (html | css | scripts), and wait_for_verification. (2) BOT WALLS ARE OWNER-SOLVABLE — captcha/Cloudflare/age detection opens a live 15s countdown card in the owner's chat with Mark as done / Stop waiting, a REST resolve route, and an honest re-probe. (3) AGENT VIEWPORT CHANGES APPLY INSTANTLY (a dedicated SSE frame exits the panel's natural mode). (4) THE VISION SPLIT — Settings → Image Analysis (provider + model + its own key slot, migration-seeded) now serves computer-use screenshots, browser screenshots, AND a general analyze_image tool usable without computer use. (5) DEBUG MODE IS A POST-TURN CONTEXT-FREE ANALYST — a fresh no-tools model call receives the whole transcript with full tool results and streams its execution report live under the answer; persisted as debug.report, which follow-up turns never see. (6) WINDOWS GOES ELEMENT-FIRST — the UIA walk probes 17 interactive kinds in one pass and reaches 2400 elements, plus find_elements to search the a11y tree by name/kind instead of screenshot-looping. (7) THE FLOATING MONITOR is top-center 460×56 with a decayed real-control live signal — browser turns never show 'agent is using your computer' — and the minimized settings sidebar shows the settings rail. A CI-stability follow-up (two Windows-runner test flakes) shipped the same day. Verification: 1807/1807 root tests in 118 files + 980/980 agent-core in 58 files, lint/typecheck/docs:check clean, CI green on the round's commit, Release green on tag v0.66.0."
+      "title": "R67 delivered — the owner's 0.66.0 field report: the embedded browser and Windows computer use, closed end to end",
+      "detail": "Every cluster from the owner's live Windows session on v0.66.0: (1) THE EMBEDDED BROWSER IS PER CHAT SESSION — the agent's tab is bound to the chat session before the turn, navigation arrives as a transport frame that creates the web view instantly (the blank-panel fix), get_state is scoped to the addressed tab, and background sessions never steal the visible one (the cross-session leak; cookie profiles are per-project). (2) THE WINDOWS BRIDGE DECODES REALITY — WebView2 returns eval results JSON-encoded, so every click/type/eval/read_dom failed on real hardware while the mocked harness stayed green; the bridge now tolerantly double-decodes. (3) IMAGE ATTACHMENTS ACTUALLY UPLOAD — dropped/pasted bytes (up to 8 MB) persist at attachments/<name> through a dedicated route, and the history teaches the model the exact analyze_image call. (4) LIVE SCREENSHOT THUMBNAILS — every capture streams a frame to the open turn; the chat shows the strip while the agent thinks. (5) DEBUG REPORTS ARE COPYABLE — the analyst card auto-collapses and carries a Copy report (model + full text); debug mode adds a full-turn export on every reply. (6) WINDOWS COMPUTER USE HARDENED — EncodedCommand PowerShell capsules, the SendKeys key table with chords (the Tab-walk works), a Get-Process fallback for list_apps, and a monitor that holds through thinking gaps. The round's first push tripped one pre-existing Windows-runner timing flake (a migration test finishing at 6.3s under the 5s default); fixed deterministically before the round tip, no app behavior changed. Verification: 1961/1961 tests in 122 files (agent-core 1064 in 59 · frontend 885 in 61 · e2e 12), lint and typecheck clean, CI green on the round tip, Release green on tag v0.67.0. Known limitation: Windows behavior is construction-pinned — the owner's live run remains the real gate."
     },
     "upcoming": [
       {
@@ -1113,169 +1113,239 @@
       "id": "popout-gutter-scrollbar",
       "icon": "grip-vertical",
       "title": "Gutter scrollbar",
-      "summary": "The pop-out window paints its own themed scrollbar OUTSIDE the content card — drag, click-to-jump, keyboard — tracking every page via the eval_with_callback scroll channel, with themed pills injected into every page and an honest single-bar fallback on CSP-strict sites."
+      "desc": "The pop-out window paints its own themed scrollbar OUTSIDE the content card — drag, click-to-jump, keyboard — tracking every page via the eval_with_callback scroll channel, with themed pills injected into every page and an honest single-bar fallback on CSP-strict sites.",
+      "status": "live"
     },
     {
       "id": "popout-rounded-view",
       "icon": "panel-top-open",
       "title": "Rounded browser view",
-      "summary": "The pop-out's page content sits in a rounded, bordered card matching the title bar and URL bar — the owner-approved design language applied to the browser view itself."
+      "desc": "The pop-out's page content sits in a rounded, bordered card matching the title bar and URL bar — the owner-approved design language applied to the browser view itself.",
+      "status": "live"
     },
     {
       "id": "real-dpi-zoom",
       "icon": "zoom-in",
       "title": "Real browser zoom",
-      "summary": "The embedded browser panel's zoom select now performs a true DPI-level page zoom (media queries and responsive layouts re-evaluate like a browser's Ctrl±) — previously it silently did nothing in native mode."
+      "desc": "The embedded browser panel's zoom select now performs a true DPI-level page zoom (media queries and responsive layouts re-evaluate like a browser's Ctrl±) — previously it silently did nothing in native mode.",
+      "status": "live"
     },
     {
       "id": "titlebar-sidebar-toggle",
       "icon": "panel-left",
       "title": "Title-bar sidebar toggle",
-      "summary": "The sidebar's logo and collapse button are gone — the app's logo + name in the title bar now toggles the whole sidebar (hide for full-width content, click again to bring it back, present on every route)."
+      "desc": "The sidebar's logo and collapse button are gone — the app's logo + name in the title bar now toggles the whole sidebar (hide for full-width content, click again to bring it back, present on every route).",
+      "status": "live"
     },
     {
       "id": "empty-models-default",
       "icon": "list-plus",
       "title": "Models, your way",
-      "summary": "The models list starts empty — add exactly the models you want from the catalog picker (Free-only ↔ All-models toggle), then fully configure each one: pricing, context window, output limits, thinking, visibility."
+      "desc": "The models list starts empty — add exactly the models you want from the catalog picker (Free-only ↔ All-models toggle), then fully configure each one: pricing, context window, output limits, thinking, visibility.",
+      "status": "live"
     },
     {
       "id": "popover-over-webview",
       "icon": "layers",
       "title": "Menus above the browser",
-      "summary": "The right sidebar's new-tab menu now renders ABOVE the live browser preview — the native webview politely steps aside while a menu is open and returns when it closes, session intact."
+      "desc": "The right sidebar's new-tab menu now renders ABOVE the live browser preview — the native webview politely steps aside while a menu is open and returns when it closes, session intact.",
+      "status": "live"
     },
     {
       "id": "computer-use",
       "icon": "monitor",
       "title": "Computer use",
-      "summary": "The agent can observe and actuate the real desktop GUI: 30 tools — accessibility-tree-first element actions with screenshot-coordinate fallback, receipts-not-promises, fail-closed refusals, an enforced kill switch. Off by default; observe/act/autopilot postures; destructive actions need your approval in act mode."
+      "desc": "The agent can observe and actuate the real desktop GUI: 30 tools — accessibility-tree-first element actions with screenshot-coordinate fallback, receipts-not-promises, fail-closed refusals, an enforced kill switch. Off by default; observe/act/autopilot postures; destructive actions need your approval in act mode.",
+      "status": "live"
     },
     {
       "id": "vision-model-separation",
       "icon": "eye",
       "title": "A separate vision model",
-      "summary": "Screenshots get described by the model YOU pick: a dedicated provider + model + its own API-key slot, configured completely independently — or the main model itself when its row is marked vision-capable."
+      "desc": "Screenshots get described by the model YOU pick: a dedicated provider + model + its own API-key slot, configured completely independently — or the main model itself when its row is marked vision-capable.",
+      "status": "live"
     },
     {
       "id": "skills",
       "icon": "sparkles",
       "title": "Skills",
-      "summary": "Add your own instruction modules (SKILL.md-style). Name + one-line description ride the system prompt; the agent loads the full body on demand when a task matches. The computer-use operating discipline ships as a built-in, editable skill."
+      "desc": "Add your own instruction modules (SKILL.md-style). Name + one-line description ride the system prompt; the agent loads the full body on demand when a task matches. The computer-use operating discipline ships as a built-in, editable skill.",
+      "status": "live"
     },
     {
       "id": "mcp-servers",
       "icon": "plug",
       "title": "MCP servers",
-      "summary": "Wire in external tool servers over stdio MCP. Their tools join the agent's toolset as mcp__<server>__<tool>. Child environments are sanitized — no engine credentials ever reach a third-party server."
+      "desc": "Wire in external tool servers over stdio MCP. Their tools join the agent's toolset as mcp__<server>__<tool>. Child environments are sanitized — no engine credentials ever reach a third-party server.",
+      "status": "live"
     },
     {
       "id": "computer-monitor",
       "icon": "activity",
       "title": "The computer monitor + mini window",
-      "summary": "While the agent drives the desktop, a live monitor shows every step — what it's doing, what was refused and why, vision calls, running counts — in the right sidebar AND a floating draggable mini window with a STOP kill switch."
+      "desc": "While the agent drives the desktop, a live monitor shows every step — what it's doing, what was refused and why, vision calls, running counts — in the right sidebar AND a floating draggable mini window with a STOP kill switch.",
+      "status": "live"
     },
     {
       "id": "prompt-discipline",
       "icon": "brain",
       "title": "Sharper tool discipline",
-      "summary": "The system prompts gained hard rules: read tool errors before reacting, pick the most specific tool, never fabricate results, report failures honestly, and close every task with what was done + what was verified."
+      "desc": "The system prompts gained hard rules: read tool errors before reacting, pick the most specific tool, never fabricate results, report failures honestly, and close every task with what was done + what was verified.",
+      "status": "live"
     },
     {
       "id": "sidebar-rail",
       "icon": "panel-left",
       "title": "A sidebar that minimizes",
-      "summary": "The left sidebar collapses to a 64px icon rail (one click at its very top) — nav icons, your project tiles with live-running dots, notifications and settings stay reachable, and the full panel restores the same way. The state survives restarts."
+      "desc": "The left sidebar collapses to a 64px icon rail (one click at its very top) — nav icons, your project tiles with live-running dots, notifications and settings stay reachable, and the full panel restores the same way. The state survives restarts.",
+      "status": "live"
     },
     {
       "id": "browser-true-dims",
       "icon": "app-window",
       "title": "The browser respects your dimensions",
-      "summary": "Set a display size and the page actually renders at it: larger presets (a 1920×1080 layout in a side panel) scale down as a true view of the full-size page — the page sees the real CSS pixels, and the readout says exactly what renders, including the fit percentage."
+      "desc": "Set a display size and the page actually renders at it: larger presets (a 1920×1080 layout in a side panel) scale down as a true view of the full-size page — the page sees the real CSS pixels, and the readout says exactly what renders, including the fit percentage.",
+      "status": "live"
     },
     {
       "id": "overlay-zorder",
       "icon": "layers",
       "title": "Menus over the browser, finally",
-      "summary": "The embedded browser is an OS-level layer, so app menus used to render underneath it. A DOM overlay watcher now hides the webview while any menu, dialog or popover is open — every UI surface paints above the page."
+      "desc": "The embedded browser is an OS-level layer, so app menus used to render underneath it. A DOM overlay watcher now hides the webview while any menu, dialog or popover is open — every UI surface paints above the page.",
+      "status": "live"
     },
     {
       "id": "agent-browser",
       "icon": "browser",
       "title": "The agent uses your browser",
-      "summary": "browser_control grew teeth: read a page's text, run JavaScript in the live page (click links, fill forms, extract DOM state), take a screenshot with a vision-model description, and list every open tab — all against the browser you watch live."
+      "desc": "browser_control grew teeth: read a page's text, run JavaScript in the live page (click links, fill forms, extract DOM state), take a screenshot with a vision-model description, and list every open tab — all against the browser you watch live.",
+      "status": "live"
     },
     {
       "id": "settings-reflection",
       "icon": "activity",
       "title": "Settings changes land instantly",
-      "summary": "Model and provider edits (renames, hides, prices, new models) reflect on the chat's model picker immediately; per-million input/output prices are clearly labeled with decimal support; partially-priced models now cost what their known sides cost."
+      "desc": "Model and provider edits (renames, hides, prices, new models) reflect on the chat's model picker immediately; per-million input/output prices are clearly labeled with decimal support; partially-priced models now cost what their known sides cost.",
+      "status": "live"
     },
     {
       "id": "calmer-layout",
       "icon": "panels",
       "title": "A calmer, roomier layout",
-      "summary": "The chat screen's gradient backdrop is gone — the three panels sit on the flat theme background with the side padding and rounded corners kept, so the workspace reads cleaner and the content gets the room."
+      "desc": "The chat screen's gradient backdrop is gone — the three panels sit on the flat theme background with the side padding and rounded corners kept, so the workspace reads cleaner and the content gets the room.",
+      "status": "live"
     },
     {
       "id": "desktop-update-verified",
       "icon": "monitor",
       "title": "The desktop app PROVES it's current",
-      "summary": "The launcher now checks three versions on every launch — the registry, the exe on disk, and the running engine's /health — against the newest GitHub release, and a stale or half-replaced install is deleted completely and reinstalled from a sha256-verified download. ACUTE.bat reinstall / uninstall included."
+      "desc": "The launcher now checks three versions on every launch — the registry, the exe on disk, and the running engine's /health — against the newest GitHub release, and a stale or half-replaced install is deleted completely and reinstalled from a sha256-verified download. ACUTE.bat reinstall / uninstall included.",
+      "status": "live"
     },
     {
       "id": "computer-use-sees-desktop",
       "icon": "eye",
       "title": "Computer use actually sees your desktop",
-      "summary": "The Windows backend's silent JSON array collapse is fixed (why list_apps came back empty), app enumeration now walks the REAL window list with process names, and app references resolve by title OR executable — an app_not_found refusal lists the running apps so the agent self-corrects in one step."
+      "desc": "The Windows backend's silent JSON array collapse is fixed (why list_apps came back empty), app enumeration now walks the REAL window list with process names, and app references resolve by title OR executable — an app_not_found refusal lists the running apps so the agent self-corrects in one step.",
+      "status": "live"
     },
     {
       "id": "floating-stop-bar",
       "icon": "monitor",
       "title": "The always-on-top STOP bar",
-      "summary": "A minimal floating monitor appears at the top of your screen the moment the agent starts using the computer — status, live activity, and a STOP kill switch floating above EVERY app, so you can halt it whenever something looks wrong. The right-sidebar computer tab is gone; one surface."
+      "desc": "A minimal floating monitor appears at the top of your screen the moment the agent starts using the computer — status, live activity, and a STOP kill switch floating above EVERY app, so you can halt it whenever something looks wrong. The right-sidebar computer tab is gone; one surface.",
+      "status": "live"
     },
     {
       "id": "surface-boundary",
       "icon": "shield",
       "title": "The surface boundary: embedded browser ≠ your desktop",
-      "summary": "The agent's instructions now explicitly separate the two worlds — browser_control drives the in-app panel and can NEVER open your real Edge/Chrome or touch your desktop, while computer-use tools drive the real machine. The exact 'I opened Edge' hallucination from the first live run is now instruction-level forbidden, with honest narration required for both surfaces."
+      "desc": "The agent's instructions now explicitly separate the two worlds — browser_control drives the in-app panel and can NEVER open your real Edge/Chrome or touch your desktop, while computer-use tools drive the real machine. The exact 'I opened Edge' hallucination from the first live run is now instruction-level forbidden, with honest narration required for both surfaces.",
+      "status": "live"
     },
     {
       "id": "browser-auto-open-debug-mode",
       "icon": "zap",
       "title": "The auto-opening browser + debug mode",
-      "summary": "The embedded browser tab now opens itself the moment the agent starts browsing (once per burst, scoped to that project — no more invisible browsing after an approval), and a new Debug mode switch (Settings → Advanced) makes every agent answer end with a raw execution report: each tool call, its outcome, what was verified — nothing hidden."
+      "desc": "The embedded browser tab now opens itself the moment the agent starts browsing (once per burst, scoped to that project — no more invisible browsing after an approval), and a new Debug mode switch (Settings → Advanced) makes every agent answer end with a raw execution report: each tool call, its outcome, what was verified — nothing hidden.",
+      "status": "live"
     },
     {
       "id": "browser-page-actions",
       "icon": "mouse-pointer-click",
       "title": "The agent drives the browser like a user",
-      "summary": "browser_control grew to 15 actions: click elements by CSS selector or a button's visible label, type into inputs with the native value setter + input/change events (React and Vue pages actually register it) and real form submission, press Enter inside a form (native requestSubmit — the 'typed a Google query but never submitted' report), read a structured DOM outline, pull raw html/css/scripts, and run page JavaScript — the embedded panel is now a real working surface, not a viewport."
+      "desc": "browser_control grew to 15 actions: click elements by CSS selector or a button's visible label, type into inputs with the native value setter + input/change events (React and Vue pages actually register it) and real form submission, press Enter inside a form (native requestSubmit — the 'typed a Google query but never submitted' report), read a structured DOM outline, pull raw html/css/scripts, and run page JavaScript — the embedded panel is now a real working surface, not a viewport.",
+      "status": "live"
     },
     {
       "id": "bot-wall-checkpoints",
       "icon": "shield-alert",
       "title": "Bot walls the OWNER solves — a countdown card in chat",
-      "summary": "When a page is blocked by a CAPTCHA, Cloudflare check, or age gate, the agent opens a live checkpoint card right in the chat: what kind of wall, the page URL, a draining 15-second countdown (60s hard cap), and two controls — Mark as done (the agent re-checks the page and continues) or Stop waiting (it reports back and asks how to proceed). Tool results carry the wall warning so the model calls it by itself."
+      "desc": "When a page is blocked by a CAPTCHA, Cloudflare check, or age gate, the agent opens a live checkpoint card right in the chat: what kind of wall, the page URL, a draining 15-second countdown (60s hard cap), and two controls — Mark as done (the agent re-checks the page and continues) or Stop waiting (it reports back and asks how to proceed). Tool results carry the wall warning so the model calls it by itself.",
+      "status": "live"
     },
     {
       "id": "image-analysis-section",
       "icon": "scan-eye",
       "title": "A dedicated Image Analysis section + the analyze_image tool",
-      "summary": "The vision model moved OUT of Computer Use into its own Settings → Image Analysis section: analysis mode, provider, model, and its own API-key slot (existing computer-use vision settings migrate automatically). It now serves computer-use screenshots, browser screenshots, and a general analyze_image tool (path or URL, ≤8 MB) that works WITHOUT computer use being enabled — with an honest refusal while off."
+      "desc": "The vision model moved OUT of Computer Use into its own Settings → Image Analysis section: analysis mode, provider, model, and its own API-key slot (existing computer-use vision settings migrate automatically). It now serves computer-use screenshots, browser screenshots, and a general analyze_image tool (path or URL, ≤8 MB) that works WITHOUT computer use being enabled — with an honest refusal while off.",
+      "status": "live"
     },
     {
       "id": "debug-analyst",
       "icon": "flask-conical",
       "title": "Debug mode: a post-turn, context-free execution analyst",
-      "summary": "No more agent self-reports: after a completed turn, a FRESH model call with no tools receives the whole conversation transcript — every tool call's full result — and streams its execution report live in a dedicated section under the answer (structured report, tool trace, anomalies, verdict). It's persisted as a debug.report event that follow-up turns never see, so the analysis never pollutes the conversation."
+      "desc": "No more agent self-reports: after a completed turn, a FRESH model call with no tools receives the whole conversation transcript — every tool call's full result — and streams its execution report live in a dedicated section under the answer (structured report, tool trace, anomalies, verdict). It's persisted as a debug.report event that follow-up turns never see, so the analysis never pollutes the conversation.",
+      "status": "live"
     },
     {
       "id": "windows-find-elements",
       "icon": "search",
       "title": "Windows goes element-first in big apps",
-      "summary": "The UIA accessibility walk now probes patterns only for the 17 interactive control kinds (one 4-probe pass — was up to 8 probes on every node) and reaches 2400 elements (was 800), and a new find_elements tool searches an app's tree by name or kind, returning indexed matches with bounds — the agent targets a specific control instead of looping on screenshots. The floating monitor shrank to a top-center 460×56 row, and browser turns never trip the 'agent is using your computer' indicator (live = decayed real-control events only)."
+      "desc": "The UIA accessibility walk now probes patterns only for the 17 interactive control kinds (one 4-probe pass — was up to 8 probes on every node) and reaches 2400 elements (was 800), and a new find_elements tool searches an app's tree by name or kind, returning indexed matches with bounds — the agent targets a specific control instead of looping on screenshots. The floating monitor shrank to a top-center 460×56 row, and browser turns never trip the 'agent is using your computer' indicator (live = decayed real-control events only).",
+      "status": "live"
+    },
+    {
+      "id": "chat-session-browser",
+      "icon": "browser",
+      "title": "One browser per chat session — instant navigation, no leaks",
+      "status": "live",
+      "desc": "The agent's embedded browser is now bound to the chat session that owns the turn (the agent tab's id IS the sidecar session id, bound before the turn starts): navigation travels as its own event frame and the sidebar creates the native web view the instant it lands — the blank-panel bug where a fresh tab never got a web view is gone. get_state reports only the addressed tab, background sessions never yank the visible one (the cross-session leak), cookie profiles are per-project, and the desktop sidebar's width snaps instantly so the web view never floats over the chat mid-animation."
+    },
+    {
+      "id": "webview2-eval-decoder",
+      "icon": "wrench",
+      "title": "The Windows bridge decodes WebView2's real eval dialect",
+      "status": "live",
+      "desc": "WebView2's ExecuteScriptAsync returns eval results JSON-encoded — and the in-page scripts already return JSON.stringify(...), so every callback string was double-encoded; the single parse yielded a string, and every click, type, eval, read_dom and source call failed with 'the page rejected the script' on real Windows (the harness mocks single-encode, which is why every test stayed green). The bridge now decodes both transports tolerantly, with honest errors for unexpected payloads — real-hardware browser automation works for the first time."
+    },
+    {
+      "id": "attachment-ingestion",
+      "icon": "panels",
+      "title": "Chat image attachments actually upload",
+      "status": "live",
+      "desc": "'I uploaded an image and the agent said it doesn't exist' is fixed end to end: dropped or pasted image bytes (up to 8 MB) now post to a dedicated authenticated upload route and land as real files at attachments/<name> inside the project — content-deduped (identical bytes reuse the file, conflicts mint -2/-3 suffixes, never an overwrite) — the message carries the project-relative path, and the model-facing history teaches the exact analyze_image call for that path. The OS file picker ingests binary picks the same way."
+    },
+    {
+      "id": "live-screenshot-strip",
+      "icon": "stream",
+      "title": "Live screenshot thumbnails while the agent thinks",
+      "status": "live",
+      "desc": "Every successful capture — computer-use screenshot, zoom, window state, and the browser screenshot action — now announces a frame to the open turn, and the chat renders a live thumbnail strip right under the working section while the agent is still thinking. Each tile lazy-fetches its PNG over an authenticated no-store route, and a click opens the full-size image with the capturing tool and timestamp. The rasters are deliberately ephemeral: an in-memory registry with a ten-minute lifetime, never persisted, never shown to the model — an expired tile says so honestly."
+    },
+    {
+      "id": "debug-copy-exports",
+      "icon": "doc",
+      "title": "Debug reports you can copy — and a full-turn export",
+      "status": "live",
+      "desc": "The execution analyst's card now behaves: it expands while the analysis streams, collapses itself when done (folded reports stay minimized), and carries a Copy report button that always includes which model produced the report plus the full text — reachable even while the card is collapsed. With debug mode on, every assistant reply gains a second copy button exporting the whole turn as text: the thinking, every tool call with arguments and result summaries, approvals, and the final answer — capped at 100 KB with the tail kept."
+    },
+    {
+      "id": "windows-computer-hardening",
+      "icon": "terminal",
+      "title": "Windows computer use, hardened for real hardware",
+      "status": "live",
+      "desc": "PowerShell scripts now ride EncodedCommand capsules through argv — no stdin pipe to lose and no exit-zero-with-no-output quirk ('the PowerShell session died before emitting JSON' is gone), with a Get-Process fallback when the window-enumeration probe stalls. The key tool maps real SendKeys chords from a key table — Tab is a keypress now, not the letters t-a-b, so the walk-a-form-with-Tab technique works — and the floating monitor holds through the agent's thinking gaps instead of vanishing after six idle seconds."
     }
   ],
   "documentation": [
@@ -1366,21 +1436,23 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at build time: CI run 33954258163 green on commit bfb0925 (the R66 live-fire patch, closed out through three same-day test-infrastructure stability fixes — two Windows-runner flakes and an overlay-watcher teardown race; no app behavior changed) and Release run 33952608589 green on tag v0.66.0 (launcher kit + NSIS installer + the draft release with both assets). Round totals: 1807/1807 root tests in 118 files + agent-core 980/980 in 58 files; lint, typecheck, and docs:check clean.",
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: CI run 33966493495 green on commit bd543e4 (the R67 round tip; the round's first push, run 33965926186, tripped one pre-existing Windows-runner timing flake — migration-0024's re-apply test finishing at 6.3s under vitest's 5-second default — fixed deterministically before the tip; no app behavior changed) and Release run 33966858382 green on tag v0.67.0 (launcher kit + NSIS installer + the draft release with both assets). Round totals: 1961/1961 root tests in 122 files + agent-core 1064/1064 in 59 files; lint and typecheck clean. License audit: 133 dependencies, CLEAN — the R66 compliance audit's verdict; R67 changed no dependency.",
     "suites": [
       {
         "name": "frontend",
-        "tests": 815
+        "tests": 885
       },
       {
         "name": "agent-core",
-        "tests": 980
+        "tests": 1064
       },
       {
         "name": "e2e",
         "tests": 12
       }
     ],
+    "lint": "clean",
+    "typecheck": "clean",
     "cargoCheck": "green",
     "licenseAudit": {
       "deps": 133,
@@ -1579,6 +1651,10 @@
     {
       "date": "2026-09-05",
       "label": "R66 — the live-fire patch: the owner's 0.65.0 field report closed end to end — the 15-action browser (click/type/press_key with native form submission, read_dom, source), owner-solvable bot-wall checkpoints with a live countdown card, instant viewport apply, the Image Analysis split + analyze_image, the post-turn context-free debug analyst, Windows find_elements + the 2400-element walk, and the top-center 460×56 monitor; a same-day CI-stability series fixed the three Windows-runner test flakes the round shipped red with (1807 tests)."
+    },
+    {
+      "date": "2026-09-06",
+      "label": "R67 — the field-report round: the owner's 0.66.0 live Windows feedback closed end to end — the per-chat-session embedded browser (bindings, instant navigate, scoped state, per-project cookies), the WebView2 eval double-decode fix (click/type/eval/read_dom on real Windows), image attachments that actually upload (attachments/ + the analyze_image path), live screenshot thumbnails in chat, the debug-report copy/collapse + the debug-gated full-turn export, and Windows computer-use hardening (EncodedCommand capsules, the SendKeys key table + Tab-walk, the persistent turn indicator); 1961 tests."
     }
   ],
   "chips": [
@@ -1683,5 +1759,5 @@
     ],
     "total": 97
   },
-  "lastUpdated": "2026-09-03"
+  "lastUpdated": "2026-09-06"
 }
