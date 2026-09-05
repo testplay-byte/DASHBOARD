@@ -1366,7 +1366,7 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at build time: CI run 33952264863 green on commit 96cf8f6 (the R66 live-fire patch + the same-day CI-stability follow-up for two Windows-runner test flakes) and Release run 33952608589 green on tag v0.66.0 (launcher kit + NSIS installer + the draft release with both assets). Round totals: 1807/1807 root tests in 118 files + agent-core 980/980 in 58 files; lint, typecheck, and docs:check clean.",
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: CI run 33954258163 green on commit bfb0925 (the R66 live-fire patch, closed out through three same-day test-infrastructure stability fixes — two Windows-runner flakes and an overlay-watcher teardown race; no app behavior changed) and Release run 33952608589 green on tag v0.66.0 (launcher kit + NSIS installer + the draft release with both assets). Round totals: 1807/1807 root tests in 118 files + agent-core 980/980 in 58 files; lint, typecheck, and docs:check clean.",
     "suites": [
       {
         "name": "frontend",
@@ -1578,7 +1578,7 @@
     },
     {
       "date": "2026-09-05",
-      "label": "R66 — the live-fire patch: the owner's 0.65.0 field report closed end to end — the 15-action browser (click/type/press_key with native form submission, read_dom, source), owner-solvable bot-wall checkpoints with a live countdown card, instant viewport apply, the Image Analysis split + analyze_image, the post-turn context-free debug analyst, Windows find_elements + the 2400-element walk, and the top-center 460×56 monitor; a same-day CI-stability patch fixed the two Windows-runner flakes the round shipped red with (1807 tests)."
+      "label": "R66 — the live-fire patch: the owner's 0.65.0 field report closed end to end — the 15-action browser (click/type/press_key with native form submission, read_dom, source), owner-solvable bot-wall checkpoints with a live countdown card, instant viewport apply, the Image Analysis split + analyze_image, the post-turn context-free debug analyst, Windows find_elements + the 2400-element walk, and the top-center 460×56 monitor; a same-day CI-stability series fixed the three Windows-runner test flakes the round shipped red with (1807 tests)."
     }
   ],
   "chips": [
