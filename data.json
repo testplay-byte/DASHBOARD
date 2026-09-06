@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.69.0",
+    "version": "0.70.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -34,8 +34,15 @@
   ],
   "plan": {
     "current": {
-      "title": "R68–R69 delivered — the computer-use overhaul + enforcement layer: every action observes, verifies and reports",
-      "detail": "Both rounds ship in 0.69.0. R68 closed the owner's live Windows field report; R69 (no new field report — it closes the residuals R68's own close-out named) makes the mechanisms AUTOMATIC so the agent stops re-capturing and starts knowing. (1) EVERY ACTION RETURNS AN OBSERVATION — the 11 mutating tools attach a fresh frame id, screenChanged (a perceptual hash), the focused element's name and the frontmost app's title after a 600 ms settle (returnState: compact default / none / full); the post-action frame renders inline in the chat at its capture moment. (2) CLICKS VERIFY WHAT THEY HIT — changed/unchanged via the pixel-diff, hit-element names, stale frames auto-refresh before acting (a genuinely changed screen returns the already-registered fresh frame with zoom-then-retry guidance), and the third consecutive near-identical capture is refused with act / wait / find-elements alternatives — the screenshot-after-action loop is structurally unfed. (3) REAL WINDOWS INPUT — raw SendInput per-character Unicode text and virtual-key chords (the win key works); the quadratic over-scroll fixed (one wheel event, real horizontal hardware-wheel scrolling); typing over 300 characters rides a stdin clipboard paste. (4) EDGE/CHROME ELEMENT RECOGNITION — the dual-dialect accessibility poke (MSAA + UIA) with a sparse-poll, the renderer-accessibility flag on launch, and element targets for middle/right clicks (open-in-new-tab without coordinate guessing). (5) THE MONITOR IS CAPTURE-SAFE AND NEVER STEALS FOCUS — excluded from every capture API, styled never-activate, no synthetic ALT on re-open; STOP and dragging stay interactive. (6) INLINE SCREENSHOTS AT THEIR CAPTURE MOMENT and wait() REPORTS WHAT CHANGED — the prompts, the built-in skill and the tool descriptions all teach the receipt-driven loop. Verification: 2082/2082 root tests in 123 files (agent-core 1180 in 60 · frontend 890 in 61 · e2e 12), lint and typecheck clean, cargo check clean on the Windows target, CI green on the round tip (run 33996882916), Release green on tag v0.69.0 (run 33997530249) with the launcher kit + NSIS installer assets on the draft release, license audit CLEAN with 134 dependencies. Known limitation: Windows behavior is construction-pinned — the owner's live run remains the real gate."
+      "title": "R70 delivered — the agent brain round: the model knows its world, follows conventions, and verifies before claiming done",
+      "detail": "Research-driven (no new field report): the round opened with a full audit of the agent's brain (prompt map, skills, tool surface, loop architecture) plus a study of the open-source agentic-coding-agent canon (Claude Code's CLAUDE.md and layered prompt, Codex's AGENTS.md standard and dirty-worktree discipline, SWE-agent's tool-feedback findings, aider, Cline, OpenHands microagents, Cursor rules). (1) ENVIRONMENT GROUNDING: every system prompt now states the actual OS + release, the real shell run_command spawns, the current date, and the git branch + dirty state (guarded probe, honest fallbacks) — TERMINAL teaches only the real platform's syntax. (2) CONVENTIONS: AGENTS.md / CLAUDE.md / AGENTS.override.md / CLAUDE.local.md auto-load per turn with @file imports (Codex/Claude Code parity — 60k+ projects carry AGENTS.md). (3) SKILLS: a real library — 8 builtin bodies (code-review, debugging, testing, git-workflow, web-research, project-init — the /init skill that writes the project's AGENTS.md, browser-use) + file-based skills (.acute/skills/SKILL.md per project, ~/.agents/skills/ user-global) + sticky bodies that survive compaction + per-agent skill allowlists. (4) DISCIPLINE: verify-after-edit (touched tests/typecheck/lint before 'done'), dirty-worktree rules (never revert user changes), path:line citations, under-4-lines-by-default replies. (5) TOOL FEEDBACK (SWE-agent's lesson): run_command keeps HEAD 32KB + TAIL 32KB (errors live at the END of build logs — the tail was previously lost), read_file is line-numbered with offset/limit pagination, honest empty-output messages. The prompt SHRANK 22,460→20,156 chars while teaching more. Next: the owner's live Windows verification of R69's computer-use gates on real hardware, plus the R70 live gates (skill body quality on real tasks, convention loading on real repos).",
+      "upcoming": [
+        "Owner live Windows run: R69's 7-step Edge flow + the observation-receipt loop (screenshots should nearly stop; every action self-verifies)",
+        "Edit-linting gate (SWE-agent ACI #1): syntax-check edit_file/write_file for code files, return errors inline",
+        "Structured completion signal to replace the phrase-regex finish heuristic",
+        "Cache-aware prompt section ordering (static prefix vs per-session suffix) for OpenRouter prompt caching",
+        "Sub-agent upgrades: two-way messaging, per-role models, result schemas"
+      ]
     },
     "upcoming": [
       {
@@ -1395,6 +1402,48 @@
       "title": "wait() reports what changed — frames are remembered perceptually",
       "status": "live",
       "desc": "The wait tool no longer returns an empty receipt: it reads the frontmost title before the sleep, then attaches the same compact observation afterward — a fresh frame, whether the screen changed, what is focused, and whether the app title flipped. After a navigation the agent waits and reads the change instead of screenshotting. Underneath it all, every registered frame carries a compact perceptual hash, so old-vs-new comparisons survive raster eviction and the spam guard judges near-identical captures without a vision round."
+    },
+    {
+      "id": "environment-grounding",
+      "icon": "monitor",
+      "title": "The agent knows its machine",
+      "status": "live",
+      "desc": "Every system prompt now states the actual OS + release, the real shell run_command spawns (cmd.exe on Windows, /bin/sh on POSIX), the current date, and the git branch + dirty state — a guarded 1.5s probe with honest fallbacks. The terminal section teaches only the real platform's syntax. Before R70 the model had to guess its own operating system."
+    },
+    {
+      "id": "agents-md-conventions",
+      "icon": "book",
+      "title": "AGENTS.md and CLAUDE.md auto-load — the cross-agent convention standard",
+      "status": "live",
+      "desc": "Project-root AGENTS.md, CLAUDE.md, AGENTS.override.md and CLAUDE.local.md are read every turn in a documented precedence ladder with source markers, and Claude-style @file imports resolve (relative, .md/.txt, 4 imports max, cycle-guarded). Every convention-rich repository opened in the workbench now has its instructions honored — the same standard Codex, Cursor, Cline and OpenHands read."
+    },
+    {
+      "id": "skills-library",
+      "icon": "library",
+      "title": "A real skills library: 8 built-ins + file-based skills",
+      "status": "live",
+      "desc": "Seven new built-in skills join computer-use — code-review, debugging, testing, git-workflow, web-research, project-init (the /init skill that analyzes a codebase and writes its AGENTS.md) and browser-use. Skills also load from files: .acute/skills/<name>/SKILL.md per project and ~/.agents/skills/ user-global (the Agent-Skills standard). Loaded skill bodies are STICKY — they survive history compaction instead of evaporating mid-task. Per-agent skill allowlists are wired (dead data since R61)."
+    },
+    {
+      "id": "verification-discipline",
+      "icon": "check",
+      "title": "Verify before done — and never touch the user's work",
+      "status": "live",
+      "desc": "The prompt now teaches the completion loop top-tier agents run: after code edits, run the touched tests / typecheck / lint before claiming done (commands discovered from AGENTS.md or package.json; ask once, then remember). Dirty-worktree discipline: never revert or discard user changes, stop and report unexpected modifications, never git reset --hard. For 3+ file edits, an adversarial delegate review before reporting completion."
+    },
+    {
+      "id": "tool-feedback-quality",
+      "icon": "terminal",
+      "title": "Errors at the END of logs finally reach the model",
+      "status": "live",
+      "desc": "run_command's 64KB output cap now keeps the head AND the tail with an honest middle-omission marker — build and test errors live at the end of long logs, and the tail was previously lost entirely. read_file returns cat -n line numbers with offset/limit pagination and honest empty-file messages; empty command output says '(no output — the command ran successfully and printed nothing)'. SWE-agent's finding: observation quality is model quality."
+    },
+    {
+      "id": "prompt-diet",
+      "icon": "scissors",
+      "title": "The prompt shrank 10% while teaching more",
+      "status": "live",
+      "desc": "Four overlapping sections that restated the same plan-batch-execute-verify posture four ways (agentic loop, efficiency, task planning, todo tracking) merged into one five-phase AGENTIC LOOP; the embedded-browser and computer-use sections were trimmed to essentials with pointers to the sticky skill bodies. 22,460 → 20,156 chars while adding environment grounding, conventions loading and verification discipline."
     }
   ],
   "documentation": [
@@ -1485,7 +1534,7 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at build time: CI run 33996882916 green on commit b8254f6 (the R69 round tip) and Release run 33997530249 green on tag v0.69.0 (launcher kit + NSIS installer + the draft release with both assets); the R68 round underneath (commit 9e52170, CI run 33992206774) also green. Round totals: 2082/2082 root tests in 123 files + agent-core 1180/1180 in 60 files; lint and typecheck clean; cargo check clean on the Windows target. License audit: 134 dependencies, CLEAN — a fresh audit this round (pngjs 7.0.0, MIT, joined for the perceptual frame hash).",
+    "ciNote": "Green on main — verified from the GitHub Actions API at build time: the R70 round pushed as commit 22a516b, whose first CI run (34049175869) failed 2 Windows path-separator pins in the new AGENTS/CLAUDE @import marker tests; the R70 CI-stability patch (commit 8cb75f5) fixed the marker normalization and CI run 34049617553 went green; Release run 34049968153 green on tag v0.70.0 (launcher kit + NSIS installer + the release with both assets, published). Round totals: 2177 root tests in 126 files (2165 passed + 12 skipped env-gated) + agent-core 1275/1275 in 63 files (+95 this round); lint and typecheck clean; license audit 134 dependencies CLEAN (no changes).",
     "suites": [
       {
         "name": "frontend",
@@ -1493,7 +1542,7 @@
       },
       {
         "name": "agent-core",
-        "tests": 1180
+        "tests": 1275
       },
       {
         "name": "e2e",
@@ -1506,7 +1555,8 @@
     "licenseAudit": {
       "deps": 134,
       "verdict": "CLEAN"
-    }
+    },
+    "lastReviewed": "2026-09-06"
   },
   "milestones": [
     {
@@ -1708,6 +1758,10 @@
     {
       "date": "2026-09-06",
       "label": "R68–R69 — the computer-use arc, closed and then made automatic: the owner's live field report fixed end to end (screenshots inline at their capture moment, the capture-excluded never-focus-stealing monitor, raw SendInput input, the self-healing foreground gate, the poked Chromium tree, 30-second frames, vision retries), then the enforcement layer (every action returns an observation receipt, clicks verify changed/unchanged and name their target, stale frames auto-refresh, the screenshot loop refused, wait() reports what changed, the quadratic scroll fixed, long typing via clipboard paste); 2082 tests."
+    },
+    {
+      "date": "2026-09-06",
+      "label": "R70 — the agent brain round: a research-driven audit of the prompt/skills/tool surface against the open-source agentic-coding-agent canon (Claude Code, Codex/AGENTS.md, SWE-agent, aider, Cline, OpenHands, Cursor), then closed — environment grounding (real OS/shell/date/git in every prompt), AGENTS.md/CLAUDE.md convention loading with @file imports, a skills library (7 new built-ins, file-based skills, sticky bodies, per-agent allowlists), verification + dirty-worktree discipline, SWE-agent-grade tool feedback (head+tail truncation, line-numbered paginated reads), and a 10% prompt diet. 2177 root tests (+95 this round); v0.70.0 released."
     }
   ],
   "chips": [

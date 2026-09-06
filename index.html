@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260905t232221216z">
+<link rel="stylesheet" href="assets/style.css?v=20260906t181104086z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -79,7 +79,7 @@
       <div class="hero-eyebrow">
         <span class="hero-availability">Private build · Windows 10 x64</span>
         <span class="hero-dot" aria-hidden="true">·</span>
-        <span class="hero-version">v0.69.0</span>
+        <span class="hero-version">v0.70.0</span>
       </div>
       <h1 id="hero-title">Acute</h1>
       <p class="tagline">Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.</p>
@@ -96,7 +96,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-09-05 23:22 UTC</span>
+      <span class="updated-time">2026-09-06 18:11 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -105,7 +105,7 @@
   <section class="stats-grid reveal" aria-label="Key numbers">
       <article class="stat-card card">
         <span class="stat-label">Tests passing</span>
-        <span class="stat-value"><span data-count="2082">2082</span></span>
+        <span class="stat-value"><span data-count="2177">2177</span></span>
         <span class="stat-sub">3 suites · 0 skipped · unit + e2e</span>
       </article>
       <article class="stat-card card">
@@ -115,7 +115,7 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="50">50</span></span>
+        <span class="stat-value"><span data-count="51">51</span></span>
         <span class="stat-sub">Aug 21 – Sep 6 · 17-day run</span>
       </article>
       <article class="stat-card card">
@@ -968,6 +968,54 @@
           <span class="feature-status">live</span>
         </div>
         <p class="feature-desc">The wait tool no longer returns an empty receipt: it reads the frontmost title before the sleep, then attaches the same compact observation afterward — a fresh frame, whether the screen changed, what is focused, and whether the app title flipped. After a navigation the agent waits and reads the change instead of screenshotting. Underneath it all, every registered frame carries a compact perceptual hash, so old-vs-new comparisons survive raster eviction and the spam guard judges near-identical captures without a vision round.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">The agent knows its machine</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Every system prompt now states the actual OS + release, the real shell run_command spawns (cmd.exe on Windows, /bin/sh on POSIX), the current date, and the git branch + dirty state — a guarded 1.5s probe with honest fallbacks. The terminal section teaches only the real platform&#39;s syntax. Before R70 the model had to guess its own operating system.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">AGENTS.md and CLAUDE.md auto-load — the cross-agent convention standard</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Project-root AGENTS.md, CLAUDE.md, AGENTS.override.md and CLAUDE.local.md are read every turn in a documented precedence ladder with source markers, and Claude-style @file imports resolve (relative, .md/.txt, 4 imports max, cycle-guarded). Every convention-rich repository opened in the workbench now has its instructions honored — the same standard Codex, Cursor, Cline and OpenHands read.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">A real skills library: 8 built-ins + file-based skills</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Seven new built-in skills join computer-use — code-review, debugging, testing, git-workflow, web-research, project-init (the /init skill that analyzes a codebase and writes its AGENTS.md) and browser-use. Skills also load from files: .acute/skills/&lt;name&gt;/SKILL.md per project and ~/.agents/skills/ user-global (the Agent-Skills standard). Loaded skill bodies are STICKY — they survive history compaction instead of evaporating mid-task. Per-agent skill allowlists are wired (dead data since R61).</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <h3 class="feature-title">Verify before done — and never touch the user&#39;s work</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The prompt now teaches the completion loop top-tier agents run: after code edits, run the touched tests / typecheck / lint before claiming done (commands discovered from AGENTS.md or package.json; ask once, then remember). Dirty-worktree discipline: never revert or discard user changes, stop and report unexpected modifications, never git reset --hard. For 3+ file edits, an adversarial delegate review before reporting completion.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg></span>
+          <h3 class="feature-title">Errors at the END of logs finally reach the model</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">run_command&#39;s 64KB output cap now keeps the head AND the tail with an honest middle-omission marker — build and test errors live at the end of long logs, and the tail was previously lost entirely. read_file returns cat -n line numbers with offset/limit pagination and honest empty-file messages; empty command output says &#39;(no output — the command ran successfully and printed nothing)&#39;. SWE-agent&#39;s finding: observation quality is model quality.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">The prompt shrank 10% while teaching more</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Four overlapping sections that restated the same plan-batch-execute-verify posture four ways (agentic loop, efficiency, task planning, todo tracking) merged into one five-phase AGENTIC LOOP; the embedded-browser and computer-use sections were trimmed to essentials with pointers to the sticky skill bodies. 22,460 → 20,156 chars while adding environment grounding, conventions loading and verification discipline.</p>
       </article>
     </div>
   </section>
@@ -1971,8 +2019,8 @@
     <div class="now-card">
       <span class="now-label">Now</span>
       <div class="now-body">
-        <h3 class="now-title">R68–R69 delivered — the computer-use overhaul + enforcement layer: every action observes, verifies and reports</h3>
-        <p class="now-detail">Both rounds ship in 0.69.0. R68 closed the owner&#39;s live Windows field report; R69 (no new field report — it closes the residuals R68&#39;s own close-out named) makes the mechanisms AUTOMATIC so the agent stops re-capturing and starts knowing. (1) EVERY ACTION RETURNS AN OBSERVATION — the 11 mutating tools attach a fresh frame id, screenChanged (a perceptual hash), the focused element&#39;s name and the frontmost app&#39;s title after a 600 ms settle (returnState: compact default / none / full); the post-action frame renders inline in the chat at its capture moment. (2) CLICKS VERIFY WHAT THEY HIT — changed/unchanged via the pixel-diff, hit-element names, stale frames auto-refresh before acting (a genuinely changed screen returns the already-registered fresh frame with zoom-then-retry guidance), and the third consecutive near-identical capture is refused with act / wait / find-elements alternatives — the screenshot-after-action loop is structurally unfed. (3) REAL WINDOWS INPUT — raw SendInput per-character Unicode text and virtual-key chords (the win key works); the quadratic over-scroll fixed (one wheel event, real horizontal hardware-wheel scrolling); typing over 300 characters rides a stdin clipboard paste. (4) EDGE/CHROME ELEMENT RECOGNITION — the dual-dialect accessibility poke (MSAA + UIA) with a sparse-poll, the renderer-accessibility flag on launch, and element targets for middle/right clicks (open-in-new-tab without coordinate guessing). (5) THE MONITOR IS CAPTURE-SAFE AND NEVER STEALS FOCUS — excluded from every capture API, styled never-activate, no synthetic ALT on re-open; STOP and dragging stay interactive. (6) INLINE SCREENSHOTS AT THEIR CAPTURE MOMENT and wait() REPORTS WHAT CHANGED — the prompts, the built-in skill and the tool descriptions all teach the receipt-driven loop. Verification: 2082/2082 root tests in 123 files (agent-core 1180 in 60 · frontend 890 in 61 · e2e 12), lint and typecheck clean, cargo check clean on the Windows target, CI green on the round tip (run 33996882916), Release green on tag v0.69.0 (run 33997530249) with the launcher kit + NSIS installer assets on the draft release, license audit CLEAN with 134 dependencies. Known limitation: Windows behavior is construction-pinned — the owner&#39;s live run remains the real gate.</p>
+        <h3 class="now-title">R70 delivered — the agent brain round: the model knows its world, follows conventions, and verifies before claiming done</h3>
+        <p class="now-detail">Research-driven (no new field report): the round opened with a full audit of the agent&#39;s brain (prompt map, skills, tool surface, loop architecture) plus a study of the open-source agentic-coding-agent canon (Claude Code&#39;s CLAUDE.md and layered prompt, Codex&#39;s AGENTS.md standard and dirty-worktree discipline, SWE-agent&#39;s tool-feedback findings, aider, Cline, OpenHands microagents, Cursor rules). (1) ENVIRONMENT GROUNDING: every system prompt now states the actual OS + release, the real shell run_command spawns, the current date, and the git branch + dirty state (guarded probe, honest fallbacks) — TERMINAL teaches only the real platform&#39;s syntax. (2) CONVENTIONS: AGENTS.md / CLAUDE.md / AGENTS.override.md / CLAUDE.local.md auto-load per turn with @file imports (Codex/Claude Code parity — 60k+ projects carry AGENTS.md). (3) SKILLS: a real library — 8 builtin bodies (code-review, debugging, testing, git-workflow, web-research, project-init — the /init skill that writes the project&#39;s AGENTS.md, browser-use) + file-based skills (.acute/skills/SKILL.md per project, ~/.agents/skills/ user-global) + sticky bodies that survive compaction + per-agent skill allowlists. (4) DISCIPLINE: verify-after-edit (touched tests/typecheck/lint before &#39;done&#39;), dirty-worktree rules (never revert user changes), path:line citations, under-4-lines-by-default replies. (5) TOOL FEEDBACK (SWE-agent&#39;s lesson): run_command keeps HEAD 32KB + TAIL 32KB (errors live at the END of build logs — the tail was previously lost), read_file is line-numbered with offset/limit pagination, honest empty-output messages. The prompt SHRANK 22,460→20,156 chars while teaching more. Next: the owner&#39;s live Windows verification of R69&#39;s computer-use gates on real hardware, plus the R70 live gates (skill body quality on real tasks, convention loading on real repos).</p>
       </div>
       <span class="now-live"><span class="live-dot" aria-hidden="true"></span>current focus</span>
     </div>
@@ -2029,7 +2077,7 @@
       <div>
         <h2 id="quality-title">Quality</h2>
         <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
-        <p class="quality-note">Green on main — verified from the GitHub Actions API at build time: CI run 33996882916 green on commit b8254f6 (the R69 round tip) and Release run 33997530249 green on tag v0.69.0 (launcher kit + NSIS installer + the draft release with both assets); the R68 round underneath (commit 9e52170, CI run 33992206774) also green. Round totals: 2082/2082 root tests in 123 files + agent-core 1180/1180 in 60 files; lint and typecheck clean; cargo check clean on the Windows target. License audit: 134 dependencies, CLEAN — a fresh audit this round (pngjs 7.0.0, MIT, joined for the perceptual frame hash).</p>
+        <p class="quality-note">Green on main — verified from the GitHub Actions API at build time: the R70 round pushed as commit 22a516b, whose first CI run (34049175869) failed 2 Windows path-separator pins in the new AGENTS/CLAUDE @import marker tests; the R70 CI-stability patch (commit 8cb75f5) fixed the marker normalization and CI run 34049617553 went green; Release run 34049968153 green on tag v0.70.0 (launcher kit + NSIS installer + the release with both assets, published). Round totals: 2177 root tests in 126 files (2165 passed + 12 skipped env-gated) + agent-core 1275/1275 in 63 files (+95 this round); lint and typecheck clean; license audit 134 dependencies CLEAN (no changes).</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -2041,16 +2089,16 @@
             <span class="suite-name">frontend</span>
             <span class="suite-count"><strong data-count="890">890</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="890" aria-valuemin="0" aria-valuemax="1180" aria-label="frontend test count relative to largest suite">
-            <div class="bar-fill" data-progress="75" style="--w:75%"></div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="890" aria-valuemin="0" aria-valuemax="1275" aria-label="frontend test count relative to largest suite">
+            <div class="bar-fill" data-progress="70" style="--w:70%"></div>
           </div>
         </div>
         <div class="suite-row">
           <div class="suite-head">
             <span class="suite-name">agent-core</span>
-            <span class="suite-count"><strong data-count="1180">1180</strong> tests</span>
+            <span class="suite-count"><strong data-count="1275">1275</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="1180" aria-valuemin="0" aria-valuemax="1180" aria-label="agent-core test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1275" aria-valuemin="0" aria-valuemax="1275" aria-label="agent-core test count relative to largest suite">
             <div class="bar-fill" data-progress="100" style="--w:100%"></div>
           </div>
         </div>
@@ -2059,13 +2107,13 @@
             <span class="suite-name">e2e</span>
             <span class="suite-count"><strong data-count="12">12</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="1180" aria-label="e2e test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="1275" aria-label="e2e test count relative to largest suite">
             <div class="bar-fill" data-progress="3" style="--w:3%"></div>
           </div>
         </div>
         <div class="suites-total">
           <span>Total</span>
-          <strong class="mono"><span data-count="2082">2082</span> tests passing · <span data-count="0">0</span> skipped</strong>
+          <strong class="mono"><span data-count="2177">2177</span> tests passing · <span data-count="0">0</span> skipped</strong>
         </div>
       </article>
       <div class="checks-col">
@@ -2508,9 +2556,14 @@
           <span class="timeline-label">R67 — the field-report round: the owner&#39;s 0.66.0 live Windows feedback closed end to end — the per-chat-session embedded browser (bindings, instant navigate, scoped state, per-project cookies), the WebView2 eval double-decode fix (click/type/eval/read_dom on real Windows), image attachments that actually upload (attachments/ + the analyze_image path), live screenshot thumbnails in chat, the debug-report copy/collapse + the debug-gated full-turn export, and Windows computer-use hardening (EncodedCommand capsules, the SendKeys key table + Tab-walk, the persistent turn indicator); 1961 tests.</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-09-06</span>
           <span class="timeline-label">R68–R69 — the computer-use arc, closed and then made automatic: the owner&#39;s live field report fixed end to end (screenshots inline at their capture moment, the capture-excluded never-focus-stealing monitor, raw SendInput input, the self-healing foreground gate, the poked Chromium tree, 30-second frames, vision retries), then the enforcement layer (every action returns an observation receipt, clicks verify changed/unchanged and name their target, stale frames auto-refresh, the screenshot loop refused, wait() reports what changed, the quadratic scroll fixed, long typing via clipboard paste); 2082 tests.</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-09-06</span>
+          <span class="timeline-label">R70 — the agent brain round: a research-driven audit of the prompt/skills/tool surface against the open-source agentic-coding-agent canon (Claude Code, Codex/AGENTS.md, SWE-agent, aider, Cline, OpenHands, Cursor), then closed — environment grounding (real OS/shell/date/git in every prompt), AGENTS.md/CLAUDE.md convention loading with @file imports, a skills library (7 new built-ins, file-based skills, sticky bodies, per-agent allowlists), verification + dirty-worktree discipline, SWE-agent-grade tool feedback (head+tail truncation, line-numbered paginated reads), and a 10% prompt diet. 2177 root tests (+95 this round); v0.70.0 released.</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -2605,12 +2658,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-09-05 23:22 UTC · curated public data only — no product source · Acute v0.69.0</p>
+    <p class="footer-note">Generated 2026-09-06 18:11 UTC · curated public data only — no product source · Acute v0.70.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-09-05T23:22:21.216Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
-<script src="assets/app.js?v=20260905t232221216z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-09-06T18:11:04.086Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
+<script src="assets/app.js?v=20260906t181104086z" defer></script>
 </body>
 </html>
