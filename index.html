@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260907t113312400z">
+<link rel="stylesheet" href="assets/style.css?v=20260907t142409778z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -79,7 +79,7 @@
       <div class="hero-eyebrow">
         <span class="hero-availability">Private build · Windows 10 x64</span>
         <span class="hero-dot" aria-hidden="true">·</span>
-        <span class="hero-version">v0.73.0</span>
+        <span class="hero-version">v0.74.0</span>
       </div>
       <h1 id="hero-title">Acute</h1>
       <p class="tagline">Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.</p>
@@ -96,7 +96,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-09-07 11:33 UTC</span>
+      <span class="updated-time">2026-09-07 14:24 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -105,8 +105,8 @@
   <section class="stats-grid reveal" aria-label="Key numbers">
       <article class="stat-card card">
         <span class="stat-label">Tests passing</span>
-        <span class="stat-value"><span data-count="2558">2558</span></span>
-        <span class="stat-sub">3 suites · 0 skipped · unit + e2e</span>
+        <span class="stat-value"><span data-count="2568">2568</span></span>
+        <span class="stat-sub">4 suites · 0 skipped · unit + e2e</span>
       </article>
       <article class="stat-card card">
         <span class="stat-label">Audit gaps identified</span>
@@ -115,7 +115,7 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="54">54</span></span>
+        <span class="stat-value"><span data-count="55">55</span></span>
         <span class="stat-sub">Aug 21 – Sep 7 · 18-day run</span>
       </article>
       <article class="stat-card card">
@@ -1112,6 +1112,14 @@
           <span class="feature-status">live</span>
         </div>
         <p class="feature-desc">The generalized engine the R72 design called for: the new system-reminders module (zero imports, pure) renders every fenced reminder through ONE function — renderReminder with a per-kind closing fence — plus a per-turn ReminderBudget (default 3) that keeps injected reminders bounded per turn. The proof of the migration: dir-conventions now delegates to the renderer and the pinned r72-dir-conventions suite stayed 20/20 green UNMODIFIED — the R72-d bytes unchanged. Consumers: conventions today, switch_mode&#39;s activation notice this round, the lessons-ledger next. Content policy stays at the call sites — the renderer is pure and dumb: no caps, no validation, no fs, no db.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.5 9.4 7.55 4.24"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" x2="12" y1="22" y2="12"/></svg></span>
+          <h3 class="feature-title">The updater freeze, closed — the launcher picks the greatest version and names the tag it picked</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Root-caused against the live GitHub API: the /releases list sorts never-published DRAFTS above every published release, so the five drafts the R63-R67 close-outs left behind sat at list positions 1-5, and the launcher&#39;s order-trusting first-match walk (unchanged since R63) returned the stale draft v0.67.0 as &#39;latest&#39; — the installed 0.67.0 looked current while the newest published release was live, with no error anywhere (&#39;it used to work&#39; because in the all-drafts era list order was harmless). The fix — the first launcher change since R63, ACUTE.bat byte-identical with CRLF verified: the pure _pick_latest_release walks EVERY release and picks the numerically greatest version as integer tuples (0.10.0 &gt; 0.9.0), keeps drafts first-class (the owner PAT sees them — a fresh draft installs on the next double-click), prefers published on same-version ties, and skips malformed entries without ever raising; _desktop_latest_release rides it at per_page 100 with one transient retry and the dev-flow fallback byte-identical. The freeze is now VISIBLE, not silent: the version-truth panel NAMES the tag it picked with its draft/published state, and ACUTE.bat status annotates it. Guarded by the repo&#39;s first Python suite — 10 stdlib-unittest tests covering the exact owner-freeze list shape (five drafts above published, asset id + digest passthrough), order immunity both directions, the lexicographic trap, the all-drafts era, tie-prefers-published, no-assets/empty, malformed-never-crash — wired into both the CI verify job and the release launcher-kit gate (every tag test-gated; the kit zip copies seven named files only). One-time remediation: the five stale drafts published (all HTTP 200, non-destructive), which un-freezes even a pre-fix launcher; the fix reaches the owner&#39;s own copy via the launcher&#39;s self-update (pull → copy + re-exec).</p>
       </article>
     </div>
   </section>
@@ -2115,8 +2123,8 @@
     <div class="now-card">
       <span class="now-label">Now</span>
       <div class="now-body">
-        <h3 class="now-title">R73 delivered — the task modes round: the posture layer — six built-in postures, custom modes from .acute/agents, first-class mode surfaces on both sides of the chat, and the generalized system-reminder injector (skills 18→20)</h3>
-        <p class="now-detail">Completes the owner&#39;s directive — &#39;proper detailed system prompts which the agent accesses when required and on the basis of the task&#39;: skills (R61/R70/R72) carry METHODOLOGY, modes carry POSTURE — the stance the agent holds for the class of task, selected per task, never auto-activated. (1) TASK MODES CORE (the new modes module — pure + sync, the skills-files pattern): six built-in postures — plan, debug, build, review, explore, refactor — bodies 2,084-2,546 chars each, carrying iron laws, hypothesis discipline, honesty rules and escalation; the debug body was thinned to pure posture post-verification (its method delegated to the paired skills). Custom modes load from .acute/agents/*.md — frontmatter name/description/tools, ≤8 files with 16K body / 500 description caps, 8 diagnostic kinds, a custom shadows the builtin of the same id — and resolveEffectiveModes returns the union for a project root. (2) PROMPT INTEGRATION: prompt-registry 21→23 sections — a task-modes index and an active-mode deep body, both directly after skills and both file-overridable via .acute/prompts/; computeModeHints extends the R72 deterministic matcher to mode descriptions (same scoring: quoted phrases ×5, tokens +1, score ≥2 or a phrase hit, top-2) feeding an advisory &#39;Task signal … posture&#39; line — nothing ever auto-activates; sessions carry active_mode (migration 0027, the 0026-pattern switch_mode allowlist append with a read_skill companion rule); a custom mode&#39;s tools narrow the agent&#39;s allowlist intersect-only (the NO_TOOLS sentinel honored); stale active modes are swept with a one-turn honest note; PLAN_MODE_TOOLS gains switch_mode (the R70-b dark-tools honesty rule); and the golden fixture stayed BYTE-STABLE (md5 3a5d2c7d695149e6031711836a6d698b — both new sections strictly ctx-gated). (3) THE MODE SURFACE: a switch_mode tool (no argument → the index with the active marker; activate → the full guide returned ONCE; deactivate via &#39;none&#39;/&#39;off&#39;/&#39;auto&#39;; honest errors listing available ids) + PATCH /sessions/:id activeMode (unknown → 400 with available ids, validate-before-write) + GET /projects/:id/modes (metadata-only, customs included) + the composer TaskModePicker (ModeSwitcher&#39;s mirror: the Compass trigger, menuitemradio rows, a custom-mode chip) + the /mode slash intercept (id-or-name, case-insensitive, word-boundary, local toasts). (4) THE GENERALIZED SYSTEM-REMINDER INJECTOR (the new system-reminders module: renderReminder + a per-turn ReminderBudget default 3) with dir-conventions migrated BYTE-IDENTICALLY — the r72-dir-conventions suite 20/20 green unmodified, the proof — plus the skills library 18→20: spec-planning (the decision-document methodology, pairing with the plan mode) and performance (measure-first, benchmark receipts — descriptions 474/479 chars, bodies 1,898/1,895). CI needed two stability patches this round, honestly: push 36f6583 (the implementation, 47 files) failed run 34111934048 on two pure hook timeouts (the windows runner ran the suite 3-4x slower under parallel load while all 2558 tests were green locally), the timeout raise (push 588d1a1) then hit run 34113189649&#39;s unhandled worker-RPC onTaskUpdate 60s timeout with ALL 2558 tests green, and the CI-only dot reporter + maxWorkers 2 (push 958697e) went green on run 34114484909. Verification: 2558 root tests in 138 files (2546 passed + 12 env-skipped; agent-core 1637/1637 in 74 files, +135 this round in four new suites plus strengthened re-pins; frontend 890→909 in 62 files), a LIVE HTTP smoke of the mode routes (GET /modes, PATCH set / bogus-400-with-available-ids / clear), lint and typecheck clean, license audit 134 dependencies CLEAN. Next: the owner&#39;s live gates for R73 (the TASK MODES section and its Task-signal line naming sensible postures, switch_mode&#39;s activation riding the following turns, the picker and /mode slash with a custom mode on a real project, the two new skills&#39; triggers), then the R74 queue.</p>
+        <h3 class="now-title">R74 delivered — the updater-freeze round: the launcher now picks the numerically greatest release, the freeze is VISIBLE on the version-truth panel, the repo&#39;s first Python suite guards both CI gates, and the five stale drafts are published (v0.74.0)</h3>
+        <p class="now-detail">The round opened with the owner&#39;s report: &#39;the installed desktop app version was 0.67.0 — the application apparently did not update&#39; (git pull worked; the desktop app froze). THE ROOT CAUSE, proven against the live GitHub API: the /releases list sorts never-published DRAFTS above every published release — the R63-R67 close-outs left five drafts (v0.63.0-v0.67.0) sitting at list positions 1-5 — and the launcher&#39;s order-trusting first-match walk returned draft v0.67.0 as &#39;latest&#39;, so the installed 0.67.0 looked current while the newest published release was live: no error anywhere, and it &#39;used to work&#39; because in the 0.63-0.67 era ALL releases were drafts, so list order was harmless. THE FIX — launcher/acute_launcher.py, the first launcher change since R63, with ACUTE.bat byte-identical (CRLF verified): a NEW pure _pick_latest_release walks EVERY release and picks the numerically GREATEST version (integer tuples, so 0.10.0 &gt; 0.9.0 — the lexicographic trap closed), drafts stay first-class (the owner PAT sees them — a fresh draft installs on the next double-click), a same-version tie prefers published, and malformed entries are skipped without ever raising; _desktop_latest_release is rewritten onto it (per_page 20→100, one transient retry, never-raise with the dev-flow fallback byte-identical); the version-truth panel now NAMES the tag it picked and says draft or published — the freeze is VISIBLE, not silent — and ACUTE.bat status annotates published/draft. THE REGRESSION SUITE: launcher/tests/test_pick_latest_release.py, the repo&#39;s FIRST Python suite (stdlib unittest, zero deps) — 10 tests including the exact owner-freeze list shape (five drafts above the published releases → must pick the true latest, with the chosen asset id + sha256 digest passed through), order immunity in both directions, the lexicographic trap, the all-drafts era, tie-prefers-published in both orders, no-assets/empty → None, malformed-never-crash, and non-matching names — wired into ci.yml&#39;s verify job AND release.yml&#39;s launcher-kit gate (github-release needs the kit job, so every tag is now test-gated); kit assembly copies seven named files only, so the tests cannot leak into the zip. ONE-TIME REMEDIATION: the five stale drafts PUBLISHED (releases 381461843/381577121/382282125/383173421/383247624, all HTTP 200, non-destructive) — which also un-freezes any pre-fix launcher, the settled list now heading with the newest published release; the fix itself reaches the owner&#39;s launcher via its own self-update (git pull → copy + os.execve re-exec). ANOMALY, flagged per the owner&#39;s standing rule: v0.68.0 never existed — R68 shipped the version bump but skipped the tag push (the R61/R62 failure class) — left as a documented gap. VERIFICATION: root vitest 2558 UNCHANGED and re-run green (2,546 passed + 12 e2e env-gated, 138 files); the new launcher suite 10/10, run three times; py_compile, lint and typecheck exit 0; a LIVE smoke run TWICE — the real /releases JSON through the new picker, once before the tag and once after (→ 0.74.0), run by the orchestrator AND independently by the R74-b hostile verifier (9/9 PASS, verdict SHIP); docs:check 172 docs / 0 failures on the clean retry pass. CI, honestly: push aa793e4 → CI run 34129437246 SUCCESS on the FIRST push (the verify job now includes the launcher unit-test step); tag v0.74.0 → Release run 34130142335 SUCCESS (launcher-kit + desktop-installer + github-release all green) → draft release 384137625 published via API PATCH with the 0.74.0 CHANGELOG body — assets ACUTE-CODE_0.74.0_x64-setup.exe (37,399,434 B, sha256 b25d3c99…) and acute-launcher-kit-v0.74.0.zip (87,305 B, sha256 8b7441f3…), the kit&#39;s launcher downloaded and verified to carry the fix; the post-release live check has the picker returning 0.74.0 from the live list (21 releases, the new tag at the top). Next: the owner&#39;s live gates for R74, then the R75 queue.</p>
       </div>
       <span class="now-live"><span class="live-dot" aria-hidden="true"></span>current focus</span>
     </div>
@@ -2173,7 +2181,7 @@
       <div>
         <h2 id="quality-title">Quality</h2>
         <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
-        <p class="quality-note">Green on main — this round&#39;s honest CI story (the first-push-green streak ended here, three runs to green): push 36f6583 (the R73 implementation, 47 files) → CI run 34111934048 FAILED — 2 r72-references tests on pure beforeEach/afterEach hook timeouts (the 10s vitest default; the windows runner ran the suite 3-4x slower under parallel load while all 2558 tests were green locally) → CI-stability patch #1 (testTimeout/hookTimeout 5s/10s → 30s), push 588d1a1 → run 34113189649 FAILED differently: ALL 2558 tests GREEN but an unhandled [vitest-worker] onTaskUpdate 60s birpc timeout starved the main process on the 4-vCPU windows runner → CI-stability patch #2 (CI-only &#39;dot&#39; reporter + maxWorkers 2; local dev env-gated and byte-identical), push 958697e → run 34114484909 SUCCESS. Release run 34115134892 SUCCESS on tag v0.73.0; release 384037608 published — NSIS setup.exe 37,391,718 B + launcher-kit 84,740 B, both assets live. Round totals: 2558 root tests in 138 files (2546 passed + 12 skipped env-gated) + agent-core 1637/1637 in 74 files (+135 this round: r73-modes-core 28 + r73-system-reminders 16 + r73-skills-round 17 + r73-modes-backend 45 + skills re-pins +10) and frontend 909/909 in 62 files (+19: TaskModePicker 10 + AgentChatPanel +9); lint and typecheck clean; license audit 134 dependencies CLEAN (no changes).</p>
+        <p class="quality-note">Green on main — this round&#39;s honest CI story (back to first-push green): push aa793e4 (the R74 launcher fix — the max-version picker in acute_launcher.py + the repo&#39;s first Python suite launcher/tests/test_pick_latest_release.py + the ci.yml/release.yml wiring) → CI run 34129437246 SUCCESS on the FIRST push, the verify job now including the &#39;Launcher unit tests&#39; step (10/10). Tag v0.74.0 → Release run 34130142335 SUCCESS (launcher-kit + desktop-installer + github-release all green — the launcher-kit gate runs the Python suite before assembling the kit, so every tag is now test-gated) → draft release 384137625 published via API PATCH with the 0.74.0 CHANGELOG body — assets ACUTE-CODE_0.74.0_x64-setup.exe (37,399,434 B, sha256 b25d3c99…) + acute-launcher-kit-v0.74.0.zip (87,305 B, sha256 8b7441f3…), both live, the kit&#39;s launcher downloaded and verified to carry the fix. Post-release live check: the new picker returns 0.74.0 from the live /releases list (21 releases, the new tag at the top). Round totals: 2558 root tests in 138 files UNCHANGED and re-run green (2546 passed + 12 skipped env-gated) + the NEW launcher suite 10/10 (stdlib unittest, zero deps, run three times) — suites 909/1637/12/10 = 2568; py_compile, lint and typecheck clean; docs:check 172 docs / 0 failures on the clean retry pass (the same transient github-egress flake class R72-f/R73-f recorded); license audit 134 dependencies CLEAN (no changes).</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -2207,9 +2215,18 @@
             <div class="bar-fill" data-progress="3" style="--w:3%"></div>
           </div>
         </div>
+        <div class="suite-row">
+          <div class="suite-head">
+            <span class="suite-name">launcher (python unittest)</span>
+            <span class="suite-count"><strong data-count="10">10</strong> tests</span>
+          </div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="1637" aria-label="launcher (python unittest) test count relative to largest suite">
+            <div class="bar-fill" data-progress="3" style="--w:3%"></div>
+          </div>
+        </div>
         <div class="suites-total">
           <span>Total</span>
-          <strong class="mono"><span data-count="2558">2558</span> tests passing · <span data-count="0">0</span> skipped</strong>
+          <strong class="mono"><span data-count="2568">2568</span> tests passing · <span data-count="0">0</span> skipped</strong>
         </div>
       </article>
       <div class="checks-col">
@@ -2672,9 +2689,14 @@
           <span class="timeline-label">R72 — the adaptive capability round: the skill system adapts to the task at hand — deterministic task→skill hints (a zero-cost matcher: quoted phrases ×5, stopword-filtered tokens +1, top-2, advisory line in the SKILLS section on both turn paths — golden prompt byte-stable), the skills library grows 12→18 (tdd, api-design, frontend-craft, typescript-craft, security-review, refactoring — trigger-rich descriptions, iron-law bodies), references/ depth for file skills (metadata-only discovery ≤8, read_skill&#39;s optional reference param, 64KB cap with honest markers), and per-directory conventions (read_file appends the deepest AGENTS.md/CLAUDE.md excerpt, ≤2,000 chars, once per session per source). 2423 root tests (+136 this round); v0.72.0 released.</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-09-07</span>
           <span class="timeline-label">R73 — the task modes round: the posture layer — six built-in postures (plan/debug/build/review/explore/refactor) + custom .acute/agents/*.md modes (custom shadows builtin, tools narrow the allowlist), prompt-registry 21→23 (task-modes index + active-mode deep body directly after skills, both file-overridable, golden byte-stable), the mode surface (switch_mode tool + PATCH /sessions/:id activeMode + GET /projects/:id/modes + the TaskModePicker + the /mode slash intercept, plus the Task-signal posture advisory), the generalized system-reminder injector (renderReminder + per-turn budget, dir-conventions migrated byte-identically), and skills 18→20 (spec-planning, performance) — plus two CI-stability patches (hook timeouts → 30s, then CI-only dot reporter + maxWorkers 2). 2558 root tests (+135 this round); v0.73.0 released.</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-09-07</span>
+          <span class="timeline-label">R74 — the updater-freeze round: the GitHub /releases list sorts never-published drafts above every published release, so the launcher&#39;s order-trusting first-match walk (unchanged since R63) kept returning the stale draft v0.67.0 as &#39;latest&#39; — the owner&#39;s installed desktop app froze at 0.67.0 with no error while the published releases sat below the drafts. Closed: the pure max-version picker _pick_latest_release (walks every release, numerically greatest wins — integer tuples so 0.10.0 &gt; 0.9.0, drafts first-class, same-version ties prefer published, malformed skipped-never-raised), the visible-not-silent version-truth panel (names the tag it picked, draft/published marked), the repo&#39;s first Python suite (10 stdlib unittest tests) wired into both CI gates, and the five stale drafts published as one-time remediation (any pre-fix launcher un-frozen too). 2558 root tests (unchanged, re-run green) + 10 launcher tests; v0.74.0 released.</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -2769,12 +2791,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-09-07 11:33 UTC · curated public data only — no product source · Acute v0.73.0</p>
+    <p class="footer-note">Generated 2026-09-07 14:24 UTC · curated public data only — no product source · Acute v0.74.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-09-07T11:33:12.400Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
-<script src="assets/app.js?v=20260907t113312400z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-09-07T14:24:09.778Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
+<script src="assets/app.js?v=20260907t142409778z" defer></script>
 </body>
 </html>
