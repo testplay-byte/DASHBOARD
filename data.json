@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.72.0",
+    "version": "0.73.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -34,14 +34,14 @@
   ],
   "plan": {
     "current": {
-      "title": "R72 delivered — the adaptive capability round: the skill system adapts to the task at hand — deterministic task hints, a second reference tier, per-directory conventions, and eighteen built-in skills",
-      "detail": "Research-driven from the owner's directive: the design round named four gaps — capabilities advertised but chosen blind, one level of disclosure missing, root-only conventions, no craft coverage. (1) TASK HINTS: a deterministic task→skill matcher (the new task-hints module — zero LLM, zero cost, per-turn) scores every enabled skill's description against the incoming message: quoted trigger phrases hit as case-insensitive substrings and score word-count × 5, stopword-filtered token hits add +1 each, qualification at score ≥ 2 or a single phrase hit, top-2 by score then name. The SKILLS prompt section gains ONE advisory line after the list — 'Task signal: this request looks like it matches **debugging** — consider calling read_skill with that name FIRST' — computed on BOTH turn paths from the same effective-skill list (a hint can never name a skill the model cannot load), per-turn ephemeral, and the golden prompt fixture stayed byte-identical (md5 unchanged — no regeneration needed). (2) EIGHTEEN BUILT-IN SKILLS: six craft skills join the twelve — tdd (NEVER WRITE THE TEST AFTER THE CODE TO FIT IT — 'a test you have not watched fail proves nothing'), api-design (THE CONTRACT IS WRITTEN BEFORE THE HANDLER), frontend-craft (STATE LIVES AS CLOSE TO ITS CONSUMERS AS POSSIBLE — semantic HTML, the a11y floor), typescript-craft (IF A STATE IS ILLEGAL, ITS TYPE MUST MAKE IT UNREPRESENTABLE — the any ban becomes unknown + narrowing), security-review (the big five each with the exact test: injection, traversal, secrets, authz, fail-closed), and refactoring (NO MOVE WITHOUT A GREEN CHARACTERIZATION TEST FIRST); descriptions 447-490 chars trigger-rich, bodies 1,636-1,891 chars with iron laws, anti-pattern tables and pre-built output blocks; INSERT OR IGNORE so existing installs converge on 18. (3) REFERENCES DEPTH: dir-form file skills gain a references/ second tier (the Agent-Skills standard) — discovery lists metadata only (≤8 .md files, byte-order sorted, sized, honest skip logs), read_skill gains an optional reference param and its body output ends with the copy-pasteable listing ('references available: a, b — load with read_skill { name: …, reference: … }'); loading sanitizes the name first (traversal rejected with the reason), strips the reference's own frontmatter, and caps at 64KB with an honest truncation marker. (4) PER-DIRECTORY CONVENTIONS (the kilocode pattern): read_file appends the deepest nested AGENTS.md/CLAUDE.md excerpt as a reminder — '--- [conventions from a/b/AGENTS.md apply to this file]' + a ≤2,000-char excerpt between end fences, injected once per session per source, the file content itself unaffected. Verification: 2423 root tests in 133 files (2411 passed + 12 env-skipped; agent-core 1521/1521 in 70 files, +136 this round in four new suites plus strengthened re-pins; frontend 890 unchanged — zero frontend files touched), lint and typecheck clean, license audit 134 dependencies CLEAN. Next: the owner's live gates for R72 (the task-signal line naming the right skill on real messages, the six crafts triggering on real phrasings, references loading end-to-end, nested-directory reminders in read_file), then the R73 queue.",
+      "title": "R73 delivered — the task modes round: the posture layer — six built-in postures, custom modes from .acute/agents, first-class mode surfaces on both sides of the chat, and the generalized system-reminder injector (skills 18→20)",
+      "detail": "Completes the owner's directive — 'proper detailed system prompts which the agent accesses when required and on the basis of the task': skills (R61/R70/R72) carry METHODOLOGY, modes carry POSTURE — the stance the agent holds for the class of task, selected per task, never auto-activated. (1) TASK MODES CORE (the new modes module — pure + sync, the skills-files pattern): six built-in postures — plan, debug, build, review, explore, refactor — bodies 2,084-2,546 chars each, carrying iron laws, hypothesis discipline, honesty rules and escalation; the debug body was thinned to pure posture post-verification (its method delegated to the paired skills). Custom modes load from .acute/agents/*.md — frontmatter name/description/tools, ≤8 files with 16K body / 500 description caps, 8 diagnostic kinds, a custom shadows the builtin of the same id — and resolveEffectiveModes returns the union for a project root. (2) PROMPT INTEGRATION: prompt-registry 21→23 sections — a task-modes index and an active-mode deep body, both directly after skills and both file-overridable via .acute/prompts/; computeModeHints extends the R72 deterministic matcher to mode descriptions (same scoring: quoted phrases ×5, tokens +1, score ≥2 or a phrase hit, top-2) feeding an advisory 'Task signal … posture' line — nothing ever auto-activates; sessions carry active_mode (migration 0027, the 0026-pattern switch_mode allowlist append with a read_skill companion rule); a custom mode's tools narrow the agent's allowlist intersect-only (the NO_TOOLS sentinel honored); stale active modes are swept with a one-turn honest note; PLAN_MODE_TOOLS gains switch_mode (the R70-b dark-tools honesty rule); and the golden fixture stayed BYTE-STABLE (md5 3a5d2c7d695149e6031711836a6d698b — both new sections strictly ctx-gated). (3) THE MODE SURFACE: a switch_mode tool (no argument → the index with the active marker; activate → the full guide returned ONCE; deactivate via 'none'/'off'/'auto'; honest errors listing available ids) + PATCH /sessions/:id activeMode (unknown → 400 with available ids, validate-before-write) + GET /projects/:id/modes (metadata-only, customs included) + the composer TaskModePicker (ModeSwitcher's mirror: the Compass trigger, menuitemradio rows, a custom-mode chip) + the /mode slash intercept (id-or-name, case-insensitive, word-boundary, local toasts). (4) THE GENERALIZED SYSTEM-REMINDER INJECTOR (the new system-reminders module: renderReminder + a per-turn ReminderBudget default 3) with dir-conventions migrated BYTE-IDENTICALLY — the r72-dir-conventions suite 20/20 green unmodified, the proof — plus the skills library 18→20: spec-planning (the decision-document methodology, pairing with the plan mode) and performance (measure-first, benchmark receipts — descriptions 474/479 chars, bodies 1,898/1,895). CI needed two stability patches this round, honestly: push 36f6583 (the implementation, 47 files) failed run 34111934048 on two pure hook timeouts (the windows runner ran the suite 3-4x slower under parallel load while all 2558 tests were green locally), the timeout raise (push 588d1a1) then hit run 34113189649's unhandled worker-RPC onTaskUpdate 60s timeout with ALL 2558 tests green, and the CI-only dot reporter + maxWorkers 2 (push 958697e) went green on run 34114484909. Verification: 2558 root tests in 138 files (2546 passed + 12 env-skipped; agent-core 1637/1637 in 74 files, +135 this round in four new suites plus strengthened re-pins; frontend 890→909 in 62 files), a LIVE HTTP smoke of the mode routes (GET /modes, PATCH set / bogus-400-with-available-ids / clear), lint and typecheck clean, license audit 134 dependencies CLEAN. Next: the owner's live gates for R73 (the TASK MODES section and its Task-signal line naming sensible postures, switch_mode's activation riding the following turns, the picker and /mode slash with a custom mode on a real project, the two new skills' triggers), then the R74 queue.",
       "upcoming": [
-        "Owner live gates for R72: the task-signal line naming the right skill on real messages, the six craft skills triggering on real phrasings ('write the test first' → tdd, 'is this safe' → security-review, 'refactor this' → refactoring), references loading end-to-end on real file skills, nested-directory AGENTS.md reminders appearing in read_file",
-        "delegate_task task_id/background/resume — addressable, resumable sub-agent tasks with the depth guard",
-        "Generalized system-reminder injector — one engine behind convention reminders, task hints, and future per-context nudges",
-        "Custom modes (.acute/agents/*.md) + external plugin ctx enrichment",
-        "Two more builtin skills — performance and spec-planning (the library grows 18 → 20)"
+        "Owner live gates for R73: the TASK MODES section and its Task-signal line naming sensible postures on real messages, switch_mode activation riding the following turns, the TaskModePicker and /mode slash on a real project (including a custom mode), the spec-planning and performance skills triggering on their phrasings",
+        "delegate_task task_id/background/resume — addressable, resumable sub-agent tasks (deliberately deferred from R73: the orchestrator's concurrency surface deserves its own round)",
+        "External plugin ctx enrichment — cline's appendContext seam",
+        "Lessons-ledger as the system-reminder injector's third consumer",
+        "Ratings-driven prompt tuning + the standing R69-R73 live gates"
       ]
     },
     "upcoming": [
@@ -1500,6 +1500,34 @@
       "title": "read_file carries the directory's own AGENTS.md rules",
       "status": "live",
       "desc": "The kilocode pattern, landed: reading a file inside a nested tree that carries its own AGENTS.md or CLAUDE.md appends the deepest convention file's excerpt as a reminder — '--- [conventions from a/b/AGENTS.md apply to this file]' followed by a ≤2,000-char excerpt between end fences, so the directory's rules reach the model at the exact moment they matter. Injection happens once per session per source (an in-process dedup map — a restart re-injects once, harmless), the file content itself is returned unaffected, and the fences make even reading a convention file directly unambiguous."
+    },
+    {
+      "id": "task-modes-posture",
+      "icon": "brain",
+      "title": "Task modes — the posture layer: six built-in stances, customs in .acute/agents",
+      "status": "live",
+      "desc": "The division line from the modes module header: skills carry methodology, modes carry posture — a skill is instructions the agent READS, a mode is the stance it HOLDS for the class of task. Six built-in postures — plan, debug, build, review, explore, refactor — with bodies 2,084-2,546 chars each (iron laws, hypothesis discipline, honesty rules, escalation); the debug body is posture-pure, its method delegated to the paired skills post-verification. Custom modes load from .acute/agents/*.md: frontmatter name/description/tools, ≤8 files with 16K body / 500 description caps, 8 diagnostic kinds, and a custom shadows the builtin of the same id. resolveEffectiveModes — pure and synchronous, the skills-files pattern — returns the union for a project root, re-resolved every turn."
+    },
+    {
+      "id": "mode-surfaces",
+      "icon": "command",
+      "title": "The mode surface — switch_mode, TaskModePicker, /mode, and the Task-signal line",
+      "status": "live",
+      "desc": "Three access paths, nothing auto-activates. Agent side — the switch_mode tool: called bare it returns the task-modes index with the active marker, activating returns the FULL posture guide exactly ONCE (a fenced task-mode reminder rides the turn), deactivating takes 'none'/'off'/'auto', and an unknown id gets an honest error listing every available id. User side — PATCH /sessions/:id activeMode (unknown → 400 with available ids, validate-before-write, no side-effect write), GET /projects/:id/modes (metadata-only, customs included), the composer's TaskModePicker (ModeSwitcher's mirror: the Compass trigger, menuitemradio rows, a custom-mode chip) and the /mode slash intercept (id-or-name, case-insensitive, word-boundary, local toasts). Between them the R72 matcher now scores mode descriptions too — quoted phrases ×5, tokens +1, top-2 — so the TASK MODES section carries an advisory 'Task signal … posture' line: a nudge, never a switch."
+    },
+    {
+      "id": "skills-20",
+      "icon": "library",
+      "title": "Twenty built-in skills — spec-planning and performance join the library",
+      "status": "live",
+      "desc": "The 18→20 round in the R72 house pattern (INSERT OR IGNORE, sortOrder 18/19): spec-planning — the decision-document methodology (context, constraints, options with explicit rejection reasons, the decision and its reversal trigger), written to pair with the plan mode — and performance — measure-first ('no optimization without a number to beat'), benchmark receipts, the change-one-thing rule. Descriptions 474/479 chars, trigger-rich in the house convention ('write a spec', 'make it faster'); bodies 1,898/1,895 chars with iron laws and pre-built output blocks. Loaded bodies stay STICKY across compaction and per-agent allowlists still gate read_skill, so the library's whole disclosure tier — description at trigger time, body on load — holds at twenty."
+    },
+    {
+      "id": "system-reminders",
+      "icon": "doc",
+      "title": "One system-reminder injector — byte-identical migration, per-turn budget",
+      "status": "live",
+      "desc": "The generalized engine the R72 design called for: the new system-reminders module (zero imports, pure) renders every fenced reminder through ONE function — renderReminder with a per-kind closing fence — plus a per-turn ReminderBudget (default 3) that keeps injected reminders bounded per turn. The proof of the migration: dir-conventions now delegates to the renderer and the pinned r72-dir-conventions suite stayed 20/20 green UNMODIFIED — the R72-d bytes unchanged. Consumers: conventions today, switch_mode's activation notice this round, the lessons-ledger next. Content policy stays at the call sites — the renderer is pure and dumb: no caps, no validation, no fs, no db."
     }
   ],
   "documentation": [
@@ -1590,15 +1618,15 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — verified from the GitHub Actions API at the round's close-out: the R72 round pushed as commit 1375aee and CI run 34088816603 went green on the FIRST push (no CI-stability patch needed this round; the v0.72.0 tag was independently confirmed on the remote at sync time); Release run 34089427865 green on tag v0.72.0 (release 383868058 — launcher kit 83,140 B + NSIS installer setup.exe 37,370,727 B, the release with both assets, published). Round totals: 2423 root tests in 133 files (2411 passed + 12 skipped env-gated) + agent-core 1521/1521 in 70 files (+136 this round: r72-task-hints 27 + r72-skills-expansion 32 + r72-references 27 + r72-dir-conventions 20 + the r70/r71 skills re-pins); lint and typecheck clean; license audit 134 dependencies CLEAN (no changes).",
+    "ciNote": "Green on main — this round's honest CI story (the first-push-green streak ended here, three runs to green): push 36f6583 (the R73 implementation, 47 files) → CI run 34111934048 FAILED — 2 r72-references tests on pure beforeEach/afterEach hook timeouts (the 10s vitest default; the windows runner ran the suite 3-4x slower under parallel load while all 2558 tests were green locally) → CI-stability patch #1 (testTimeout/hookTimeout 5s/10s → 30s), push 588d1a1 → run 34113189649 FAILED differently: ALL 2558 tests GREEN but an unhandled [vitest-worker] onTaskUpdate 60s birpc timeout starved the main process on the 4-vCPU windows runner → CI-stability patch #2 (CI-only 'dot' reporter + maxWorkers 2; local dev env-gated and byte-identical), push 958697e → run 34114484909 SUCCESS. Release run 34115134892 SUCCESS on tag v0.73.0; release 384037608 published — NSIS setup.exe 37,391,718 B + launcher-kit 84,740 B, both assets live. Round totals: 2558 root tests in 138 files (2546 passed + 12 skipped env-gated) + agent-core 1637/1637 in 74 files (+135 this round: r73-modes-core 28 + r73-system-reminders 16 + r73-skills-round 17 + r73-modes-backend 45 + skills re-pins +10) and frontend 909/909 in 62 files (+19: TaskModePicker 10 + AgentChatPanel +9); lint and typecheck clean; license audit 134 dependencies CLEAN (no changes).",
     "suites": [
       {
         "name": "frontend",
-        "tests": 890
+        "tests": 909
       },
       {
         "name": "agent-core",
-        "tests": 1521
+        "tests": 1637
       },
       {
         "name": "e2e",
@@ -1826,6 +1854,10 @@
     {
       "date": "2026-09-07",
       "label": "R72 — the adaptive capability round: the skill system adapts to the task at hand — deterministic task→skill hints (a zero-cost matcher: quoted phrases ×5, stopword-filtered tokens +1, top-2, advisory line in the SKILLS section on both turn paths — golden prompt byte-stable), the skills library grows 12→18 (tdd, api-design, frontend-craft, typescript-craft, security-review, refactoring — trigger-rich descriptions, iron-law bodies), references/ depth for file skills (metadata-only discovery ≤8, read_skill's optional reference param, 64KB cap with honest markers), and per-directory conventions (read_file appends the deepest AGENTS.md/CLAUDE.md excerpt, ≤2,000 chars, once per session per source). 2423 root tests (+136 this round); v0.72.0 released."
+    },
+    {
+      "date": "2026-09-07",
+      "label": "R73 — the task modes round: the posture layer — six built-in postures (plan/debug/build/review/explore/refactor) + custom .acute/agents/*.md modes (custom shadows builtin, tools narrow the allowlist), prompt-registry 21→23 (task-modes index + active-mode deep body directly after skills, both file-overridable, golden byte-stable), the mode surface (switch_mode tool + PATCH /sessions/:id activeMode + GET /projects/:id/modes + the TaskModePicker + the /mode slash intercept, plus the Task-signal posture advisory), the generalized system-reminder injector (renderReminder + per-turn budget, dir-conventions migrated byte-identically), and skills 18→20 (spec-planning, performance) — plus two CI-stability patches (hook timeouts → 30s, then CI-only dot reporter + maxWorkers 2). 2558 root tests (+135 this round); v0.73.0 released."
     }
   ],
   "chips": [

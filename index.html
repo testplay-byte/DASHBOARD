@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260907t063148168z">
+<link rel="stylesheet" href="assets/style.css?v=20260907t113153358z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -79,7 +79,7 @@
       <div class="hero-eyebrow">
         <span class="hero-availability">Private build · Windows 10 x64</span>
         <span class="hero-dot" aria-hidden="true">·</span>
-        <span class="hero-version">v0.72.0</span>
+        <span class="hero-version">v0.73.0</span>
       </div>
       <h1 id="hero-title">Acute</h1>
       <p class="tagline">Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.</p>
@@ -96,7 +96,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-09-07 06:31 UTC</span>
+      <span class="updated-time">2026-09-07 11:31 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -105,7 +105,7 @@
   <section class="stats-grid reveal" aria-label="Key numbers">
       <article class="stat-card card">
         <span class="stat-label">Tests passing</span>
-        <span class="stat-value"><span data-count="2423">2423</span></span>
+        <span class="stat-value"><span data-count="2558">2558</span></span>
         <span class="stat-sub">3 suites · 0 skipped · unit + e2e</span>
       </article>
       <article class="stat-card card">
@@ -115,7 +115,7 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="53">53</span></span>
+        <span class="stat-value"><span data-count="54">54</span></span>
         <span class="stat-sub">Aug 21 – Sep 7 · 18-day run</span>
       </article>
       <article class="stat-card card">
@@ -1080,6 +1080,38 @@
           <span class="feature-status">live</span>
         </div>
         <p class="feature-desc">The kilocode pattern, landed: reading a file inside a nested tree that carries its own AGENTS.md or CLAUDE.md appends the deepest convention file&#39;s excerpt as a reminder — &#39;--- [conventions from a/b/AGENTS.md apply to this file]&#39; followed by a ≤2,000-char excerpt between end fences, so the directory&#39;s rules reach the model at the exact moment they matter. Injection happens once per session per source (an in-process dedup map — a restart re-injects once, harmless), the file content itself is returned unaffected, and the fences make even reading a convention file directly unambiguous.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">Task modes — the posture layer: six built-in stances, customs in .acute/agents</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The division line from the modes module header: skills carry methodology, modes carry posture — a skill is instructions the agent READS, a mode is the stance it HOLDS for the class of task. Six built-in postures — plan, debug, build, review, explore, refactor — with bodies 2,084-2,546 chars each (iron laws, hypothesis discipline, honesty rules, escalation); the debug body is posture-pure, its method delegated to the paired skills post-verification. Custom modes load from .acute/agents/*.md: frontmatter name/description/tools, ≤8 files with 16K body / 500 description caps, 8 diagnostic kinds, and a custom shadows the builtin of the same id. resolveEffectiveModes — pure and synchronous, the skills-files pattern — returns the union for a project root, re-resolved every turn.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">The mode surface — switch_mode, TaskModePicker, /mode, and the Task-signal line</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Three access paths, nothing auto-activates. Agent side — the switch_mode tool: called bare it returns the task-modes index with the active marker, activating returns the FULL posture guide exactly ONCE (a fenced task-mode reminder rides the turn), deactivating takes &#39;none&#39;/&#39;off&#39;/&#39;auto&#39;, and an unknown id gets an honest error listing every available id. User side — PATCH /sessions/:id activeMode (unknown → 400 with available ids, validate-before-write, no side-effect write), GET /projects/:id/modes (metadata-only, customs included), the composer&#39;s TaskModePicker (ModeSwitcher&#39;s mirror: the Compass trigger, menuitemradio rows, a custom-mode chip) and the /mode slash intercept (id-or-name, case-insensitive, word-boundary, local toasts). Between them the R72 matcher now scores mode descriptions too — quoted phrases ×5, tokens +1, top-2 — so the TASK MODES section carries an advisory &#39;Task signal … posture&#39; line: a nudge, never a switch.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">Twenty built-in skills — spec-planning and performance join the library</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The 18→20 round in the R72 house pattern (INSERT OR IGNORE, sortOrder 18/19): spec-planning — the decision-document methodology (context, constraints, options with explicit rejection reasons, the decision and its reversal trigger), written to pair with the plan mode — and performance — measure-first (&#39;no optimization without a number to beat&#39;), benchmark receipts, the change-one-thing rule. Descriptions 474/479 chars, trigger-rich in the house convention (&#39;write a spec&#39;, &#39;make it faster&#39;); bodies 1,898/1,895 chars with iron laws and pre-built output blocks. Loaded bodies stay STICKY across compaction and per-agent allowlists still gate read_skill, so the library&#39;s whole disclosure tier — description at trigger time, body on load — holds at twenty.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></span>
+          <h3 class="feature-title">One system-reminder injector — byte-identical migration, per-turn budget</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The generalized engine the R72 design called for: the new system-reminders module (zero imports, pure) renders every fenced reminder through ONE function — renderReminder with a per-kind closing fence — plus a per-turn ReminderBudget (default 3) that keeps injected reminders bounded per turn. The proof of the migration: dir-conventions now delegates to the renderer and the pinned r72-dir-conventions suite stayed 20/20 green UNMODIFIED — the R72-d bytes unchanged. Consumers: conventions today, switch_mode&#39;s activation notice this round, the lessons-ledger next. Content policy stays at the call sites — the renderer is pure and dumb: no caps, no validation, no fs, no db.</p>
       </article>
     </div>
   </section>
@@ -2083,8 +2115,8 @@
     <div class="now-card">
       <span class="now-label">Now</span>
       <div class="now-body">
-        <h3 class="now-title">R72 delivered — the adaptive capability round: the skill system adapts to the task at hand — deterministic task hints, a second reference tier, per-directory conventions, and eighteen built-in skills</h3>
-        <p class="now-detail">Research-driven from the owner&#39;s directive: the design round named four gaps — capabilities advertised but chosen blind, one level of disclosure missing, root-only conventions, no craft coverage. (1) TASK HINTS: a deterministic task→skill matcher (the new task-hints module — zero LLM, zero cost, per-turn) scores every enabled skill&#39;s description against the incoming message: quoted trigger phrases hit as case-insensitive substrings and score word-count × 5, stopword-filtered token hits add +1 each, qualification at score ≥ 2 or a single phrase hit, top-2 by score then name. The SKILLS prompt section gains ONE advisory line after the list — &#39;Task signal: this request looks like it matches **debugging** — consider calling read_skill with that name FIRST&#39; — computed on BOTH turn paths from the same effective-skill list (a hint can never name a skill the model cannot load), per-turn ephemeral, and the golden prompt fixture stayed byte-identical (md5 unchanged — no regeneration needed). (2) EIGHTEEN BUILT-IN SKILLS: six craft skills join the twelve — tdd (NEVER WRITE THE TEST AFTER THE CODE TO FIT IT — &#39;a test you have not watched fail proves nothing&#39;), api-design (THE CONTRACT IS WRITTEN BEFORE THE HANDLER), frontend-craft (STATE LIVES AS CLOSE TO ITS CONSUMERS AS POSSIBLE — semantic HTML, the a11y floor), typescript-craft (IF A STATE IS ILLEGAL, ITS TYPE MUST MAKE IT UNREPRESENTABLE — the any ban becomes unknown + narrowing), security-review (the big five each with the exact test: injection, traversal, secrets, authz, fail-closed), and refactoring (NO MOVE WITHOUT A GREEN CHARACTERIZATION TEST FIRST); descriptions 447-490 chars trigger-rich, bodies 1,636-1,891 chars with iron laws, anti-pattern tables and pre-built output blocks; INSERT OR IGNORE so existing installs converge on 18. (3) REFERENCES DEPTH: dir-form file skills gain a references/ second tier (the Agent-Skills standard) — discovery lists metadata only (≤8 .md files, byte-order sorted, sized, honest skip logs), read_skill gains an optional reference param and its body output ends with the copy-pasteable listing (&#39;references available: a, b — load with read_skill { name: …, reference: … }&#39;); loading sanitizes the name first (traversal rejected with the reason), strips the reference&#39;s own frontmatter, and caps at 64KB with an honest truncation marker. (4) PER-DIRECTORY CONVENTIONS (the kilocode pattern): read_file appends the deepest nested AGENTS.md/CLAUDE.md excerpt as a reminder — &#39;--- [conventions from a/b/AGENTS.md apply to this file]&#39; + a ≤2,000-char excerpt between end fences, injected once per session per source, the file content itself unaffected. Verification: 2423 root tests in 133 files (2411 passed + 12 env-skipped; agent-core 1521/1521 in 70 files, +136 this round in four new suites plus strengthened re-pins; frontend 890 unchanged — zero frontend files touched), lint and typecheck clean, license audit 134 dependencies CLEAN. Next: the owner&#39;s live gates for R72 (the task-signal line naming the right skill on real messages, the six crafts triggering on real phrasings, references loading end-to-end, nested-directory reminders in read_file), then the R73 queue.</p>
+        <h3 class="now-title">R73 delivered — the task modes round: the posture layer — six built-in postures, custom modes from .acute/agents, first-class mode surfaces on both sides of the chat, and the generalized system-reminder injector (skills 18→20)</h3>
+        <p class="now-detail">Completes the owner&#39;s directive — &#39;proper detailed system prompts which the agent accesses when required and on the basis of the task&#39;: skills (R61/R70/R72) carry METHODOLOGY, modes carry POSTURE — the stance the agent holds for the class of task, selected per task, never auto-activated. (1) TASK MODES CORE (the new modes module — pure + sync, the skills-files pattern): six built-in postures — plan, debug, build, review, explore, refactor — bodies 2,084-2,546 chars each, carrying iron laws, hypothesis discipline, honesty rules and escalation; the debug body was thinned to pure posture post-verification (its method delegated to the paired skills). Custom modes load from .acute/agents/*.md — frontmatter name/description/tools, ≤8 files with 16K body / 500 description caps, 8 diagnostic kinds, a custom shadows the builtin of the same id — and resolveEffectiveModes returns the union for a project root. (2) PROMPT INTEGRATION: prompt-registry 21→23 sections — a task-modes index and an active-mode deep body, both directly after skills and both file-overridable via .acute/prompts/; computeModeHints extends the R72 deterministic matcher to mode descriptions (same scoring: quoted phrases ×5, tokens +1, score ≥2 or a phrase hit, top-2) feeding an advisory &#39;Task signal … posture&#39; line — nothing ever auto-activates; sessions carry active_mode (migration 0027, the 0026-pattern switch_mode allowlist append with a read_skill companion rule); a custom mode&#39;s tools narrow the agent&#39;s allowlist intersect-only (the NO_TOOLS sentinel honored); stale active modes are swept with a one-turn honest note; PLAN_MODE_TOOLS gains switch_mode (the R70-b dark-tools honesty rule); and the golden fixture stayed BYTE-STABLE (md5 3a5d2c7d695149e6031711836a6d698b — both new sections strictly ctx-gated). (3) THE MODE SURFACE: a switch_mode tool (no argument → the index with the active marker; activate → the full guide returned ONCE; deactivate via &#39;none&#39;/&#39;off&#39;/&#39;auto&#39;; honest errors listing available ids) + PATCH /sessions/:id activeMode (unknown → 400 with available ids, validate-before-write) + GET /projects/:id/modes (metadata-only, customs included) + the composer TaskModePicker (ModeSwitcher&#39;s mirror: the Compass trigger, menuitemradio rows, a custom-mode chip) + the /mode slash intercept (id-or-name, case-insensitive, word-boundary, local toasts). (4) THE GENERALIZED SYSTEM-REMINDER INJECTOR (the new system-reminders module: renderReminder + a per-turn ReminderBudget default 3) with dir-conventions migrated BYTE-IDENTICALLY — the r72-dir-conventions suite 20/20 green unmodified, the proof — plus the skills library 18→20: spec-planning (the decision-document methodology, pairing with the plan mode) and performance (measure-first, benchmark receipts — descriptions 474/479 chars, bodies 1,898/1,895). CI needed two stability patches this round, honestly: push 36f6583 (the implementation, 47 files) failed run 34111934048 on two pure hook timeouts (the windows runner ran the suite 3-4x slower under parallel load while all 2558 tests were green locally), the timeout raise (push 588d1a1) then hit run 34113189649&#39;s unhandled worker-RPC onTaskUpdate 60s timeout with ALL 2558 tests green, and the CI-only dot reporter + maxWorkers 2 (push 958697e) went green on run 34114484909. Verification: 2558 root tests in 138 files (2546 passed + 12 env-skipped; agent-core 1637/1637 in 74 files, +135 this round in four new suites plus strengthened re-pins; frontend 890→909 in 62 files), a LIVE HTTP smoke of the mode routes (GET /modes, PATCH set / bogus-400-with-available-ids / clear), lint and typecheck clean, license audit 134 dependencies CLEAN. Next: the owner&#39;s live gates for R73 (the TASK MODES section and its Task-signal line naming sensible postures, switch_mode&#39;s activation riding the following turns, the picker and /mode slash with a custom mode on a real project, the two new skills&#39; triggers), then the R74 queue.</p>
       </div>
       <span class="now-live"><span class="live-dot" aria-hidden="true"></span>current focus</span>
     </div>
@@ -2141,7 +2173,7 @@
       <div>
         <h2 id="quality-title">Quality</h2>
         <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
-        <p class="quality-note">Green on main — verified from the GitHub Actions API at the round&#39;s close-out: the R72 round pushed as commit 1375aee and CI run 34088816603 went green on the FIRST push (no CI-stability patch needed this round; the v0.72.0 tag was independently confirmed on the remote at sync time); Release run 34089427865 green on tag v0.72.0 (release 383868058 — launcher kit 83,140 B + NSIS installer setup.exe 37,370,727 B, the release with both assets, published). Round totals: 2423 root tests in 133 files (2411 passed + 12 skipped env-gated) + agent-core 1521/1521 in 70 files (+136 this round: r72-task-hints 27 + r72-skills-expansion 32 + r72-references 27 + r72-dir-conventions 20 + the r70/r71 skills re-pins); lint and typecheck clean; license audit 134 dependencies CLEAN (no changes).</p>
+        <p class="quality-note">Green on main — this round&#39;s honest CI story (the first-push-green streak ended here, three runs to green): push 36f6583 (the R73 implementation, 47 files) → CI run 34111934048 FAILED — 2 r72-references tests on pure beforeEach/afterEach hook timeouts (the 10s vitest default; the windows runner ran the suite 3-4x slower under parallel load while all 2558 tests were green locally) → CI-stability patch #1 (testTimeout/hookTimeout 5s/10s → 30s), push 588d1a1 → run 34113189649 FAILED differently: ALL 2558 tests GREEN but an unhandled [vitest-worker] onTaskUpdate 60s birpc timeout starved the main process on the 4-vCPU windows runner → CI-stability patch #2 (CI-only &#39;dot&#39; reporter + maxWorkers 2; local dev env-gated and byte-identical), push 958697e → run 34114484909 SUCCESS. Release run 34115134892 SUCCESS on tag v0.73.0; release 384037608 published — NSIS setup.exe 37,391,718 B + launcher-kit 84,740 B, both assets live. Round totals: 2558 root tests in 138 files (2546 passed + 12 skipped env-gated) + agent-core 1637/1637 in 74 files (+135 this round: r73-modes-core 28 + r73-system-reminders 16 + r73-skills-round 17 + r73-modes-backend 45 + skills re-pins +10) and frontend 909/909 in 62 files (+19: TaskModePicker 10 + AgentChatPanel +9); lint and typecheck clean; license audit 134 dependencies CLEAN (no changes).</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -2151,18 +2183,18 @@
         <div class="suite-row">
           <div class="suite-head">
             <span class="suite-name">frontend</span>
-            <span class="suite-count"><strong data-count="890">890</strong> tests</span>
+            <span class="suite-count"><strong data-count="909">909</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="890" aria-valuemin="0" aria-valuemax="1521" aria-label="frontend test count relative to largest suite">
-            <div class="bar-fill" data-progress="59" style="--w:59%"></div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="909" aria-valuemin="0" aria-valuemax="1637" aria-label="frontend test count relative to largest suite">
+            <div class="bar-fill" data-progress="56" style="--w:56%"></div>
           </div>
         </div>
         <div class="suite-row">
           <div class="suite-head">
             <span class="suite-name">agent-core</span>
-            <span class="suite-count"><strong data-count="1521">1521</strong> tests</span>
+            <span class="suite-count"><strong data-count="1637">1637</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="1521" aria-valuemin="0" aria-valuemax="1521" aria-label="agent-core test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1637" aria-valuemin="0" aria-valuemax="1637" aria-label="agent-core test count relative to largest suite">
             <div class="bar-fill" data-progress="100" style="--w:100%"></div>
           </div>
         </div>
@@ -2171,13 +2203,13 @@
             <span class="suite-name">e2e</span>
             <span class="suite-count"><strong data-count="12">12</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="1521" aria-label="e2e test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="1637" aria-label="e2e test count relative to largest suite">
             <div class="bar-fill" data-progress="3" style="--w:3%"></div>
           </div>
         </div>
         <div class="suites-total">
           <span>Total</span>
-          <strong class="mono"><span data-count="2423">2423</span> tests passing · <span data-count="0">0</span> skipped</strong>
+          <strong class="mono"><span data-count="2558">2558</span> tests passing · <span data-count="0">0</span> skipped</strong>
         </div>
       </article>
       <div class="checks-col">
@@ -2635,9 +2667,14 @@
           <span class="timeline-label">R71 — the discipline &amp; reliability round: research-driven from the owner&#39;s four reference repos (karpathy-skills, alirezarezvani/claude-skills, cline, kilocode) — an ENGINEERING DISCIPLINE prompt section (the karpathy principles with self-tests, [KNOWN]/[ASSUMED]/[UNKNOWN] tagging, 3-strike escalation, the red-flags table, task→verifiable-goal transforms, verification receipts + 🟢🟡🔴 confidence tags), tool reliability (edit-failure escalation, exact-continuation truncation markers, owner-denial semantics, six-class provider error classification, context-overflow auto-recovery), and 12 trigger-rich builtin skills (focused-fix, zero-hallucination, self-eval, ship-gate). 2287 root tests (+110 this round); v0.71.0 released.</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-09-07</span>
           <span class="timeline-label">R72 — the adaptive capability round: the skill system adapts to the task at hand — deterministic task→skill hints (a zero-cost matcher: quoted phrases ×5, stopword-filtered tokens +1, top-2, advisory line in the SKILLS section on both turn paths — golden prompt byte-stable), the skills library grows 12→18 (tdd, api-design, frontend-craft, typescript-craft, security-review, refactoring — trigger-rich descriptions, iron-law bodies), references/ depth for file skills (metadata-only discovery ≤8, read_skill&#39;s optional reference param, 64KB cap with honest markers), and per-directory conventions (read_file appends the deepest AGENTS.md/CLAUDE.md excerpt, ≤2,000 chars, once per session per source). 2423 root tests (+136 this round); v0.72.0 released.</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-09-07</span>
+          <span class="timeline-label">R73 — the task modes round: the posture layer — six built-in postures (plan/debug/build/review/explore/refactor) + custom .acute/agents/*.md modes (custom shadows builtin, tools narrow the allowlist), prompt-registry 21→23 (task-modes index + active-mode deep body directly after skills, both file-overridable, golden byte-stable), the mode surface (switch_mode tool + PATCH /sessions/:id activeMode + GET /projects/:id/modes + the TaskModePicker + the /mode slash intercept, plus the Task-signal posture advisory), the generalized system-reminder injector (renderReminder + per-turn budget, dir-conventions migrated byte-identically), and skills 18→20 (spec-planning, performance) — plus two CI-stability patches (hook timeouts → 30s, then CI-only dot reporter + maxWorkers 2). 2558 root tests (+135 this round); v0.73.0 released.</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -2732,12 +2769,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-09-07 06:31 UTC · curated public data only — no product source · Acute v0.72.0</p>
+    <p class="footer-note">Generated 2026-09-07 11:31 UTC · curated public data only — no product source · Acute v0.73.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-09-07T06:31:48.168Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
-<script src="assets/app.js?v=20260907t063148168z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-09-07T11:31:53.358Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
+<script src="assets/app.js?v=20260907t113153358z" defer></script>
 </body>
 </html>
