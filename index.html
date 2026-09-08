@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260907t204754995z">
+<link rel="stylesheet" href="assets/style.css?v=20260908t010948552z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -79,7 +79,7 @@
       <div class="hero-eyebrow">
         <span class="hero-availability">Private build · Windows 10 x64</span>
         <span class="hero-dot" aria-hidden="true">·</span>
-        <span class="hero-version">v0.75.0</span>
+        <span class="hero-version">v0.76.0</span>
       </div>
       <h1 id="hero-title">Acute</h1>
       <p class="tagline">Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.</p>
@@ -96,7 +96,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-09-07 20:47 UTC</span>
+      <span class="updated-time">2026-09-08 01:09 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -105,7 +105,7 @@
   <section class="stats-grid reveal" aria-label="Key numbers">
       <article class="stat-card card">
         <span class="stat-label">Tests passing</span>
-        <span class="stat-value"><span data-count="2623">2623</span></span>
+        <span class="stat-value"><span data-count="2637">2637</span></span>
         <span class="stat-sub">4 suites · 0 skipped · unit + e2e</span>
       </article>
       <article class="stat-card card">
@@ -115,8 +115,8 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="57">57</span></span>
-        <span class="stat-sub">Aug 21 – Sep 7 · 18-day run</span>
+        <span class="stat-value"><span data-count="58">58</span></span>
+        <span class="stat-sub">Aug 21 – Sep 8 · 19-day run</span>
       </article>
       <article class="stat-card card">
         <span class="stat-label">Dependencies audited</span>
@@ -1145,6 +1145,30 @@
         </div>
         <p class="feature-desc">ONE row in the owner&#39;s exact order — attach, access, mode, context, model, reasoning, send (&#39;one single row&#39;): the composer box is a CSS @container and the selector pill labels hide below 560px (icon-only; the tooltips carry them) so the row fits at the 480px chat floor — measured 44px one-row at 386-641px where the old design wrapped to two rows below ~530px — with flex-wrap surviving as the never-overlap fallback. THE TEXTAREA NEVER AUTO-GREW, proven live: the old inline JS set height:132px while clientHeight stayed 34px, because the textarea&#39;s flex-1 made the flex algorithm IGNORE the height. Fixed: flex-1 removed, growth moved to a useLayoutEffect keyed on input (fires on typing AND programmatic fills — the suggestion-chip gap closed too), capping at exactly 5 visible lines derived from the live computed line-height: live-verified 3 lines → 73px, empty → 34px, 8 lines → 112px capped with internal scroll (&#39;at least five lines, then scroll&#39;).</p>
       </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="15" y1="4" x2="15" y2="20"/><line x1="3" y1="9" x2="15" y2="9"/><line x1="3" y1="13" x2="15" y2="13"/><line x1="3" y1="17" x2="15" y2="17"/></svg></span>
+          <h3 class="feature-title">The composer&#39;s left/right split — send never wraps alone</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The owner&#39;s exact layout: attach, access level, and task mode on the LEFT; context donut, model, reasoning, and the send/stop action on the RIGHT. The right cluster is ONE nowrap group pinned right with ml-auto — previously flex-wrap could break the row anywhere and the send button dropped below ALONE, separated from its options (&#39;the send message or stop message button was showing below the designated options&#39;); now either the whole cluster fits on the row or the whole cluster wraps together. The model pill — the only toolbar control without an icon — leads with a Cpu glyph in the accent color that survives the 560px icon-only label-hide, and the @container one-row + 5-line autogrow from R75 carry through unchanged.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span>
+          <h3 class="feature-title">Failed sends stay visible — with the real API error</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The vanish bug behind &#39;I tried sending a message, but it was not that successful&#39;: a turn that failed BEFORE anything was persisted (a 400/401/409 rejection, a dropped stream) used to delete the whole session slice in cleanup — the error card flashed and disappeared, the user&#39;s message bubble vanished, and the transcript looked like the send never happened. The NEW stream-store freezeFailedTurn keeps the error card AND the typed message on screen until the next send; api.ts preserves the error envelope&#39;s real code + message + details (a 409 PROVIDER_DISABLED no longer masquerades as a generic provider error); and the TurnErrorCard&#39;s Show-full-error toggle expands the complete raw provider text instead of chopping at 220 chars. The waiting side was redesigned too (the amber retry card: a spinner chip, the six-dot attempt ladder with the breathing upcoming dot, a countdown fill-bar), and a whitespace-only zero-tool reply — the live battery&#39;s find — now fails honestly with a persisted NO_OUTPUT turn.error instead of completing ok while the requested edit silently never happened.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          <h3 class="feature-title">Revert-to-message is now edit-and-resend</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The owner&#39;s spec: &#39;it should revert to that session, and that message which was on that should be pasted in the message area. That message should be deleted from the chat itself with the agent.&#39; The backend now truncates FROM the target message inclusive (the message is removed WITH its reply and every later turn — no dangling user message at the transcript&#39;s end), and the panel pastes the message&#39;s full text back into the composer and focuses it the moment the truncated transcript re-renders — the flow is edit-and-resend, not an orphan. The confirm dialog and toast say exactly that, and the model-facing history ends BEFORE the removed message, so the next send starts clean. Verified over the wire: revert → only the marker remains → status queued → a new turn works on the rebuilt log.</p>
+      </article>
     </div>
   </section>
 
@@ -2147,8 +2171,8 @@
     <div class="now-card">
       <span class="now-label">Now</span>
       <div class="now-body">
-        <h3 class="now-title">R76 delivered — the documentation round (accuracy &amp; structure): every truth doc corrected to the shipped surface, the session history backfilled R68-R75, AGENT-MEMORY lessons #72-#76, NEW ADR-0026 + ADR-0027, the docs index completed, and the stamp-cohort rule documented — docs-only: version stays 0.75.0, no release, the app byte-identical to v0.75.0</h3>
-        <p class="now-detail">The round opened with the owner&#39;s ask: &#39;update the documentation all that stuff so everything is up to date and well managed… make sure everything is accurate and properly structured&#39;. DOCS-ONLY BY CONSTRUCTION: zero source files touched, version STAYS 0.75.0, no tag, no release — the app is byte-identical to v0.75.0 (release 384282923); a docs round ships no features, so the cards stay at 119. Two research agents audited FIRST: R76-a (the 20-item staleness sweep — every claim verified against the code before flagging; check-stale clean, so the gaps were CONTENT gaps, not link gaps) and R76-b (the session-history backfill from the 8 round docs + the git receipts v0.67.0..v0.75.0, source conflicts resolved in the commits&#39; favor, the v0.68.0-tag gap recorded honestly as R68&#39;s failure). THE BACKFILL: ORCHESTRATION-WORKLOG — the session history every new agent is pointed at — had STOPPED AT R67; R68-R75 are now backfilled as 8 close-out entries, pure append +147/−0. AGENT-MEMORY — the owner-mandated lessons file — had stopped at lesson #71/round-58; lessons #72-#76 appended: drafts-above-published ordering, the SDK&#39;s non-throw error-PART channel (the deepest R75 find), flex-1 eating inline heights (the textarea that never grew), the stamp-cohort aging, and &#39;complete but uncommitted&#39; is a claim. THE TRUTH DOCS corrected to the shipped surface: ARCHITECTURE (a shutdown route that never existed removed; the pre-R75 terminal-failed sweep rewritten to the INTERRUPTED/queued truth; the module map; the WS-never-built note), IMPLEMENTED-API refreshed R73→R75 (26 tools, GET /projects/:id/modes readOnly, meta.retry SSE frames, attempts in the 502/turn.error payloads, the ROUND-75 section), EXTENSIBILITY (the R75 hard-enforcement addendum), DESIGN-SYSTEM (the composer anatomy was pre-R50 — rewritten for the @container one-row toolbar + the 5-line autogrow), ROADMAP unfrozen from round-17, SECURITY control 7 (the task-mode enforcement tier), HANDOFF/AGENTS/SPEC/README (REST+SSE, the model truth, ADRs 0001-0027, §3 = round-75 CLOSED at 66e949a). The docs INDEX completed — 5 previously-unindexed runbooks now listed (DOC-STANDARDS, ORCHESTRATOR-METHOD, REVIEW-CADENCE, PROMPT-MODULES, CLI-HARNESS). TWO NEW ADRs — the two load-bearing R75 decisions had no record: ADR-0026 (task-mode tool policy — the R75 hard-enforcement decision, options + the owner pinning) and ADR-0027 (the retry-ladder&#39;s three-layer composition: policy → error-classification → ladder). THE STAMP-COHORT RULE documented where the next agent will hit it (MAINTENANCE recipe-g step 2b + DOC-STANDARDS §8: a 100+-doc docs:check failure is cohort AGING, not rot; stamp-all only ADDS stamps — an aged cohort needs a bump). VERIFICATION, honestly: push acbc5a4 (24 files, +768/−83, ZERO source files) → CI run 34159808321 SUCCESS on the FIRST push; docs:check 176/0/0 — was 173, +3 new files (round-76.md + the two ADRs), with one more stamp cohort aging out during the round (round-72.md, the sole round-72-cohort member: 76-72=4 &gt; cap 3) bumped per the newly documented rule; the full root suite re-run GREEN 2613/2613 in 140 files + lint clean — docs-only by construction (no test reads any edited doc) but re-run anyway per the never-trust rule; status.json at round 76 / milestone 36 (in-file numbering), plan.current = the docs round, the stale phase array replaced with the current gates/queue; suites UNCHANGED 916/1685/12/10 = 2623; licenseAudit 134 CLEAN. Next: the owner&#39;s R75 live gates, then the R76 queue.</p>
+        <h3 class="now-title">R77 delivered — the field-report round: the owner&#39;s seven asks answered end to end — the composer split left/right (the send button never wraps below alone), the model pill&#39;s Cpu icon, the RetryStatusCard redesign, the vanish fix (failed sends keep the error card + the user&#39;s message, with the real API error text), revert-to-message as edit-and-resend, the blank-output guard, and a real-provider live E2E battery with two 429 storms that live-verified the R75 ladder — v0.76.0 released (release 384382095)</h3>
+        <p class="now-detail">The round opened with the owner&#39;s field report — seven asks, every one closed. (1) THE COMPOSER SPLITS LEFT/RIGHT (&#39;the mode selection, the access level selection, and the upload file buttons should be shown on the left side, and besides that, all the other options should be aligned to the right side&#39;): LEFT = attach + access + task mode; RIGHT = context donut + model + reasoning + Send/Stop as ONE nowrap ml-auto shrink-0 group — the companion ask (&#39;the send message or stop message button was showing below the designated options&#39;) is fixed by construction: the action button can never wrap below alone; when the row runs tight the WHOLE right cluster moves together. (2) THE MODEL PILL&#39;S Cpu ICON (&#39;For the model selection, there was no proper icon&#39;) — in the accent color, exempt from the 560px label-hide so the pill stays identifiable icon-only. (3) THE RETRY CARD REDESIGNED (&#39;The retrying rate limit attempt was apparently not looking good. Its UI was bad&#39;): a circular spinner chip, the six-dot attempt ladder (failed dim, the upcoming dot breathing via the new ac-retry-pulse keyframes, future hollow), a countdown fill-bar driven by the rung&#39;s real clock, Timer/Info icons, the exact remaining-time format. (4) THE VANISH FIX — the root cause behind &#39;I tried sending a message, but it was not that successful&#39;: a turn that failed WITHOUT a persisted turn.error (every pre-hijack rejection — 400/401/409/PROVIDER_DISABLED/unknown agent — and every dropped stream) fell through runTurn&#39;s cleanup, which deleted the WHOLE session slice, so the live error card AND the user&#39;s message both vanished and the transcript looked like the send never happened. THREE LAYERS: the NEW stream-store freezeFailedTurn (keeps liveError + pendingEcho until the next send — the owner sees exactly what failed and what they typed), runTurn&#39;s catch surfaces the real ApiError (the branch was vestigial since R39), and api.ts preserves the error envelope&#39;s REAL code + message + details (a 409 PROVIDER_DISABLED no longer masquerades as a generic PROVIDER_ERROR). TurnErrorCard gained the Show-full-error toggle — the complete raw provider text instead of the 220-char chop. (5) REVERT IS NOW EDIT-AND-RESEND, the owner&#39;s spec verbatim (&#39;it should revert to that session, and that message which was on that should be pasted in the message area. That message should be deleted from the chat itself with the agent&#39;): the backend truncates FROM the target inclusive (the message removed WITH its reply and later turns — no dangling user message at the transcript&#39;s end), and the composer refills with the message&#39;s text + focus the moment the truncated transcript re-renders. (6) THE BLANK-OUTPUT GUARD, born from the live battery (&#39;show the actual error messages too, which were returned from the API&#39;): a whitespace-only zero-tool reply used to complete ok while the requested edit silently never happened — it now fails honestly (NO_OUTPUT 502 + a persisted retryable turn.error), while tool-using turns stay legitimate and user STOPs can never reach it. (7) THE LIVE E2E BATTERY (&#39;do some thorough, proper testing, like trying to build some project using this system… multiple kinds of projects with varying difficulty levels… Give me the stats&#39;): a dedicated sidecar on the real SSE path — T1 smoke, T2 a 3-file static site, T3 a Python todo CLI whose tests the agent RUNS itself (independent verifier 6/6 green), T4 a 3-turn build→extend→refactor on ONE session, T5 a 10-turn conversation with retention probes, T6 revert-over-the-wire, T7 real error surfacing — ALL PASS. THE STATS (the owner asked): 20 turns, 46+ real tool calls, 2.3s–58.7s turn latency (avg ~18s free-tier), ~1.09M in + ~43K out tokens, $0.00, 0 app-level failures. THE STORMS: two account-wide free-tier 429 storms mid-battery (the cap is ACCOUNT-wide — free-models-per-day, all 4 keys share it) LIVE-VERIFIED the R75 ladder end to end: meta.retry frames at the exact 90s/5m/10m/30m rungs, the ~49.6-minute full-ladder exhaustion, the honest error with the REAL provider text + attempts:6, the redesigned amber card rendering live, and the boot sweep&#39;s INTERRUPTED event + queued reset after a mid-ladder kill. RECEIPTS: push 6e2d55f → CI run 34173615714 SUCCESS on the FIRST push; tag v0.76.0 → Release run 34174170189 SUCCESS → release 384382095 PUBLISHED (the setup exe 37,404,630 B, asset id 549632012 + the launcher-kit zip 90,027 B); the live picker smoke over the 23-release list picks 0.76.0. Verification: root vitest 2627/2627 in 141 files; docs:check 177/0/0 (the round-73 stamp cohort aged out at 77-73=4 &gt; cap 3 — bumped per the documented rule); licenseAudit 134 CLEAN. Next: the R77 queue.</p>
       </div>
       <span class="now-live"><span class="live-dot" aria-hidden="true"></span>current focus</span>
     </div>
@@ -2205,7 +2229,7 @@
       <div>
         <h2 id="quality-title">Quality</h2>
         <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
-        <p class="quality-note">Green on main — this round&#39;s honest CI story is a DOCS-ONLY round: push acbc5a4 (the R76 documentation round — 24 files, +768/−83, ZERO source files: the ORCHESTRATION-WORKLOG backfill R68-R75, AGENT-MEMORY lessons #72-#76, the truth-doc corrections, the two new ADRs, the docs-index completion) → CI run 34159808321 SUCCESS on the FIRST push. NO version bump, NO tag, NO release — version STAYS 0.75.0 and the app is byte-identical to v0.75.0 (release 384282923); a docs round ships no features, so the dashboard cards stay at 119. docs:check 176 docs / 0 failures — was 173 at R75, +3 new files (round-76.md + ADR-0026 + ADR-0027); one more stamp cohort aged out during the round (round-72.md, the sole round-72-cohort member at 76-72=4 &gt; cap 3) and was bumped per the newly documented rule (MAINTENANCE recipe-g step 2b + DOC-STANDARDS §8: a 100+-doc docs:check failure is cohort aging, not rot; stamp-all only ADDS stamps — aging needs a bump). The full root suite re-run GREEN — 2613/2613 in 140 files + lint clean, docs-only by construction (no test reads any edited doc) but re-run anyway per the never-trust rule; suites UNCHANGED 916/1685/12/10 = 2623; license audit 134 production dependencies CLEAN (unchanged).</p>
+        <p class="quality-note">Green on main — this round&#39;s honest CI story is a CODE+RELEASE round: push 6e2d55f (the R77 field-report round — the composer split left/right, the model pill&#39;s Cpu icon, the RetryStatusCard redesign, the vanish fix, edit-and-resend revert, the blank-output guard, the live E2E battery) → CI run 34173615714 SUCCESS on the FIRST push. Version 0.76.0: tag v0.76.0 → Release run 34174170189 SUCCESS → release 384382095 PUBLISHED (not a draft) with the two assets — ACUTE-CODE_0.76.0_x64-setup.exe 37,404,630 B (asset id 549632012) + acute-launcher-kit-v0.76.0.zip 90,027 B; the live picker smoke over the 23-release list picks 0.76.0, so the owner&#39;s launcher offers the upgrade on the next double-click. The live battery receipts: 20 turns / 46+ real tool calls on the real SSE path, 2.3s–58.7s latency (avg ~18s free-tier), ~1.09M in + ~43K out tokens, $0.00, 0 app-level failures — plus TWO account-wide 429 storms that live-verified the R75 ladder end to end (meta.retry frames at the exact 90s/5m/10m/30m rungs, the ~49.6-minute full-ladder exhaustion, the honest error with the REAL provider text + attempts:6, the boot sweep&#39;s INTERRUPTED event + queued reset). Suites 925 frontend + 1690 agent-core + 12 sidecar e2e + 10 launcher = 2637 total; the root suite 2627/2627 GREEN in 141 files (+14 this round: 4 freezeFailedTurn, 3 envelope-preservation, the full-text toggle, the cluster + model-icon tests, the revert inclusive-truncation flips, and the 4 blank-output-guard tests). docs:check 177 docs / 0 failures — was 176, +1 new file (round-77.md), the round-73 stamp cohort aged out at 77-73=4 &gt; cap 3 and was bumped per the documented rule (a 100+-doc docs:check failure is cohort aging, not rot); lint clean, both typechecks clean, version:check 0.76.0 ×4; license audit 134 production dependencies CLEAN (unchanged).</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -2215,18 +2239,18 @@
         <div class="suite-row">
           <div class="suite-head">
             <span class="suite-name">frontend</span>
-            <span class="suite-count"><strong data-count="916">916</strong> tests</span>
+            <span class="suite-count"><strong data-count="925">925</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="916" aria-valuemin="0" aria-valuemax="1685" aria-label="frontend test count relative to largest suite">
-            <div class="bar-fill" data-progress="54" style="--w:54%"></div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="925" aria-valuemin="0" aria-valuemax="1690" aria-label="frontend test count relative to largest suite">
+            <div class="bar-fill" data-progress="55" style="--w:55%"></div>
           </div>
         </div>
         <div class="suite-row">
           <div class="suite-head">
             <span class="suite-name">agent-core</span>
-            <span class="suite-count"><strong data-count="1685">1685</strong> tests</span>
+            <span class="suite-count"><strong data-count="1690">1690</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="1685" aria-valuemin="0" aria-valuemax="1685" aria-label="agent-core test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1690" aria-valuemin="0" aria-valuemax="1690" aria-label="agent-core test count relative to largest suite">
             <div class="bar-fill" data-progress="100" style="--w:100%"></div>
           </div>
         </div>
@@ -2235,7 +2259,7 @@
             <span class="suite-name">e2e</span>
             <span class="suite-count"><strong data-count="12">12</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="1685" aria-label="e2e test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="1690" aria-label="e2e test count relative to largest suite">
             <div class="bar-fill" data-progress="3" style="--w:3%"></div>
           </div>
         </div>
@@ -2244,13 +2268,13 @@
             <span class="suite-name">launcher (python unittest)</span>
             <span class="suite-count"><strong data-count="10">10</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="1685" aria-label="launcher (python unittest) test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="1690" aria-label="launcher (python unittest) test count relative to largest suite">
             <div class="bar-fill" data-progress="3" style="--w:3%"></div>
           </div>
         </div>
         <div class="suites-total">
           <span>Total</span>
-          <strong class="mono"><span data-count="2623">2623</span> tests passing · <span data-count="0">0</span> skipped</strong>
+          <strong class="mono"><span data-count="2637">2637</span> tests passing · <span data-count="0">0</span> skipped</strong>
         </div>
       </article>
       <div class="checks-col">
@@ -2728,9 +2752,14 @@
           <span class="timeline-label">R75 — the reliability &amp; enforcement round: the owner&#39;s four field-report asks (the retry ladder [immediate/1.5/5/10/30 min, six attempts, transient-only], hard mode enforcement [plan/review/explore read-only, debug AUTO tier, owner-pinned switch_mode], hover-only mode descriptions + read-only badges, the single-row composer + 5-line textarea), the four swallow fixes (the ok:true lie, the boot sweep, errorClass-to-frontend, overflow_recovery), 2623 tests (2613 root + 10 launcher), docs:check 173/0/0 after the stamp-cohort refresh, v0.75.0 released (release 384282923, CI run 34154269987 first-push-green, Release run 34154773400).</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-09-07</span>
           <span class="timeline-label">R76 — the documentation round (accuracy &amp; structure): the owner&#39;s ask &#39;update the documentation… make sure everything is accurate and properly structured&#39;, delivered docs-only — 0.75.0 unchanged, no release, the app byte-identical to v0.75.0. Two research agents audited first (R76-a the 20-item staleness sweep, every claim verified against code; R76-b the R68-R75 session-history backfill from the 8 round docs + git receipts, conflicts resolved in git&#39;s favor); ORCHESTRATION-WORKLOG backfilled past its R67 stop (+147/−0 pure append), AGENT-MEMORY lessons #72-#76 appended; the truth docs corrected to the shipped surface (ARCHITECTURE&#39;s never-existing shutdown route + the INTERRUPTED/queued sweep truth, IMPLEMENTED-API R73→R75, ROADMAP unfrozen from round-17, DESIGN-SYSTEM&#39;s pre-R50 composer anatomy, SECURITY control 7, HANDOFF/AGENTS/SPEC/README, the index completed with 5 runbooks); NEW ADR-0026 (task-mode tool policy) + ADR-0027 (the retry-ladder&#39;s three-layer composition); the stamp-cohort rule documented. CI run 34159808321 first-push-green on push acbc5a4 (zero source files); docs:check 176/0/0 (round-72 cohort bump); root suite re-run 2613 green; suites unchanged 2623.</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-09-08</span>
+          <span class="timeline-label">R77 — the field-report round: the owner&#39;s seven asks, every one closed — (1) the composer split LEFT (attach/access/task-mode) / RIGHT (context/model/reasoning/send as a nowrap ml-auto group — the send button never wraps below alone); (2) the model pill&#39;s Cpu icon; (3) the RetryStatusCard redesigned (spinner chip, six-dot attempt ladder with the breathing current dot, countdown fill-bar); (4) THE VANISH FIX — failed sends without a persisted turn.error (pre-hijack rejections, dropped streams) keep the error card + the user&#39;s message: NEW stream-store freezeFailedTurn + api.ts preserves the real error envelope code/details + TurnErrorCard&#39;s Show-full-error toggle; (5) revert-to-message as edit-and-resend (the backend truncates FROM the target inclusive; the composer refills with the message&#39;s text); (6) the blank-output guard (a whitespace-only zero-tool reply fails honestly NO_OUTPUT 502 + a persisted retryable turn.error); (7) the live E2E battery — T1 smoke / T2 static site / T3 todo CLI with self-run tests / T4 3-turn refactor / T5 10-turn conversation with retention probes / T6 revert-over-the-wire / T7 error surfacing, ALL PASS: 20 turns, 46+ tool calls, 2.3s–58.7s latency (avg ~18s), ~1.09M in / ~43K out tokens, $0.00, 0 app-level failures — plus 2 account-wide 429 storms that live-verified the R75 ladder (90s/5m/10m/30m rungs, the ~49.6-min exhaustion, the honest error with the real provider text, the boot sweep&#39;s INTERRUPTED event). 2637 tests (2627 root + 10 launcher); docs:check 177/0/0; v0.76.0 released (release 384382095, CI run 34173615714 first-push-green, Release run 34174170189).</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -2825,12 +2854,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-09-07 20:47 UTC · curated public data only — no product source · Acute v0.75.0</p>
+    <p class="footer-note">Generated 2026-09-08 01:09 UTC · curated public data only — no product source · Acute v0.76.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-09-07T20:47:54.995Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
-<script src="assets/app.js?v=20260907t204754995z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-09-08T01:09:48.552Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
+<script src="assets/app.js?v=20260908t010948552z" defer></script>
 </body>
 </html>
