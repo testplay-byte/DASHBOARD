@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260908t085206135z">
+<link rel="stylesheet" href="assets/style.css?v=20260908t122031101z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -79,7 +79,7 @@
       <div class="hero-eyebrow">
         <span class="hero-availability">Private build · Windows 10 x64</span>
         <span class="hero-dot" aria-hidden="true">·</span>
-        <span class="hero-version">v0.77.0</span>
+        <span class="hero-version">v0.78.0</span>
       </div>
       <h1 id="hero-title">Acute</h1>
       <p class="tagline">Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.</p>
@@ -96,7 +96,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-09-08 08:52 UTC</span>
+      <span class="updated-time">2026-09-08 12:20 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -105,7 +105,7 @@
   <section class="stats-grid reveal" aria-label="Key numbers">
       <article class="stat-card card">
         <span class="stat-label">Tests passing</span>
-        <span class="stat-value"><span data-count="2718">2718</span></span>
+        <span class="stat-value"><span data-count="2751">2751</span></span>
         <span class="stat-sub">4 suites · 0 skipped · unit + e2e</span>
       </article>
       <article class="stat-card card">
@@ -115,7 +115,7 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="59">59</span></span>
+        <span class="stat-value"><span data-count="60">60</span></span>
         <span class="stat-sub">Aug 21 – Sep 8 · 19-day run</span>
       </article>
       <article class="stat-card card">
@@ -1201,6 +1201,38 @@
         </div>
         <p class="feature-desc">The owner&#39;s report: &#39;The chat bottom buttons (Continue etc.) occasionally render in wrong positions.&#39; The prior round pinned the send button to its right-side cluster, but the cluster lived INSIDE the wrapping toolbar row — when space ran out the whole group (Continue/Send included) could still wrap to the next line, landing below the designated options. The toolbar now restructures into a WRAPPING area (attach · access · task mode, then the donut/model/thinking selectors pinned right inside it) plus THE ANCHOR: a shrink-0 DOM SIBLING pinned right by the toolbar&#39;s justify-between — never inside any wrapping context — holding Continue · Send/Stop/queue-send, so the action button can never jump lines or drift. When the row gets tight the selector pills wrap as a unit under the left cluster while the button stays pinned bottom-right; the @max-[560px] label-hide and the left/right membership are preserved. Browser-verified stable at 386/480/560/641/900 px — the right gap is exactly the toolbar padding at every width, and at 386 px the selectors wrap INSIDE the wrap area while the actions stay anchored.</p>
       </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3"/><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><line x1="10.5" y1="10" x2="6.5" y2="16"/><line x1="13.5" y1="10" x2="17.5" y2="16"/></svg></span>
+          <h3 class="feature-title">Addressable sub-agent tasks — the model&#39;s own handle (task_id) for every delegation</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">delegate_task gained task_id: the parent model&#39;s own address for a delegation (grammar-checked, unique per session forever, duplicate-refused with the resume affordance). resume accepts the task_id, the child session id, or the 4-char code; the owner sees the address as a mono task-id chip in the Sub-agents panel and on the live sub-agent card (tooltip: delegate_task {&quot;resume&quot;:&quot;&lt;id&gt;&quot;} collects it).</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span>
+          <h3 class="feature-title">Background delegations — fire-and-forget runs that outlive the parent&#39;s turn</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">background:true (with a task_id) returns IMMEDIATELY with a receipt while the child runs detached through the same machinery as blocking children — live status frames, notifications, the stall watchdog, the owner&#39;s Stop. A ~400 ms parent turn against a 4 s child, the child completing after the turn ended: the battery&#39;s S79-3 proof. The ≥10-outstanding cap refuses runaway fan-out honestly.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <h3 class="feature-title">resume — the collect verb: waits, collects, retries, never polls</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">resume on a running task WAITS (the call blocks until terminal — the R71 no-polling discipline&#39;s collection half: resume IS the wait); on a completed task it returns the final report idempotently; on a failed task it retries from where the child stopped (the event log is the resume point — a no-progress failure honestly re-sends). The parent turn&#39;s abort returns the honest &#39;still running&#39; line.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">The BACKGROUND TASKS reminder — the model is TOLD, never left polling</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Every turn, the system prompt lists the session&#39;s uncollected delegated tasks with live status (running &#39;Xm in, n/m todos&#39; / COMPLETED — resume to read its final report / FAILED — resume to retry it from where it stopped). The section disappears once the report is collected (the delegation.collected lifecycle) and composes byte-identically for sessions without addressed children. The battery&#39;s request-body oracle proves the model actually SEES it.</p>
+      </article>
     </div>
   </section>
 
@@ -2203,52 +2235,52 @@
     <div class="now-card">
       <span class="now-label">Now</span>
       <div class="now-body">
-        <h3 class="now-title">R78 delivered — the honest-errors + queue round: the owner&#39;s four asks answered end to end — only a REAL rate limit ever shows as one (the API&#39;s actual error text on every card), the composer&#39;s never-wrapping action anchor, per-class auto-retry switches in Settings → General, and messages that queue while the agent works and auto-deliver with full context — v0.77.0 released (release 384564517)</h3>
-        <p class="now-detail">The round opened with REAL provider-error probes against the production AI SDK — the root-cause table behind &#39;the UI always shows rate-limited&#39; (a paid model on a free key returned 403 &#39;This model is not available in your region&#39; and the card said the KEY was rejected; the SDK&#39;s RetryError wrapper carried NO extractable status, so the genuine meta-router 429 classified by message-pattern luck). (1) ERROR-CHAIN HONESTY (owner: &#39;no matter the real cause, the UI always shows rate-limited. Only a REAL rate limit may show as one; every other failure must show the API&#39;s ACTUAL error text&#39;): the classifier now UNWRAPS the RetryError before classifying (a status walk over lastError/errors, depth ≤ 4, cycle-guarded — a wrapped 429 classifies by STATUS, not luck), a 403 whose real text matches the region/access patterns reclassifies to fail-fast unknown carrying the REAL words (a region block no longer lies &#39;authentication failed&#39;; plain 403 stays auth, 401 stays status-only), and userMessage/classMessage are the provider&#39;s actual text (240-char cap) with providerError riding every meta.retry frame + both terminal error envelopes + the persisted turn.error — the live RetryStatusCard renders the class chip as the one-glance summary with the API&#39;s ACTUAL words beneath (mono, 3-line clamp, the expand toggle for long payloads). (2) THE COMPOSER ACTION ANCHOR (owner: &#39;The chat bottom buttons (Continue etc.) occasionally render in wrong positions&#39;): the toolbar is a WRAPPING area (attach · access · task mode, then the donut/model/thinking selectors) plus THE ANCHOR — a shrink-0 DOM sibling pinned right by justify-between that NEVER wraps, holding Continue/Send/Stop/queue-send — the action button can never jump lines or drift (browser-verified stable at 386/480/560/641/900 px). (3) RETRY SETTINGS (owner: &#39;Add a retry-config section in General Settings — switches for auto-retry on timeout / rate limit&#39;): RetrySettings {autoRetryRateLimit, autoRetryTimeout, autoRetryNetwork} (all default true — the R75 ladder out of the box) behind GET/PUT /settings/retry, the ladder gated PER CLASS in both turn paths — a disabled class fails fast (attempts 1, no meta.retry frames, the real text on the card) — rendered as the Auto-retry card on the Settings tab now LABELED General (the URL id / deep-links keep the advanced id, so old links still work). (4) THE MESSAGE QUEUE (owner: &#39;While the agent is working, the user can still send messages; they queue and auto-send right after the current tool call; the agent reads them with full context and continues — never interrupting the in-flight flow&#39;): a queued message is a session_events row of NEW type message.queued with the exact message.user payload, and delivery is a strict type FLIP on the same row — the message lands exactly where it was QUEUED (chronology is queue time; the model reads it at the next model call WITH the completed tool results). THREE delivery paths, one contract: loop-top delivery (the top of every outer-loop iteration, never spending loop budget; because the ladder&#39;s retry re-enters the loop top, a message queued during a ladder WAIT delivers at the rung boundary — the retry&#39;s prompt carries it); the turn-end same-stream continuation (meta.queue_continue, the first queued message consumed into the next FULL turn, the rest flipped to ride its history, capped at 25 continuations; Stop never purges the queue); and the pre-flip crash/stop recovery (lingering queued messages always deliver, in order, before the next send — a crash never loses them). Routes: POST /sessions/:id/queue (validates like the send routes; without a live turn → 409 NO_LIVE_TURN and the panel falls through to a normal send; a user.queued frame bridges onto the OPEN stream) + DELETE /sessions/:id/queue/:seq. The composer stays fully interactive while busy (the accent queue-send button beside Stop in the anchor; Enter routes to the queue), amber chips render under the Working section (X-remove, &#39;Send now&#39; when idle), and delivered messages render as live user bubbles. VERIFICATION: scripts/battery-r78.mjs — a dedicated sidecar + a LOCAL mock OpenRouter-compatible provider that RECORDS REQUEST BODIES as the model-facing-history oracle — 12 PASS / 0 FAIL (the honest bad-model error, the REAL account-wide 429 ladder carrying the real &#39;free-models-per-day&#39; text, stop mid-ladder stays retryable, queue-during-ladder-wait, the retry-gate fail-fast, mid-turn delivery, the same-stream continuation, the crash recovery, route honesty); browser-verified on the real dev stack against a REAL 429 quota storm. RECEIPTS: push ca5e714 → CI run 34203679389 SUCCESS on the FIRST push; tag v0.77.0 → Release run 34204320612 SUCCESS → release 384564517 PUBLISHED (the setup exe 37,405,130 B + the launcher-kit zip 91,486 B); root 2708/2708 GREEN in 144 files; docs:check 178/0/0; version:check 0.77.0 ×4. Known residuals for R79: the hard-reload caveat (the Stopped card + Continue live in the live store — a hard reload renders from the folded log; the session stays retryable either way) and the sync/sub-agent path has queue PRE-FLIP only (children have no owner composer).</p>
+        <h3 class="now-title">R79 delivered — the orchestrator round: the standing R73 deferral closed. delegate_task is now addressable (task_id — the model&#39;s own handle for a delegation), backgroundable (fire-and-forget: the call returns a receipt immediately and the child runs detached, routinely outliving the parent&#39;s turn), and resumable (resume waits for a running task, collects a completed one&#39;s report idempotently, and retries a failed one from where it stopped). The model is TOLD — never left polling — via a per-turn BACKGROUND TASKS section in the system prompt that lists uncollected tasks with live status and disappears once collected (the delegation.collected lifecycle). The owner sees the address as a mono task-id chip in the Sub-agents panel and on the live sub-agent card — v0.78.0 released (release 384700391; one watched CI infra-flake re-run, recorded in the ciNote)</h3>
+        <p class="now-detail">The standing R73 deferral (recorded round after round as &#39;the orchestrator is the most delicate concurrency surface and deserved its own round — the last unshipped piece of the R71 sub-agent discipline&#39;) is closed: (1) THE TOOL — {task, role, task_id, background, resume} with three call shapes: BLOCKING (the pre-R79 behavior verbatim — the existing orchestrator suite green-unmodified is the regression gate), BACKGROUND (requires task_id; the immediate receipt while the child runs DETACHED through the SAME runChildTurn machinery — status frames, notifications, watchdog, turn-registry, key-slot — with crash-honesty handlers and best-effort emit because a background child routinely outlives the parent&#39;s SSE; the owner&#39;s Stop on the parent still cascades, so no zombie spend), and COLLECT (resume by task_id → session id → 4-char code: waits ~300 ms-poll while running, returns the report idempotently on completion, retries a failed child via the ADR-0022 §3 continuation, unknown → the honest addressable list); honest refusals everywhere (the task_id grammar, duplicates naming the status, the ≥10-outstanding fan-out cap, background-without-task_id, neither → the list) and the tool never throws. (2) THE DELIVERY CHANNEL — the per-turn &#39;## BACKGROUND TASKS&#39; system-prompt section (the taskHints ephemeral pattern; only uncollected addressable children; a cheap indexed guard so childless sessions compose byte-identically; prompt-registry 23→24) + the NEW delegation.collected event on the parent&#39;s log (blocking+task_id writes it at completion — inline delivery never nags; background writes it at resume; invisible to the model by construction). (3) PERSISTENCE — migration 0028 (sessions.delegate_task_id + the parent/task index; NULL default = pre-R79 behavior) with taskId on the /subagents rows and every subagent-status frame. (4) THE FRONTEND — the panel header&#39;s task chip + the chat card&#39;s chip (only when present). Root 2741/2741 in 145 files (agent-core 1769 incl. the new 27-test r79 suite, frontend 960, e2e 12); battery-r79 10/10 with the request-body oracle; ADR-0028 records the decision; AGENT-MEMORY #81 (the mock-oracle discipline) + #82 (an interrupted agent&#39;s tree is a claim — both this round&#39;s sub-agents died mid-flight and were verified line-by-line before reuse).</p>
       </div>
       <span class="now-live"><span class="live-dot" aria-hidden="true"></span>current focus</span>
     </div>
     <ul class="upcoming-list">
       <li class="upcoming-item">
-        <span class="status-chip status-planned">partially delivered (R43 + R45)</span>
+        <span class="status-chip status-planned">awaiting-verdict</span>
         <div class="upcoming-body">
-          <span class="upcoming-phase">Track 1 — Foundation &amp; Trust (recommended R43)</span>
-          <span class="upcoming-note">R43 shipped the Rust/CI fix and made this dashboard API-truthful; R45 closed the three security holes (P0-3/4/5). Remaining: the data-directory move (P0-6) and binary-safe checkpoint restore (P0-7). Small fixes, high payoff.</span>
+          <span class="upcoming-phase">Owner re-test of v0.75.0 on Windows (ACUTE.bat)</span>
+          <span class="upcoming-note">The R75 live gates: plan-mode write refusal, the retry card, the one-row toolbar, the 5-line textarea.</span>
         </div>
       </li>
       <li class="upcoming-item">
-        <span class="status-chip status-ownergated">owner-gated</span>
+        <span class="status-chip status-planned">shipped</span>
         <div class="upcoming-body">
-          <span class="upcoming-phase">Track 2 — Session Intelligence (recommended R44)</span>
-          <span class="upcoming-note">Revert UI, main-session retry, session search + fork + export, memory v1, auto-compaction — the owner&#39;s explicit continue-a-session / revert vision.</span>
+          <span class="upcoming-phase">Orchestration deepening</span>
+          <span class="upcoming-note">R79 shipped the addressable-delegation tier (ADR-0022&#39;s follow-up, ADR-0028). A possible future: the parent-model stop of a background task (today the owner&#39;s panel Stop is the surface) and interactive queueing for sub-agent children.</span>
         </div>
       </li>
       <li class="upcoming-item">
-        <span class="status-chip status-ownergated">owner-gated</span>
+        <span class="status-chip status-planned">queued (R80 candidate)</span>
         <div class="upcoming-body">
-          <span class="upcoming-phase">Track 3 — Project Customization (recommended R45)</span>
-          <span class="upcoming-note">Project kinds, per-project settings, persona merge, agent picker — the different-kinds-of-projects vision.</span>
+          <span class="upcoming-phase">External plugin ctx enrichment</span>
+          <span class="upcoming-note">cline&#39;s appendContext seam — the plugin-consumer context hook.</span>
         </div>
       </li>
       <li class="upcoming-item">
-        <span class="status-chip status-ownergated">owner-gated</span>
+        <span class="status-chip status-planned">queued (R80 candidate)</span>
         <div class="upcoming-body">
-          <span class="upcoming-phase">Track 4 — Autonomy &amp; Automation (recommended R47, after Track 5)</span>
-          <span class="upcoming-note">Approval queue + remote approve, cost budgets, scheduler MVP, auto-team run mode — the full-fledged-automations vision.</span>
+          <span class="upcoming-phase">Lessons-ledger affordance</span>
+          <span class="upcoming-note">The reminder injector&#39;s third consumer (dir-conventions and switch_mode are its first two; the BACKGROUND TASKS section joined as a sibling pattern in R79).</span>
         </div>
       </li>
       <li class="upcoming-item">
-        <span class="status-chip status-planned">partially delivered (R44–R46)</span>
+        <span class="status-chip status-planned">queued</span>
         <div class="upcoming-body">
-          <span class="upcoming-phase">Track 5 — Capability Depth (recommended R46)</span>
-          <span class="upcoming-note">Real web search (delivered R44), PTY terminal (delivered R45), and agent-intelligence depth (delivered R46: context compaction, ranked memory, checkpoint restore UI, durable cookies). Remaining: the edit-reliability ladder, in-app file editing, worktree isolation + per-role tool limits.</span>
+          <span class="upcoming-phase">Ratings-driven prompt tuning</span>
+          <span class="upcoming-note">The ratings capture has three prompt tiers (skills, modes, references) worth tuning against.</span>
         </div>
       </li>
       <li class="upcoming-item">
-        <span class="status-chip status-planned">planned</span>
+        <span class="status-chip status-planned">queued</span>
         <div class="upcoming-body">
-          <span class="upcoming-phase">Track 6 — Ecosystem &amp; Shipping</span>
-          <span class="upcoming-note">MCP client, vision input, browser automation, packaging + versioned releases.</span>
+          <span class="upcoming-phase">Standing items</span>
+          <span class="upcoming-note">Edit-linting (SWE-agent&#39;s ACI #1 finding), installer code-signing, the Files-tab polish, agent web-app-testing tools, the optional v0.68.0 backfill tag.</span>
         </div>
       </li>
     </ul>
@@ -2261,7 +2293,7 @@
       <div>
         <h2 id="quality-title">Quality</h2>
         <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
-        <p class="quality-note">Green on main — this round&#39;s honest CI story is a CODE+RELEASE round: push ca5e714 (the R78 honest-errors + queue round — the error-chain honesty, the composer action anchor, the retry settings, the message queue) → CI run 34203679389 SUCCESS on the FIRST push (the verify job, ~6m46s). Version 0.77.0: tag v0.77.0 → Release run 34204320612 SUCCESS (launcher-kit + desktop-installer — the ~16.5-minute NSIS build — + github-release jobs, all green) → release 384564517 PUBLISHED (not a draft) with the two assets — ACUTE-CODE_0.77.0_x64-setup.exe 37,405,130 B + acute-launcher-kit-v0.77.0.zip 91,486 B; the live picker smoke over the 24-release list picks 0.77.0, so the owner&#39;s launcher offers the upgrade on the next double-click. The live battery receipts: 12/12 stages against a dedicated sidecar + a local mock OpenRouter-compatible provider that records request bodies as the model-facing oracle (the honest bad-model error, the REAL 429 ladder with the real &#39;free-models-per-day&#39; text on the card, queue-during-ladder-wait delivered at the rung boundary, the retry-gate fail-fast, mid-turn delivery with the completed tool results in the next prompt, the same-stream continuation, the pre-flip crash recovery, route honesty). Suites 954 frontend + 1742 agent-core + 12 sidecar e2e + 10 launcher = 2718 total; the root suite 2708/2708 GREEN in 144 files (+81 this round: agent-core +52 — the NEW r78-error-classification (23) + r78-retry-settings (11) + r78-queue (18) + the r71 userMessage pin honestly adjusted to the real-text semantics; frontend +29 across the composer/store/api/panel/Settings cards). docs:check 178 docs / 0 failures — was 177, +1 new file (round-78.md), the round-74 stamp cohort aged out at 78-74=4 &gt; cap 3 and was bumped per the documented rule (a 100+-doc docs:check failure is cohort aging, not rot); lint clean, typecheck clean, version:check 0.77.0 ×4; license audit 134 production dependencies CLEAN (unchanged).</p>
+        <p class="quality-note">Green on main — this round&#39;s honest CI story is a CODE+RELEASE round with one infra flake, recorded: push ef11d86 (the R79 orchestrator round — delegate_task task_id/background/resume, the standing R73 deferral) → CI run 34223271421 FAILED on a Windows-runner STALL: a 1-second test (models-catalog&#39;s migration-0013 case) timed out at 30 s while three vitest worker RPC timeouts (&#39;Timeout calling onTaskUpdate&#39;) fired around it — the runner itself went unresponsive, not the code (the test passed 3/3 locally in ~1 s and the whole suite was green before the push). The failed-job RE-RUN (the documented flake path — no code change, watched, not a silent retry) → SUCCESS. Version 0.78.0: tag v0.78.0 → Release run 34223270773 SUCCESS (launcher-kit + desktop-installer + github-release) → release 384700391 PUBLISHED with the two assets — ACUTE-CODE_0.78.0_x64-setup.exe 37,413,610 B + acute-launcher-kit-v0.78.0.zip 92,582 B. The live battery receipts: 10/10 stages against a dedicated sidecar + the body-dispatch mock OpenRouter-compatible provider recording REQUEST BODIES as the model-facing oracle (the blocking regression with the report inline in the parent&#39;s next prompt, the background task outliving the parent&#39;s turn ~400 ms vs a 4 s child, the next turn&#39;s prompt CARRYING the BACKGROUND TASKS section and it GONE after collection, resume waiting ~2.7 s for a 3 s child, the duplicate refusal, the taskId on the /subagents rows, the unknown-address list, the failed-child retry with the &#39;You were interrupted&#39; continuation visible in the child&#39;s own request body). docs:check 180/0/0 (was 178; +2 new files round-79.md + ADR-0028, the round-75 stamp cohort aged out per the documented rule). The session&#39;s planning/backup instruction honored: the R79 plan at agent-ctx/R79-plan.md + backup/pre-r79 branches pushed in BOTH repos before any edit.</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -2271,18 +2303,18 @@
         <div class="suite-row">
           <div class="suite-head">
             <span class="suite-name">frontend</span>
-            <span class="suite-count"><strong data-count="954">954</strong> tests</span>
+            <span class="suite-count"><strong data-count="960">960</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="954" aria-valuemin="0" aria-valuemax="1742" aria-label="frontend test count relative to largest suite">
-            <div class="bar-fill" data-progress="55" style="--w:55%"></div>
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="960" aria-valuemin="0" aria-valuemax="1769" aria-label="frontend test count relative to largest suite">
+            <div class="bar-fill" data-progress="54" style="--w:54%"></div>
           </div>
         </div>
         <div class="suite-row">
           <div class="suite-head">
             <span class="suite-name">agent-core</span>
-            <span class="suite-count"><strong data-count="1742">1742</strong> tests</span>
+            <span class="suite-count"><strong data-count="1769">1769</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="1742" aria-valuemin="0" aria-valuemax="1742" aria-label="agent-core test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1769" aria-valuemin="0" aria-valuemax="1769" aria-label="agent-core test count relative to largest suite">
             <div class="bar-fill" data-progress="100" style="--w:100%"></div>
           </div>
         </div>
@@ -2291,7 +2323,7 @@
             <span class="suite-name">e2e</span>
             <span class="suite-count"><strong data-count="12">12</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="1742" aria-label="e2e test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="1769" aria-label="e2e test count relative to largest suite">
             <div class="bar-fill" data-progress="3" style="--w:3%"></div>
           </div>
         </div>
@@ -2300,13 +2332,13 @@
             <span class="suite-name">launcher (python unittest)</span>
             <span class="suite-count"><strong data-count="10">10</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="1742" aria-label="launcher (python unittest) test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="1769" aria-label="launcher (python unittest) test count relative to largest suite">
             <div class="bar-fill" data-progress="3" style="--w:3%"></div>
           </div>
         </div>
         <div class="suites-total">
           <span>Total</span>
-          <strong class="mono"><span data-count="2718">2718</span> tests passing · <span data-count="0">0</span> skipped</strong>
+          <strong class="mono"><span data-count="2751">2751</span> tests passing · <span data-count="0">0</span> skipped</strong>
         </div>
       </article>
       <div class="checks-col">
@@ -2794,9 +2826,14 @@
           <span class="timeline-label">R77 — the field-report round: the owner&#39;s seven asks, every one closed — (1) the composer split LEFT (attach/access/task-mode) / RIGHT (context/model/reasoning/send as a nowrap ml-auto group — the send button never wraps below alone); (2) the model pill&#39;s Cpu icon; (3) the RetryStatusCard redesigned (spinner chip, six-dot attempt ladder with the breathing current dot, countdown fill-bar); (4) THE VANISH FIX — failed sends without a persisted turn.error (pre-hijack rejections, dropped streams) keep the error card + the user&#39;s message: NEW stream-store freezeFailedTurn + api.ts preserves the real error envelope code/details + TurnErrorCard&#39;s Show-full-error toggle; (5) revert-to-message as edit-and-resend (the backend truncates FROM the target inclusive; the composer refills with the message&#39;s text); (6) the blank-output guard (a whitespace-only zero-tool reply fails honestly NO_OUTPUT 502 + a persisted retryable turn.error); (7) the live E2E battery — T1 smoke / T2 static site / T3 todo CLI with self-run tests / T4 3-turn refactor / T5 10-turn conversation with retention probes / T6 revert-over-the-wire / T7 error surfacing, ALL PASS: 20 turns, 46+ tool calls, 2.3s–58.7s latency (avg ~18s), ~1.09M in / ~43K out tokens, $0.00, 0 app-level failures — plus 2 account-wide 429 storms that live-verified the R75 ladder (90s/5m/10m/30m rungs, the ~49.6-min exhaustion, the honest error with the real provider text, the boot sweep&#39;s INTERRUPTED event). 2637 tests (2627 root + 10 launcher); docs:check 177/0/0; v0.76.0 released (release 384382095, CI run 34173615714 first-push-green, Release run 34174170189).</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-09-08</span>
           <span class="timeline-label">R78 — the honest-errors + queue round: the owner&#39;s four asks, every one closed — (1) error-chain honesty: the SDK&#39;s RetryError is UNWRAPPED before classification (a wrapped 429 classifies by STATUS, not message-pattern luck), a 403 region block no longer lies &#39;authentication failed&#39; (fail-fast unknown carrying the real text), and userMessage/classMessage are the provider&#39;s REAL words with providerError on every meta.retry frame + terminal envelope + the persisted turn.error — only a REAL rate limit ever shows as one; (2) the composer&#39;s never-wrapping action anchor (the wrapping area + the shrink-0 sibling pinned by justify-between — the bottom buttons can never jump lines; stable at 386-900 px); (3) the auto-retry config in Settings → General (three per-class switches, all default on; a disabled class fails fast with the real text; GET/PUT /settings/retry); (4) the message queue — message.queued + the strict type-flip delivery + three paths (loop-top, the turn-end same-stream continuation capped at 25, the pre-flip crash recovery) + POST/DELETE /sessions/:id/queue + the queue-send button and chips: a message queued mid-work delivers with the completed tool results in the next prompt, never interrupting the in-flight flow. The live battery 12/12 (a mock provider that records request bodies as the model-facing oracle); 2708 root tests (+81 this round: agent-core 1742, frontend 954); docs:check 178/0/0; v0.77.0 released (release 384564517, CI run 34203679389 first-push-green, Release run 34204320612).</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-09-08</span>
+          <span class="timeline-label">R79 — the orchestrator round: the standing R73 deferral closed (delegate_task task_id/background/resume, ADR-0028). Addressable (the model&#39;s own task_id handle, unique forever, duplicate-refused), backgroundable (fire-and-forget — the immediate receipt while the child runs detached through the same runChildTurn machinery, routinely outliving the parent&#39;s turn, best-effort emit, the abort cascade forwarded), and resumable (waits while running, collects idempotently, retries a failed child via the ADR-0022 continuation). The delivery channel: the per-turn BACKGROUND TASKS system-prompt section (only uncollected tasks; the delegation.collected event on the parent&#39;s log; the cheap guard so ordinary sessions compose byte-identically) + the task-id chips in the panel and the chat card. Migration 0028; root 2741/2741 in 145 files; battery-r79 10/10 (the request-body oracle); v0.78.0 released (release 384700391, one watched CI infra-flake re-run recorded). Both round sub-agents died mid-flight and were verified line-by-line before reuse — AGENT-MEMORY #82&#39;s lesson born from this round&#39;s own practice.</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -2891,12 +2928,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-09-08 08:52 UTC · curated public data only — no product source · Acute v0.77.0</p>
+    <p class="footer-note">Generated 2026-09-08 12:20 UTC · curated public data only — no product source · Acute v0.78.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-09-08T08:52:06.135Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
-<script src="assets/app.js?v=20260908t085206135z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-09-08T12:20:31.101Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
+<script src="assets/app.js?v=20260908t122031101z" defer></script>
 </body>
 </html>

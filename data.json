@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.77.0",
+    "version": "0.78.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -34,46 +34,39 @@
   ],
   "plan": {
     "current": {
-      "title": "R78 delivered — the honest-errors + queue round: the owner's four asks answered end to end — only a REAL rate limit ever shows as one (the API's actual error text on every card), the composer's never-wrapping action anchor, per-class auto-retry switches in Settings → General, and messages that queue while the agent works and auto-deliver with full context — v0.77.0 released (release 384564517)",
-      "detail": "The round opened with REAL provider-error probes against the production AI SDK — the root-cause table behind 'the UI always shows rate-limited' (a paid model on a free key returned 403 'This model is not available in your region' and the card said the KEY was rejected; the SDK's RetryError wrapper carried NO extractable status, so the genuine meta-router 429 classified by message-pattern luck). (1) ERROR-CHAIN HONESTY (owner: 'no matter the real cause, the UI always shows rate-limited. Only a REAL rate limit may show as one; every other failure must show the API's ACTUAL error text'): the classifier now UNWRAPS the RetryError before classifying (a status walk over lastError/errors, depth ≤ 4, cycle-guarded — a wrapped 429 classifies by STATUS, not luck), a 403 whose real text matches the region/access patterns reclassifies to fail-fast unknown carrying the REAL words (a region block no longer lies 'authentication failed'; plain 403 stays auth, 401 stays status-only), and userMessage/classMessage are the provider's actual text (240-char cap) with providerError riding every meta.retry frame + both terminal error envelopes + the persisted turn.error — the live RetryStatusCard renders the class chip as the one-glance summary with the API's ACTUAL words beneath (mono, 3-line clamp, the expand toggle for long payloads). (2) THE COMPOSER ACTION ANCHOR (owner: 'The chat bottom buttons (Continue etc.) occasionally render in wrong positions'): the toolbar is a WRAPPING area (attach · access · task mode, then the donut/model/thinking selectors) plus THE ANCHOR — a shrink-0 DOM sibling pinned right by justify-between that NEVER wraps, holding Continue/Send/Stop/queue-send — the action button can never jump lines or drift (browser-verified stable at 386/480/560/641/900 px). (3) RETRY SETTINGS (owner: 'Add a retry-config section in General Settings — switches for auto-retry on timeout / rate limit'): RetrySettings {autoRetryRateLimit, autoRetryTimeout, autoRetryNetwork} (all default true — the R75 ladder out of the box) behind GET/PUT /settings/retry, the ladder gated PER CLASS in both turn paths — a disabled class fails fast (attempts 1, no meta.retry frames, the real text on the card) — rendered as the Auto-retry card on the Settings tab now LABELED General (the URL id / deep-links keep the advanced id, so old links still work). (4) THE MESSAGE QUEUE (owner: 'While the agent is working, the user can still send messages; they queue and auto-send right after the current tool call; the agent reads them with full context and continues — never interrupting the in-flight flow'): a queued message is a session_events row of NEW type message.queued with the exact message.user payload, and delivery is a strict type FLIP on the same row — the message lands exactly where it was QUEUED (chronology is queue time; the model reads it at the next model call WITH the completed tool results). THREE delivery paths, one contract: loop-top delivery (the top of every outer-loop iteration, never spending loop budget; because the ladder's retry re-enters the loop top, a message queued during a ladder WAIT delivers at the rung boundary — the retry's prompt carries it); the turn-end same-stream continuation (meta.queue_continue, the first queued message consumed into the next FULL turn, the rest flipped to ride its history, capped at 25 continuations; Stop never purges the queue); and the pre-flip crash/stop recovery (lingering queued messages always deliver, in order, before the next send — a crash never loses them). Routes: POST /sessions/:id/queue (validates like the send routes; without a live turn → 409 NO_LIVE_TURN and the panel falls through to a normal send; a user.queued frame bridges onto the OPEN stream) + DELETE /sessions/:id/queue/:seq. The composer stays fully interactive while busy (the accent queue-send button beside Stop in the anchor; Enter routes to the queue), amber chips render under the Working section (X-remove, 'Send now' when idle), and delivered messages render as live user bubbles. VERIFICATION: scripts/battery-r78.mjs — a dedicated sidecar + a LOCAL mock OpenRouter-compatible provider that RECORDS REQUEST BODIES as the model-facing-history oracle — 12 PASS / 0 FAIL (the honest bad-model error, the REAL account-wide 429 ladder carrying the real 'free-models-per-day' text, stop mid-ladder stays retryable, queue-during-ladder-wait, the retry-gate fail-fast, mid-turn delivery, the same-stream continuation, the crash recovery, route honesty); browser-verified on the real dev stack against a REAL 429 quota storm. RECEIPTS: push ca5e714 → CI run 34203679389 SUCCESS on the FIRST push; tag v0.77.0 → Release run 34204320612 SUCCESS → release 384564517 PUBLISHED (the setup exe 37,405,130 B + the launcher-kit zip 91,486 B); root 2708/2708 GREEN in 144 files; docs:check 178/0/0; version:check 0.77.0 ×4. Known residuals for R79: the hard-reload caveat (the Stopped card + Continue live in the live store — a hard reload renders from the folded log; the session stays retryable either way) and the sync/sub-agent path has queue PRE-FLIP only (children have no owner composer).",
-      "upcoming": [
-        "delegate_task task_id/background/resume — addressable, resumable sub-agent tasks (the standing R73 deferral: the orchestrator's concurrency surface deserves its own round)",
-        "External plugin ctx enrichment — cline's appendContext seam",
-        "Lessons-ledger as the system-reminder injector's third consumer",
-        "Ratings-driven prompt tuning",
-        "The optional v0.68.0 backfill tag decision + the standing items (edit-linting, installer code-signing, the Files-tab polish, agent web-app-testing tools)"
-      ]
+      "title": "R79 delivered — the orchestrator round: the standing R73 deferral closed. delegate_task is now addressable (task_id — the model's own handle for a delegation), backgroundable (fire-and-forget: the call returns a receipt immediately and the child runs detached, routinely outliving the parent's turn), and resumable (resume waits for a running task, collects a completed one's report idempotently, and retries a failed one from where it stopped). The model is TOLD — never left polling — via a per-turn BACKGROUND TASKS section in the system prompt that lists uncollected tasks with live status and disappears once collected (the delegation.collected lifecycle). The owner sees the address as a mono task-id chip in the Sub-agents panel and on the live sub-agent card — v0.78.0 released (release 384700391; one watched CI infra-flake re-run, recorded in the ciNote)",
+      "detail": "The standing R73 deferral (recorded round after round as 'the orchestrator is the most delicate concurrency surface and deserved its own round — the last unshipped piece of the R71 sub-agent discipline') is closed: (1) THE TOOL — {task, role, task_id, background, resume} with three call shapes: BLOCKING (the pre-R79 behavior verbatim — the existing orchestrator suite green-unmodified is the regression gate), BACKGROUND (requires task_id; the immediate receipt while the child runs DETACHED through the SAME runChildTurn machinery — status frames, notifications, watchdog, turn-registry, key-slot — with crash-honesty handlers and best-effort emit because a background child routinely outlives the parent's SSE; the owner's Stop on the parent still cascades, so no zombie spend), and COLLECT (resume by task_id → session id → 4-char code: waits ~300 ms-poll while running, returns the report idempotently on completion, retries a failed child via the ADR-0022 §3 continuation, unknown → the honest addressable list); honest refusals everywhere (the task_id grammar, duplicates naming the status, the ≥10-outstanding fan-out cap, background-without-task_id, neither → the list) and the tool never throws. (2) THE DELIVERY CHANNEL — the per-turn '## BACKGROUND TASKS' system-prompt section (the taskHints ephemeral pattern; only uncollected addressable children; a cheap indexed guard so childless sessions compose byte-identically; prompt-registry 23→24) + the NEW delegation.collected event on the parent's log (blocking+task_id writes it at completion — inline delivery never nags; background writes it at resume; invisible to the model by construction). (3) PERSISTENCE — migration 0028 (sessions.delegate_task_id + the parent/task index; NULL default = pre-R79 behavior) with taskId on the /subagents rows and every subagent-status frame. (4) THE FRONTEND — the panel header's task chip + the chat card's chip (only when present). Root 2741/2741 in 145 files (agent-core 1769 incl. the new 27-test r79 suite, frontend 960, e2e 12); battery-r79 10/10 with the request-body oracle; ADR-0028 records the decision; AGENT-MEMORY #81 (the mock-oracle discipline) + #82 (an interrupted agent's tree is a claim — both this round's sub-agents died mid-flight and were verified line-by-line before reuse)."
     },
     "upcoming": [
       {
-        "phase": "Track 1 — Foundation & Trust (recommended R43)",
-        "status": "partially delivered (R43 + R45)",
-        "note": "R43 shipped the Rust/CI fix and made this dashboard API-truthful; R45 closed the three security holes (P0-3/4/5). Remaining: the data-directory move (P0-6) and binary-safe checkpoint restore (P0-7). Small fixes, high payoff."
+        "phase": "Owner re-test of v0.75.0 on Windows (ACUTE.bat)",
+        "status": "awaiting-verdict",
+        "note": "The R75 live gates: plan-mode write refusal, the retry card, the one-row toolbar, the 5-line textarea."
       },
       {
-        "phase": "Track 2 — Session Intelligence (recommended R44)",
-        "status": "owner-gated",
-        "note": "Revert UI, main-session retry, session search + fork + export, memory v1, auto-compaction — the owner's explicit continue-a-session / revert vision."
+        "phase": "Orchestration deepening",
+        "status": "shipped",
+        "note": "R79 shipped the addressable-delegation tier (ADR-0022's follow-up, ADR-0028). A possible future: the parent-model stop of a background task (today the owner's panel Stop is the surface) and interactive queueing for sub-agent children."
       },
       {
-        "phase": "Track 3 — Project Customization (recommended R45)",
-        "status": "owner-gated",
-        "note": "Project kinds, per-project settings, persona merge, agent picker — the different-kinds-of-projects vision."
+        "phase": "External plugin ctx enrichment",
+        "status": "queued (R80 candidate)",
+        "note": "cline's appendContext seam — the plugin-consumer context hook."
       },
       {
-        "phase": "Track 4 — Autonomy & Automation (recommended R47, after Track 5)",
-        "status": "owner-gated",
-        "note": "Approval queue + remote approve, cost budgets, scheduler MVP, auto-team run mode — the full-fledged-automations vision."
+        "phase": "Lessons-ledger affordance",
+        "status": "queued (R80 candidate)",
+        "note": "The reminder injector's third consumer (dir-conventions and switch_mode are its first two; the BACKGROUND TASKS section joined as a sibling pattern in R79)."
       },
       {
-        "phase": "Track 5 — Capability Depth (recommended R46)",
-        "status": "partially delivered (R44–R46)",
-        "note": "Real web search (delivered R44), PTY terminal (delivered R45), and agent-intelligence depth (delivered R46: context compaction, ranked memory, checkpoint restore UI, durable cookies). Remaining: the edit-reliability ladder, in-app file editing, worktree isolation + per-role tool limits."
+        "phase": "Ratings-driven prompt tuning",
+        "status": "queued",
+        "note": "The ratings capture has three prompt tiers (skills, modes, references) worth tuning against."
       },
       {
-        "phase": "Track 6 — Ecosystem & Shipping",
-        "status": "planned",
-        "note": "MCP client, vision input, browser automation, packaging + versioned releases."
+        "phase": "Standing items",
+        "status": "queued",
+        "note": "Edit-linting (SWE-agent's ACI #1 finding), installer code-signing, the Files-tab polish, agent web-app-testing tools, the optional v0.68.0 backfill tag."
       }
     ],
     "principles": [
@@ -1605,6 +1598,34 @@
       "title": "The composer's never-wrapping action anchor — the bottom buttons never render in the wrong position",
       "status": "live",
       "desc": "The owner's report: 'The chat bottom buttons (Continue etc.) occasionally render in wrong positions.' The prior round pinned the send button to its right-side cluster, but the cluster lived INSIDE the wrapping toolbar row — when space ran out the whole group (Continue/Send included) could still wrap to the next line, landing below the designated options. The toolbar now restructures into a WRAPPING area (attach · access · task mode, then the donut/model/thinking selectors pinned right inside it) plus THE ANCHOR: a shrink-0 DOM SIBLING pinned right by the toolbar's justify-between — never inside any wrapping context — holding Continue · Send/Stop/queue-send, so the action button can never jump lines or drift. When the row gets tight the selector pills wrap as a unit under the left cluster while the button stays pinned bottom-right; the @max-[560px] label-hide and the left/right membership are preserved. Browser-verified stable at 386/480/560/641/900 px — the right gap is exactly the toolbar padding at every width, and at 386 px the selectors wrap INSIDE the wrap area while the actions stay anchored."
+    },
+    {
+      "id": "addressable-delegations",
+      "icon": "agents",
+      "title": "Addressable sub-agent tasks — the model's own handle (task_id) for every delegation",
+      "status": "live",
+      "desc": "delegate_task gained task_id: the parent model's own address for a delegation (grammar-checked, unique per session forever, duplicate-refused with the resume affordance). resume accepts the task_id, the child session id, or the 4-char code; the owner sees the address as a mono task-id chip in the Sub-agents panel and on the live sub-agent card (tooltip: delegate_task {\"resume\":\"<id>\"} collects it)."
+    },
+    {
+      "id": "background-delegation",
+      "icon": "stream",
+      "title": "Background delegations — fire-and-forget runs that outlive the parent's turn",
+      "status": "live",
+      "desc": "background:true (with a task_id) returns IMMEDIATELY with a receipt while the child runs detached through the same machinery as blocking children — live status frames, notifications, the stall watchdog, the owner's Stop. A ~400 ms parent turn against a 4 s child, the child completing after the turn ended: the battery's S79-3 proof. The ≥10-outstanding cap refuses runaway fan-out honestly."
+    },
+    {
+      "id": "resume-collect-retry",
+      "icon": "check",
+      "title": "resume — the collect verb: waits, collects, retries, never polls",
+      "status": "live",
+      "desc": "resume on a running task WAITS (the call blocks until terminal — the R71 no-polling discipline's collection half: resume IS the wait); on a completed task it returns the final report idempotently; on a failed task it retries from where the child stopped (the event log is the resume point — a no-progress failure honestly re-sends). The parent turn's abort returns the honest 'still running' line."
+    },
+    {
+      "id": "background-tasks-reminder",
+      "icon": "command",
+      "title": "The BACKGROUND TASKS reminder — the model is TOLD, never left polling",
+      "status": "live",
+      "desc": "Every turn, the system prompt lists the session's uncollected delegated tasks with live status (running 'Xm in, n/m todos' / COMPLETED — resume to read its final report / FAILED — resume to retry it from where it stopped). The section disappears once the report is collected (the delegation.collected lifecycle) and composes byte-identically for sessions without addressed children. The battery's request-body oracle proves the model actually SEES it."
     }
   ],
   "documentation": [
@@ -1695,15 +1716,15 @@
   ],
   "quality": {
     "ci": "success",
-    "ciNote": "Green on main — this round's honest CI story is a CODE+RELEASE round: push ca5e714 (the R78 honest-errors + queue round — the error-chain honesty, the composer action anchor, the retry settings, the message queue) → CI run 34203679389 SUCCESS on the FIRST push (the verify job, ~6m46s). Version 0.77.0: tag v0.77.0 → Release run 34204320612 SUCCESS (launcher-kit + desktop-installer — the ~16.5-minute NSIS build — + github-release jobs, all green) → release 384564517 PUBLISHED (not a draft) with the two assets — ACUTE-CODE_0.77.0_x64-setup.exe 37,405,130 B + acute-launcher-kit-v0.77.0.zip 91,486 B; the live picker smoke over the 24-release list picks 0.77.0, so the owner's launcher offers the upgrade on the next double-click. The live battery receipts: 12/12 stages against a dedicated sidecar + a local mock OpenRouter-compatible provider that records request bodies as the model-facing oracle (the honest bad-model error, the REAL 429 ladder with the real 'free-models-per-day' text on the card, queue-during-ladder-wait delivered at the rung boundary, the retry-gate fail-fast, mid-turn delivery with the completed tool results in the next prompt, the same-stream continuation, the pre-flip crash recovery, route honesty). Suites 954 frontend + 1742 agent-core + 12 sidecar e2e + 10 launcher = 2718 total; the root suite 2708/2708 GREEN in 144 files (+81 this round: agent-core +52 — the NEW r78-error-classification (23) + r78-retry-settings (11) + r78-queue (18) + the r71 userMessage pin honestly adjusted to the real-text semantics; frontend +29 across the composer/store/api/panel/Settings cards). docs:check 178 docs / 0 failures — was 177, +1 new file (round-78.md), the round-74 stamp cohort aged out at 78-74=4 > cap 3 and was bumped per the documented rule (a 100+-doc docs:check failure is cohort aging, not rot); lint clean, typecheck clean, version:check 0.77.0 ×4; license audit 134 production dependencies CLEAN (unchanged).",
+    "ciNote": "Green on main — this round's honest CI story is a CODE+RELEASE round with one infra flake, recorded: push ef11d86 (the R79 orchestrator round — delegate_task task_id/background/resume, the standing R73 deferral) → CI run 34223271421 FAILED on a Windows-runner STALL: a 1-second test (models-catalog's migration-0013 case) timed out at 30 s while three vitest worker RPC timeouts ('Timeout calling onTaskUpdate') fired around it — the runner itself went unresponsive, not the code (the test passed 3/3 locally in ~1 s and the whole suite was green before the push). The failed-job RE-RUN (the documented flake path — no code change, watched, not a silent retry) → SUCCESS. Version 0.78.0: tag v0.78.0 → Release run 34223270773 SUCCESS (launcher-kit + desktop-installer + github-release) → release 384700391 PUBLISHED with the two assets — ACUTE-CODE_0.78.0_x64-setup.exe 37,413,610 B + acute-launcher-kit-v0.78.0.zip 92,582 B. The live battery receipts: 10/10 stages against a dedicated sidecar + the body-dispatch mock OpenRouter-compatible provider recording REQUEST BODIES as the model-facing oracle (the blocking regression with the report inline in the parent's next prompt, the background task outliving the parent's turn ~400 ms vs a 4 s child, the next turn's prompt CARRYING the BACKGROUND TASKS section and it GONE after collection, resume waiting ~2.7 s for a 3 s child, the duplicate refusal, the taskId on the /subagents rows, the unknown-address list, the failed-child retry with the 'You were interrupted' continuation visible in the child's own request body). docs:check 180/0/0 (was 178; +2 new files round-79.md + ADR-0028, the round-75 stamp cohort aged out per the documented rule). The session's planning/backup instruction honored: the R79 plan at agent-ctx/R79-plan.md + backup/pre-r79 branches pushed in BOTH repos before any edit.",
     "suites": [
       {
         "name": "frontend",
-        "tests": 954
+        "tests": 960
       },
       {
         "name": "agent-core",
-        "tests": 1742
+        "tests": 1769
       },
       {
         "name": "e2e",
@@ -1959,6 +1980,10 @@
     {
       "date": "2026-09-08",
       "label": "R78 — the honest-errors + queue round: the owner's four asks, every one closed — (1) error-chain honesty: the SDK's RetryError is UNWRAPPED before classification (a wrapped 429 classifies by STATUS, not message-pattern luck), a 403 region block no longer lies 'authentication failed' (fail-fast unknown carrying the real text), and userMessage/classMessage are the provider's REAL words with providerError on every meta.retry frame + terminal envelope + the persisted turn.error — only a REAL rate limit ever shows as one; (2) the composer's never-wrapping action anchor (the wrapping area + the shrink-0 sibling pinned by justify-between — the bottom buttons can never jump lines; stable at 386-900 px); (3) the auto-retry config in Settings → General (three per-class switches, all default on; a disabled class fails fast with the real text; GET/PUT /settings/retry); (4) the message queue — message.queued + the strict type-flip delivery + three paths (loop-top, the turn-end same-stream continuation capped at 25, the pre-flip crash recovery) + POST/DELETE /sessions/:id/queue + the queue-send button and chips: a message queued mid-work delivers with the completed tool results in the next prompt, never interrupting the in-flight flow. The live battery 12/12 (a mock provider that records request bodies as the model-facing oracle); 2708 root tests (+81 this round: agent-core 1742, frontend 954); docs:check 178/0/0; v0.77.0 released (release 384564517, CI run 34203679389 first-push-green, Release run 34204320612)."
+    },
+    {
+      "date": "2026-09-08",
+      "label": "R79 — the orchestrator round: the standing R73 deferral closed (delegate_task task_id/background/resume, ADR-0028). Addressable (the model's own task_id handle, unique forever, duplicate-refused), backgroundable (fire-and-forget — the immediate receipt while the child runs detached through the same runChildTurn machinery, routinely outliving the parent's turn, best-effort emit, the abort cascade forwarded), and resumable (waits while running, collects idempotently, retries a failed child via the ADR-0022 continuation). The delivery channel: the per-turn BACKGROUND TASKS system-prompt section (only uncollected tasks; the delegation.collected event on the parent's log; the cheap guard so ordinary sessions compose byte-identically) + the task-id chips in the panel and the chat card. Migration 0028; root 2741/2741 in 145 files; battery-r79 10/10 (the request-body oracle); v0.78.0 released (release 384700391, one watched CI infra-flake re-run recorded). Both round sub-agents died mid-flight and were verified line-by-line before reuse — AGENT-MEMORY #82's lesson born from this round's own practice."
     }
   ],
   "chips": [
