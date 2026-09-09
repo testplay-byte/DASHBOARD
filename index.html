@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260908t122100075z">
+<link rel="stylesheet" href="assets/style.css?v=20260909t063928526z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -79,7 +79,7 @@
       <div class="hero-eyebrow">
         <span class="hero-availability">Private build · Windows 10 x64</span>
         <span class="hero-dot" aria-hidden="true">·</span>
-        <span class="hero-version">v0.78.0</span>
+        <span class="hero-version">v0.79.0</span>
       </div>
       <h1 id="hero-title">Acute</h1>
       <p class="tagline">Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.</p>
@@ -96,7 +96,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-09-08 12:21 UTC</span>
+      <span class="updated-time">2026-09-09 06:39 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -105,7 +105,7 @@
   <section class="stats-grid reveal" aria-label="Key numbers">
       <article class="stat-card card">
         <span class="stat-label">Tests passing</span>
-        <span class="stat-value"><span data-count="2751">2751</span></span>
+        <span class="stat-value"><span data-count="2782">2782</span></span>
         <span class="stat-sub">4 suites · 0 skipped · unit + e2e</span>
       </article>
       <article class="stat-card card">
@@ -115,8 +115,8 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="60">60</span></span>
-        <span class="stat-sub">Aug 21 – Sep 8 · 19-day run</span>
+        <span class="stat-value"><span data-count="61">61</span></span>
+        <span class="stat-sub">Aug 21 – Sep 9 · 20-day run</span>
       </article>
       <article class="stat-card card">
         <span class="stat-label">Dependencies audited</span>
@@ -1233,6 +1233,38 @@
         </div>
         <p class="feature-desc">Every turn, the system prompt lists the session&#39;s uncollected delegated tasks with live status (running &#39;Xm in, n/m todos&#39; / COMPLETED — resume to read its final report / FAILED — resume to retry it from where it stopped). The section disappears once the report is collected (the delegation.collected lifecycle) and composes byte-identically for sessions without addressed children. The battery&#39;s request-body oracle proves the model actually SEES it.</p>
       </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">The silent-stop guards — a chat can no longer just end</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The owner&#39;s report: &quot;the chat ends without any error message or anything some times.&quot; Three root causes, three honest terminal paths: (1) a provider that closes the SSE stream CLEANLY mid-generation (no error, no finish signal) used to synthesize a finish — the turn &quot;completed&quot; with truncated text and no error; the truncation guard now detects content-without-a-finish-signal and throws the honest &quot;connection closed mid-response&quot; error, classified as a transient network failure so the auto-retry ladder can wait it out (the partial text is preserved). (2) The 800k-token context guard and the 200-request guard used to end the turn ok:true with SSE-only frames nobody rendered; they now fail honestly with CONTEXT_LIMIT / REQUEST_LIMIT codes, a persisted error, and an actionable message (&quot;run /compact or start a new session&quot; / &quot;send a follow-up message to continue from where it stopped&quot;). (3) A crash inside the stream route itself used to vanish on reload (nothing persisted, the session stuck running); it now persists the failure and fires the task-failed notification, best-effort and crash-guarded.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">Raw provider errors — the real payload, verbatim</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The owner&#39;s ask: &quot;for error messages raw messages should be shown too.&quot; Every error-detail cap that only ever hid the provider&#39;s real payload was raised — the persisted provider error detail 500 → 4000 chars, the user-facing one-liner 240 → 600, the connection-test and models-fetch surfaces 500/160 → 4000/2000 — while the UI&#39;s expand-toggle already collapses long text with a scrollable mono block. The API-key scrubbing discipline is unchanged everywhere, and the NVIDIA nvapi-… prefix joined the redaction surfaces. The connection test now shows the provider&#39;s actual body (a live NIM probe surfaces the real 410 &quot;reached its end of life on 2026-08-26&quot; message verbatim).</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">The customizable retry schedule</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The owner&#39;s ask: &quot;in the settings retry customization is needed.&quot; Settings → General → Auto-retry now owns the whole schedule, not just the three per-failure-type switches: max attempts (2–10, default 6), the wait before each retry attempt (one editable input per rung, default 0/1.5/5/10/30 minutes), and the per-call provider timeout (60–3600 s, default 600). Every value is validated at the API and storage layers with the exact bounds the runtime resolves with; the schedule is resolved defensively per turn so a corrupt row can never break the ladder, and the defaults are byte-identical to the previous behavior. The task-failed notification&#39;s &quot;auto-retried N times (…)&quot; line and the card&#39;s footnote now phrase the schedule you actually configured — never a hardcoded one.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">NVIDIA NIM as a built-in provider</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The owner&#39;s ask: &quot;make sure it works with the nvidia api key too.&quot; nvidia is a seeded built-in provider (https://integrate.api.nvidia.com/v1, OpenAI-compatible — the chat-completions adapter speaks it as-is; models load through the existing /models fetch) with nvapi-… key support through the packaged app&#39;s secure key store and the dev sidecar&#39;s key file, a Settings Add-Provider preset, and the nvapi- prefix joined every key-scrub surface. Live-verified: the endpoint is reachable (198 ms), the 81-model catalog fetches, and the key authenticates; the account&#39;s NIM model functions have largely reached end-of-life server-side — the connection test shows those real provider bodies verbatim (the round&#39;s raw-error ask, incidentally proven).</p>
+      </article>
     </div>
   </section>
 
@@ -2235,12 +2267,19 @@
     <div class="now-card">
       <span class="now-label">Now</span>
       <div class="now-body">
-        <h3 class="now-title">R79 delivered — the orchestrator round: the standing R73 deferral closed. delegate_task is now addressable (task_id — the model&#39;s own handle for a delegation), backgroundable (fire-and-forget: the call returns a receipt immediately and the child runs detached, routinely outliving the parent&#39;s turn), and resumable (resume waits for a running task, collects a completed one&#39;s report idempotently, and retries a failed one from where it stopped). The model is TOLD — never left polling — via a per-turn BACKGROUND TASKS section in the system prompt that lists uncollected tasks with live status and disappears once collected (the delegation.collected lifecycle). The owner sees the address as a mono task-id chip in the Sub-agents panel and on the live sub-agent card — v0.78.0 released (release 384700391; one watched CI infra-flake re-run, recorded in the ciNote)</h3>
-        <p class="now-detail">The standing R73 deferral (recorded round after round as &#39;the orchestrator is the most delicate concurrency surface and deserved its own round — the last unshipped piece of the R71 sub-agent discipline&#39;) is closed: (1) THE TOOL — {task, role, task_id, background, resume} with three call shapes: BLOCKING (the pre-R79 behavior verbatim — the existing orchestrator suite green-unmodified is the regression gate), BACKGROUND (requires task_id; the immediate receipt while the child runs DETACHED through the SAME runChildTurn machinery — status frames, notifications, watchdog, turn-registry, key-slot — with crash-honesty handlers and best-effort emit because a background child routinely outlives the parent&#39;s SSE; the owner&#39;s Stop on the parent still cascades, so no zombie spend), and COLLECT (resume by task_id → session id → 4-char code: waits ~300 ms-poll while running, returns the report idempotently on completion, retries a failed child via the ADR-0022 §3 continuation, unknown → the honest addressable list); honest refusals everywhere (the task_id grammar, duplicates naming the status, the ≥10-outstanding fan-out cap, background-without-task_id, neither → the list) and the tool never throws. (2) THE DELIVERY CHANNEL — the per-turn &#39;## BACKGROUND TASKS&#39; system-prompt section (the taskHints ephemeral pattern; only uncollected addressable children; a cheap indexed guard so childless sessions compose byte-identically; prompt-registry 23→24) + the NEW delegation.collected event on the parent&#39;s log (blocking+task_id writes it at completion — inline delivery never nags; background writes it at resume; invisible to the model by construction). (3) PERSISTENCE — migration 0028 (sessions.delegate_task_id + the parent/task index; NULL default = pre-R79 behavior) with taskId on the /subagents rows and every subagent-status frame. (4) THE FRONTEND — the panel header&#39;s task chip + the chat card&#39;s chip (only when present). Root 2741/2741 in 145 files (agent-core 1769 incl. the new 27-test r79 suite, frontend 960, e2e 12); battery-r79 10/10 with the request-body oracle; ADR-0028 records the decision; AGENT-MEMORY #81 (the mock-oracle discipline) + #82 (an interrupted agent&#39;s tree is a claim — both this round&#39;s sub-agents died mid-flight and were verified line-by-line before reuse).</p>
+        <h3 class="now-title">R80 delivered — the reliability round: the owner&#39;s four-clause field report closed. The chat can no longer end silently (the SSE clean-close truncation guard, the context/request guard stops persisting honest turn.errors, the route-crash persistence), the raw provider error payloads are shown (every cap raised, scrubbing unchanged), the retry ladder is customizable (maxAttempts, per-rung waits, the provider timeout — edited from the Settings General card, the defaults byte-identical), and the NVIDIA NIM provider is a seeded built-in with env-injected key support — v0.79.0 released (release 385274188; CI 34317366484 green on the first try)</h3>
+        <p class="now-detail">The owner&#39;s four verbatim asks, each closed at the root: (1) SILENT STOPS — three distinct producers, three honest terminal paths: a provider that closes the SSE stream cleanly mid-generation (no error part, no finish signal) used to synthesize a finish and &#39;complete&#39; the turn with truncated text — the truncation guard now throws the honest &#39;connection closed mid-response&#39; error (network-classed, so the auto-retry ladder engages; the partial text is kept); the 800k-token context guard and the 200-request guard used to end ok:true with SSE-only frames nobody rendered — they now fail with CONTEXT_LIMIT/REQUEST_LIMIT codes, persisted errors, and actionable messages; a crash inside the stream route used to vanish on reload — it now persists and notifies (best-effort, crash-guarded). (2) RAW ERRORS — the persisted provider error detail cap 500→4000 chars, the user-facing one-liner 240→600, the connection-test surfaces 500/160→4000/2000; the key scrubbing discipline is unchanged and the nvapi- prefix joined the redaction surfaces. (3) RETRY CUSTOMIZATION — RetrySettings gained maxAttempts (2–10), waitMinutes (per-rung waits), providerTimeoutSeconds (60–3600), validated at the route AND storage layers, resolved defensively per turn (a corrupt row can never break the ladder; the defaults are byte-identical to the R75 behavior), edited from the Settings General card&#39;s Schedule section (stepper, per-rung inputs, timeout, Reset), with the task_failed notification&#39;s schedule line built from the real settings. (4) NVIDIA NIM — the seeded nvidia provider (integrate.api.nvidia.com/v1, OpenAI-compatible), the ACUTE_PROVIDER_NVIDIA env injection (packaged + dev), the Settings preset, live-verified reachable + catalog + key auth. The session continued the context-break&#39;s in-flight tree — verified claim-by-claim, one typing bug + five stale-pin classes fixed honestly (the stream mocks now model the healthy wire: a finish-step part). Verified 2772/2772 in 149 files + live on the real keys (a real OpenRouter streamed turn end-to-end, the retry PUT round-trips, the NVIDIA connection test).</p>
       </div>
       <span class="now-live"><span class="live-dot" aria-hidden="true"></span>current focus</span>
     </div>
     <ul class="upcoming-list">
+      <li class="upcoming-item">
+        <span class="status-chip status-planned">shipped</span>
+        <div class="upcoming-body">
+          <span class="upcoming-phase">Reliability hardening</span>
+          <span class="upcoming-note">R80 shipped the silent-stop fixes (truncation guard, guard stops, route-crash persistence), the raw error surfaces, the retry customization, and the NVIDIA NIM provider — v0.79.0 released</span>
+        </div>
+      </li>
       <li class="upcoming-item">
         <span class="status-chip status-planned">awaiting-verdict</span>
         <div class="upcoming-body">
@@ -2293,7 +2332,7 @@
       <div>
         <h2 id="quality-title">Quality</h2>
         <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
-        <p class="quality-note">Green on main — this round&#39;s honest CI story is a CODE+RELEASE round with one infra flake, recorded: push ef11d86 (the R79 orchestrator round — delegate_task task_id/background/resume, the standing R73 deferral) → CI run 34223271421 FAILED on a Windows-runner STALL: a 1-second test (models-catalog&#39;s migration-0013 case) timed out at 30 s while three vitest worker RPC timeouts (&#39;Timeout calling onTaskUpdate&#39;) fired around it — the runner itself went unresponsive, not the code (the test passed 3/3 locally in ~1 s and the whole suite was green before the push). The failed-job RE-RUN (the documented flake path — no code change, watched, not a silent retry) → SUCCESS. Version 0.78.0: tag v0.78.0 → Release run 34223270773 SUCCESS (launcher-kit + desktop-installer + github-release) → release 384700391 PUBLISHED with the two assets — ACUTE-CODE_0.78.0_x64-setup.exe 37,413,610 B + acute-launcher-kit-v0.78.0.zip 92,582 B. The live battery receipts: 10/10 stages against a dedicated sidecar + the body-dispatch mock OpenRouter-compatible provider recording REQUEST BODIES as the model-facing oracle (the blocking regression with the report inline in the parent&#39;s next prompt, the background task outliving the parent&#39;s turn ~400 ms vs a 4 s child, the next turn&#39;s prompt CARRYING the BACKGROUND TASKS section and it GONE after collection, resume waiting ~2.7 s for a 3 s child, the duplicate refusal, the taskId on the /subagents rows, the unknown-address list, the failed-child retry with the &#39;You were interrupted&#39; continuation visible in the child&#39;s own request body). docs:check 180/0/0 (was 178; +2 new files round-79.md + ADR-0028, the round-75 stamp cohort aged out per the documented rule). The session&#39;s planning/backup instruction honored: the R79 plan at agent-ctx/R79-plan.md + backup/pre-r79 branches pushed in BOTH repos before any edit.</p>
+        <p class="quality-note">success — v0.79.0 released (round 80 close-out): push 4a9828e → CI run 34317366484 SUCCESS on the FIRST try (verify: lint, typechecks, 2772/2772 tests across 149 files, cargo check, license audit). Tag v0.79.0 → Release run 34318331510 SUCCESS (launcher-kit + desktop-installer + github-release) → release 385274188 PUBLISHED with both assets (ACUTE-CODE_0.79.0_x64-setup.exe 37,418,694 B + acute-launcher-kit-v0.79.0.zip 94,028 B). The round was verified live on the real keys before the push: a real OpenRouter streamed turn end-to-end, the retry GET/PUT round-trips with honest 400s, and the NVIDIA NIM endpoint + catalog + key auth (the account&#39;s model functions are EOL&#39;d server-side — the raw bodies surface verbatim).</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -2303,18 +2342,18 @@
         <div class="suite-row">
           <div class="suite-head">
             <span class="suite-name">frontend</span>
-            <span class="suite-count"><strong data-count="960">960</strong> tests</span>
+            <span class="suite-count"><strong data-count="964">964</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="960" aria-valuemin="0" aria-valuemax="1769" aria-label="frontend test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="964" aria-valuemin="0" aria-valuemax="1796" aria-label="frontend test count relative to largest suite">
             <div class="bar-fill" data-progress="54" style="--w:54%"></div>
           </div>
         </div>
         <div class="suite-row">
           <div class="suite-head">
             <span class="suite-name">agent-core</span>
-            <span class="suite-count"><strong data-count="1769">1769</strong> tests</span>
+            <span class="suite-count"><strong data-count="1796">1796</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="1769" aria-valuemin="0" aria-valuemax="1769" aria-label="agent-core test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1796" aria-valuemin="0" aria-valuemax="1796" aria-label="agent-core test count relative to largest suite">
             <div class="bar-fill" data-progress="100" style="--w:100%"></div>
           </div>
         </div>
@@ -2323,7 +2362,7 @@
             <span class="suite-name">e2e</span>
             <span class="suite-count"><strong data-count="12">12</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="1769" aria-label="e2e test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="1796" aria-label="e2e test count relative to largest suite">
             <div class="bar-fill" data-progress="3" style="--w:3%"></div>
           </div>
         </div>
@@ -2332,13 +2371,13 @@
             <span class="suite-name">launcher (python unittest)</span>
             <span class="suite-count"><strong data-count="10">10</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="1769" aria-label="launcher (python unittest) test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="1796" aria-label="launcher (python unittest) test count relative to largest suite">
             <div class="bar-fill" data-progress="3" style="--w:3%"></div>
           </div>
         </div>
         <div class="suites-total">
           <span>Total</span>
-          <strong class="mono"><span data-count="2751">2751</span> tests passing · <span data-count="0">0</span> skipped</strong>
+          <strong class="mono"><span data-count="2782">2782</span> tests passing · <span data-count="0">0</span> skipped</strong>
         </div>
       </article>
       <div class="checks-col">
@@ -2831,9 +2870,14 @@
           <span class="timeline-label">R78 — the honest-errors + queue round: the owner&#39;s four asks, every one closed — (1) error-chain honesty: the SDK&#39;s RetryError is UNWRAPPED before classification (a wrapped 429 classifies by STATUS, not message-pattern luck), a 403 region block no longer lies &#39;authentication failed&#39; (fail-fast unknown carrying the real text), and userMessage/classMessage are the provider&#39;s REAL words with providerError on every meta.retry frame + terminal envelope + the persisted turn.error — only a REAL rate limit ever shows as one; (2) the composer&#39;s never-wrapping action anchor (the wrapping area + the shrink-0 sibling pinned by justify-between — the bottom buttons can never jump lines; stable at 386-900 px); (3) the auto-retry config in Settings → General (three per-class switches, all default on; a disabled class fails fast with the real text; GET/PUT /settings/retry); (4) the message queue — message.queued + the strict type-flip delivery + three paths (loop-top, the turn-end same-stream continuation capped at 25, the pre-flip crash recovery) + POST/DELETE /sessions/:id/queue + the queue-send button and chips: a message queued mid-work delivers with the completed tool results in the next prompt, never interrupting the in-flight flow. The live battery 12/12 (a mock provider that records request bodies as the model-facing oracle); 2708 root tests (+81 this round: agent-core 1742, frontend 954); docs:check 178/0/0; v0.77.0 released (release 384564517, CI run 34203679389 first-push-green, Release run 34204320612).</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-09-08</span>
           <span class="timeline-label">R79 — the orchestrator round: the standing R73 deferral closed (delegate_task task_id/background/resume, ADR-0028). Addressable (the model&#39;s own task_id handle, unique forever, duplicate-refused), backgroundable (fire-and-forget — the immediate receipt while the child runs detached through the same runChildTurn machinery, routinely outliving the parent&#39;s turn, best-effort emit, the abort cascade forwarded), and resumable (waits while running, collects idempotently, retries a failed child via the ADR-0022 continuation). The delivery channel: the per-turn BACKGROUND TASKS system-prompt section (only uncollected tasks; the delegation.collected event on the parent&#39;s log; the cheap guard so ordinary sessions compose byte-identically) + the task-id chips in the panel and the chat card. Migration 0028; root 2741/2741 in 145 files; battery-r79 10/10 (the request-body oracle); v0.78.0 released (release 384700391, one watched CI infra-flake re-run recorded). Both round sub-agents died mid-flight and were verified line-by-line before reuse — AGENT-MEMORY #82&#39;s lesson born from this round&#39;s own practice.</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-09-09</span>
+          <span class="timeline-label">R80 — the reliability round: the owner&#39;s four-clause field report closed. The silent chat terminations fixed at three root causes (the SSE clean-close truncation guard — a dropped stream mid-generation now throws the honest connection-closed error and the retry ladder engages; the context/request guard stops persisting turn.errors with CONTEXT_LIMIT/REQUEST_LIMIT codes instead of the silent ok:true; the route-crash persistence — a crash no longer vanishes on reload). The raw error messages shown (every error-detail cap raised — 4000/600/2000 — with key scrubbing unchanged and the nvapi- prefix joined). The retry ladder customizable (maxAttempts, per-rung waitMinutes, providerTimeoutSeconds — validated, resolved defensively per turn, edited from the Settings General card, the R75 defaults byte-identical). The NVIDIA NIM provider supported (seeded, env-injected key, live-verified reachable + catalog + auth; the account&#39;s model functions are EOL&#39;d server-side — the raw bodies show verbatim). Verified 2772/2772 in 149 files + live on the real keys; released as v0.79.0 (CI green on the first try, release 385274188).</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -2928,12 +2972,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-09-08 12:21 UTC · curated public data only — no product source · Acute v0.78.0</p>
+    <p class="footer-note">Generated 2026-09-09 06:39 UTC · curated public data only — no product source · Acute v0.79.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-09-08T12:21:00.075Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
-<script src="assets/app.js?v=20260908t122100075z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-09-09T06:39:28.526Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
+<script src="assets/app.js?v=20260909t063928526z" defer></script>
 </body>
 </html>
