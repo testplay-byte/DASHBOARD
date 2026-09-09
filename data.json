@@ -39,14 +39,19 @@
     },
     "upcoming": [
       {
+        "phase": "Modularity decision (R80.5 audit delivered)",
+        "status": "awaiting-verdict",
+        "note": "Docs-only analysis round: the structure verdict (part-level modularity exemplary — skills/modes/plugins real and addable with one file; the product core monolithic — server.ts/runtime.ts/api.ts/stream-store.ts god files + one 25-file import cycle) + the 4-wave roadmap (route split, turn-loop harness, ToolDeps cycle break = Wave 2; api.ts split + frontend event-handler registry = Wave 3). Owner scopes R81 from it."
+      },
+      {
         "phase": "Reliability hardening",
         "status": "shipped",
         "note": "R80 shipped the silent-stop fixes (truncation guard, guard stops, route-crash persistence), the raw error surfaces, the retry customization, and the NVIDIA NIM provider — v0.79.0 released"
       },
       {
-        "phase": "Owner re-test of v0.75.0 on Windows (ACUTE.bat)",
+        "phase": "Owner re-test of v0.79.0 on Windows (ACUTE.bat)",
         "status": "awaiting-verdict",
-        "note": "The R75 live gates: plan-mode write refusal, the retry card, the one-row toolbar, the 5-line textarea."
+        "note": "The R80 live gates: the silent-stop fixes (real multi-step turns ending cleanly or erroring honestly), the raw error cards, the Settings retry customization card, the NVIDIA provider preset."
       },
       {
         "phase": "Orchestration deepening",
@@ -55,12 +60,12 @@
       },
       {
         "phase": "External plugin ctx enrichment",
-        "status": "queued (R80 candidate)",
+        "status": "queued (R81)",
         "note": "cline's appendContext seam — the plugin-consumer context hook."
       },
       {
         "phase": "Lessons-ledger affordance",
-        "status": "queued (R80 candidate)",
+        "status": "queued (R81)",
         "note": "The reminder injector's third consumer (dir-conventions and switch_mode are its first two; the BACKGROUND TASKS section joined as a sibling pattern in R79)."
       },
       {
@@ -2125,5 +2130,5 @@
     ],
     "total": 97
   },
-  "lastUpdated": "2026-09-09"
+  "lastUpdated": "2026-09-09 — R80.5 modularity-audit sync (docs-only, no version change)"
 }
