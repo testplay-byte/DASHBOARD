@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.80.0",
+    "version": "0.81.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -34,27 +34,27 @@
   ],
   "plan": {
     "current": {
-      "title": "R81 delivered — the unified operating modes (ADR-0029): ONE picker of exactly THREE modes (Full Access / Ask / Plan) replaces BOTH the four-value access-level switcher and the six-builtin task-mode picker; task modes became non-enforcing agent self-selected postures (switch_mode) with enforcement living solely in the operating mode; 'editor' retired fail-closed with every historical guarantee preserved — v0.80.0 (committed to main; no tag cut yet)",
-      "detail": "The owner's one-picker directive shipped as ADR-0029: Full Access (all tools, zero approval asks — the agent decides autonomously whether to research, plan, build, debug, or edit and switches postures itself as the task's shape changes), Ask (default: full tools, gates before important commands and changes), Plan (read-only — plan/read/research; now carries the full 19-tool read-only vocabulary, the retired review/explore extras folded in: git_status/git_diff/git_log/analyze_image/job_status). The MODE_OPTIONS descriptions are the owner's semantics verbatim. TASK MODES BECAME NON-ENFORCING AGENT SELF-SELECTED POSTURES: the six builtin bodies and the .acute/agents customs survive with 'Discipline, not permission (R81)' prose; the prompt sections read OPERATING POSTURES (self-select with switch_mode) / ACTIVE POSTURE / OPERATING MODE; the R75 task-mode policy tier, the debug command tier, and the switch_mode owner-pin are retired — enforcement lives solely in the operating mode. 'editor' RETIRED fail-closed: migration 0029 maps editor→ask (nothing the owner had silently widens) and the read-only R75 postures (active plan/review/explore) → permission_mode='plan' (the R75 guarantee preserved); a read-time remap covers un-migrated databases; the permissions route rejects editor with an honest 400 hint. Frontend: the task-mode picker + its test, the /mode slash intercept, the first-send activeMode carry, and the modes query deleted (AgentChatPanel 2,932→2,743 lines). Verified: root suite 2,751 (2,739 passed + 12 build-gated e2e skipped) in 149 files — agent-core 1,795 in 86 files — e2e 12/12 black-box, lint + typechecks clean, license audit 134 CLEAN, plus a LIVE battery on the real OpenRouter (a PLAN turn's write attempt cannot execute — the tool is absent from the turn's registry and the model answers honestly; a FULL turn writes the proof file; an ASK turn runs auto-tier commands and refuses ask-tier ones; switch_mode persists a posture) and browser + VLM verification (exactly three menu options, Ask marked default, no Editor, no task-mode pill, zero console errors)."
+      "title": "R82 delivered — models & providers hardening (the owner's field report round 2): a model picked under a custom gateway or NVIDIA now ROUTES THERE (providerId rides the send wire end-to-end — the 'No endpoints found' misroute fixed at the wire-protocol root), the per-model Test button runs a REAL completion probe, capabilities became honest tri-states (migration 0030: unknown ≠ off), the sub-agent model is provider-scoped, custom-provider keys survive restarts, and the NVIDIA picker got its workflow polish — v0.81.0 (committed to main; no tag cut yet; the CI verdict syncing per the close-out convention)",
+      "detail": "The owner's field report round 2, shipped per the models-providers-fixes spec: (1) THE ROUTING FIX — the per-send override carried {model, providerId} in the composer but the wire DROPPED the providerId, so the turn preparer resolved the provider exclusively from the agent row and a custom model id went verbatim to OpenRouter ('No endpoints found'); body.providerId now rides both send routes (with honest 400s for unknown ids), the queued-message carry, the vision relay, the context meter (the donut reads the window/pricing rows of the provider that will serve the next send), and the debug analyst. The sub-agent twin: the orchestrator's sub-agent model setting became the provider-scoped {providerId, modelId} ref (legacy plain strings read openrouter-scoped — the honest backfill), the settings route validates it (provider exists, modelId non-blank, the row tool-capable-or-unknown — a known tool-less row 400s with the reason), and child turns provision their key pool + keyring view + keySlot attribution from the EFFECTIVE provider (the 409-before-any-chat-call defect — a provider-scoped sub-agent ref can now actually serve a child turn; retried children honor the same routing). (2) THE RUST TWIN — custom-provider keys survive app restarts: the shell notes non-builtin provider ids at key-save time (ids only, never secrets) and re-injects each provider's env var into every sidecar spawn (the derivation byte-identical to the sidecar keyring's, pinned by a unit test; cargo check + cargo check --tests exit 0). (3) THE PER-MODEL TEST BUTTON — a real minimal completion probe (max_tokens 16, 30 s timeout, apiFormat-branched): http/auth/model-accepted/non-empty-content checks, latency, a scrubbed content preview, provider-reported usage, and an honest failure reason — HTTP 200 either way (a probe that RAN and got a NO is a successful call), double-scrubbed through the shared secret-shapes module (the R80 lesson structuralized: ONE scrubbing point). (4) TRI-STATE CAPABILITIES (migration 0030) — supports_tools/supports_audio/supports_video nullable: NULL=unknown (the honest default for NIM/custom rows with no catalog source), 0=off, 1=on; the INSERT path's old two-way ternary that folded explicit null→false fixed; the edit dialog's capabilities card (Reasoning/Vision on/off + Tool use/Audio input/Video on/off/unknown with consumed-by hints + the Test-in-dialog button). (5) GET /models/configured — every provider's configured rows in one ordered feed (the sub-agent picker's 'your configured models' section; the running override shows its provider·model chip). (6) NVIDIA WORKFLOW POLISH — the Add-models picker's Free/All toggle is dialog-local (never rewrites the shared preference) and auto-switches to All for zero-free catalogs (NIM catalogs previously opened on the 'No free models match' empty state, which read as broken). Verified: root suite 2,797 in 151 files (agent-core 1,853 in 90 incl. the four new r82 suites — provider-routing 13, model-test 17, capabilities 11, subagent-model 10; frontend 940 + shared 4), e2e 12/12, lint + typechecks clean, license audit 134 CLEAN, docs:check 186/0/0, the round's 2,809-test total — plus a NEW live battery 8/8 on the real keys: a custom provider created live + a streamed turn with {model, providerId} lands on the provider's OWN endpoint with its OWN key (a local mock-gateway oracle, one provider call, the reply delivered), the real OpenRouter probe returning an honest ok:false with the provider's real 404 text (scrubbed), the real NIM probe surfacing the account's end-of-life verdict verbatim (scrubbed), a hostile gateway echoing the bearer key back scrubbed, the sub-agent model ref round-tripping with honest 400s, /models/configured listing rows across providers ordered, and the tri-state INSERT wire recording true/null/false exactly."
     },
     "upcoming": [
       {
-        "phase": "Wave 2 of the modularity roadmap (the R80.5 audit)",
+        "phase": "R83 — honest token/context metering",
         "status": "next",
+        "note": "The owner: 'the context, the token count — highly misleading.' Per the token-counting-robustness spec: the provider-reported 'actual' block on the context report, the estimator fed the REAL turn context, compaction-aware metering, the unified resolveTurnBudget with window-source labels, null-honest cache reporting, and the missing /compact the 800K guard already promises."
+      },
+      {
+        "phase": "Wave 2 of the modularity roadmap (the R80.5 audit)",
+        "status": "queued",
         "note": "Split server.ts (5,086 lines) into routes/<domain>.ts modules with a shared ctx; extract the shared turn-loop harness (retry ladder / loop guard / overflow recovery — ~1,700 duplicated lines); break the 25-file agents↔tools import cycle at the delegation edge (inject the orchestrator via ToolDeps)."
       },
       {
         "phase": "Models & providers hardening",
-        "status": "queued (R82)",
-        "note": "The owner's field report: custom-provider models route through OpenRouter (the per-send override never carried its provider — the runtime resolved the provider from the agent row only), NVIDIA second-class gaps, a per-model TEST button (responds + response-is-reasonable), and capability toggles in the model edit dialog (vision/audio/video/tools tri-state)."
+        "status": "shipped",
+        "note": "R82 shipped the owner's field report round 2 — the custom-provider routing fix (providerId end-to-end), the per-model Test button, tri-state capabilities (migration 0030), the edit dialog's capabilities card, provider-scoped sub-agent models, GET /models/configured, the NVIDIA picker polish, and restart-surviving custom keys — v0.81.0"
       },
       {
-        "phase": "Honest token/context metering",
-        "status": "queued",
-        "note": "The owner: 'the context, the token count — highly misleading.' The donut shows an estimate as fact while real per-call usage is persisted but unsurfaced; planned per the token-counting-robustness spec (the provider-reported 'actual' block, honest estimator labels, one budget, truth hygiene)."
-      },
-      {
-        "phase": "Standing R81-queue items",
+        "phase": "Standing items",
         "status": "queued",
         "note": "External plugin ctx enrichment (the appendContext seam), the lessons-ledger affordance as the reminder injector's third consumer, ratings-driven prompt tuning, the optional v0.68.0 backfill tag, edit-linting, installer code-signing, the Files-tab polish, agent web-app-testing tools."
       }
@@ -1665,6 +1665,34 @@
       "title": "'editor' retired fail-closed — every historical guarantee preserved",
       "status": "live",
       "desc": "Migration 0029 maps editor→ask (fail-closed — nothing the owner had silently widens; commands are gated by the owner instead of absent) and the read-only R75 postures (active plan/review/explore) → permission_mode='plan' (the R75 read-only guarantee preserved — those sessions WERE read-only in practice). A read-time remap covers un-migrated databases, old clients sending 'editor' get an honest 400 naming the mapping, and the modes feed keeps its readOnly flag always false for cached-client wire compatibility."
+    },
+    {
+      "id": "custom-provider-routing",
+      "icon": "globe",
+      "title": "Custom-provider model routing — the misroute fixed at the wire",
+      "status": "live",
+      "desc": "The owner's report: custom models 'route through openrouter' and fail with unknown-model errors. The root cause was a wire-protocol omission — the composer's picker carried {model, providerId} but the send wire dropped the providerId, so the turn was prepared against the agent row's provider and a custom model id went verbatim to OpenRouter ('No endpoints found'). providerId now rides both send routes (with honest 400s for unknown ids), the queued-message carry, the vision relay, the context meter, and the debug analyst — a model picked under a custom gateway or NVIDIA serves THERE, with its own key; the sub-agent model setting takes the provider-scoped {providerId, modelId} pair and child turns provision their key pool from the effective provider. Live-verified with a mock-gateway oracle: a streamed turn with {model, providerId} lands on the provider's OWN endpoint with its OWN key."
+    },
+    {
+      "id": "model-test-button",
+      "icon": "activity",
+      "title": "The per-model Test button — a real completion probe",
+      "status": "live",
+      "desc": "The owner's report: 'when i test a model nothing happens.' Every configured model row (and the edit dialog) can now run a REAL minimal completion — max_tokens 16, a 30 s timeout, apiFormat-branched — with http/auth/model-accepted/non-empty-content checks, latency, a scrubbed reply preview (≤200 chars, the owner's eyeball-judge, deliberately not LLM-graded), provider-reported usage, and an honest failure reason. HTTP 200 either way: a probe that RAN and got a NO is a successful test call; no-key/no-row/dangling-provider get honest 409/404/409. Everything is double-scrubbed through the shared secret-shapes module — the R80 lesson structuralized into ONE scrubbing point (a hostile gateway echoing the bearer key back is scrubbed to 'bad key *** rejected')."
+    },
+    {
+      "id": "tri-state-capabilities",
+      "icon": "blocks",
+      "title": "Tri-state capabilities — unknown is no longer 'off'",
+      "status": "live",
+      "desc": "The owner's report: the model edit dialog 'behaves badly… there should be proper options for it like vision, audio, video.' Migration 0030 makes supports_tools/supports_audio/supports_video NULLABLE — NULL=unknown (the honest default for NIM/custom rows with no catalog source), 0=off, 1=on — and the INSERT path's old two-way ternary that folded an explicit null into false was fixed (the tri-state wire now records true/null/false exactly, pinned by its own suite). The edit dialog grew the capabilities card: Reasoning/Vision on-off toggles plus Tool use/Audio input/Video on-off-unknown tri-states, each with a consumed-by micro-hint and a Test-in-dialog button."
+    },
+    {
+      "id": "restart-surviving-keys",
+      "icon": "plug",
+      "title": "Custom-provider keys survive app restarts",
+      "status": "live",
+      "desc": "A key saved for a Settings-created provider used to work only in the session where it was saved — every restart ended in an honest-but-annoying 'no API key for provider' 409, because the shell's env-injection list was a hardcoded set of builtins. The shell now notes non-builtin provider ids at key-save time (ids only, never secrets — the round-61 vision note-file pattern) and re-injects each provider's env var into EVERY sidecar spawn, with the name derivation byte-identical to the sidecar keyring's (pinned by a unit test). Verified: cargo check and cargo check --tests both exit 0."
     }
   ],
   "documentation": [
@@ -1755,7 +1783,7 @@
   ],
   "quality": {
     "ci": "pending",
-    "ciNote": "pending — the round's status doc recorded 'PENDING — R81 push not yet made (this field is synced from the Actions API at close-out per the documented convention)', and no close-out verdict sync has run for R81 (the next session carried the round forward and closed its own round the same way; the release tags stop at v0.79.0 — v0.80.0 is committed to main but not yet released). The round itself was verified before the commit: root suite 2,751 (2,739 passed + 12 build-gated e2e skipped) in 149 files — agent-core 1,795 in 86 files — e2e 12/12 black-box, lint + typechecks clean, license audit 134 deps CLEAN, and a live battery on the real OpenRouter: a PLAN turn's write attempt cannot execute (the tool is absent from the turn's registry; no file written; the model answers honestly), a FULL turn writes, an ASK turn gates commands. Per the convention the real CI verdict lands in a later docs-only sync, exactly as it did for R80.",
+    "ciNote": "pending — the round's status doc states exactly: 'PENDING — R82 push not yet made (this field is synced from the Actions API at close-out per the documented convention)' — the close-out sessions set the placeholder and a later docs-only round syncs the real verdict (as the R80 close-out did, replacing its placeholder with the real first-try SUCCESS story). The R82 push itself went out with the close-out (main sits at the round's commit; no v0.81.0 tag — the release tags stop at v0.79.0, so v0.80.0 and v0.81.0 are committed to main but unreleased). The round was verified before the push: root suite 2,797 in 151 files (agent-core 1,853 in 90 incl. the four new r82 suites — provider-routing 13, model-test 17, capabilities 11, subagent-model 10; frontend 940 + shared 4), e2e 12/12, lint + typechecks clean, license audit 134 deps CLEAN, cargo check + cargo check --tests exit 0, docs:check 186/0/0 — and the live battery 8/8 on the real keys: a custom provider created live + a streamed turn with {model, providerId} landing on the provider's OWN endpoint with its OWN key (a local mock-gateway oracle, one provider call, the reply delivered), the real OpenRouter probe returning an honest ok:false with the provider's real 404 text (scrubbed), the real NIM probe surfacing the account's end-of-life verdict verbatim (scrubbed), a hostile gateway echoing the bearer key back scrubbed to 'bad key *** rejected', the sub-agent model ref round-tripping with honest 400s, GET /models/configured listing rows across providers ordered, and the tri-state INSERT wire recording true/null/false exactly. The round's total: 2,809 tests (root 2,797 + the 12 e2e).",
     "suites": [
       {
         "name": "frontend",
@@ -1763,7 +1791,7 @@
       },
       {
         "name": "agent-core",
-        "tests": 1795
+        "tests": 1853
       },
       {
         "name": "e2e",
@@ -1781,7 +1809,7 @@
       "deps": 134,
       "verdict": "CLEAN"
     },
-    "lastReviewed": "2026-09-09"
+    "lastReviewed": "2026-09-10"
   },
   "milestones": [
     {
@@ -2031,6 +2059,10 @@
     {
       "date": "2026-09-09",
       "label": "R81 — the unified operating modes: ONE picker of exactly THREE modes (Full Access / Ask / Plan — ADR-0029) replaces BOTH the four-value access-level switcher and the six-builtin task-mode picker. Task modes became non-enforcing agent self-selected postures (switch_mode; the six bodies + .acute/agents customs survive with 'Discipline, not permission' prose); enforcement lives solely in the operating mode, PLAN carrying the full 19-tool read-only vocabulary (the retired review/explore extras folded in). 'editor' retired fail-closed (migration 0029: editor→ask; read-only R75 postures→plan — every historical guarantee preserved; honest 400 hint for old clients). Frontend: the task-mode picker + /mode deleted (AgentChatPanel 2,932→2,743 lines). Root suite 2,751 (12 skipped; agent-core 1,795 in 86 files), e2e 12/12; live battery on the real OpenRouter (a PLAN write attempt cannot execute; FULL writes; ASK gates) + browser + VLM pass; v0.80.0 committed — the tag/release not yet cut."
+    },
+    {
+      "date": "2026-09-09",
+      "label": "R82 — models & providers hardening (the owner's field report round 2): custom-provider model ROUTING fixed at the wire root cause (providerId rides both send routes, the queued-message carry, the vision relay, the context meter, and the debug analyst; the turn is prepared against the effective provider — the 'No endpoints found' OpenRouter misroute is gone), the provider-scoped sub-agent model {providerId, modelId} (children provisioned from the effective provider), custom-provider keys surviving restarts (the shell's note-file + env re-injection at every sidecar spawn — cargo check green), the per-model TEST button (a real minimal completion probe: http/auth/model/content checks, latency, scrubbed preview + reason — HTTP 200 either way), tri-state capability columns (migration 0030: unknown ≠ off; the edit dialog's capabilities card), GET /models/configured, and the NVIDIA picker polish (dialog-local Free/All, zero-free auto-switch). Root suite 2,797 in 151 files (agent-core 1,853 in 90 — four new r82 suites), e2e 12/12, the round's 2,809-test total, license audit 134 CLEAN, live battery 8/8 on the real keys; v0.81.0 committed — the tag/release not yet cut."
     }
   ],
   "chips": [
@@ -2135,5 +2167,5 @@
     ],
     "total": 97
   },
-  "lastUpdated": "2026-09-10 — R81 truth-sync: the unified operating modes (v0.80.0)"
+  "lastUpdated": "2026-09-10 — R82 truth-sync: models & providers hardening (v0.81.0 — R81 + R82 brought current in two syncs)"
 }
