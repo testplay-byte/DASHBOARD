@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.83.0",
+    "version": "0.84.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -34,19 +34,19 @@
   ],
   "plan": {
     "current": {
-      "title": "R83 delivered — honest token & context metering (the owner's 'highly misleading' round): ONE budget (resolveTurnBudget — the window with its source label, the owner's max_output_tokens honored for the first time, available = window − output − margin) now drives the meter, both turn budgets, the compaction trigger, the context guard, and the new compact route — the displayed number and the behavioral number are the SAME number; the donut shows the provider's OWN number for the last request beside the labeled estimate, applies the newest compaction, and renders the budget tick + window provenance; migration 0031's provider_calls + origin make 'N turns · M provider calls' honest and bill the hidden compaction/debug calls — and POST /sessions/:id/compact EXISTS, the 800K guard's phantom /compact made real — v0.82.0 (committed to main; no tag cut yet; the CI verdict syncing per the close-out convention)",
-      "detail": "The owner's complaint, verbatim: 'the context, the token count, and this stuff — they are being highly misleading. They are not being handled properly.' Shipped per the token-counting-robustness spec, with the new CONTEXT-METER runbook as the normative contract (estimate vs measured, one budget, NULL-not-zero): (1) ONE BUDGET — runtime.ts resolveTurnBudget: contextWindow with its source label (override|catalog|default), maxOutputTokens = the models row's max_output_tokens → catalog → 32,768 (the owner's editable column finally READ after 79 rounds of being stored-and-ignored), margin 8,000, available = window − output − margin; the meter route, both turn runners, the compaction trigger, the context guard, and the compact route all resolve through it. (2) THE HONEST DONUT — the wire's actual block: the provider's OWN prompt tokens for the last request (the newest message.assistant stats carrier; ts + model ride along so a per-send model switch can never silently mix numbers; null before the first reply, NEVER a fabricated 0); usedTokensBasis 'estimated' with the ~N% projected header labeled; the messages estimate APPLIES the newest compaction (the model receives summary + tail — the ring DROPS after a compaction instead of lying high) + the compaction badge; the DonutRing budget tick; the window-provenance note ('your override' / 'catalog default' / 'assumed 200k — set it in Settings → Models'); the meter builds the SAME PromptContext a real turn carries (skills, taskModes + activeTaskMode, environment, backgroundTasks, computerUse, maxOuterLoops) and schema-MEASURES the tool tokens (measureToolSchemaTokens — estimateTokens per effective tool's real JSON schema, in-process cached, replacing the fixed 350-per-tool guess). (3) THE GUARD — usedTokens > budget.available, model-relative (the pre-R83 hardcoded 800K fired BEFORE compaction could on big-window models and its message said 'run /compact', a command that did not exist); the meta.context_limit frame carries the real limit and the message names the real numbers + the REAL affordance. (4) POST /sessions/:id/compact — the affordance EXISTS: force-runs the same assembleWithCompaction machinery with honest 404/409 gates; {compacted:true, throughSeq, droppedMessages, tokensSaved} | {compacted:false, reason} — a single-message session declines honestly, summarizer failure degrades to the hard trim, never a 500. (5) MIGRATION 0031 (usage_events table rebuild — SQLite cannot ALTER a column constraint): provider_calls INTEGER NOT NULL DEFAULT 1 (every pre-R83 row exactly true — one row per turn since R24), origin TEXT NOT NULL DEFAULT 'turn' + the origin index, agent_id relaxed to nullable for the hidden-call rows. (6) TRUTH HYGIENE — cachedInputTokens NULL when no call reported a cache tier ('— not reported by this provider', never a fabricated 0%); costKnown per model with '(unpriced)' markers (never a silent $0.00 free lunch); the compaction summarizer AND the debug analyst record their own usage rows (origin 'compaction'/'debug' — hidden spend visible for the first time); 'requests' relabeled Turns with the real provider-call count beside it (a 5-iteration turn is 1 turn · 5 calls); the stream-store renders meta.compaction/meta.context_limit as live notes and invalidates the meter on done. Verified: root suite 2,825 tests in 155 files (agent-core 92/1,867 — the new r83-budget + r83-compact-route suites + the context-report ROUND-83 block; frontend 61/946; shared 1/4), e2e 12/12, lint + typechecks clean, license audit 134 CLEAN, docs:check 188/0/0 — plus the NEW live battery 5/5 on the real keys (scripts/battery-r83.mjs): a real OpenRouter streamed turn then the honest report — actual=61 tokens MEASURED end-to-end, basis='estimated', window 256000 catalog-labeled, available = window−output−margin EXACT, turns 1 · providerCalls 1 — the honest cache line, the compact route live on the sidecar, and the usage rollups' providerCalls + costKnown."
+      "title": "R86 — the verification + SSE-extraction round (the owner's task-list session)",
+      "detail": "Shipped as v0.84.0: (1) every R85 structure claim re-verified with three parallel sweeps — the backend numbers all exact (the 52-route inventory with the full method+path+line table, the 22 SQL leaks, the benign registry↔mcp 2-cycle, the 378 byte-identical sync/streamed duplication lines, ToolDeps' missing runId), four frontend numbers corrected (api.ts 85 importing files, not 72; ModelsProvidersTab 60 hook call-sites / 3 dialogs, not 40/4; 14 Zustand stores; StreamTurnEvent's 37 member types), the dead sessions/ directory caught receiving an R83 maintenance edit (dead code being maintained), and three narrow frontend seams the audit's 'zero extension seams' claim missed (the error-bus pubsub ring, the browser-bridge per-tab handler registry, right-sidebar-events). (2) THE SSE ROUTE EXTRACTED — routes/sse.ts, the final-phase domain of the R84 server.ts split: the 476-line streamed turn route (the client-gone semantics, the queue-continuation loop, the post-turn debug analyst, the crash recovery) moved verbatim with a byte-identical round-trip verifier; server.ts 2,439 → 1,913 lines; eleven single-consumer imports pruned; registration order preserved; verified by the full pipeline — 2,825 tests byte-identical to the pre-move baseline, e2e 12/12 against the built dist, and a live boot smoke proving the route answers through the hijack→writeHead→SSE-frame path. (3) Ops: six stale branches deleted (only main remains), the stuck v0.83.0 draft release PUBLISHED, the DASHBOARD's plan section truth-synced."
     },
     "upcoming": [
       {
-        "phase": "Wave 2 of the modularity roadmap (the R80.5 audit)",
+        "phase": "Wave 2 continuation (the modularity roadmap)",
         "status": "next",
-        "note": "Split server.ts (now 5,719 lines) into routes/<domain>.ts modules with a shared ctx; extract the shared turn-loop harness (retry ladder / loop guard / overflow recovery — ~1,700 duplicated lines); break the 25-file agents↔tools import cycle at the delegation edge (inject the orchestrator via ToolDeps)."
+        "note": "Wave 2-b the turn-loop harness extraction (risk #1: 378 byte-identical lines between the sync/streamed runners; prepareTurn's 10 positional args → an options object) + the remaining server.ts domains — 51 routes (terminal, MCP, computer-use, diagnostics, approvals, vision + the notifications/jobs/checkpoints/dialogs/plugins tail). The SSE domain — the hardest, 476 lines of concurrency logic — shipped in R86."
       },
       {
-        "phase": "Honest token/context metering",
-        "status": "shipped",
-        "note": "R83 shipped the owner's 'highly misleading' round — ONE budget (resolveTurnBudget with window-source labels and the owner's max_output_tokens finally honored), the measured-vs-projected donut with the provider's own actual block, compaction-aware metering, schema-measured tool tokens, the model-relative guard, the real POST /sessions/:id/compact, migration 0031's provider_calls + origin, null-honest cache reporting, and (unpriced) cost markers — v0.82.0"
+        "phase": "Wave 3 — the frontend seams",
+        "status": "queued",
+        "note": "The api.ts split (3,959 lines / 85 importing files → transport/types/sse/view-models with a barrel), the stream-event handler registry (the 687-line handleStreamEvent → event-type → handler map), the AgentChatPanel/ModelsProvidersTab decompositions, deleting the 559-line dead sessions/ directory."
       },
       {
         "phase": "Standing R81-queue items",
@@ -56,7 +56,7 @@
       {
         "phase": "DeepSeek-harness adaptation candidates (the round-2 study)",
         "status": "queued",
-        "note": "agent-ctx/research/deepseek-harness-round2.md's top-3: C2 per-tool declared timeoutMs with structured TOOL_TIMEOUT results (R51's own next-study candidate); C3 mode/permission policy as folded session events + the policy sentence AFTER retained history (fixes revert semantics + stops prompt-cache invalidation on mode switches); C4 tool-result spill (oversized outputs to session-scoped files + locators)."
+        "note": "agent-ctx/research/deepseek-harness-round2.md's top-3: C2 per-tool declared timeoutMs with structured TOOL_TIMEOUT results (the top pick); C3 mode/permission policy as folded session events + cache-stable narration; C4 tool-result spill."
       }
     ],
     "principles": [
@@ -1817,7 +1817,7 @@
   ],
   "quality": {
     "ci": "green",
-    "ciNote": "R84 (the modularity round): push 8ce6e08 → CI run 34484344162 SUCCESS — the SCC break + the 57% server.ts route split, behavior-identical and test-guarded (2,825 root tests in 155 files). R85 (the structure re-assessment, docs-only): push f253788 → CI run 34505690618 SUCCESS — the audit confirmed R84's wins, corrected three overstatements, and re-synced all normative docs to the post-R84 reality.",
+    "ciNote": "PENDING — R86 push 38ffc83 (this field is synced from the Actions API at close-out per the documented convention; the R85 verdict: push f253788 → run 34505690618 SUCCESS).",
     "suites": [
       {
         "name": "frontend",
@@ -2109,6 +2109,10 @@
     {
       "date": "2026-09-10",
       "label": "R85 — the structure re-assessment: The owner-directed post-R84 audit, docs-only: three parallel analysis sweeps re-verified at c38bc8b — R84's wins CONFIRMED (the SCC dead, server.ts 5,719→2,439 exact) with three overstatements corrected (one benign 2-cycle remains: registry↔plugins/mcp TOOL_NAME_RE since R61; 52 routes remain in server.ts, not ~31 — the notifications/jobs/checkpoints/dialogs/plugins tail was never on the plan; the SSE route is 476 lines); the turn-loop duplication measured (378 byte-identical lines; runtime.ts grew to 3,369; prepareTurn 447 lines/10 positional args); the frontend god files all grew since R80.5 (api 3,959 / stream-store 1,936 / ModelsProvidersTab 3,304; 559 lines of dead sessions/ code; zero extension seams); SQL leaks counted at 22 (approvals.ts ×11); every P0 doc drift fixed (MODULE-BOUNDARIES rewritten to the post-R84 reality, MAINTENANCE §e, HANDOFF, round-84.md backfilled, the board/index/TESTING/IMPLEMENTED-API/ROADMAP/EXTENSIBILITY synced, WORKLOG R76-R81 backfill, lessons #84-#85). v0.83.0 unchanged."
+    },
+    {
+      "date": "2026-09-10",
+      "label": "R86 — the verification + SSE-extraction round: The owner's task-list session, shipped as v0.84.0. (1) Every R85 structure claim re-verified with three parallel sweeps — backend exact (the 52-route inventory, 22 SQL leaks, the benign 2-cycle, the 378-line sync/streamed duplication), four frontend numbers corrected (api.ts 85 importing files not 72; ModelsProvidersTab 60 hook call-sites / 3 dialogs; 14 Zustand stores; StreamTurnEvent 37 member types), the dead sessions/ dir caught receiving an R83 maintenance edit, and three narrow frontend seams the audit's 'zero' claim missed (error-bus, browser-bridge handler registry, right-sidebar-events). (2) THE SSE ROUTE EXTRACTED — routes/sse.ts, the final-phase domain of the R84 server.ts split: the 476-line streamed turn route moved verbatim (byte-identical round-trip verifier), server.ts 2,439 → 1,913 lines, eleven single-consumer imports pruned, registration order preserved; verified by the full pipeline (2,825 tests byte-identical to the pre-move baseline, e2e 12/12 against the built dist, a live boot smoke). (3) Ops: six stale branches deleted (only main remains), the stuck v0.83.0 draft release PUBLISHED (both assets verified), the DASHBOARD's plan section truth-synced."
     }
   ],
   "chips": [
@@ -2213,5 +2217,5 @@
     ],
     "total": 97
   },
-  "lastUpdated": "2026-09-10 — R85 truth-sync: the modularity round (R84) + the structure re-assessment (R85, docs-only)"
+  "lastUpdated": "2026-09-10 — R86 truth-sync: the verification + SSE-extraction round (v0.84.0)"
 }
