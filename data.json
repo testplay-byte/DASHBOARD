@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.79.0",
+    "version": "0.80.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -34,49 +34,29 @@
   ],
   "plan": {
     "current": {
-      "title": "R80 delivered — the reliability round: the owner's four-clause field report closed. The chat can no longer end silently (the SSE clean-close truncation guard, the context/request guard stops persisting honest turn.errors, the route-crash persistence), the raw provider error payloads are shown (every cap raised, scrubbing unchanged), the retry ladder is customizable (maxAttempts, per-rung waits, the provider timeout — edited from the Settings General card, the defaults byte-identical), and the NVIDIA NIM provider is a seeded built-in with env-injected key support — v0.79.0 released (release 385274188; CI 34317366484 green on the first try)",
-      "detail": "The owner's four verbatim asks, each closed at the root: (1) SILENT STOPS — three distinct producers, three honest terminal paths: a provider that closes the SSE stream cleanly mid-generation (no error part, no finish signal) used to synthesize a finish and 'complete' the turn with truncated text — the truncation guard now throws the honest 'connection closed mid-response' error (network-classed, so the auto-retry ladder engages; the partial text is kept); the 800k-token context guard and the 200-request guard used to end ok:true with SSE-only frames nobody rendered — they now fail with CONTEXT_LIMIT/REQUEST_LIMIT codes, persisted errors, and actionable messages; a crash inside the stream route used to vanish on reload — it now persists and notifies (best-effort, crash-guarded). (2) RAW ERRORS — the persisted provider error detail cap 500→4000 chars, the user-facing one-liner 240→600, the connection-test surfaces 500/160→4000/2000; the key scrubbing discipline is unchanged and the nvapi- prefix joined the redaction surfaces. (3) RETRY CUSTOMIZATION — RetrySettings gained maxAttempts (2–10), waitMinutes (per-rung waits), providerTimeoutSeconds (60–3600), validated at the route AND storage layers, resolved defensively per turn (a corrupt row can never break the ladder; the defaults are byte-identical to the R75 behavior), edited from the Settings General card's Schedule section (stepper, per-rung inputs, timeout, Reset), with the task_failed notification's schedule line built from the real settings. (4) NVIDIA NIM — the seeded nvidia provider (integrate.api.nvidia.com/v1, OpenAI-compatible), the ACUTE_PROVIDER_NVIDIA env injection (packaged + dev), the Settings preset, live-verified reachable + catalog + key auth. The session continued the context-break's in-flight tree — verified claim-by-claim, one typing bug + five stale-pin classes fixed honestly (the stream mocks now model the healthy wire: a finish-step part). Verified 2772/2772 in 149 files + live on the real keys (a real OpenRouter streamed turn end-to-end, the retry PUT round-trips, the NVIDIA connection test)."
+      "title": "R81 delivered — the unified operating modes (ADR-0029): ONE picker of exactly THREE modes (Full Access / Ask / Plan) replaces BOTH the four-value access-level switcher and the six-builtin task-mode picker; task modes became non-enforcing agent self-selected postures (switch_mode) with enforcement living solely in the operating mode; 'editor' retired fail-closed with every historical guarantee preserved — v0.80.0 (committed to main; no tag cut yet)",
+      "detail": "The owner's one-picker directive shipped as ADR-0029: Full Access (all tools, zero approval asks — the agent decides autonomously whether to research, plan, build, debug, or edit and switches postures itself as the task's shape changes), Ask (default: full tools, gates before important commands and changes), Plan (read-only — plan/read/research; now carries the full 19-tool read-only vocabulary, the retired review/explore extras folded in: git_status/git_diff/git_log/analyze_image/job_status). The MODE_OPTIONS descriptions are the owner's semantics verbatim. TASK MODES BECAME NON-ENFORCING AGENT SELF-SELECTED POSTURES: the six builtin bodies and the .acute/agents customs survive with 'Discipline, not permission (R81)' prose; the prompt sections read OPERATING POSTURES (self-select with switch_mode) / ACTIVE POSTURE / OPERATING MODE; the R75 task-mode policy tier, the debug command tier, and the switch_mode owner-pin are retired — enforcement lives solely in the operating mode. 'editor' RETIRED fail-closed: migration 0029 maps editor→ask (nothing the owner had silently widens) and the read-only R75 postures (active plan/review/explore) → permission_mode='plan' (the R75 guarantee preserved); a read-time remap covers un-migrated databases; the permissions route rejects editor with an honest 400 hint. Frontend: the task-mode picker + its test, the /mode slash intercept, the first-send activeMode carry, and the modes query deleted (AgentChatPanel 2,932→2,743 lines). Verified: root suite 2,751 (2,739 passed + 12 build-gated e2e skipped) in 149 files — agent-core 1,795 in 86 files — e2e 12/12 black-box, lint + typechecks clean, license audit 134 CLEAN, plus a LIVE battery on the real OpenRouter (a PLAN turn's write attempt cannot execute — the tool is absent from the turn's registry and the model answers honestly; a FULL turn writes the proof file; an ASK turn runs auto-tier commands and refuses ask-tier ones; switch_mode persists a posture) and browser + VLM verification (exactly three menu options, Ask marked default, no Editor, no task-mode pill, zero console errors)."
     },
     "upcoming": [
       {
-        "phase": "Modularity decision (R80.5 audit delivered)",
-        "status": "awaiting-verdict",
-        "note": "Docs-only analysis round: the structure verdict (part-level modularity exemplary — skills/modes/plugins real and addable with one file; the product core monolithic — server.ts/runtime.ts/api.ts/stream-store.ts god files + one 25-file import cycle) + the 4-wave roadmap (route split, turn-loop harness, ToolDeps cycle break = Wave 2; api.ts split + frontend event-handler registry = Wave 3). Owner scopes R81 from it."
+        "phase": "Wave 2 of the modularity roadmap (the R80.5 audit)",
+        "status": "next",
+        "note": "Split server.ts (5,086 lines) into routes/<domain>.ts modules with a shared ctx; extract the shared turn-loop harness (retry ladder / loop guard / overflow recovery — ~1,700 duplicated lines); break the 25-file agents↔tools import cycle at the delegation edge (inject the orchestrator via ToolDeps)."
       },
       {
-        "phase": "Reliability hardening",
-        "status": "shipped",
-        "note": "R80 shipped the silent-stop fixes (truncation guard, guard stops, route-crash persistence), the raw error surfaces, the retry customization, and the NVIDIA NIM provider — v0.79.0 released"
+        "phase": "Models & providers hardening",
+        "status": "queued (R82)",
+        "note": "The owner's field report: custom-provider models route through OpenRouter (the per-send override never carried its provider — the runtime resolved the provider from the agent row only), NVIDIA second-class gaps, a per-model TEST button (responds + response-is-reasonable), and capability toggles in the model edit dialog (vision/audio/video/tools tri-state)."
       },
       {
-        "phase": "Owner re-test of v0.79.0 on Windows (ACUTE.bat)",
-        "status": "awaiting-verdict",
-        "note": "The R80 live gates: the silent-stop fixes (real multi-step turns ending cleanly or erroring honestly), the raw error cards, the Settings retry customization card, the NVIDIA provider preset."
-      },
-      {
-        "phase": "Orchestration deepening",
-        "status": "shipped",
-        "note": "R79 shipped the addressable-delegation tier (ADR-0022's follow-up, ADR-0028). A possible future: the parent-model stop of a background task (today the owner's panel Stop is the surface) and interactive queueing for sub-agent children."
-      },
-      {
-        "phase": "External plugin ctx enrichment",
-        "status": "queued (R81)",
-        "note": "cline's appendContext seam — the plugin-consumer context hook."
-      },
-      {
-        "phase": "Lessons-ledger affordance",
-        "status": "queued (R81)",
-        "note": "The reminder injector's third consumer (dir-conventions and switch_mode are its first two; the BACKGROUND TASKS section joined as a sibling pattern in R79)."
-      },
-      {
-        "phase": "Ratings-driven prompt tuning",
+        "phase": "Honest token/context metering",
         "status": "queued",
-        "note": "The ratings capture has three prompt tiers (skills, modes, references) worth tuning against."
+        "note": "The owner: 'the context, the token count — highly misleading.' The donut shows an estimate as fact while real per-call usage is persisted but unsurfaced; planned per the token-counting-robustness spec (the provider-reported 'actual' block, honest estimator labels, one budget, truth hygiene)."
       },
       {
-        "phase": "Standing items",
+        "phase": "Standing R81-queue items",
         "status": "queued",
-        "note": "Edit-linting (SWE-agent's ACI #1 finding), installer code-signing, the Files-tab polish, agent web-app-testing tools, the optional v0.68.0 backfill tag."
+        "note": "External plugin ctx enrichment (the appendContext seam), the lessons-ledger affordance as the reminder injector's third consumer, ratings-driven prompt tuning, the optional v0.68.0 backfill tag, edit-linting, installer code-signing, the Files-tab polish, agent web-app-testing tools."
       }
     ],
     "principles": [
@@ -1664,6 +1644,27 @@
       "title": "NVIDIA NIM as a built-in provider",
       "status": "live",
       "desc": "The owner's ask: \"make sure it works with the nvidia api key too.\" nvidia is a seeded built-in provider (https://integrate.api.nvidia.com/v1, OpenAI-compatible — the chat-completions adapter speaks it as-is; models load through the existing /models fetch) with nvapi-… key support through the packaged app's secure key store and the dev sidecar's key file, a Settings Add-Provider preset, and the nvapi- prefix joined every key-scrub surface. Live-verified: the endpoint is reachable (198 ms), the 81-model catalog fetches, and the key authenticates; the account's NIM model functions have largely reached end-of-life server-side — the connection test shows those real provider bodies verbatim (the round's raw-error ask, incidentally proven)."
+    },
+    {
+      "id": "unified-mode-picker",
+      "icon": "grip-horizontal",
+      "title": "One picker, three modes — Full Access / Ask / Plan",
+      "status": "live",
+      "desc": "The owner's directive: combine the six-builtin task-mode picker and the four-value access-level switcher into ONE selector. Full Access (all tools, zero permission asks — the agent decides how to work and switches postures itself as the task's shape changes), Ask (default: full tools, gates before important commands and changes), Plan (read-only — plan, read files, research, no edits or mutating commands; carries the full 19-tool read-only vocabulary with the retired review/explore extras folded in). The three descriptions are the owner's semantics verbatim, and the menu was browser-verified + VLM-passed: exactly three options, Ask marked default, no Editor, no task-mode pill, zero console errors."
+    },
+    {
+      "id": "agent-postures",
+      "icon": "agents",
+      "title": "Task modes became agent self-selected postures",
+      "status": "live",
+      "desc": "The six posture bodies (plan/debug/build/review/explore/refactor) and the .acute/agents custom modes survive as NON-ENFORCING guidance the agent picks via switch_mode — 'Discipline, not permission': the prompt sections read OPERATING POSTURES (self-select with switch_mode) and ACTIVE POSTURE, and the R75 enforcement tier (task-mode tool narrowing, the debug command tier, the read-only owner-pin) is retired — enforcement lives solely in the operating mode. The task-mode picker, the /mode slash command, and the modes query were deleted from the UI (AgentChatPanel 2,932 → 2,743 lines). Live-verified on a real provider: switch_mode persists a posture and the agent then works the read-only tools on its own recognizance."
+    },
+    {
+      "id": "editor-retired-fail-closed",
+      "icon": "shield",
+      "title": "'editor' retired fail-closed — every historical guarantee preserved",
+      "status": "live",
+      "desc": "Migration 0029 maps editor→ask (fail-closed — nothing the owner had silently widens; commands are gated by the owner instead of absent) and the read-only R75 postures (active plan/review/explore) → permission_mode='plan' (the R75 read-only guarantee preserved — those sessions WERE read-only in practice). A read-time remap covers un-migrated databases, old clients sending 'editor' get an honest 400 naming the mapping, and the modes feed keeps its readOnly flag always false for cached-client wire compatibility."
     }
   ],
   "documentation": [
@@ -1699,9 +1700,9 @@
     },
     {
       "category": "ADRs",
-      "title": "ADRs 0001 – 0024",
+      "title": "ADRs 0001 – 0029",
       "path": "docs/decisions/",
-      "desc": "Architecture Decision Records — sequential, never renumbered. Newest: 0024 approval-engine v1."
+      "desc": "Architecture Decision Records — sequential, never renumbered. Newest: 0029 unified operating modes (one picker, three modes)."
     },
     {
       "category": "Runbooks",
@@ -1753,16 +1754,16 @@
     }
   ],
   "quality": {
-    "ci": "success",
-    "ciNote": "success — v0.79.0 released (round 80 close-out): push 4a9828e → CI run 34317366484 SUCCESS on the FIRST try (verify: lint, typechecks, 2772/2772 tests across 149 files, cargo check, license audit). Tag v0.79.0 → Release run 34318331510 SUCCESS (launcher-kit + desktop-installer + github-release) → release 385274188 PUBLISHED with both assets (ACUTE-CODE_0.79.0_x64-setup.exe 37,418,694 B + acute-launcher-kit-v0.79.0.zip 94,028 B). The round was verified live on the real keys before the push: a real OpenRouter streamed turn end-to-end, the retry GET/PUT round-trips with honest 400s, and the NVIDIA NIM endpoint + catalog + key auth (the account's model functions are EOL'd server-side — the raw bodies surface verbatim).",
+    "ci": "pending",
+    "ciNote": "pending — the round's status doc recorded 'PENDING — R81 push not yet made (this field is synced from the Actions API at close-out per the documented convention)', and no close-out verdict sync has run for R81 (the next session carried the round forward and closed its own round the same way; the release tags stop at v0.79.0 — v0.80.0 is committed to main but not yet released). The round itself was verified before the commit: root suite 2,751 (2,739 passed + 12 build-gated e2e skipped) in 149 files — agent-core 1,795 in 86 files — e2e 12/12 black-box, lint + typechecks clean, license audit 134 deps CLEAN, and a live battery on the real OpenRouter: a PLAN turn's write attempt cannot execute (the tool is absent from the turn's registry; no file written; the model answers honestly), a FULL turn writes, an ASK turn gates commands. Per the convention the real CI verdict lands in a later docs-only sync, exactly as it did for R80.",
     "suites": [
       {
         "name": "frontend",
-        "tests": 964
+        "tests": 944
       },
       {
         "name": "agent-core",
-        "tests": 1796
+        "tests": 1795
       },
       {
         "name": "e2e",
@@ -2026,6 +2027,10 @@
     {
       "date": "2026-09-09",
       "label": "R80 — the reliability round: the owner's four-clause field report closed. The silent chat terminations fixed at three root causes (the SSE clean-close truncation guard — a dropped stream mid-generation now throws the honest connection-closed error and the retry ladder engages; the context/request guard stops persisting turn.errors with CONTEXT_LIMIT/REQUEST_LIMIT codes instead of the silent ok:true; the route-crash persistence — a crash no longer vanishes on reload). The raw error messages shown (every error-detail cap raised — 4000/600/2000 — with key scrubbing unchanged and the nvapi- prefix joined). The retry ladder customizable (maxAttempts, per-rung waitMinutes, providerTimeoutSeconds — validated, resolved defensively per turn, edited from the Settings General card, the R75 defaults byte-identical). The NVIDIA NIM provider supported (seeded, env-injected key, live-verified reachable + catalog + auth; the account's model functions are EOL'd server-side — the raw bodies show verbatim). Verified 2772/2772 in 149 files + live on the real keys; released as v0.79.0 (CI green on the first try, release 385274188)."
+    },
+    {
+      "date": "2026-09-09",
+      "label": "R81 — the unified operating modes: ONE picker of exactly THREE modes (Full Access / Ask / Plan — ADR-0029) replaces BOTH the four-value access-level switcher and the six-builtin task-mode picker. Task modes became non-enforcing agent self-selected postures (switch_mode; the six bodies + .acute/agents customs survive with 'Discipline, not permission' prose); enforcement lives solely in the operating mode, PLAN carrying the full 19-tool read-only vocabulary (the retired review/explore extras folded in). 'editor' retired fail-closed (migration 0029: editor→ask; read-only R75 postures→plan — every historical guarantee preserved; honest 400 hint for old clients). Frontend: the task-mode picker + /mode deleted (AgentChatPanel 2,932→2,743 lines). Root suite 2,751 (12 skipped; agent-core 1,795 in 86 files), e2e 12/12; live battery on the real OpenRouter (a PLAN write attempt cannot execute; FULL writes; ASK gates) + browser + VLM pass; v0.80.0 committed — the tag/release not yet cut."
     }
   ],
   "chips": [
@@ -2130,5 +2135,5 @@
     ],
     "total": 97
   },
-  "lastUpdated": "2026-09-09 — R80.5 modularity-audit sync (docs-only, no version change)"
+  "lastUpdated": "2026-09-10 — R81 truth-sync: the unified operating modes (v0.80.0)"
 }
