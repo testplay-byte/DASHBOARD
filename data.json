@@ -1817,7 +1817,7 @@
   ],
   "quality": {
     "ci": "green",
-    "ciNote": "PENDING — R86 push 38ffc83 (this field is synced from the Actions API at close-out per the documented convention; the R85 verdict: push f253788 → run 34505690618 SUCCESS).",
+    "ciNote": "R86 (the verification + SSE-extraction round): push 38ffc83 → CI run 34515808594 SUCCESS (lint, typechecks, the 2,825-test root suite in 155 files, build, e2e, license audit, cargo check, docs check — all green on windows-latest) + the Release run 34515811591 SUCCESS; v0.84.0 tagged, built, and PUBLISHED (both assets verified, zero drafts remain). The R85 verdict underneath: push f253788 → run 34505690618 SUCCESS.",
     "suites": [
       {
         "name": "frontend",
