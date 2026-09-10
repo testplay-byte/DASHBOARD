@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.81.0",
+    "version": "0.82.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -34,29 +34,29 @@
   ],
   "plan": {
     "current": {
-      "title": "R82 delivered — models & providers hardening (the owner's field report round 2): a model picked under a custom gateway or NVIDIA now ROUTES THERE (providerId rides the send wire end-to-end — the 'No endpoints found' misroute fixed at the wire-protocol root), the per-model Test button runs a REAL completion probe, capabilities became honest tri-states (migration 0030: unknown ≠ off), the sub-agent model is provider-scoped, custom-provider keys survive restarts, and the NVIDIA picker got its workflow polish — v0.81.0 (committed to main; no tag cut yet; the CI verdict syncing per the close-out convention)",
-      "detail": "The owner's field report round 2, shipped per the models-providers-fixes spec: (1) THE ROUTING FIX — the per-send override carried {model, providerId} in the composer but the wire DROPPED the providerId, so the turn preparer resolved the provider exclusively from the agent row and a custom model id went verbatim to OpenRouter ('No endpoints found'); body.providerId now rides both send routes (with honest 400s for unknown ids), the queued-message carry, the vision relay, the context meter (the donut reads the window/pricing rows of the provider that will serve the next send), and the debug analyst. The sub-agent twin: the orchestrator's sub-agent model setting became the provider-scoped {providerId, modelId} ref (legacy plain strings read openrouter-scoped — the honest backfill), the settings route validates it (provider exists, modelId non-blank, the row tool-capable-or-unknown — a known tool-less row 400s with the reason), and child turns provision their key pool + keyring view + keySlot attribution from the EFFECTIVE provider (the 409-before-any-chat-call defect — a provider-scoped sub-agent ref can now actually serve a child turn; retried children honor the same routing). (2) THE RUST TWIN — custom-provider keys survive app restarts: the shell notes non-builtin provider ids at key-save time (ids only, never secrets) and re-injects each provider's env var into every sidecar spawn (the derivation byte-identical to the sidecar keyring's, pinned by a unit test; cargo check + cargo check --tests exit 0). (3) THE PER-MODEL TEST BUTTON — a real minimal completion probe (max_tokens 16, 30 s timeout, apiFormat-branched): http/auth/model-accepted/non-empty-content checks, latency, a scrubbed content preview, provider-reported usage, and an honest failure reason — HTTP 200 either way (a probe that RAN and got a NO is a successful call), double-scrubbed through the shared secret-shapes module (the R80 lesson structuralized: ONE scrubbing point). (4) TRI-STATE CAPABILITIES (migration 0030) — supports_tools/supports_audio/supports_video nullable: NULL=unknown (the honest default for NIM/custom rows with no catalog source), 0=off, 1=on; the INSERT path's old two-way ternary that folded explicit null→false fixed; the edit dialog's capabilities card (Reasoning/Vision on/off + Tool use/Audio input/Video on/off/unknown with consumed-by hints + the Test-in-dialog button). (5) GET /models/configured — every provider's configured rows in one ordered feed (the sub-agent picker's 'your configured models' section; the running override shows its provider·model chip). (6) NVIDIA WORKFLOW POLISH — the Add-models picker's Free/All toggle is dialog-local (never rewrites the shared preference) and auto-switches to All for zero-free catalogs (NIM catalogs previously opened on the 'No free models match' empty state, which read as broken). Verified: root suite 2,797 in 151 files (agent-core 1,853 in 90 incl. the four new r82 suites — provider-routing 13, model-test 17, capabilities 11, subagent-model 10; frontend 940 + shared 4), e2e 12/12, lint + typechecks clean, license audit 134 CLEAN, docs:check 186/0/0, the round's 2,809-test total — plus a NEW live battery 8/8 on the real keys: a custom provider created live + a streamed turn with {model, providerId} lands on the provider's OWN endpoint with its OWN key (a local mock-gateway oracle, one provider call, the reply delivered), the real OpenRouter probe returning an honest ok:false with the provider's real 404 text (scrubbed), the real NIM probe surfacing the account's end-of-life verdict verbatim (scrubbed), a hostile gateway echoing the bearer key back scrubbed, the sub-agent model ref round-tripping with honest 400s, /models/configured listing rows across providers ordered, and the tri-state INSERT wire recording true/null/false exactly."
+      "title": "R83 delivered — honest token & context metering (the owner's 'highly misleading' round): ONE budget (resolveTurnBudget — the window with its source label, the owner's max_output_tokens honored for the first time, available = window − output − margin) now drives the meter, both turn budgets, the compaction trigger, the context guard, and the new compact route — the displayed number and the behavioral number are the SAME number; the donut shows the provider's OWN number for the last request beside the labeled estimate, applies the newest compaction, and renders the budget tick + window provenance; migration 0031's provider_calls + origin make 'N turns · M provider calls' honest and bill the hidden compaction/debug calls — and POST /sessions/:id/compact EXISTS, the 800K guard's phantom /compact made real — v0.82.0 (committed to main; no tag cut yet; the CI verdict syncing per the close-out convention)",
+      "detail": "The owner's complaint, verbatim: 'the context, the token count, and this stuff — they are being highly misleading. They are not being handled properly.' Shipped per the token-counting-robustness spec, with the new CONTEXT-METER runbook as the normative contract (estimate vs measured, one budget, NULL-not-zero): (1) ONE BUDGET — runtime.ts resolveTurnBudget: contextWindow with its source label (override|catalog|default), maxOutputTokens = the models row's max_output_tokens → catalog → 32,768 (the owner's editable column finally READ after 79 rounds of being stored-and-ignored), margin 8,000, available = window − output − margin; the meter route, both turn runners, the compaction trigger, the context guard, and the compact route all resolve through it. (2) THE HONEST DONUT — the wire's actual block: the provider's OWN prompt tokens for the last request (the newest message.assistant stats carrier; ts + model ride along so a per-send model switch can never silently mix numbers; null before the first reply, NEVER a fabricated 0); usedTokensBasis 'estimated' with the ~N% projected header labeled; the messages estimate APPLIES the newest compaction (the model receives summary + tail — the ring DROPS after a compaction instead of lying high) + the compaction badge; the DonutRing budget tick; the window-provenance note ('your override' / 'catalog default' / 'assumed 200k — set it in Settings → Models'); the meter builds the SAME PromptContext a real turn carries (skills, taskModes + activeTaskMode, environment, backgroundTasks, computerUse, maxOuterLoops) and schema-MEASURES the tool tokens (measureToolSchemaTokens — estimateTokens per effective tool's real JSON schema, in-process cached, replacing the fixed 350-per-tool guess). (3) THE GUARD — usedTokens > budget.available, model-relative (the pre-R83 hardcoded 800K fired BEFORE compaction could on big-window models and its message said 'run /compact', a command that did not exist); the meta.context_limit frame carries the real limit and the message names the real numbers + the REAL affordance. (4) POST /sessions/:id/compact — the affordance EXISTS: force-runs the same assembleWithCompaction machinery with honest 404/409 gates; {compacted:true, throughSeq, droppedMessages, tokensSaved} | {compacted:false, reason} — a single-message session declines honestly, summarizer failure degrades to the hard trim, never a 500. (5) MIGRATION 0031 (usage_events table rebuild — SQLite cannot ALTER a column constraint): provider_calls INTEGER NOT NULL DEFAULT 1 (every pre-R83 row exactly true — one row per turn since R24), origin TEXT NOT NULL DEFAULT 'turn' + the origin index, agent_id relaxed to nullable for the hidden-call rows. (6) TRUTH HYGIENE — cachedInputTokens NULL when no call reported a cache tier ('— not reported by this provider', never a fabricated 0%); costKnown per model with '(unpriced)' markers (never a silent $0.00 free lunch); the compaction summarizer AND the debug analyst record their own usage rows (origin 'compaction'/'debug' — hidden spend visible for the first time); 'requests' relabeled Turns with the real provider-call count beside it (a 5-iteration turn is 1 turn · 5 calls); the stream-store renders meta.compaction/meta.context_limit as live notes and invalidates the meter on done. Verified: root suite 2,825 tests in 155 files (agent-core 92/1,867 — the new r83-budget + r83-compact-route suites + the context-report ROUND-83 block; frontend 61/946; shared 1/4), e2e 12/12, lint + typechecks clean, license audit 134 CLEAN, docs:check 188/0/0 — plus the NEW live battery 5/5 on the real keys (scripts/battery-r83.mjs): a real OpenRouter streamed turn then the honest report — actual=61 tokens MEASURED end-to-end, basis='estimated', window 256000 catalog-labeled, available = window−output−margin EXACT, turns 1 · providerCalls 1 — the honest cache line, the compact route live on the sidecar, and the usage rollups' providerCalls + costKnown."
     },
     "upcoming": [
       {
-        "phase": "R83 — honest token/context metering",
-        "status": "next",
-        "note": "The owner: 'the context, the token count — highly misleading.' Per the token-counting-robustness spec: the provider-reported 'actual' block on the context report, the estimator fed the REAL turn context, compaction-aware metering, the unified resolveTurnBudget with window-source labels, null-honest cache reporting, and the missing /compact the 800K guard already promises."
-      },
-      {
         "phase": "Wave 2 of the modularity roadmap (the R80.5 audit)",
-        "status": "queued",
-        "note": "Split server.ts (5,086 lines) into routes/<domain>.ts modules with a shared ctx; extract the shared turn-loop harness (retry ladder / loop guard / overflow recovery — ~1,700 duplicated lines); break the 25-file agents↔tools import cycle at the delegation edge (inject the orchestrator via ToolDeps)."
+        "status": "next",
+        "note": "Split server.ts (now 5,719 lines) into routes/<domain>.ts modules with a shared ctx; extract the shared turn-loop harness (retry ladder / loop guard / overflow recovery — ~1,700 duplicated lines); break the 25-file agents↔tools import cycle at the delegation edge (inject the orchestrator via ToolDeps)."
       },
       {
-        "phase": "Models & providers hardening",
+        "phase": "Honest token/context metering",
         "status": "shipped",
-        "note": "R82 shipped the owner's field report round 2 — the custom-provider routing fix (providerId end-to-end), the per-model Test button, tri-state capabilities (migration 0030), the edit dialog's capabilities card, provider-scoped sub-agent models, GET /models/configured, the NVIDIA picker polish, and restart-surviving custom keys — v0.81.0"
+        "note": "R83 shipped the owner's 'highly misleading' round — ONE budget (resolveTurnBudget with window-source labels and the owner's max_output_tokens finally honored), the measured-vs-projected donut with the provider's own actual block, compaction-aware metering, schema-measured tool tokens, the model-relative guard, the real POST /sessions/:id/compact, migration 0031's provider_calls + origin, null-honest cache reporting, and (unpriced) cost markers — v0.82.0"
       },
       {
-        "phase": "Standing items",
+        "phase": "Standing R81-queue items",
         "status": "queued",
-        "note": "External plugin ctx enrichment (the appendContext seam), the lessons-ledger affordance as the reminder injector's third consumer, ratings-driven prompt tuning, the optional v0.68.0 backfill tag, edit-linting, installer code-signing, the Files-tab polish, agent web-app-testing tools."
+        "note": "External plugin ctx enrichment (cline's appendContext seam), the lessons-ledger affordance as the reminder injector's third consumer, ratings-driven prompt tuning, and the standing items (edit-linting, installer code-signing, the Files-tab polish, agent web-app-testing tools)."
+      },
+      {
+        "phase": "DeepSeek-harness adaptation candidates (the round-2 study)",
+        "status": "queued",
+        "note": "agent-ctx/research/deepseek-harness-round2.md's top-3: C2 per-tool declared timeoutMs with structured TOOL_TIMEOUT results (R51's own next-study candidate); C3 mode/permission policy as folded session events + the policy sentence AFTER retained history (fixes revert semantics + stops prompt-cache invalidation on mode switches); C4 tool-result spill (oversized outputs to session-scoped files + locators)."
       }
     ],
     "principles": [
@@ -1693,6 +1693,34 @@
       "title": "Custom-provider keys survive app restarts",
       "status": "live",
       "desc": "A key saved for a Settings-created provider used to work only in the session where it was saved — every restart ended in an honest-but-annoying 'no API key for provider' 409, because the shell's env-injection list was a hardcoded set of builtins. The shell now notes non-builtin provider ids at key-save time (ids only, never secrets — the round-61 vision note-file pattern) and re-injects each provider's env var into EVERY sidecar spawn, with the name derivation byte-identical to the sidecar keyring's (pinned by a unit test). Verified: cargo check and cargo check --tests both exit 0."
+    },
+    {
+      "id": "honest-context-donut",
+      "icon": "stream",
+      "title": "The honest context donut — measured beside projected",
+      "status": "live",
+      "desc": "The owner: 'the context, the token count — highly misleading.' The ring still fills with the estimate (its job is to move live during a turn), but every number is now labeled: '~N% projected · estimated' in the header, a NEW measured line carrying the provider's OWN prompt size for the last request (the actual block from the newest message.assistant stats carrier — 'not yet measured' before the first reply, never a fabricated 0, with ts + model riding along so a per-send model switch can't silently mix numbers), a compaction badge + an estimate that APPLIES the newest compaction (the ring visibly DROPS — the model receives summary + tail, not the raw log), the window-provenance note ('your override' / 'catalog default' / 'assumed 200k'), and the honest cache line ('— not reported by this provider'). The meter also builds the SAME prompt sections a real turn carries (skills, task-modes, the active mode, background tasks, environment) and MEASURES the real JSON tool schemas per tool instead of the fixed 350-tokens-per-tool guess. Live-battery-verified: actual=61 tokens measured end-to-end on a real OpenRouter turn."
+    },
+    {
+      "id": "unified-turn-budget",
+      "icon": "check",
+      "title": "ONE turn budget — the displayed number is the behavioral number",
+      "status": "live",
+      "desc": "resolveTurnBudget is now the single source every context number resolves through: contextWindow with its source label (override | catalog | default), maxOutputTokens from the models row (the owner's editable max_output_tokens column, finally READ after 79 rounds of being stored-and-ignored) → catalog → 32,768, margin 8,000, available = window − output − margin. The meter route, both turn runners, the compaction trigger, the context guard, and the compact route all resolve through it — the pre-R83 donut's 85% danger color and the compaction trigger disagreed on both numerator AND denominator; the donut now renders the same line as a budget tick + 'compaction line' note. Honest consequence, stated in the runbook: catalog models with huge declared output caps compact early — that is the truth of a shared input+output window, not a bug."
+    },
+    {
+      "id": "compact-route",
+      "icon": "terminal",
+      "title": "POST /sessions/:id/compact — the phantom /compact made real",
+      "status": "live",
+      "desc": "The pre-R83 context guard's error said 'run /compact' — a command that did not exist (and the hardcoded 800K limit fired BEFORE compaction could on big-window models). The affordance now EXISTS: POST /sessions/:id/compact force-runs the same assembleWithCompaction machinery with honest 404/409 gates (no agent / vanished agent / unconfigured model / missing provider / no baseUrl / disabled / no key), returning {compacted:true, throughSeq, droppedMessages, tokensSaved} or an honest {compacted:false, reason} — a single-message session declines (nothing to summarize), summarizer failure degrades to the hard trim, never a 500. The guard itself became model-relative (usedTokens > budget.available, the real limit in the meta.context_limit frame, the real numbers in the persisted error), and the summarizer's own spend is billed as an origin-'compaction' usage row."
+    },
+    {
+      "id": "usage-truth-columns",
+      "icon": "index",
+      "title": "Usage truth columns — provider calls, origins, honest billing",
+      "status": "live",
+      "desc": "Migration 0031 rebuilds usage_events (SQLite cannot ALTER a column constraint): provider_calls INTEGER NOT NULL DEFAULT 1 (every pre-R83 row exactly true — one row per turn since R24), origin TEXT NOT NULL DEFAULT 'turn' with its index, and agent_id relaxed to nullable for the hidden calls. The UI relabels 'requests' as Turns with the REAL provider-call count beside it (a 5-iteration turn is 1 turn · 5 calls — 'requests' previously meant three different things: turns since R24, SDK calls in the guard, steps in the AI SDK); the compaction summarizer and the debug analyst now record their own usage rows (origin 'compaction'/'debug' — hidden spend visible for the first time); the cache hit rate renders '— not reported by this provider' when no call reported a cache tier (NULL written, never a fabricated 0%); and model rollups carry costKnown, showing '(unpriced)' instead of a silent $0.00 free lunch."
     }
   ],
   "documentation": [
@@ -1763,6 +1791,12 @@
       "desc": "Owner's one-click launcher: auto-install, update+restart, self-update, auto-open browser."
     },
     {
+      "category": "Runbooks",
+      "title": "CONTEXT-METER.md",
+      "path": "docs/runbooks/CONTEXT-METER.md",
+      "desc": "The normative metering contract (established round 83, the 'highly misleading' round): estimate vs measured, one budget, NULL-not-zero — every number shown to the owner carries its basis."
+    },
+    {
       "category": "Research",
       "title": "9 reference projects",
       "path": "docs/research/",
@@ -1783,15 +1817,15 @@
   ],
   "quality": {
     "ci": "pending",
-    "ciNote": "pending — the round's status doc states exactly: 'PENDING — R82 push not yet made (this field is synced from the Actions API at close-out per the documented convention)' — the close-out sessions set the placeholder and a later docs-only round syncs the real verdict (as the R80 close-out did, replacing its placeholder with the real first-try SUCCESS story). The R82 push itself went out with the close-out (main sits at the round's commit; no v0.81.0 tag — the release tags stop at v0.79.0, so v0.80.0 and v0.81.0 are committed to main but unreleased). The round was verified before the push: root suite 2,797 in 151 files (agent-core 1,853 in 90 incl. the four new r82 suites — provider-routing 13, model-test 17, capabilities 11, subagent-model 10; frontend 940 + shared 4), e2e 12/12, lint + typechecks clean, license audit 134 deps CLEAN, cargo check + cargo check --tests exit 0, docs:check 186/0/0 — and the live battery 8/8 on the real keys: a custom provider created live + a streamed turn with {model, providerId} landing on the provider's OWN endpoint with its OWN key (a local mock-gateway oracle, one provider call, the reply delivered), the real OpenRouter probe returning an honest ok:false with the provider's real 404 text (scrubbed), the real NIM probe surfacing the account's end-of-life verdict verbatim (scrubbed), a hostile gateway echoing the bearer key back scrubbed to 'bad key *** rejected', the sub-agent model ref round-tripping with honest 400s, GET /models/configured listing rows across providers ordered, and the tri-state INSERT wire recording true/null/false exactly. The round's total: 2,809 tests (root 2,797 + the 12 e2e).",
+    "ciNote": "pending — the round's status doc states exactly: 'PENDING — R83 push not yet made (this field is synced from the Actions API at close-out per the documented convention)' — the close-out sessions set the placeholder and a later docs-only round syncs the real verdict (as the R80 close-out did, replacing its placeholder with the real first-try SUCCESS story; the R81 and R82 placeholders are likewise still awaiting their verdict-sync round). The R83 push itself went out with the close-out (main sits at the round's commit; no v0.82.0 tag — the release tags stop at v0.79.0, so v0.80.0, v0.81.0, and v0.82.0 are committed to main but unreleased). The round was verified before the push: root suite 2,825 tests in 155 files (agent-core 1,867 in 92 — the new r83-budget (4) + r83-compact-route (5) suites, the context-report ROUND-83 block (5), and the stream-store compaction/limit notes; frontend 946; shared 4; r80-silent-stops, sessions, debug-analyst, usage, storage, Composer, UsageScreen, and DashboardScreen re-based to the R83 contracts), e2e 12/12, lint + typechecks clean, license audit 134 deps CLEAN, docs:check 188/0/0 (re-run by this sync and confirmed: 188 docs scanned, 0 failures, 0 warnings — the round's status doc and round-83.md say 187) — and the NEW live battery 5/5 on the real keys (scripts/battery-r83.mjs): a real OpenRouter streamed turn (z-ai/glm-5.2:free) then the honest context report — actual=61 tokens MEASURED end-to-end, basis='estimated', window 256000 catalog-labeled, available = window − output − margin EXACT, turns 1 · providerCalls 1 — plus the honest cache line, the compact route live on the sidecar, and the usage rollups' providerCalls + costKnown.",
     "suites": [
       {
         "name": "frontend",
-        "tests": 944
+        "tests": 946
       },
       {
         "name": "agent-core",
-        "tests": 1853
+        "tests": 1867
       },
       {
         "name": "e2e",
@@ -2063,6 +2097,10 @@
     {
       "date": "2026-09-09",
       "label": "R82 — models & providers hardening (the owner's field report round 2): custom-provider model ROUTING fixed at the wire root cause (providerId rides both send routes, the queued-message carry, the vision relay, the context meter, and the debug analyst; the turn is prepared against the effective provider — the 'No endpoints found' OpenRouter misroute is gone), the provider-scoped sub-agent model {providerId, modelId} (children provisioned from the effective provider), custom-provider keys surviving restarts (the shell's note-file + env re-injection at every sidecar spawn — cargo check green), the per-model TEST button (a real minimal completion probe: http/auth/model/content checks, latency, scrubbed preview + reason — HTTP 200 either way), tri-state capability columns (migration 0030: unknown ≠ off; the edit dialog's capabilities card), GET /models/configured, and the NVIDIA picker polish (dialog-local Free/All, zero-free auto-switch). Root suite 2,797 in 151 files (agent-core 1,853 in 90 — four new r82 suites), e2e 12/12, the round's 2,809-test total, license audit 134 CLEAN, live battery 8/8 on the real keys; v0.81.0 committed — the tag/release not yet cut."
+    },
+    {
+      "date": "2026-09-10",
+      "label": "R83 — honest token & context metering (the owner's 'highly misleading' round): ONE budget (resolveTurnBudget — the window WITH its source label, the owner's max_output_tokens finally honored, available = window − output − margin) driving the meter, both turn budgets, the compaction trigger, the guard, and the new compact route; the honest donut (the provider's OWN number for the last request as the actual block, the labeled ~projected estimate, the compaction-applied estimate + badge, the budget tick + window provenance, schema-measured tool tokens, the real PromptContext sections); the model-relative guard; POST /sessions/:id/compact (the 800K guard's phantom /compact made real — honest gates, never a 500); migration 0031 (provider_calls + origin — turns vs calls, the hidden compaction/debug calls billed, null-honest cache hit rates, (unpriced) cost markers); and the stream-store rendering meta.compaction/context_limit with meter invalidation. Root suite 2,825 in 155 files (agent-core 1,867 in 92; frontend 946), e2e 12/12, license audit 134 CLEAN, docs:check 188/0/0, live battery 5/5 on the real keys (scripts/battery-r83.mjs — actual=61 tokens measured end-to-end on a real OpenRouter turn); the CONTEXT-METER runbook (the normative estimate-vs-measured contract). v0.82.0 committed — the tag/release not yet cut."
     }
   ],
   "chips": [
@@ -2167,5 +2205,5 @@
     ],
     "total": 97
   },
-  "lastUpdated": "2026-09-10 — R82 truth-sync: models & providers hardening (v0.81.0 — R81 + R82 brought current in two syncs)"
+  "lastUpdated": "2026-09-10 — R83 truth-sync: honest token & context metering (v0.82.0)"
 }

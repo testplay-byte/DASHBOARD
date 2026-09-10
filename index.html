@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260910t102605857z">
+<link rel="stylesheet" href="assets/style.css?v=20260910t120424433z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -79,7 +79,7 @@
       <div class="hero-eyebrow">
         <span class="hero-availability">Private build · Windows 10 x64</span>
         <span class="hero-dot" aria-hidden="true">·</span>
-        <span class="hero-version">v0.81.0</span>
+        <span class="hero-version">v0.82.0</span>
       </div>
       <h1 id="hero-title">Acute</h1>
       <p class="tagline">Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.</p>
@@ -96,7 +96,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-09-10 10:26 UTC</span>
+      <span class="updated-time">2026-09-10 12:04 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -105,7 +105,7 @@
   <section class="stats-grid reveal" aria-label="Key numbers">
       <article class="stat-card card">
         <span class="stat-label">Tests passing</span>
-        <span class="stat-value"><span data-count="2819">2819</span></span>
+        <span class="stat-value"><span data-count="2835">2835</span></span>
         <span class="stat-sub">4 suites · 0 skipped · unit + e2e</span>
       </article>
       <article class="stat-card card">
@@ -115,8 +115,8 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="63">63</span></span>
-        <span class="stat-sub">Aug 21 – Sep 9 · 20-day run</span>
+        <span class="stat-value"><span data-count="64">64</span></span>
+        <span class="stat-sub">Aug 21 – Sep 10 · 21-day run</span>
       </article>
       <article class="stat-card card">
         <span class="stat-label">Dependencies audited</span>
@@ -1321,6 +1321,38 @@
         </div>
         <p class="feature-desc">A key saved for a Settings-created provider used to work only in the session where it was saved — every restart ended in an honest-but-annoying &#39;no API key for provider&#39; 409, because the shell&#39;s env-injection list was a hardcoded set of builtins. The shell now notes non-builtin provider ids at key-save time (ids only, never secrets — the round-61 vision note-file pattern) and re-injects each provider&#39;s env var into EVERY sidecar spawn, with the name derivation byte-identical to the sidecar keyring&#39;s (pinned by a unit test). Verified: cargo check and cargo check --tests both exit 0.</p>
       </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span>
+          <h3 class="feature-title">The honest context donut — measured beside projected</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The owner: &#39;the context, the token count — highly misleading.&#39; The ring still fills with the estimate (its job is to move live during a turn), but every number is now labeled: &#39;~N% projected · estimated&#39; in the header, a NEW measured line carrying the provider&#39;s OWN prompt size for the last request (the actual block from the newest message.assistant stats carrier — &#39;not yet measured&#39; before the first reply, never a fabricated 0, with ts + model riding along so a per-send model switch can&#39;t silently mix numbers), a compaction badge + an estimate that APPLIES the newest compaction (the ring visibly DROPS — the model receives summary + tail, not the raw log), the window-provenance note (&#39;your override&#39; / &#39;catalog default&#39; / &#39;assumed 200k&#39;), and the honest cache line (&#39;— not reported by this provider&#39;). The meter also builds the SAME prompt sections a real turn carries (skills, task-modes, the active mode, background tasks, environment) and MEASURES the real JSON tool schemas per tool instead of the fixed 350-tokens-per-tool guess. Live-battery-verified: actual=61 tokens measured end-to-end on a real OpenRouter turn.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <h3 class="feature-title">ONE turn budget — the displayed number is the behavioral number</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">resolveTurnBudget is now the single source every context number resolves through: contextWindow with its source label (override | catalog | default), maxOutputTokens from the models row (the owner&#39;s editable max_output_tokens column, finally READ after 79 rounds of being stored-and-ignored) → catalog → 32,768, margin 8,000, available = window − output − margin. The meter route, both turn runners, the compaction trigger, the context guard, and the compact route all resolve through it — the pre-R83 donut&#39;s 85% danger color and the compaction trigger disagreed on both numerator AND denominator; the donut now renders the same line as a budget tick + &#39;compaction line&#39; note. Honest consequence, stated in the runbook: catalog models with huge declared output caps compact early — that is the truth of a shared input+output window, not a bug.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg></span>
+          <h3 class="feature-title">POST /sessions/:id/compact — the phantom /compact made real</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">The pre-R83 context guard&#39;s error said &#39;run /compact&#39; — a command that did not exist (and the hardcoded 800K limit fired BEFORE compaction could on big-window models). The affordance now EXISTS: POST /sessions/:id/compact force-runs the same assembleWithCompaction machinery with honest 404/409 gates (no agent / vanished agent / unconfigured model / missing provider / no baseUrl / disabled / no key), returning {compacted:true, throughSeq, droppedMessages, tokensSaved} or an honest {compacted:false, reason} — a single-message session declines (nothing to summarize), summarizer failure degrades to the hard trim, never a 500. The guard itself became model-relative (usedTokens &gt; budget.available, the real limit in the meta.context_limit frame, the real numbers in the persisted error), and the summarizer&#39;s own spend is billed as an origin-&#39;compaction&#39; usage row.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h2v12H4z"/><path d="M7 9h13"/><path d="M7 13h13"/><path d="M7 17h13"/><path d="M7 6h6"/></svg></span>
+          <h3 class="feature-title">Usage truth columns — provider calls, origins, honest billing</h3>
+          <span class="feature-status">live</span>
+        </div>
+        <p class="feature-desc">Migration 0031 rebuilds usage_events (SQLite cannot ALTER a column constraint): provider_calls INTEGER NOT NULL DEFAULT 1 (every pre-R83 row exactly true — one row per turn since R24), origin TEXT NOT NULL DEFAULT &#39;turn&#39; with its index, and agent_id relaxed to nullable for the hidden calls. The UI relabels &#39;requests&#39; as Turns with the REAL provider-call count beside it (a 5-iteration turn is 1 turn · 5 calls — &#39;requests&#39; previously meant three different things: turns since R24, SDK calls in the guard, steps in the AI SDK); the compaction summarizer and the debug analyst now record their own usage rows (origin &#39;compaction&#39;/&#39;debug&#39; — hidden spend visible for the first time); the cache hit rate renders &#39;— not reported by this provider&#39; when no call reported a cache tier (NULL written, never a fabricated 0%); and model rollups carry costKnown, showing &#39;(unpriced)&#39; instead of a silent $0.00 free lunch.</p>
+      </article>
     </div>
   </section>
 
@@ -2323,8 +2355,8 @@
     <div class="now-card">
       <span class="now-label">Now</span>
       <div class="now-body">
-        <h3 class="now-title">R82 delivered — models &amp; providers hardening (the owner&#39;s field report round 2): a model picked under a custom gateway or NVIDIA now ROUTES THERE (providerId rides the send wire end-to-end — the &#39;No endpoints found&#39; misroute fixed at the wire-protocol root), the per-model Test button runs a REAL completion probe, capabilities became honest tri-states (migration 0030: unknown ≠ off), the sub-agent model is provider-scoped, custom-provider keys survive restarts, and the NVIDIA picker got its workflow polish — v0.81.0 (committed to main; no tag cut yet; the CI verdict syncing per the close-out convention)</h3>
-        <p class="now-detail">The owner&#39;s field report round 2, shipped per the models-providers-fixes spec: (1) THE ROUTING FIX — the per-send override carried {model, providerId} in the composer but the wire DROPPED the providerId, so the turn preparer resolved the provider exclusively from the agent row and a custom model id went verbatim to OpenRouter (&#39;No endpoints found&#39;); body.providerId now rides both send routes (with honest 400s for unknown ids), the queued-message carry, the vision relay, the context meter (the donut reads the window/pricing rows of the provider that will serve the next send), and the debug analyst. The sub-agent twin: the orchestrator&#39;s sub-agent model setting became the provider-scoped {providerId, modelId} ref (legacy plain strings read openrouter-scoped — the honest backfill), the settings route validates it (provider exists, modelId non-blank, the row tool-capable-or-unknown — a known tool-less row 400s with the reason), and child turns provision their key pool + keyring view + keySlot attribution from the EFFECTIVE provider (the 409-before-any-chat-call defect — a provider-scoped sub-agent ref can now actually serve a child turn; retried children honor the same routing). (2) THE RUST TWIN — custom-provider keys survive app restarts: the shell notes non-builtin provider ids at key-save time (ids only, never secrets) and re-injects each provider&#39;s env var into every sidecar spawn (the derivation byte-identical to the sidecar keyring&#39;s, pinned by a unit test; cargo check + cargo check --tests exit 0). (3) THE PER-MODEL TEST BUTTON — a real minimal completion probe (max_tokens 16, 30 s timeout, apiFormat-branched): http/auth/model-accepted/non-empty-content checks, latency, a scrubbed content preview, provider-reported usage, and an honest failure reason — HTTP 200 either way (a probe that RAN and got a NO is a successful call), double-scrubbed through the shared secret-shapes module (the R80 lesson structuralized: ONE scrubbing point). (4) TRI-STATE CAPABILITIES (migration 0030) — supports_tools/supports_audio/supports_video nullable: NULL=unknown (the honest default for NIM/custom rows with no catalog source), 0=off, 1=on; the INSERT path&#39;s old two-way ternary that folded explicit null→false fixed; the edit dialog&#39;s capabilities card (Reasoning/Vision on/off + Tool use/Audio input/Video on/off/unknown with consumed-by hints + the Test-in-dialog button). (5) GET /models/configured — every provider&#39;s configured rows in one ordered feed (the sub-agent picker&#39;s &#39;your configured models&#39; section; the running override shows its provider·model chip). (6) NVIDIA WORKFLOW POLISH — the Add-models picker&#39;s Free/All toggle is dialog-local (never rewrites the shared preference) and auto-switches to All for zero-free catalogs (NIM catalogs previously opened on the &#39;No free models match&#39; empty state, which read as broken). Verified: root suite 2,797 in 151 files (agent-core 1,853 in 90 incl. the four new r82 suites — provider-routing 13, model-test 17, capabilities 11, subagent-model 10; frontend 940 + shared 4), e2e 12/12, lint + typechecks clean, license audit 134 CLEAN, docs:check 186/0/0, the round&#39;s 2,809-test total — plus a NEW live battery 8/8 on the real keys: a custom provider created live + a streamed turn with {model, providerId} lands on the provider&#39;s OWN endpoint with its OWN key (a local mock-gateway oracle, one provider call, the reply delivered), the real OpenRouter probe returning an honest ok:false with the provider&#39;s real 404 text (scrubbed), the real NIM probe surfacing the account&#39;s end-of-life verdict verbatim (scrubbed), a hostile gateway echoing the bearer key back scrubbed, the sub-agent model ref round-tripping with honest 400s, /models/configured listing rows across providers ordered, and the tri-state INSERT wire recording true/null/false exactly.</p>
+        <h3 class="now-title">R83 delivered — honest token &amp; context metering (the owner&#39;s &#39;highly misleading&#39; round): ONE budget (resolveTurnBudget — the window with its source label, the owner&#39;s max_output_tokens honored for the first time, available = window − output − margin) now drives the meter, both turn budgets, the compaction trigger, the context guard, and the new compact route — the displayed number and the behavioral number are the SAME number; the donut shows the provider&#39;s OWN number for the last request beside the labeled estimate, applies the newest compaction, and renders the budget tick + window provenance; migration 0031&#39;s provider_calls + origin make &#39;N turns · M provider calls&#39; honest and bill the hidden compaction/debug calls — and POST /sessions/:id/compact EXISTS, the 800K guard&#39;s phantom /compact made real — v0.82.0 (committed to main; no tag cut yet; the CI verdict syncing per the close-out convention)</h3>
+        <p class="now-detail">The owner&#39;s complaint, verbatim: &#39;the context, the token count, and this stuff — they are being highly misleading. They are not being handled properly.&#39; Shipped per the token-counting-robustness spec, with the new CONTEXT-METER runbook as the normative contract (estimate vs measured, one budget, NULL-not-zero): (1) ONE BUDGET — runtime.ts resolveTurnBudget: contextWindow with its source label (override|catalog|default), maxOutputTokens = the models row&#39;s max_output_tokens → catalog → 32,768 (the owner&#39;s editable column finally READ after 79 rounds of being stored-and-ignored), margin 8,000, available = window − output − margin; the meter route, both turn runners, the compaction trigger, the context guard, and the compact route all resolve through it. (2) THE HONEST DONUT — the wire&#39;s actual block: the provider&#39;s OWN prompt tokens for the last request (the newest message.assistant stats carrier; ts + model ride along so a per-send model switch can never silently mix numbers; null before the first reply, NEVER a fabricated 0); usedTokensBasis &#39;estimated&#39; with the ~N% projected header labeled; the messages estimate APPLIES the newest compaction (the model receives summary + tail — the ring DROPS after a compaction instead of lying high) + the compaction badge; the DonutRing budget tick; the window-provenance note (&#39;your override&#39; / &#39;catalog default&#39; / &#39;assumed 200k — set it in Settings → Models&#39;); the meter builds the SAME PromptContext a real turn carries (skills, taskModes + activeTaskMode, environment, backgroundTasks, computerUse, maxOuterLoops) and schema-MEASURES the tool tokens (measureToolSchemaTokens — estimateTokens per effective tool&#39;s real JSON schema, in-process cached, replacing the fixed 350-per-tool guess). (3) THE GUARD — usedTokens &gt; budget.available, model-relative (the pre-R83 hardcoded 800K fired BEFORE compaction could on big-window models and its message said &#39;run /compact&#39;, a command that did not exist); the meta.context_limit frame carries the real limit and the message names the real numbers + the REAL affordance. (4) POST /sessions/:id/compact — the affordance EXISTS: force-runs the same assembleWithCompaction machinery with honest 404/409 gates; {compacted:true, throughSeq, droppedMessages, tokensSaved} | {compacted:false, reason} — a single-message session declines honestly, summarizer failure degrades to the hard trim, never a 500. (5) MIGRATION 0031 (usage_events table rebuild — SQLite cannot ALTER a column constraint): provider_calls INTEGER NOT NULL DEFAULT 1 (every pre-R83 row exactly true — one row per turn since R24), origin TEXT NOT NULL DEFAULT &#39;turn&#39; + the origin index, agent_id relaxed to nullable for the hidden-call rows. (6) TRUTH HYGIENE — cachedInputTokens NULL when no call reported a cache tier (&#39;— not reported by this provider&#39;, never a fabricated 0%); costKnown per model with &#39;(unpriced)&#39; markers (never a silent $0.00 free lunch); the compaction summarizer AND the debug analyst record their own usage rows (origin &#39;compaction&#39;/&#39;debug&#39; — hidden spend visible for the first time); &#39;requests&#39; relabeled Turns with the real provider-call count beside it (a 5-iteration turn is 1 turn · 5 calls); the stream-store renders meta.compaction/meta.context_limit as live notes and invalidates the meter on done. Verified: root suite 2,825 tests in 155 files (agent-core 92/1,867 — the new r83-budget + r83-compact-route suites + the context-report ROUND-83 block; frontend 61/946; shared 1/4), e2e 12/12, lint + typechecks clean, license audit 134 CLEAN, docs:check 188/0/0 — plus the NEW live battery 5/5 on the real keys (scripts/battery-r83.mjs): a real OpenRouter streamed turn then the honest report — actual=61 tokens MEASURED end-to-end, basis=&#39;estimated&#39;, window 256000 catalog-labeled, available = window−output−margin EXACT, turns 1 · providerCalls 1 — the honest cache line, the compact route live on the sidecar, and the usage rollups&#39; providerCalls + costKnown.</p>
       </div>
       <span class="now-live"><span class="live-dot" aria-hidden="true"></span>current focus</span>
     </div>
@@ -2332,29 +2364,29 @@
       <li class="upcoming-item">
         <span class="status-chip status-planned">next</span>
         <div class="upcoming-body">
-          <span class="upcoming-phase">R83 — honest token/context metering</span>
-          <span class="upcoming-note">The owner: &#39;the context, the token count — highly misleading.&#39; Per the token-counting-robustness spec: the provider-reported &#39;actual&#39; block on the context report, the estimator fed the REAL turn context, compaction-aware metering, the unified resolveTurnBudget with window-source labels, null-honest cache reporting, and the missing /compact the 800K guard already promises.</span>
-        </div>
-      </li>
-      <li class="upcoming-item">
-        <span class="status-chip status-planned">queued</span>
-        <div class="upcoming-body">
           <span class="upcoming-phase">Wave 2 of the modularity roadmap (the R80.5 audit)</span>
-          <span class="upcoming-note">Split server.ts (5,086 lines) into routes/&lt;domain&gt;.ts modules with a shared ctx; extract the shared turn-loop harness (retry ladder / loop guard / overflow recovery — ~1,700 duplicated lines); break the 25-file agents↔tools import cycle at the delegation edge (inject the orchestrator via ToolDeps).</span>
+          <span class="upcoming-note">Split server.ts (now 5,719 lines) into routes/&lt;domain&gt;.ts modules with a shared ctx; extract the shared turn-loop harness (retry ladder / loop guard / overflow recovery — ~1,700 duplicated lines); break the 25-file agents↔tools import cycle at the delegation edge (inject the orchestrator via ToolDeps).</span>
         </div>
       </li>
       <li class="upcoming-item">
         <span class="status-chip status-planned">shipped</span>
         <div class="upcoming-body">
-          <span class="upcoming-phase">Models &amp; providers hardening</span>
-          <span class="upcoming-note">R82 shipped the owner&#39;s field report round 2 — the custom-provider routing fix (providerId end-to-end), the per-model Test button, tri-state capabilities (migration 0030), the edit dialog&#39;s capabilities card, provider-scoped sub-agent models, GET /models/configured, the NVIDIA picker polish, and restart-surviving custom keys — v0.81.0</span>
+          <span class="upcoming-phase">Honest token/context metering</span>
+          <span class="upcoming-note">R83 shipped the owner&#39;s &#39;highly misleading&#39; round — ONE budget (resolveTurnBudget with window-source labels and the owner&#39;s max_output_tokens finally honored), the measured-vs-projected donut with the provider&#39;s own actual block, compaction-aware metering, schema-measured tool tokens, the model-relative guard, the real POST /sessions/:id/compact, migration 0031&#39;s provider_calls + origin, null-honest cache reporting, and (unpriced) cost markers — v0.82.0</span>
         </div>
       </li>
       <li class="upcoming-item">
         <span class="status-chip status-planned">queued</span>
         <div class="upcoming-body">
-          <span class="upcoming-phase">Standing items</span>
-          <span class="upcoming-note">External plugin ctx enrichment (the appendContext seam), the lessons-ledger affordance as the reminder injector&#39;s third consumer, ratings-driven prompt tuning, the optional v0.68.0 backfill tag, edit-linting, installer code-signing, the Files-tab polish, agent web-app-testing tools.</span>
+          <span class="upcoming-phase">Standing R81-queue items</span>
+          <span class="upcoming-note">External plugin ctx enrichment (cline&#39;s appendContext seam), the lessons-ledger affordance as the reminder injector&#39;s third consumer, ratings-driven prompt tuning, and the standing items (edit-linting, installer code-signing, the Files-tab polish, agent web-app-testing tools).</span>
+        </div>
+      </li>
+      <li class="upcoming-item">
+        <span class="status-chip status-planned">queued</span>
+        <div class="upcoming-body">
+          <span class="upcoming-phase">DeepSeek-harness adaptation candidates (the round-2 study)</span>
+          <span class="upcoming-note">agent-ctx/research/deepseek-harness-round2.md&#39;s top-3: C2 per-tool declared timeoutMs with structured TOOL_TIMEOUT results (R51&#39;s own next-study candidate); C3 mode/permission policy as folded session events + the policy sentence AFTER retained history (fixes revert semantics + stops prompt-cache invalidation on mode switches); C4 tool-result spill (oversized outputs to session-scoped files + locators).</span>
         </div>
       </li>
     </ul>
@@ -2367,7 +2399,7 @@
       <div>
         <h2 id="quality-title">Quality</h2>
         <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
-        <p class="quality-note">pending — the round&#39;s status doc states exactly: &#39;PENDING — R82 push not yet made (this field is synced from the Actions API at close-out per the documented convention)&#39; — the close-out sessions set the placeholder and a later docs-only round syncs the real verdict (as the R80 close-out did, replacing its placeholder with the real first-try SUCCESS story). The R82 push itself went out with the close-out (main sits at the round&#39;s commit; no v0.81.0 tag — the release tags stop at v0.79.0, so v0.80.0 and v0.81.0 are committed to main but unreleased). The round was verified before the push: root suite 2,797 in 151 files (agent-core 1,853 in 90 incl. the four new r82 suites — provider-routing 13, model-test 17, capabilities 11, subagent-model 10; frontend 940 + shared 4), e2e 12/12, lint + typechecks clean, license audit 134 deps CLEAN, cargo check + cargo check --tests exit 0, docs:check 186/0/0 — and the live battery 8/8 on the real keys: a custom provider created live + a streamed turn with {model, providerId} landing on the provider&#39;s OWN endpoint with its OWN key (a local mock-gateway oracle, one provider call, the reply delivered), the real OpenRouter probe returning an honest ok:false with the provider&#39;s real 404 text (scrubbed), the real NIM probe surfacing the account&#39;s end-of-life verdict verbatim (scrubbed), a hostile gateway echoing the bearer key back scrubbed to &#39;bad key *** rejected&#39;, the sub-agent model ref round-tripping with honest 400s, GET /models/configured listing rows across providers ordered, and the tri-state INSERT wire recording true/null/false exactly. The round&#39;s total: 2,809 tests (root 2,797 + the 12 e2e).</p>
+        <p class="quality-note">pending — the round&#39;s status doc states exactly: &#39;PENDING — R83 push not yet made (this field is synced from the Actions API at close-out per the documented convention)&#39; — the close-out sessions set the placeholder and a later docs-only round syncs the real verdict (as the R80 close-out did, replacing its placeholder with the real first-try SUCCESS story; the R81 and R82 placeholders are likewise still awaiting their verdict-sync round). The R83 push itself went out with the close-out (main sits at the round&#39;s commit; no v0.82.0 tag — the release tags stop at v0.79.0, so v0.80.0, v0.81.0, and v0.82.0 are committed to main but unreleased). The round was verified before the push: root suite 2,825 tests in 155 files (agent-core 1,867 in 92 — the new r83-budget (4) + r83-compact-route (5) suites, the context-report ROUND-83 block (5), and the stream-store compaction/limit notes; frontend 946; shared 4; r80-silent-stops, sessions, debug-analyst, usage, storage, Composer, UsageScreen, and DashboardScreen re-based to the R83 contracts), e2e 12/12, lint + typechecks clean, license audit 134 deps CLEAN, docs:check 188/0/0 (re-run by this sync and confirmed: 188 docs scanned, 0 failures, 0 warnings — the round&#39;s status doc and round-83.md say 187) — and the NEW live battery 5/5 on the real keys (scripts/battery-r83.mjs): a real OpenRouter streamed turn (z-ai/glm-5.2:free) then the honest context report — actual=61 tokens MEASURED end-to-end, basis=&#39;estimated&#39;, window 256000 catalog-labeled, available = window − output − margin EXACT, turns 1 · providerCalls 1 — plus the honest cache line, the compact route live on the sidecar, and the usage rollups&#39; providerCalls + costKnown.</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -2377,18 +2409,18 @@
         <div class="suite-row">
           <div class="suite-head">
             <span class="suite-name">frontend</span>
-            <span class="suite-count"><strong data-count="944">944</strong> tests</span>
+            <span class="suite-count"><strong data-count="946">946</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="944" aria-valuemin="0" aria-valuemax="1853" aria-label="frontend test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="946" aria-valuemin="0" aria-valuemax="1867" aria-label="frontend test count relative to largest suite">
             <div class="bar-fill" data-progress="51" style="--w:51%"></div>
           </div>
         </div>
         <div class="suite-row">
           <div class="suite-head">
             <span class="suite-name">agent-core</span>
-            <span class="suite-count"><strong data-count="1853">1853</strong> tests</span>
+            <span class="suite-count"><strong data-count="1867">1867</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="1853" aria-valuemin="0" aria-valuemax="1853" aria-label="agent-core test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="1867" aria-valuemin="0" aria-valuemax="1867" aria-label="agent-core test count relative to largest suite">
             <div class="bar-fill" data-progress="100" style="--w:100%"></div>
           </div>
         </div>
@@ -2397,7 +2429,7 @@
             <span class="suite-name">e2e</span>
             <span class="suite-count"><strong data-count="12">12</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="1853" aria-label="e2e test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="1867" aria-label="e2e test count relative to largest suite">
             <div class="bar-fill" data-progress="3" style="--w:3%"></div>
           </div>
         </div>
@@ -2406,13 +2438,13 @@
             <span class="suite-name">launcher (python unittest)</span>
             <span class="suite-count"><strong data-count="10">10</strong> tests</span>
           </div>
-          <div class="bar suite-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="1853" aria-label="launcher (python unittest) test count relative to largest suite">
+          <div class="bar suite-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="1867" aria-label="launcher (python unittest) test count relative to largest suite">
             <div class="bar-fill" data-progress="3" style="--w:3%"></div>
           </div>
         </div>
         <div class="suites-total">
           <span>Total</span>
-          <strong class="mono"><span data-count="2819">2819</span> tests passing · <span data-count="0">0</span> skipped</strong>
+          <strong class="mono"><span data-count="2835">2835</span> tests passing · <span data-count="0">0</span> skipped</strong>
         </div>
       </article>
       <div class="checks-col">
@@ -2568,6 +2600,15 @@
         <h3 class="doc-title">LOCAL-PC-RUNNER.md</h3>
         <p class="doc-desc">Owner&#39;s one-click launcher: auto-install, update+restart, self-update, auto-open browser.</p>
         <code class="doc-path">docs/runbooks/LOCAL-PC-RUNNER.md</code>
+      </article>
+      <article class="doc-card card">
+        <div class="doc-top">
+          <span class="doc-category">Runbooks</span>
+          <span class="doc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </div>
+        <h3 class="doc-title">CONTEXT-METER.md</h3>
+        <p class="doc-desc">The normative metering contract (established round 83, the &#39;highly misleading&#39; round): estimate vs measured, one budget, NULL-not-zero — every number shown to the owner carries its basis.</p>
+        <code class="doc-path">docs/runbooks/CONTEXT-METER.md</code>
       </article>
       <article class="doc-card card">
         <div class="doc-top">
@@ -2920,9 +2961,14 @@
           <span class="timeline-label">R81 — the unified operating modes: ONE picker of exactly THREE modes (Full Access / Ask / Plan — ADR-0029) replaces BOTH the four-value access-level switcher and the six-builtin task-mode picker. Task modes became non-enforcing agent self-selected postures (switch_mode; the six bodies + .acute/agents customs survive with &#39;Discipline, not permission&#39; prose); enforcement lives solely in the operating mode, PLAN carrying the full 19-tool read-only vocabulary (the retired review/explore extras folded in). &#39;editor&#39; retired fail-closed (migration 0029: editor→ask; read-only R75 postures→plan — every historical guarantee preserved; honest 400 hint for old clients). Frontend: the task-mode picker + /mode deleted (AgentChatPanel 2,932→2,743 lines). Root suite 2,751 (12 skipped; agent-core 1,795 in 86 files), e2e 12/12; live battery on the real OpenRouter (a PLAN write attempt cannot execute; FULL writes; ASK gates) + browser + VLM pass; v0.80.0 committed — the tag/release not yet cut.</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-09-09</span>
           <span class="timeline-label">R82 — models &amp; providers hardening (the owner&#39;s field report round 2): custom-provider model ROUTING fixed at the wire root cause (providerId rides both send routes, the queued-message carry, the vision relay, the context meter, and the debug analyst; the turn is prepared against the effective provider — the &#39;No endpoints found&#39; OpenRouter misroute is gone), the provider-scoped sub-agent model {providerId, modelId} (children provisioned from the effective provider), custom-provider keys surviving restarts (the shell&#39;s note-file + env re-injection at every sidecar spawn — cargo check green), the per-model TEST button (a real minimal completion probe: http/auth/model/content checks, latency, scrubbed preview + reason — HTTP 200 either way), tri-state capability columns (migration 0030: unknown ≠ off; the edit dialog&#39;s capabilities card), GET /models/configured, and the NVIDIA picker polish (dialog-local Free/All, zero-free auto-switch). Root suite 2,797 in 151 files (agent-core 1,853 in 90 — four new r82 suites), e2e 12/12, the round&#39;s 2,809-test total, license audit 134 CLEAN, live battery 8/8 on the real keys; v0.81.0 committed — the tag/release not yet cut.</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-09-10</span>
+          <span class="timeline-label">R83 — honest token &amp; context metering (the owner&#39;s &#39;highly misleading&#39; round): ONE budget (resolveTurnBudget — the window WITH its source label, the owner&#39;s max_output_tokens finally honored, available = window − output − margin) driving the meter, both turn budgets, the compaction trigger, the guard, and the new compact route; the honest donut (the provider&#39;s OWN number for the last request as the actual block, the labeled ~projected estimate, the compaction-applied estimate + badge, the budget tick + window provenance, schema-measured tool tokens, the real PromptContext sections); the model-relative guard; POST /sessions/:id/compact (the 800K guard&#39;s phantom /compact made real — honest gates, never a 500); migration 0031 (provider_calls + origin — turns vs calls, the hidden compaction/debug calls billed, null-honest cache hit rates, (unpriced) cost markers); and the stream-store rendering meta.compaction/context_limit with meter invalidation. Root suite 2,825 in 155 files (agent-core 1,867 in 92; frontend 946), e2e 12/12, license audit 134 CLEAN, docs:check 188/0/0, live battery 5/5 on the real keys (scripts/battery-r83.mjs — actual=61 tokens measured end-to-end on a real OpenRouter turn); the CONTEXT-METER runbook (the normative estimate-vs-measured contract). v0.82.0 committed — the tag/release not yet cut.</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -3017,12 +3063,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-09-10 10:26 UTC · curated public data only — no product source · Acute v0.81.0</p>
+    <p class="footer-note">Generated 2026-09-10 12:04 UTC · curated public data only — no product source · Acute v0.82.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-09-10T10:26:05.857Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
-<script src="assets/app.js?v=20260910t102605857z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-09-10T12:04:24.433Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
+<script src="assets/app.js?v=20260910t120424433z" defer></script>
 </body>
 </html>
