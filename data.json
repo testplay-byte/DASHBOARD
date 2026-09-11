@@ -34,8 +34,8 @@
   ],
   "plan": {
     "current": {
-      "title": "R87 — the UX + capability round (the owner's improvement list)",
-      "detail": "Shipped as v0.85.0: the About section + the full application reset; the launcher's legacy key file flow removed (keys are saved in-app); ask_user (the mid-task question card) + the visible todo list; the Models & Providers redesign (configure-before-add, capability chips, the animated test button, the phantom preset pill fixed); the embedded browser (1440×900, keep-alive tabs, read_dom positions, panel-only screenshots); the chat/shell layout batch (adaptive scrollbars, halved chat min, graduated composer shrink, the selector hover fix + frosted glass, the sidebar expand-on-click)."
+      "title": "R88 — the floating to-do list round (the owner's spec + manual edits)",
+      "detail": "Shipped as v0.86.0: the floating to-do widget (top-right of the chat window; collapsed = only the task at hand; expand = the ten-row scroll box with done/processing/pending glyphs) + the manual editor (rename/status-cycle/reorder/delete/add; Save posts the owner's snapshot through POST /sessions/:id/todo with source:user) + the CURRENT TODO LIST prompt section (the agent sees the latest snapshot — and the owner's edits, emphasized — on every turn)."
     },
     "upcoming": [
       {
@@ -1812,7 +1812,7 @@
   ],
   "quality": {
     "ci": "green",
-    "ciNote": "R87 (the UX + capability round, v0.85.0): push 7b6e47e (the close-out fix) → CI run 34584230413 SUCCESS (lint, typechecks, the 2,839-test root suite in 157 files, build, e2e, license audit, cargo check, docs check — all green on windows-latest) + the Release run 34584240071 SUCCESS; v0.85.0 tagged, built, and PUBLISHED (installer + kit, both assets verified, zero drafts remain). The initial 3735f93 push failed honestly on Windows-only EPERM (the two new suites' unclosed SQLite handles blocking temp-dir cleanup) + the kit's stale credentials.example.txt copy — both fixed in 7b6e47e, the failures recorded in round-87.md.",
+    "ciNote": "R88 (the floating to-do list round, v0.86.0): push 3864f7b → CI run 34588692731 SUCCESS (lint, typechecks, the 2,842-test root suite in 157 files, build, e2e, license audit, cargo check, docs check — all green on windows-latest) + the Release run 34588694409 SUCCESS; v0.86.0 tagged, built, and PUBLISHED (installer + kit, both assets verified, zero drafts remain). The R87 close-out verdict underneath (the fix 7b6e47e over the initial push's Windows-EPERM + stale-kit-copy failures): CI 34584230413 + Release 34584240071 both SUCCESS; v0.85.0 published.",
     "suites": [
       {
         "name": "frontend",
@@ -2112,6 +2112,10 @@
     {
       "date": "2026-09-11",
       "label": "R87 — the UX + capability round: the owner's improvement list, shipped as v0.85.0. (1) Settings → About NEW (version + update check + the application-wide RESET — POST /system/reset wipes every table + reseeds factory state + purges the keyring + ~/.acute, with the desktop shell's key purge running first). (2) The launcher's legacy key file flow REMOVED (the GitHub token is asked once + saved locally; provider keys are saved in-app only). (3) ask_user end-to-end (the mid-task question card — options + custom answers, batched, 10-min timeout) + the todo list rendered LIVE in chat. (4) Models & Providers redesigned: bordered model cards + the input/output capability chips (migration 0032), configure-before-add (the picker opens the config dialog), the animated self-dismissing test button, the phantom 'added' preset pill fixed. (5) The embedded browser: 1440×900 default, KEEP-ALIVE panels (no reload/glitch on tab switch), read_dom per-element positions, panel-only screenshots. (6) The chat/shell batch: adaptive scrollbars, the chat min width halved, the composer's graduated shrink, the selector trajectory gating + frosted glass, the sidebar expand-on-click. 157/2,839 frontend + 94/1,877 backend tests green."
+    },
+    {
+      "date": "2026-09-11",
+      "label": "R88 close-out — v0.86.0 PUBLISHED (CI 34588692731 + Release 34588694409 both SUCCESS; both assets verified, zero drafts). The floating to-do list round: the widget, the manual editor, and the CURRENT TODO LIST prompt section."
     }
   ],
   "chips": [
@@ -2217,5 +2221,5 @@
     "total": 97
   },
   "lastUpdated": "2026-09-11",
-  "ciNote": "R87 (the UX + capability round, v0.85.0): push 7b6e47e (the close-out fix) → CI run 34584230413 SUCCESS (lint, typechecks, the 2,839-test root suite in 157 files, build, e2e, license audit, cargo check, docs check — all green on windows-latest) + the Release run 34584240071 SUCCESS; v0.85.0 tagged, built, and PUBLISHED (installer + kit, both assets verified, zero drafts remain). The initial 3735f93 push failed honestly on Windows-only EPERM (the two new suites' unclosed SQLite handles blocking temp-dir cleanup) + the kit's stale credentials.example.txt copy — both fixed in 7b6e47e, the failures recorded in round-87.md."
+  "ciNote": "R88 (the floating to-do list round, v0.86.0): push 3864f7b → CI run 34588692731 SUCCESS (lint, typechecks, the 2,842-test root suite in 157 files, build, e2e, license audit, cargo check, docs check — all green on windows-latest) + the Release run 34588694409 SUCCESS; v0.86.0 tagged, built, and PUBLISHED (installer + kit, both assets verified, zero drafts remain). The R87 close-out verdict underneath (the fix 7b6e47e over the initial push's Windows-EPERM + stale-kit-copy failures): CI 34584230413 + Release 34584240071 both SUCCESS; v0.85.0 published."
 }

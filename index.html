@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260911t093740799z">
+<link rel="stylesheet" href="assets/style.css?v=20260911t104314605z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -96,7 +96,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-09-11 09:37 UTC</span>
+      <span class="updated-time">2026-09-11 10:43 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -115,7 +115,7 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="68">68</span></span>
+        <span class="stat-value"><span data-count="69">69</span></span>
         <span class="stat-sub">Aug 21 – Sep 11 · 22-day run</span>
       </article>
       <article class="stat-card card">
@@ -2355,8 +2355,8 @@
     <div class="now-card">
       <span class="now-label">Now</span>
       <div class="now-body">
-        <h3 class="now-title">R87 — the UX + capability round (the owner&#39;s improvement list)</h3>
-        <p class="now-detail">Shipped as v0.85.0: the About section + the full application reset; the launcher&#39;s legacy key file flow removed (keys are saved in-app); ask_user (the mid-task question card) + the visible todo list; the Models &amp; Providers redesign (configure-before-add, capability chips, the animated test button, the phantom preset pill fixed); the embedded browser (1440×900, keep-alive tabs, read_dom positions, panel-only screenshots); the chat/shell layout batch (adaptive scrollbars, halved chat min, graduated composer shrink, the selector hover fix + frosted glass, the sidebar expand-on-click).</p>
+        <h3 class="now-title">R88 — the floating to-do list round (the owner&#39;s spec + manual edits)</h3>
+        <p class="now-detail">Shipped as v0.86.0: the floating to-do widget (top-right of the chat window; collapsed = only the task at hand; expand = the ten-row scroll box with done/processing/pending glyphs) + the manual editor (rename/status-cycle/reorder/delete/add; Save posts the owner&#39;s snapshot through POST /sessions/:id/todo with source:user) + the CURRENT TODO LIST prompt section (the agent sees the latest snapshot — and the owner&#39;s edits, emphasized — on every turn).</p>
       </div>
       <span class="now-live"><span class="live-dot" aria-hidden="true"></span>current focus</span>
     </div>
@@ -2392,7 +2392,7 @@
       <div>
         <h2 id="quality-title">Quality</h2>
         <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
-        <p class="quality-note">R87 (the UX + capability round, v0.85.0): push 7b6e47e (the close-out fix) → CI run 34584230413 SUCCESS (lint, typechecks, the 2,839-test root suite in 157 files, build, e2e, license audit, cargo check, docs check — all green on windows-latest) + the Release run 34584240071 SUCCESS; v0.85.0 tagged, built, and PUBLISHED (installer + kit, both assets verified, zero drafts remain). The initial 3735f93 push failed honestly on Windows-only EPERM (the two new suites&#39; unclosed SQLite handles blocking temp-dir cleanup) + the kit&#39;s stale credentials.example.txt copy — both fixed in 7b6e47e, the failures recorded in round-87.md.</p>
+        <p class="quality-note">R88 (the floating to-do list round, v0.86.0): push 3864f7b → CI run 34588692731 SUCCESS (lint, typechecks, the 2,842-test root suite in 157 files, build, e2e, license audit, cargo check, docs check — all green on windows-latest) + the Release run 34588694409 SUCCESS; v0.86.0 tagged, built, and PUBLISHED (installer + kit, both assets verified, zero drafts remain). The R87 close-out verdict underneath (the fix 7b6e47e over the initial push&#39;s Windows-EPERM + stale-kit-copy failures): CI 34584230413 + Release 34584240071 both SUCCESS; v0.85.0 published.</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -2979,9 +2979,14 @@
           <span class="timeline-label">R86 — the verification + SSE-extraction round: The owner&#39;s task-list session, shipped as v0.84.0. (1) Every R85 structure claim re-verified with three parallel sweeps — backend exact (the 52-route inventory, 22 SQL leaks, the benign 2-cycle, the 378-line sync/streamed duplication), four frontend numbers corrected (api.ts 85 importing files not 72; ModelsProvidersTab 60 hook call-sites / 3 dialogs; 14 Zustand stores; StreamTurnEvent 37 member types), the dead sessions/ dir caught receiving an R83 maintenance edit, and three narrow frontend seams the audit&#39;s &#39;zero&#39; claim missed (error-bus, browser-bridge handler registry, right-sidebar-events). (2) THE SSE ROUTE EXTRACTED — routes/sse.ts, the final-phase domain of the R84 server.ts split: the 476-line streamed turn route moved verbatim (byte-identical round-trip verifier), server.ts 2,439 → 1,913 lines, eleven single-consumer imports pruned, registration order preserved; verified by the full pipeline (2,825 tests byte-identical to the pre-move baseline, e2e 12/12 against the built dist, a live boot smoke). (3) Ops: six stale branches deleted (only main remains), the stuck v0.83.0 draft release PUBLISHED (both assets verified), the DASHBOARD&#39;s plan section truth-synced.</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-09-11</span>
           <span class="timeline-label">R87 — the UX + capability round: the owner&#39;s improvement list, shipped as v0.85.0. (1) Settings → About NEW (version + update check + the application-wide RESET — POST /system/reset wipes every table + reseeds factory state + purges the keyring + ~/.acute, with the desktop shell&#39;s key purge running first). (2) The launcher&#39;s legacy key file flow REMOVED (the GitHub token is asked once + saved locally; provider keys are saved in-app only). (3) ask_user end-to-end (the mid-task question card — options + custom answers, batched, 10-min timeout) + the todo list rendered LIVE in chat. (4) Models &amp; Providers redesigned: bordered model cards + the input/output capability chips (migration 0032), configure-before-add (the picker opens the config dialog), the animated self-dismissing test button, the phantom &#39;added&#39; preset pill fixed. (5) The embedded browser: 1440×900 default, KEEP-ALIVE panels (no reload/glitch on tab switch), read_dom per-element positions, panel-only screenshots. (6) The chat/shell batch: adaptive scrollbars, the chat min width halved, the composer&#39;s graduated shrink, the selector trajectory gating + frosted glass, the sidebar expand-on-click. 157/2,839 frontend + 94/1,877 backend tests green.</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-09-11</span>
+          <span class="timeline-label">R88 close-out — v0.86.0 PUBLISHED (CI 34588692731 + Release 34588694409 both SUCCESS; both assets verified, zero drafts). The floating to-do list round: the widget, the manual editor, and the CURRENT TODO LIST prompt section.</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -3076,12 +3081,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-09-11 09:37 UTC · curated public data only — no product source · Acute v0.85.0</p>
+    <p class="footer-note">Generated 2026-09-11 10:43 UTC · curated public data only — no product source · Acute v0.85.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-09-11T09:37:40.799Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
-<script src="assets/app.js?v=20260911t093740799z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-09-11T10:43:14.605Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
+<script src="assets/app.js?v=20260911t104314605z" defer></script>
 </body>
 </html>
