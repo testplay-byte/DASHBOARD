@@ -1812,7 +1812,7 @@
   ],
   "quality": {
     "ci": "green",
-    "ciNote": "R86 (the verification + SSE-extraction round): push 38ffc83 → CI run 34515808594 SUCCESS (lint, typechecks, the 2,825-test root suite in 155 files, build, e2e, license audit, cargo check, docs check — all green on windows-latest) + the Release run 34515811591 SUCCESS; v0.84.0 tagged, built, and PUBLISHED (both assets verified, zero drafts remain). The R85 verdict underneath: push f253788 → run 34505690618 SUCCESS.",
+    "ciNote": "R87 (the UX + capability round, v0.85.0): push 7b6e47e (the close-out fix) → CI run 34584230413 SUCCESS (lint, typechecks, the 2,839-test root suite in 157 files, build, e2e, license audit, cargo check, docs check — all green on windows-latest) + the Release run 34584240071 SUCCESS; v0.85.0 tagged, built, and PUBLISHED (installer + kit, both assets verified, zero drafts remain). The initial 3735f93 push failed honestly on Windows-only EPERM (the two new suites' unclosed SQLite handles blocking temp-dir cleanup) + the kit's stale credentials.example.txt copy — both fixed in 7b6e47e, the failures recorded in round-87.md.",
     "suites": [
       {
         "name": "frontend",
@@ -2216,6 +2216,6 @@
     ],
     "total": 97
   },
-  "lastUpdated": "2026-09-11 — R87 truth-sync: the UX + capability round (v0.85.0)",
-  "ciNote": "R87 push 3735f93 (the UX + capability round, v0.85.0) — CI + Release workflows in flight at sync time; verdicts land here at close-out (the convention)."
+  "lastUpdated": "2026-09-11",
+  "ciNote": "R87 (the UX + capability round, v0.85.0): push 7b6e47e (the close-out fix) → CI run 34584230413 SUCCESS (lint, typechecks, the 2,839-test root suite in 157 files, build, e2e, license audit, cargo check, docs check — all green on windows-latest) + the Release run 34584240071 SUCCESS; v0.85.0 tagged, built, and PUBLISHED (installer + kit, both assets verified, zero drafts remain). The initial 3735f93 push failed honestly on Windows-only EPERM (the two new suites' unclosed SQLite handles blocking temp-dir cleanup) + the kit's stale credentials.example.txt copy — both fixed in 7b6e47e, the failures recorded in round-87.md."
 }
