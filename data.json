@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.87.0",
+    "version": "0.89.0",
     "availability": "Private build · Windows 10 x64",
     "github": {
       "label": "testplay-byte/DASHBOARD",
@@ -34,8 +34,8 @@
   ],
   "plan": {
     "current": {
-      "title": "R90 — the browser-native round",
-      "detail": "The owner's second end-to-end walkthrough, shipped as v0.88.0. The MENU OVERLAY WINDOW: the sidebar's quick menu + sub-agent picker render in an owned transparent OS window that rides ABOVE the live browser webview — the browser never pauses for menus (the R60-D hide survives only as the web-mode fallback). The AGENT HANDS v2: the cursor is ALWAYS visible (the webview's initialization script paints it on every page load), moves with overshoot-and-return + hesitation, fires a real pointermove/hover trail (dropdowns open), clicks with a visible press pulse, and types at a human pace (tap → ~1s → 150 WPM word-by-word → ~1s → Enter). The settings cluster: the delete-provider refusal renders inline in the Danger zone (+ the OS-stored key purged), the model card is icon-only badges + an inputs→outputs arrow + one merged section, the setup wizard persists the model + the last-used default + re-points the seeded agent, and new chats keep the last-used model. The launcher's GitHub token lives in the user home (migrated) and reaches the app via the environment — the update check works after acute.bat. The floating-webview race on chat switches is closed.",
+      "title": "R91 — the third-walkthrough round",
+      "detail": "The owner's third end-to-end walkthrough, shipped as v0.89.0. THE IN-APP UPDATER: Settings → About → Update now downloads the release's setup.exe inside the app (a live MB progress bar, sha256-verified against GitHub's own digest, host-gated so the token-bearing fetch can never proxy anything else), hands the verified file to the Rust shell which launches it and closes the app — the setup wizard takes over, no browser, no launcher run. The OpenRouter delete unblock: the seeded default agent's provider reference was the silent 409 behind 'not getting deleted' — the confirm flow explains the reset and force=1 deletes anyway, resetting referencing agents to the model-picker state. The browser blank-render deep fix (defense in depth): the menu-overlay window creation moved off the main thread (tauri's documented sync-command deadlock class — the v0.88.0 wedge), a show now re-asserts the last commanded bounds, a 2s visibility watchdog recreates or re-asserts the active webview, and the pop-out/open-external affordances carry honest 6s timeouts. The model card's right-side identity (capability icons inline with the name; the details section conditional — none/compact chips/full band) + the dialog's clear on/off capability pills + the composer's queue gating + the minimized Continue + the to-do float's column-relative cap and two-line wrap + token totals in millions (300M).",
       "state": "done"
     },
     "upcoming": [
@@ -1812,16 +1812,16 @@
     }
   ],
   "quality": {
-    "ci": "GREEN — R90 push 5e4c21a → CI run 34634030474 SUCCESS + Release run 34634033426 SUCCESS; v0.88.0 tagged, built, and PUBLISHED (both assets verified, marked latest, zero drafts remain). The browser-native round: the menu overlay window (menus float on top of the LIVE browser), the agent hands v2, the delete-provider honesty, the wizard's persistence, the launcher PAT home-path fix, and the floating-webview race fix. The three intermediate red runs are recorded honestly (the launcher's legacy-codepage crash + two Rust slips — both gaps now closed: the launcher reconfigures its streams, and the sandbox gained a local windows-target cargo check).",
+    "ci": "PENDING — R91 (the third-walkthrough round) pushed; the close-out fills this from the Actions API once the run settles.",
     "ciNote": "R89 (the owner's-verdict round, v0.87.0): push 1ad6bf4 → CI run 34607758325 SUCCESS + Release run 34607775963 SUCCESS; v0.87.0 published. The three intermediate phase-push failures recorded honestly (the same r80-nvidia reserved-id test, fixed before the tag).",
     "suites": [
       {
         "name": "frontend",
-        "tests": 946
+        "tests": 994
       },
       {
         "name": "agent-core",
-        "tests": 1867
+        "tests": 1901
       },
       {
         "name": "e2e",
@@ -2121,6 +2121,11 @@
     {
       "date": "2026-09-11",
       "label": "R90 — the browser-native round: the owner's second walkthrough answered, shipped as v0.88.0. Menus float ON TOP of the live embedded browser (an owned transparent OS window — the 'browser paused while the menu is open' caption is retired for the sidebar's menus), the agent's browser hands look and pace like a person's (the always-visible cursor, the overshoot/hesitation paths, the real hover trail so dropdowns open, the press pulse, tap → ~1s → typing → ~1s → Enter), the delete-provider dead click explains itself inline (+ the OS-key purge), the model card is icon-only + arrow + one merged section, the setup wizard's choices outlive the wizard, the launcher's update-check token finally reaches the app, and the old chat's webview never floats over the new one. Full pipeline green (2,888 + 1,894 tests, the 4-page build, 12/12 e2e, 16/16 launcher tests).",
+      "state": "done"
+    },
+    {
+      "date": "2026-09-11",
+      "label": "R91 — the third-walkthrough round, shipped as v0.89.0. The IN-APP UPDATER (Update now: the sha256-verified installer downloaded in-app, launched, and the app closes — the setup wizard takes over), the OpenRouter delete unblock (the default agent's reference was the silent 409; force now resets the referencing agents to the model-picker state), the browser blank-render deep fix (async menu-overlay window creation killing tauri's documented sync-command deadlock class + the show re-asserts bounds + the 2s visibility watchdog + honest 6s affordance timeouts), the model card's right-side identity (icons inline with the name; the conditional details section), the clear on/off capability pills, the queue-send gating (only with text), the minimized Continue, the to-do float's column-relative cap + two-line wrap, and the token million tier (300M). Full pipeline green: the 2,899-test root suite, 12/12 e2e, license audit, windows-target cargo check.",
       "state": "done"
     }
   ],
