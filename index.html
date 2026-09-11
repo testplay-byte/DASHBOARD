@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260910t185900815z">
+<link rel="stylesheet" href="assets/style.css?v=20260911t082638215z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -79,7 +79,7 @@
       <div class="hero-eyebrow">
         <span class="hero-availability">Private build · Windows 10 x64</span>
         <span class="hero-dot" aria-hidden="true">·</span>
-        <span class="hero-version">v0.84.0</span>
+        <span class="hero-version">v0.85.0</span>
       </div>
       <h1 id="hero-title">Acute</h1>
       <p class="tagline">Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.</p>
@@ -96,7 +96,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-09-10 18:59 UTC</span>
+      <span class="updated-time">2026-09-11 08:26 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -115,8 +115,8 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="67">67</span></span>
-        <span class="stat-sub">Aug 21 – Sep 10 · 21-day run</span>
+        <span class="stat-value"><span data-count="68">68</span></span>
+        <span class="stat-sub">Aug 21 – Sep 11 · 22-day run</span>
       </article>
       <article class="stat-card card">
         <span class="stat-label">Dependencies audited</span>
@@ -2355,8 +2355,8 @@
     <div class="now-card">
       <span class="now-label">Now</span>
       <div class="now-body">
-        <h3 class="now-title">R86 — the verification + SSE-extraction round (the owner&#39;s task-list session)</h3>
-        <p class="now-detail">Shipped as v0.84.0: (1) every R85 structure claim re-verified with three parallel sweeps — the backend numbers all exact (the 52-route inventory with the full method+path+line table, the 22 SQL leaks, the benign registry↔mcp 2-cycle, the 378 byte-identical sync/streamed duplication lines, ToolDeps&#39; missing runId), four frontend numbers corrected (api.ts 85 importing files, not 72; ModelsProvidersTab 60 hook call-sites / 3 dialogs, not 40/4; 14 Zustand stores; StreamTurnEvent&#39;s 37 member types), the dead sessions/ directory caught receiving an R83 maintenance edit (dead code being maintained), and three narrow frontend seams the audit&#39;s &#39;zero extension seams&#39; claim missed (the error-bus pubsub ring, the browser-bridge per-tab handler registry, right-sidebar-events). (2) THE SSE ROUTE EXTRACTED — routes/sse.ts, the final-phase domain of the R84 server.ts split: the 476-line streamed turn route (the client-gone semantics, the queue-continuation loop, the post-turn debug analyst, the crash recovery) moved verbatim with a byte-identical round-trip verifier; server.ts 2,439 → 1,913 lines; eleven single-consumer imports pruned; registration order preserved; verified by the full pipeline — 2,825 tests byte-identical to the pre-move baseline, e2e 12/12 against the built dist, and a live boot smoke proving the route answers through the hijack→writeHead→SSE-frame path. (3) Ops: six stale branches deleted (only main remains), the stuck v0.83.0 draft release PUBLISHED, the DASHBOARD&#39;s plan section truth-synced.</p>
+        <h3 class="now-title">R87 — the UX + capability round (the owner&#39;s improvement list)</h3>
+        <p class="now-detail">Shipped as v0.85.0: the About section + the full application reset; the launcher&#39;s legacy key file flow removed (keys are saved in-app); ask_user (the mid-task question card) + the visible todo list; the Models &amp; Providers redesign (configure-before-add, capability chips, the animated test button, the phantom preset pill fixed); the embedded browser (1440×900, keep-alive tabs, read_dom positions, panel-only screenshots); the chat/shell layout batch (adaptive scrollbars, halved chat min, graduated composer shrink, the selector hover fix + frosted glass, the sidebar expand-on-click).</p>
       </div>
       <span class="now-live"><span class="live-dot" aria-hidden="true"></span>current focus</span>
     </div>
@@ -2365,28 +2365,21 @@
         <span class="status-chip status-planned">next</span>
         <div class="upcoming-body">
           <span class="upcoming-phase">Wave 2 continuation (the modularity roadmap)</span>
-          <span class="upcoming-note">Wave 2-b the turn-loop harness extraction (risk #1: 378 byte-identical lines between the sync/streamed runners; prepareTurn&#39;s 10 positional args → an options object) + the remaining server.ts domains — 51 routes (terminal, MCP, computer-use, diagnostics, approvals, vision + the notifications/jobs/checkpoints/dialogs/plugins tail). The SSE domain — the hardest, 476 lines of concurrency logic — shipped in R86.</span>
-        </div>
-      </li>
-      <li class="upcoming-item">
-        <span class="status-chip status-planned">queued</span>
-        <div class="upcoming-body">
-          <span class="upcoming-phase">Wave 3 — the frontend seams</span>
-          <span class="upcoming-note">The api.ts split (3,959 lines / 85 importing files → transport/types/sse/view-models with a barrel), the stream-event handler registry (the 687-line handleStreamEvent → event-type → handler map), the AgentChatPanel/ModelsProvidersTab decompositions, deleting the 559-line dead sessions/ directory.</span>
+          <span class="upcoming-note">Wave 2-b the turn-loop harness extraction (risk #1: the 378-line sync/streamed duplication; prepareTurn&#39;s positional args → an options object) + the remaining server.ts domains — 51 routes (terminal, MCP, computer-use, diagnostics, approvals, vision + the notifications/jobs/checkpoints/dialogs/plugins tail).</span>
         </div>
       </li>
       <li class="upcoming-item">
         <span class="status-chip status-planned">queued</span>
         <div class="upcoming-body">
           <span class="upcoming-phase">Standing R81-queue items</span>
-          <span class="upcoming-note">External plugin ctx enrichment (cline&#39;s appendContext seam), the lessons-ledger affordance as the reminder injector&#39;s third consumer, ratings-driven prompt tuning, and the standing items (edit-linting, installer code-signing, the Files-tab polish, agent web-app-testing tools).</span>
+          <span class="upcoming-note">Edit-linting, installer code-signing, the Files-tab polish, agent web-app-testing tools, external plugin ctx enrichment, ratings-driven prompt tuning.</span>
         </div>
       </li>
       <li class="upcoming-item">
-        <span class="status-chip status-planned">queued</span>
+        <span class="status-chip status-planned">researched</span>
         <div class="upcoming-body">
-          <span class="upcoming-phase">DeepSeek-harness adaptation candidates (the round-2 study)</span>
-          <span class="upcoming-note">agent-ctx/research/deepseek-harness-round2.md&#39;s top-3: C2 per-tool declared timeoutMs with structured TOOL_TIMEOUT results (the top pick); C3 mode/permission policy as folded session events + cache-stable narration; C4 tool-result spill.</span>
+          <span class="upcoming-phase">DeepSeek round-2 candidates</span>
+          <span class="upcoming-note">C2 per-tool timeoutMs/TOOL_TIMEOUT is the top pick (queued behind Wave 2-b/3); C1 compaction partially shipped (R83).</span>
         </div>
       </li>
     </ul>
@@ -2981,9 +2974,14 @@
           <span class="timeline-label">R85 — the structure re-assessment: The owner-directed post-R84 audit, docs-only: three parallel analysis sweeps re-verified at c38bc8b — R84&#39;s wins CONFIRMED (the SCC dead, server.ts 5,719→2,439 exact) with three overstatements corrected (one benign 2-cycle remains: registry↔plugins/mcp TOOL_NAME_RE since R61; 52 routes remain in server.ts, not ~31 — the notifications/jobs/checkpoints/dialogs/plugins tail was never on the plan; the SSE route is 476 lines); the turn-loop duplication measured (378 byte-identical lines; runtime.ts grew to 3,369; prepareTurn 447 lines/10 positional args); the frontend god files all grew since R80.5 (api 3,959 / stream-store 1,936 / ModelsProvidersTab 3,304; 559 lines of dead sessions/ code; zero extension seams); SQL leaks counted at 22 (approvals.ts ×11); every P0 doc drift fixed (MODULE-BOUNDARIES rewritten to the post-R84 reality, MAINTENANCE §e, HANDOFF, round-84.md backfilled, the board/index/TESTING/IMPLEMENTED-API/ROADMAP/EXTENSIBILITY synced, WORKLOG R76-R81 backfill, lessons #84-#85). v0.83.0 unchanged.</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-09-10</span>
           <span class="timeline-label">R86 — the verification + SSE-extraction round: The owner&#39;s task-list session, shipped as v0.84.0. (1) Every R85 structure claim re-verified with three parallel sweeps — backend exact (the 52-route inventory, 22 SQL leaks, the benign 2-cycle, the 378-line sync/streamed duplication), four frontend numbers corrected (api.ts 85 importing files not 72; ModelsProvidersTab 60 hook call-sites / 3 dialogs; 14 Zustand stores; StreamTurnEvent 37 member types), the dead sessions/ dir caught receiving an R83 maintenance edit, and three narrow frontend seams the audit&#39;s &#39;zero&#39; claim missed (error-bus, browser-bridge handler registry, right-sidebar-events). (2) THE SSE ROUTE EXTRACTED — routes/sse.ts, the final-phase domain of the R84 server.ts split: the 476-line streamed turn route moved verbatim (byte-identical round-trip verifier), server.ts 2,439 → 1,913 lines, eleven single-consumer imports pruned, registration order preserved; verified by the full pipeline (2,825 tests byte-identical to the pre-move baseline, e2e 12/12 against the built dist, a live boot smoke). (3) Ops: six stale branches deleted (only main remains), the stuck v0.83.0 draft release PUBLISHED (both assets verified), the DASHBOARD&#39;s plan section truth-synced.</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-09-11</span>
+          <span class="timeline-label">R87 — the UX + capability round: the owner&#39;s improvement list, shipped as v0.85.0. (1) Settings → About NEW (version + update check + the application-wide RESET — POST /system/reset wipes every table + reseeds factory state + purges the keyring + ~/.acute, with the desktop shell&#39;s key purge running first). (2) The launcher&#39;s legacy key file flow REMOVED (the GitHub token is asked once + saved locally; provider keys are saved in-app only). (3) ask_user end-to-end (the mid-task question card — options + custom answers, batched, 10-min timeout) + the todo list rendered LIVE in chat. (4) Models &amp; Providers redesigned: bordered model cards + the input/output capability chips (migration 0032), configure-before-add (the picker opens the config dialog), the animated self-dismissing test button, the phantom &#39;added&#39; preset pill fixed. (5) The embedded browser: 1440×900 default, KEEP-ALIVE panels (no reload/glitch on tab switch), read_dom per-element positions, panel-only screenshots. (6) The chat/shell batch: adaptive scrollbars, the chat min width halved, the composer&#39;s graduated shrink, the selector trajectory gating + frosted glass, the sidebar expand-on-click. 157/2,839 frontend + 94/1,877 backend tests green.</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -3078,12 +3076,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-09-10 18:59 UTC · curated public data only — no product source · Acute v0.84.0</p>
+    <p class="footer-note">Generated 2026-09-11 08:26 UTC · curated public data only — no product source · Acute v0.85.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-09-10T18:59:00.815Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
-<script src="assets/app.js?v=20260910t185900815z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-09-11T08:26:38.215Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
+<script src="assets/app.js?v=20260911t082638215z" defer></script>
 </body>
 </html>
