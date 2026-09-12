@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260912t154904015z">
+<link rel="stylesheet" href="assets/style.css?v=20260912t212405448z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -96,7 +96,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-09-12 15:49 UTC</span>
+      <span class="updated-time">2026-09-12 21:24 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -115,7 +115,7 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="73">73</span></span>
+        <span class="stat-value"><span data-count="74">74</span></span>
         <span class="stat-sub">Aug 21 – Sep 12 · 23-day run</span>
       </article>
       <article class="stat-card card">
@@ -1409,6 +1409,54 @@
         </div>
         <p class="feature-desc">The keys card lists every slot (single-key pools no longer hide); the model picker adds a right-zone one-click direct add, left-zone multi-select with drag-paint, and an allSettled batch with honest error strips; Test all probes every configured model with live progress; the sub-agent picker shows ONLY configured models; every toggle’s ON knob is contrast-aware.</p>
       </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">The update paths, unblocked end to end</h3>
+          <span class="feature-status">undefined</span>
+        </div>
+        <p class="feature-desc">The in-app &#39;Update now&#39; rejected every real download (the asset permalink&#39;s github.com host was never in the allowlist — the owner&#39;s literal &#39;body.url must be a GitHub release asset of this repository&#39;); both URL forms are accepted now and the GitHub token is optional for the public repo. The launcher realigns a diverged clone (git reset --hard FETCH_HEAD after the public-migration history rewrite) instead of the &#39;Not possible to fast-forward&#39; dead-end, and an update failure with an existing build warns and continues booting. The installer can no longer die on locked node.exe: the sidecar child rides an app-lifetime kill-on-close Job Object (kernel-enforced: taskkill, installer kills, and crashes all take the child down) and the NSIS preinstall hook kills under-$INSTDIR node.exe first.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">Queued messages land mid-turn</h3>
+          <span class="feature-status">undefined</span>
+        </div>
+        <p class="feature-desc">A message queued while the agent works is injected at the next tool-call boundary (the AI SDK&#39;s prepareStep messages override): the model sees the note during the run and the transcript shows it after the tool result — not after the original message. Proven on the live wire by the new Linux live-fire harness (the second provider request carries the note; the persisted event sits after tool.use).</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">The provider dead-ends close</h3>
+          <span class="feature-status">undefined</span>
+        </div>
+        <p class="feature-desc">&#39;Generation failed: unknown object&#39; and its malformed-response family now ride the existing transient retry ladder; an unclassifiable error after real work gets ONE bounded retry with a visible retry card (attempt 2 of 2) before the honest terminal path. The live-fire harness reproduces the exact 500-&#39;unknown object&#39; class end to end and shows the automatic recovery.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">Computer use on Add-Type-hostile machines + the window actor</h3>
+          <span class="feature-status">undefined</span>
+        </div>
+        <p class="feature-desc">The whole Windows window-layer failure chain (empty windows_overview, no active window, &#39;owns no accessible top-level window&#39; for every app) traced to one root: the U32 P/Invoke compile dies on the host. A csc-free UIAutomation fallback (LoadWithPartialName — no compiler needed) restores window lists and foreground detection, the compile error rides the diagnostics, and the new window_action tool (minimize/maximize/restore/focus/close by windowId, target:&#39;foreground&#39;, or appRef) finally gives &#39;minimize the current window&#39; an actor. A no-vision session can no longer burn turns on screenshots — the instructive refusal fires before any capture (browser included).</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">Browser: self-healing hands + wait + multi-stage sequences</h3>
+          <span class="feature-status">undefined</span>
+        </div>
+        <p class="feature-desc">The agent-hands bridge is self-healing by construction: tiny ~2KB per-action scripts + a one-time runtime install (the 17-19KB monolith was the discriminating variable of the owner&#39;s &#39;evalJob: unexpected start payload&#39; failures), unexpected start payloads are recovered-or-retried with the received payload in the error. New wait action (readyState/selector/URL polling) and sequence action — multi-stage steps in one call with built-in settle waits.</p>
+      </article>
+      <article class="feature-card card">
+        <div class="feature-top">
+          <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6a3 3 0 1 0 0 6h6a3 3 0 1 0 0-6"/><path d="M9 18a3 3 0 1 1 0-6h6a3 3 0 1 1 0 6"/><line x1="12" y1="6" x2="12" y2="18"/></svg></span>
+          <h3 class="feature-title">The prompt discipline</h3>
+          <span class="feature-status">undefined</span>
+        </div>
+        <p class="feature-desc">A CAPABILITIES section (no-vision sessions are told, once, never to call screenshot tools) and a RECOVERY PROTOCOL (re-observe before retrying; at most two identical retries then change strategy; recovery hints followed exactly once; never abandon the task), plus browser/computer-use discipline (wait after navigate, verify before interacting).</p>
+      </article>
     </div>
   </section>
 
@@ -2411,8 +2459,8 @@
     <div class="now-card">
       <span class="now-label">Now</span>
       <div class="now-body">
-        <h3 class="now-title">R93 — the fifth-walkthrough round</h3>
-        <p class="now-detail">The owner&#39;s fifth end-to-end walkthrough, shipped as v0.91.0. (A) THE COMPUTER-USE V2 (the headline — the owner&#39;s &#39;full-fledged computer use&#39; directive): the element map (stable per-element identity via quantized rects, scan diffing with mapDelta on every observation, per-element reliability counters fed from action receipts, per-app profiles with reliability leaders, ClickScope-style relocation scoring — migration 0034 + docs/architecture/COMPUTER-USE-V2.md, an INDEPENDENT module only element-map.ts touches), the hierarchy (key/windowKey/parentKey/path/treeDepth on every element; the flat actuation index contract preserved), ten new posture-gated tools (get_tree/get_children/get_parent/get_subtree/windows_overview/element_at/app_profile/move_window/window_state/focus_window), the STALE_ELEMENT relocation payload, ghost-box verification (Otsu minority-ink, fail-open), the layered clickability TYPE→PATTERN→FOCUSABLE (the inert ACTION/MSAA by-id draft deleted in the C5 review — they need the COM IUIAutomation bridge, honestly documented absent), the temp-.ps1 -File transport with UTF-8 BOM for the oversized walk capsule, and the rewritten skill body. (B) THE BROWSER AGENT&#39;S HANDS: code-point typing + per-char keydowns + any-failure fallback arming (the garbled-text verdict), the full spec-order hover-first pointer sequence with real pointer identity (the &#39;not a real mouse&#39; verdict), and read_dom&#39;s pageState + the click focus-report (the Images→All reversion verdict). (C) THE TURN-LOOP RELIABILITY: the post-analyst queue re-check + failure-path continuation (queued messages send even after a failed turn), ONE automatic recovery continuation for network/timeout failures with queued messages (queuedKept reported honestly — no silent drops), the acquireSlot empty-pool fast failure, and children inheriting the parent turn&#39;s effective pair (a single API key serves sub-agents). (D) THE SETTINGS SURFACE: the slot-1 key listing fix, the multi-add picker (right-zone direct add / left-zone select / drag-paint range + allSettled batch), Test all + the 4th Eye/EyeOff hide-from-picker button, the shared contrast-aware toggle, the sectioned agent form, and the sub-agent picker showing ONLY configured models. Full pipeline green: lint, both typechecks, the 3,023-test root suite (1,026 frontend + 1,997 agent-core; the 12 node-pty tests are Linux-only by design), e2e 12/12, build, license audit 134 CLEAN, docs:check 198/0/0; zero .rs files changed (CI&#39;s Windows build re-verifies the Rust side).</p>
+        <h3 class="now-title">R94 — the field-report round (v0.92.0)</h3>
+        <p class="now-detail">The owner&#39;s v0.91.0 field report, answered end to end: update paths (in-app updater allowlist + launcher realignment + installer Job-Object/NSIS orphan kill), chat (stick-to-bottom scroll + mid-turn queued injection at tool boundaries), provider reliability (malformed_response ladder + the unknown-with-progress retry), computer use (UIA no-csc fallback + window_action + the vision gate), browser (evalJob self-heal + wait + sequence), the models-tab UX, and the prompt overhaul — plus a new Linux live-fire harness proving it all on the wire.</p>
       </div>
       <span class="now-live"><span class="live-dot" aria-hidden="true"></span>current focus</span>
     </div>
@@ -2434,7 +2482,7 @@
       <div>
         <h2 id="quality-title">Quality</h2>
         <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
-        <p class="quality-note">R93 (the fifth-walkthrough round, v0.91.0): the final tree d993e85 → CI 34702407639 + Release 34702413888 both SUCCESS; release 387615887 published latest with both assets sha256-verified. The public migration: the repository switched from private to public per the owner&#39;s directive (the private-repo Actions quota was exhausted — bisected: identical probe jobs got runners in the public DASHBOARD repo, none in the private one); before the flip the entire history was purged of the three historical provider keys, a notification-topic string, and a PAT-shaped test fixture, and commit identities were mapped to GitHub noreply addresses — verified by full-blob scans, zero real-key bytes anywhere in the rewritten history.</p>
+        <p class="quality-note">R94 (the field-report round, v0.92.0): the owner&#39;s v0.91.0 field report answered end to end — the update paths (the in-app updater&#39;s asset-URL allowlist fix + the optional PAT for the public repo; the launcher&#39;s divergence realignment + never dead-ending an existing build; the installer&#39;s orphan-proof node.exe kill via the kill-on-close Job Object + the NSIS preinstall hook), the chat (stick-to-bottom auto-scroll; queued messages injected mid-turn at tool-call boundaries), provider reliability (the malformed &#39;unknown object&#39; class joins the retry ladder + the one unknown-with-progress retry with a visible retry card), computer use (the Windows window-layer failure chain traced to the dead Add-Type compile — the csc-free UIAutomation fallback + the window_action actor + the no-vision screenshot gate), browser use (the evalJob self-heal + the wait + the multi-stage sequence actions), the models-tab buttons/scroll/test-scopes, and the prompt overhaul (CAPABILITIES + RECOVERY PROTOCOL). Verified by the full pipeline (root 3,091 + agent-core 2,041 + e2e 12/12 + license 134 clean) AND the new Linux live-fire harness (scripts/r94-live-fire.mjs) driving real end-to-end turns through a local OpenAI-compatible provider — the queue injection, the unknown-object recovery, and the honest headless paths all pass on the wire.</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -3046,9 +3094,14 @@
           <span class="timeline-label">R92 — the fourth-walkthrough round, shipped as v0.90.0. THE MULTI-KEY POOL with automatic key juggling (sub-agents ride it too; keys live in exactly one place and survive restarts; the R47 overwrite bug fixed), the browser-embedding finish (composer menus above the live browser; backdrops exempt; the guard self-healing), the generation dead end closed (the override-first gate + the picker&#39;s agent self-heal), and agents editable again.</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-09-12</span>
           <span class="timeline-label">R93 — the fifth-walkthrough round, shipped as v0.91.0. THE COMPUTER-USE V2 (the headline): the element map (stable per-element identity, scan diffs, reliability counters, per-app profiles), the hierarchy with ten posture-gated tree/window tools, relocation scoring, ghost-box verification; the browser agent’s hands (code-point typing, the spec-order pointer sequence, section-state tracking); the turn-loop reliability (queue continuation after any turn end + ONE recovery continuation); the settings-surface polish (slot-1 key listing, the multi-add picker, Test all, contrast-aware toggles, the sectioned agent form, configured-only pickers). The repository went PUBLIC mid-close-out with the full history secret-scanned and purged.</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-09-12</span>
+          <span class="timeline-label">R94 — the field-report round: v0.92.0 (update paths, chat, reliability, computer-use fallback, browser self-heal, prompts)</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -3143,12 +3196,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-09-12 15:49 UTC · curated public data only — no product source · Acute v0.91.0</p>
+    <p class="footer-note">Generated 2026-09-12 21:24 UTC · curated public data only — no product source · Acute v0.91.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-09-12T15:49:04.015Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
-<script src="assets/app.js?v=20260912t154904015z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-09-12T21:24:05.448Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
+<script src="assets/app.js?v=20260912t212405448z" defer></script>
 </body>
 </html>
