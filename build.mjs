@@ -1241,7 +1241,7 @@ const DENY = [
   [/\b(agt_|sess_|prj_)[a-z0-9-]{6,}/i, "internal id prefix"],
   [/localhost:\d{4,5}|127\.0\.0\.1:\d{4,5}/, "dev port"],
   [/ntfy\.sh/, "notification endpoint"],
-  [/github\.com\/testplay-byte\/(?!DASHBOARD)/, "link to a non-public repo"],
+  [/github\.com\/testplay-byte\/(?!ACUTE-CODE|DASHBOARD)/, "link to a non-public repo"],
   [/Credential Manager|credentials\.txt/, "credential storage"],
   [/[A-Za-z0-9_]{90,}/, "suspicious secret-like run"],
 ];
