@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260912t212405448z">
+<link rel="stylesheet" href="assets/style.css?v=20260912t214954584z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -96,7 +96,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-09-12 21:24 UTC</span>
+      <span class="updated-time">2026-09-12 21:49 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -2482,7 +2482,7 @@
       <div>
         <h2 id="quality-title">Quality</h2>
         <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
-        <p class="quality-note">R94 (the field-report round, v0.92.0): the owner&#39;s v0.91.0 field report answered end to end — the update paths (the in-app updater&#39;s asset-URL allowlist fix + the optional PAT for the public repo; the launcher&#39;s divergence realignment + never dead-ending an existing build; the installer&#39;s orphan-proof node.exe kill via the kill-on-close Job Object + the NSIS preinstall hook), the chat (stick-to-bottom auto-scroll; queued messages injected mid-turn at tool-call boundaries), provider reliability (the malformed &#39;unknown object&#39; class joins the retry ladder + the one unknown-with-progress retry with a visible retry card), computer use (the Windows window-layer failure chain traced to the dead Add-Type compile — the csc-free UIAutomation fallback + the window_action actor + the no-vision screenshot gate), browser use (the evalJob self-heal + the wait + the multi-stage sequence actions), the models-tab buttons/scroll/test-scopes, and the prompt overhaul (CAPABILITIES + RECOVERY PROTOCOL). Verified by the full pipeline (root 3,091 + agent-core 2,041 + e2e 12/12 + license 134 clean) AND the new Linux live-fire harness (scripts/r94-live-fire.mjs) driving real end-to-end turns through a local OpenAI-compatible provider — the queue injection, the unknown-object recovery, and the honest headless paths all pass on the wire.</p>
+        <p class="quality-note">R94 (the field-report round, v0.92.0): the final tree 6d8ee24 (the app code at 86044aa) → CI 34720217283 + Release 34720260234 both SUCCESS; v0.92.0 published (release 387712322, latest, both assets sha256-verified; zero real-key bytes in the shipped kit + installer). The round answered the owner&#39;s v0.91.0 field report end to end — the update paths (in-app allowlist + launcher realignment + installer Job-Object/NSIS orphan kill), the chat (stick-to-bottom scroll + mid-turn queued injection at tool boundaries), provider reliability (malformed &#39;unknown object&#39; joins the ladder + the unknown-with-progress retry), computer use (the csc-free UIAutomation fallback + window_action + the vision gate), browser (evalJob self-heal + wait + sequence), the models-tab UX, and the prompt overhaul — verified by the full pipeline (root 3,091 + agent-core 2,041 + e2e 12/12) AND the new Linux live-fire harness (scripts/r94-live-fire.mjs) proving it on the wire.</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -3196,12 +3196,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-09-12 21:24 UTC · curated public data only — no product source · Acute v0.91.0</p>
+    <p class="footer-note">Generated 2026-09-12 21:49 UTC · curated public data only — no product source · Acute v0.91.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-09-12T21:24:05.448Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
-<script src="assets/app.js?v=20260912t212405448z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-09-12T21:49:54.584Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
+<script src="assets/app.js?v=20260912t214954584z" defer></script>
 </body>
 </html>
