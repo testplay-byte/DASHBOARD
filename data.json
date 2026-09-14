@@ -2,7 +2,7 @@
  "product": {
   "name": "Acute",
   "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-  "version": "0.93.0",
+  "version": "0.94.0",
   "availability": "Public source · Windows 10 x64",
   "github": {
    "label": "testplay-byte/ACUTE-CODE",
@@ -34,13 +34,13 @@
  ],
  "plan": {
   "current": {
-   "title": "R95 — the sixth-walkthrough round (v0.93.0)",
-   "detail": "The owner's v0.92.0 report, answered end to end. (A) THE MODELS & PROVIDERS UI OVERHAUL — the taller fixed provider rail, sidebar-only back navigation, Key 2..N parity with Key 1 with styled ConfirmDialogs replacing every browser confirm, the add-then-configure picker (already-added models hidden), hidden-at-bottom LIVE animated model sorting with scroll persistence, the one-Test-button three-option single-row scope picker, provider delete at the TOP with the dedicated confirmation. (B) THE PROVIDER-TEST TRUTH — a failing Test Connection now shows the provider's raw upstream error message. (C) MODEL-AWARE THINKING — migration 0035 captures per-model reasoning capability from OpenRouter's supported_parameters (verified against the live catalog); the thinking menu adapts to each model's own ladder; the wire mapping never sends an unsupported effort; reasoning budgets bound ladder-less models; effort XOR max_tokens on the wire (the mutual exclusion OpenRouter enforces — CAUGHT by the live-fire). (D) THE THINKING-LOOP GUARD — >120s of pure reasoning with >24KB accumulated → detection → ONE de-escalating retry with the visible meta.retry card. (E) THE NATIVE BROWSER OPENS LOCAL FILES — file:// end-to-end (the Rust shell gate, the panel's local-path normalization, the ticket-gated sidecar route, the agent tool's bare-path navigate + disk-backed read). (F) THE CHAT — the thinking area follows its own stream (stick-to-bottom + the inner jump pill), the nested-scroll chaining fix (the chat pill no longer appears while reading the thinking tail), three markdown bugs fixed with regression pins, the context donut's measured-usage prominence, the entry-renderer registry. (G) THE REAL-API LIVE-FIRE — scripts/r95-live-fire.mjs: the built sidecar through a recording proxy against REAL OpenRouter with the free Nemotron models; the SKILLS section verified in the live system prompt, the effort mapping verified on the wire, and the TOKEN USAGE TRUTH: the app's numbers EXACTLY match the provider's (zero deviation)."
+   "title": "R96 — the seventh-walkthrough round (v0.94.0)",
+   "detail": "The owner's v0.93.0 report, answered end to end — the smarter-agent round, live-fired over a 258-file project. (A) THE LOOP GUARD IS WARN-ONLY — raw-args identity threaded through every tool call (paged reads of one file no longer look identical), real repeats warn via persisted turn.warning + live frames + bounded nudges, NOTHING stops healthy work (the false-positive + 'generation failed' + stuck stop button reports all closed at the root). (B) COMPLETION = THE MODEL'S OWN STOP — a tool-using iteration with non-empty text ends the turn; the messages-shape guarantee appends a user-role nudge whenever the outgoing list ends assistant-last, so the DeepSeek 'The last message must have role=user' 400 can never fire over finished work. (C) THE TOOLS PRECISION ROUND — read_file whole-file-first under a 48KB budget; search_code with ripgrep semantics (output modes, context lines, .gitignore respect); edit_file atomic multi-edit + replaceAll + a whitespace-normalized variant rung; search_files glob; batch tool-call execution. (D) THE PROMPTS + SKILLS — BATCH/COMPLETION/PRECISION discipline sections; four owner-named seeded skills (planning, ui-design, error-testing, large-project-navigation) + the search_skills discovery tool (24 skills total, names+descriptions only in the prompt — the owner's no-default-injection directive). (E) THE THINKING AREA — a live thought before the first tool call renders as a LIVE segment (auto-expand, stick-to-bottom, the jump pill). (F) THE REASONING LADDERS — xhigh/max are real levels now; the chosen rung rides the wire VERBATIM when the ladder holds it; detection visible in the menu; legacy models auto-refresh. (G) THE BROWSER — the usage hover opens in the menu-overlay window (the browser never pauses); agent-navigate == address-bar parity (same-URL re-drives, file:// re-reads the disk). (H) THE CHAT — edit/write rows render collapsible UNIFIED DIFF cards; the donut's numbers are hover-only. (I) THE INSTALLER — the kill-order: graceful shutdown ask, bounded 5s wait, process-tree taskkill, 300ms handle-release grace, all BEFORE the installer launches (the locked-file race). (J) THE R96-J LIVE-FIRE — the built sidecar vs REAL OpenRouter over a 258-file synthetic project with the owner's exact model (deepseek-v4.1-flash): the precision edit landed exactly, ZERO loop-guard warnings across paged reads, effort 'max' verbatim, token usage exact — and two real bugs caught live (the OpenRouter app-attribution headers; the unspecified-max_tokens pricing trap — the output cap now rides the wire)."
   },
   "upcoming": [
    {
-    "title": "The owner's v0.93.0 walkthrough",
-    "detail": "The R95 test checklist lives in docs/ui-iterations/round-95.md §9. Standing follow-ups: the entry-renderer registry's WorkingSection wire-up, the sync-path thinking-loop watchdog, the pop-out address-bar bare-path normalization, the README round-index backfill (rounds 87-91)."
+    "title": "The owner's v0.94.0 walkthrough",
+    "detail": "The R96 test checklist lives in docs/ui-iterations/round-96.md §9. Standing follow-ups: the entry-renderer registry's WorkingSection wire-up, the sync-path thinking-loop watchdog, the pop-out address-bar bare-path normalization, the README round-index backfill (rounds 87-96), and the batching adoption leg (the free models did not emit multi-tool messages through the openai-compatible path in the live run — the prompt guidance is the lever; measure again on the owner's next walkthrough)."
    }
   ],
   "principles": [
@@ -1885,8 +1885,8 @@
   }
  ],
  "quality": {
-  "ci": "R95 pushed (3f6bd20): the local pipeline fully green — lint, both typechecks, 3,258/3,258 (175 files), e2e 12/12, build, license 134, docs:check 201/0/0, version ×4 = 0.93.0. CI + Release running; the REAL-API live-fire passed all checks vs real OpenRouter (token usage EXACT: zero deviation).",
-  "ciNote": "R94 (the field-report round, v0.92.0): the final tree 6d8ee24 (the app code at 86044aa) → CI 34720217283 + Release 34720260234 both SUCCESS; v0.92.0 published (release 387712322, latest, both assets sha256-verified; zero real-key bytes in the shipped kit + installer). The round answered the owner's v0.91.0 field report end to end — the update paths (in-app allowlist + launcher realignment + installer Job-Object/NSIS orphan kill), the chat (stick-to-bottom scroll + mid-turn queued injection at tool boundaries), provider reliability (malformed 'unknown object' joins the ladder + the unknown-with-progress retry), computer use (the csc-free UIAutomation fallback + window_action + the vision gate), browser (evalJob self-heal + wait + sequence), the models-tab UX, and the prompt overhaul — verified by the full pipeline (root 3,091 + agent-core 2,041 + e2e 12/12) AND the new Linux live-fire harness (scripts/r94-live-fire.mjs) proving it on the wire.",
+  "ci": "R96 pushed (34961ab, the docs commit; the code at 96f5cdf/7bc5817/02c7b80): the local pipeline fully green — lint, both typechecks, agent-core 2,228/2,228 (107 files), frontend 1,193/1,193, e2e 12/12, build, license audit, docs:check 203/0/0, version ×4 = 0.94.0. CI 34796586539 + Release 34796593336 both SUCCESS. v0.94.0 PUBLISHED (release 388103373, latest, assets sha256-verified, kit scanned clean). The R96-J REAL-API live-fire passed all checks vs real OpenRouter over the 258-file project (token usage exact; two live-caught bugs fixed in-round).",
+  "ciNote": "R96 (the smarter-agent round, v0.94.0): the final tree 34961ab → CI 34796586539 + Release 34796593336 both SUCCESS; v0.94.0 published (release 388103373, latest, both assets sha256-verified against fresh downloads — setup.exe 118b0487…, kit 17fbddfc…; zero real-key values in the kit). The round answered the owner's v0.93.0 report end to end: the loop guard can no longer stop healthy work (warn-only + raw-args identity — the paged-read false positive closed LIVE, not just in unit tests), completion = the model's own stop (the 'The last message must have role=user' failure can never fire over finished work), the tools precision round (whole-file-first reads, ripgrep-semantics search, atomic multi-edit with unified-diff cards in chat), the prompts + skills system (24 seeded skills, search_skills discovery, names+descriptions only), the reasoning ladders verbatim (the owner's model's ['max','high','low'] rides 'max' as picked), the browser menu-overlay usage card (never pauses the browser), agent-navigate parity (same-URL re-drives, file:// re-reads the disk), and the installer kill-order for the locked-file race — landed through CI's Windows cargo check gate (the Rust toolchain is absent in the dev sandbox, honestly noted in round-96.md §7).",
   "suites": [
    {
     "name": "frontend",
@@ -2216,6 +2216,10 @@
   {
    "date": "2026-09-13",
    "label": "R95 — the sixth-walkthrough round: the Models & Providers overhaul, model-aware thinking + the loop guard, the native local-file browser, the chat robustness pass, the REAL-API live-fire. Shipped as v0.93.0."
+  },
+  {
+   "date": "2026-09-14",
+   "label": "R96 — the smarter-agent round (v0.94.0): the warn-only loop guard with raw-args identity, completion = the model's own stop (the role=user fix), the tools precision round (whole-file reads, ripgrep search, atomic multi-edit), the prompts + skills system (24 seeded skills + search_skills discovery), the reasoning ladders verbatim, the browser menu-overlay usage card + agent-nav parity, the chat unified-diff cards, the installer kill-order — all live-fired over a 258-file project vs real OpenRouter."
   }
  ],
  "chips": [
@@ -2320,7 +2324,7 @@
   ],
   "total": 97
  },
- "lastUpdated": "2026-09-13",
- "ciNote": "R95 (the sixth-walkthrough round, v0.93.0): pushed as 3f6bd20 (8 commits: A/B/C/D/E/F/G + docs) — CI + Release in flight; the local pipeline was fully green before push (lint, both typechecks, the 3,258-test root suite in 175 files, e2e 12/12, build, license audit 134, docs:check 201/0/0, version ×4). The REAL-API live-fire (scripts/r95-live-fire.mjs) passed ALL checks against real OpenRouter with the free Nemotron models — and caught the effort+max_tokens mutual-exclusion bug live.",
- "version": "0.93.0"
+ "lastUpdated": "2026-09-14",
+ "ciNote": "R96 (the smarter-agent round, v0.94.0): pushed as 34961ab (6 commits: the plan, A+E research/thinking, B+C+D the core round, F+G+H+I, J the live-fire, docs) — CI 34796586539 + Release 34796593336 both SUCCESS; v0.94.0 published (release 388103373, latest, both assets sha256-verified; zero real-key values in the shipped kit). The R96-J live-fire (scripts/r96-live-fire.mjs) passed ALL checks against REAL OpenRouter over a 258-file synthetic project with the owner's exact model (deepseek-v4.1-flash, ladder ['max','high','low'] live) — and caught two real bugs in-round (the app-attribution headers X-Title/HTTP-Referer; the unspecified-max_tokens pricing trap — the resolved output cap now rides the wire).",
+ "version": "0.94.0"
 }
