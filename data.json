@@ -34,13 +34,13 @@
  ],
  "plan": {
   "current": {
-   "title": "R96 — the seventh-walkthrough round (v0.94.0)",
-   "detail": "The owner's v0.93.0 report, answered end to end — the smarter-agent round, live-fired over a 258-file project. (A) THE LOOP GUARD IS WARN-ONLY — raw-args identity threaded through every tool call (paged reads of one file no longer look identical), real repeats warn via persisted turn.warning + live frames + bounded nudges, NOTHING stops healthy work (the false-positive + 'generation failed' + stuck stop button reports all closed at the root). (B) COMPLETION = THE MODEL'S OWN STOP — a tool-using iteration with non-empty text ends the turn; the messages-shape guarantee appends a user-role nudge whenever the outgoing list ends assistant-last, so the DeepSeek 'The last message must have role=user' 400 can never fire over finished work. (C) THE TOOLS PRECISION ROUND — read_file whole-file-first under a 48KB budget; search_code with ripgrep semantics (output modes, context lines, .gitignore respect); edit_file atomic multi-edit + replaceAll + a whitespace-normalized variant rung; search_files glob; batch tool-call execution. (D) THE PROMPTS + SKILLS — BATCH/COMPLETION/PRECISION discipline sections; four owner-named seeded skills (planning, ui-design, error-testing, large-project-navigation) + the search_skills discovery tool (24 skills total, names+descriptions only in the prompt — the owner's no-default-injection directive). (E) THE THINKING AREA — a live thought before the first tool call renders as a LIVE segment (auto-expand, stick-to-bottom, the jump pill). (F) THE REASONING LADDERS — xhigh/max are real levels now; the chosen rung rides the wire VERBATIM when the ladder holds it; detection visible in the menu; legacy models auto-refresh. (G) THE BROWSER — the usage hover opens in the menu-overlay window (the browser never pauses); agent-navigate == address-bar parity (same-URL re-drives, file:// re-reads the disk). (H) THE CHAT — edit/write rows render collapsible UNIFIED DIFF cards; the donut's numbers are hover-only. (I) THE INSTALLER — the kill-order: graceful shutdown ask, bounded 5s wait, process-tree taskkill, 300ms handle-release grace, all BEFORE the installer launches (the locked-file race). (J) THE R96-J LIVE-FIRE — the built sidecar vs REAL OpenRouter over a 258-file synthetic project with the owner's exact model (deepseek-v4.1-flash): the precision edit landed exactly, ZERO loop-guard warnings across paged reads, effort 'max' verbatim, token usage exact — and two real bugs caught live (the OpenRouter app-attribution headers; the unspecified-max_tokens pricing trap — the output cap now rides the wire)."
+   "title": "R97 — the eighth-walkthrough round (v0.95.0)",
+   "detail": "The owner's v0.94.0 report, answered end to end — the context/freedom/states round. (A) THE CONTEXT POPUP REBUILT — the Kilo-style segmented bar at the top of the usage card (one segment per category, compact counts flanking, the dimmed reserved-for-output block) + the donut + the SESSION COST headline + the breakdown mini-bars + the session TABLE (Main/Sub-agents/Combined × Turns/Calls/Sent/Received/Cost), with Cursor's mutual hover-highlight; the DOM popover renders the same bar — the views are twins, nothing hidden. (B) THE THINKING LOOP SET FREE — a Settings domain, DEFAULT OFF per the owner's directive; editable stall/volume thresholds; the amber 'Thinking stopped by the guard' card replaces the red error. (C) THE FAILURE-USAGE TRUTH — a failed turn reports the tokens it actually spent (every retried attempt's streamed-so-far included), on the live card AND after reload. (D) REAL SYNTAX COLORS — prismjs through the app's own palette, the thinking area's fenced code included, the line-number gutter preserved. (E) THE CHAT'S CUSTOMIZABILITY — text size S/M/L + hover timestamps. (F) THE STATE-AWARENESS SWEEP — the chat's false greeting dead (a chat-shaped skeleton while loading; the retryable error card on failure), the sidebar/dashboard/settings false-empties dead, shared Skeleton primitives. (G) THE BROWSER'S SETTINGS HOME — search engine + homepage + default zoom + editable quick links, all wired, with a HOME button made to actually WORK. (H) THE REVIEW PASS — a dedicated audit of the round's full diff; every finding fixed + pinned."
   },
   "upcoming": [
    {
-    "title": "The owner's v0.94.0 walkthrough",
-    "detail": "The R96 test checklist lives in docs/ui-iterations/round-96.md §9. Standing follow-ups: the entry-renderer registry's WorkingSection wire-up, the sync-path thinking-loop watchdog, the pop-out address-bar bare-path normalization, the README round-index backfill (rounds 87-96), and the batching adoption leg (the free models did not emit multi-tool messages through the openai-compatible path in the live run — the prompt guidance is the lever; measure again on the owner's next walkthrough)."
+    "title": "The owner's v0.95.0 walkthrough",
+    "detail": "The R97 test checklist lives in round-97.md §9 — the context bar, the thinking-loop default-off, the failed-turn token chips, the text-size/timestamps pair, the colored thinking code with gutters, the state-aware skeleton/error surfaces, and the Browser settings home with the working HOME button."
    }
   ],
   "principles": [
@@ -1885,16 +1885,16 @@
   }
  ],
  "quality": {
-  "ci": "R96 pushed (34961ab, the docs commit; the code at 96f5cdf/7bc5817/02c7b80): the local pipeline fully green — lint, both typechecks, agent-core 2,228/2,228 (107 files), frontend 1,193/1,193, e2e 12/12, build, license audit, docs:check 203/0/0, version ×4 = 0.94.0. CI 34796586539 + Release 34796593336 both SUCCESS. v0.94.0 PUBLISHED (release 388103373, latest, assets sha256-verified, kit scanned clean). The R96-J REAL-API live-fire passed all checks vs real OpenRouter over the 258-file project (token usage exact; two live-caught bugs fixed in-round).",
-  "ciNote": "R96 (the smarter-agent round, v0.94.0): the final tree 34961ab → CI 34796586539 + Release 34796593336 both SUCCESS; v0.94.0 published (release 388103373, latest, both assets sha256-verified against fresh downloads — setup.exe 118b0487…, kit 17fbddfc…; zero real-key values in the kit). The round answered the owner's v0.93.0 report end to end: the loop guard can no longer stop healthy work (warn-only + raw-args identity — the paged-read false positive closed LIVE, not just in unit tests), completion = the model's own stop (the 'The last message must have role=user' failure can never fire over finished work), the tools precision round (whole-file-first reads, ripgrep-semantics search, atomic multi-edit with unified-diff cards in chat), the prompts + skills system (24 seeded skills, search_skills discovery, names+descriptions only), the reasoning ladders verbatim (the owner's model's ['max','high','low'] rides 'max' as picked), the browser menu-overlay usage card (never pauses the browser), agent-navigate parity (same-URL re-drives, file:// re-reads the disk), and the installer kill-order for the locked-file race — landed through CI's Windows cargo check gate (the Rust toolchain is absent in the dev sandbox, honestly noted in round-96.md §7).",
+  "ci": "GREEN — CI 34879323837 and Release 34879322559 both SUCCESS on 52ffce2 (v0.95.0: lint, both typechecks, agent-core 2,255/2,255 in 111 files, frontend 1,223/1,223, e2e 12/12, build, license audit, docs:check 204/0/0, version ×4). v0.95.0 PUBLISHED (release 388616224, latest — both assets sha256-verified, the kit scanned clean).",
+  "ciNote": "R97 (the context/freedom/states round, v0.95.0): pushed as 3cf6af8 (12 commits: the plan, C the context bar, D the thinking loop, E the failure usage, F the syntax colors, G the browser settings, H the chat customizability, I the state sweep ×4, J the review fixes, K the docs ×2) — CI 34879323837 + Release 34879322559 both SUCCESS on the first try. v0.95.0 published as release 388616224 (latest): setup.exe 37,683,671 B + launcher kit 117,188 B, both verified against GitHub's server-side sha256 digests.",
   "suites": [
    {
     "name": "frontend",
-    "tests": 1026
+    "tests": 1223
    },
    {
     "name": "agent-core",
-    "tests": 1997
+    "tests": 2255
    },
    {
     "name": "sidecar e2e",
@@ -2220,6 +2220,10 @@
   {
    "date": "2026-09-14",
    "label": "R96 — the smarter-agent round (v0.94.0): the warn-only loop guard with raw-args identity, completion = the model's own stop (the role=user fix), the tools precision round (whole-file reads, ripgrep search, atomic multi-edit), the prompts + skills system (24 seeded skills + search_skills discovery), the reasoning ladders verbatim, the browser menu-overlay usage card + agent-nav parity, the chat unified-diff cards, the installer kill-order — all live-fired over a 258-file project vs real OpenRouter."
+  },
+  {
+   "date": "2026-09-14",
+   "label": "R97 — the context/freedom/states round (v0.95.0): the Kilo-style context bar, the thinking loop free by default, the failed-turn token truth, real syntax colors with gutters, the chat customizability pair, the state-awareness sweep, and the browser's settings home with a working HOME button — every review finding fixed before release."
   }
  ],
  "chips": [
@@ -2326,5 +2330,5 @@
  },
  "lastUpdated": "2026-09-14",
  "ciNote": "R96 (the smarter-agent round, v0.94.0): pushed as 34961ab (6 commits: the plan, A+E research/thinking, B+C+D the core round, F+G+H+I, J the live-fire, docs) — CI 34796586539 + Release 34796593336 both SUCCESS; v0.94.0 published (release 388103373, latest, both assets sha256-verified; zero real-key values in the shipped kit). The R96-J live-fire (scripts/r96-live-fire.mjs) passed ALL checks against REAL OpenRouter over a 258-file synthetic project with the owner's exact model (deepseek-v4.1-flash, ladder ['max','high','low'] live) — and caught two real bugs in-round (the app-attribution headers X-Title/HTTP-Referer; the unspecified-max_tokens pricing trap — the resolved output cap now rides the wire).",
- "version": "0.94.0"
+ "version": 0.95
 }
