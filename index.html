@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260913t183149284z">
+<link rel="stylesheet" href="assets/style.css?v=20260914t022337935z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -79,7 +79,7 @@
       <div class="hero-eyebrow">
         <span class="hero-availability">Public source · Windows 10 x64</span>
         <span class="hero-dot" aria-hidden="true">·</span>
-        <span class="hero-version">v0.93.0</span>
+        <span class="hero-version">v0.94.0</span>
       </div>
       <h1 id="hero-title">Acute</h1>
       <p class="tagline">Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.</p>
@@ -96,7 +96,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-09-13 18:31 UTC</span>
+      <span class="updated-time">2026-09-14 02:23 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -115,8 +115,8 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="75">75</span></span>
-        <span class="stat-sub">Aug 21 – Sep 13 · 24-day run</span>
+        <span class="stat-value"><span data-count="76">76</span></span>
+        <span class="stat-sub">Aug 21 – Sep 14 · 25-day run</span>
       </article>
       <article class="stat-card card">
         <span class="stat-label">Dependencies audited</span>
@@ -2459,8 +2459,8 @@
     <div class="now-card">
       <span class="now-label">Now</span>
       <div class="now-body">
-        <h3 class="now-title">R95 — the sixth-walkthrough round (v0.93.0)</h3>
-        <p class="now-detail">The owner&#39;s v0.92.0 report, answered end to end. (A) THE MODELS &amp; PROVIDERS UI OVERHAUL — the taller fixed provider rail, sidebar-only back navigation, Key 2..N parity with Key 1 with styled ConfirmDialogs replacing every browser confirm, the add-then-configure picker (already-added models hidden), hidden-at-bottom LIVE animated model sorting with scroll persistence, the one-Test-button three-option single-row scope picker, provider delete at the TOP with the dedicated confirmation. (B) THE PROVIDER-TEST TRUTH — a failing Test Connection now shows the provider&#39;s raw upstream error message. (C) MODEL-AWARE THINKING — migration 0035 captures per-model reasoning capability from OpenRouter&#39;s supported_parameters (verified against the live catalog); the thinking menu adapts to each model&#39;s own ladder; the wire mapping never sends an unsupported effort; reasoning budgets bound ladder-less models; effort XOR max_tokens on the wire (the mutual exclusion OpenRouter enforces — CAUGHT by the live-fire). (D) THE THINKING-LOOP GUARD — &gt;120s of pure reasoning with &gt;24KB accumulated → detection → ONE de-escalating retry with the visible meta.retry card. (E) THE NATIVE BROWSER OPENS LOCAL FILES — file:// end-to-end (the Rust shell gate, the panel&#39;s local-path normalization, the ticket-gated sidecar route, the agent tool&#39;s bare-path navigate + disk-backed read). (F) THE CHAT — the thinking area follows its own stream (stick-to-bottom + the inner jump pill), the nested-scroll chaining fix (the chat pill no longer appears while reading the thinking tail), three markdown bugs fixed with regression pins, the context donut&#39;s measured-usage prominence, the entry-renderer registry. (G) THE REAL-API LIVE-FIRE — scripts/r95-live-fire.mjs: the built sidecar through a recording proxy against REAL OpenRouter with the free Nemotron models; the SKILLS section verified in the live system prompt, the effort mapping verified on the wire, and the TOKEN USAGE TRUTH: the app&#39;s numbers EXACTLY match the provider&#39;s (zero deviation).</p>
+        <h3 class="now-title">R96 — the seventh-walkthrough round (v0.94.0)</h3>
+        <p class="now-detail">The owner&#39;s v0.93.0 report, answered end to end — the smarter-agent round, live-fired over a 258-file project. (A) THE LOOP GUARD IS WARN-ONLY — raw-args identity threaded through every tool call (paged reads of one file no longer look identical), real repeats warn via persisted turn.warning + live frames + bounded nudges, NOTHING stops healthy work (the false-positive + &#39;generation failed&#39; + stuck stop button reports all closed at the root). (B) COMPLETION = THE MODEL&#39;S OWN STOP — a tool-using iteration with non-empty text ends the turn; the messages-shape guarantee appends a user-role nudge whenever the outgoing list ends assistant-last, so the DeepSeek &#39;The last message must have role=user&#39; 400 can never fire over finished work. (C) THE TOOLS PRECISION ROUND — read_file whole-file-first under a 48KB budget; search_code with ripgrep semantics (output modes, context lines, .gitignore respect); edit_file atomic multi-edit + replaceAll + a whitespace-normalized variant rung; search_files glob; batch tool-call execution. (D) THE PROMPTS + SKILLS — BATCH/COMPLETION/PRECISION discipline sections; four owner-named seeded skills (planning, ui-design, error-testing, large-project-navigation) + the search_skills discovery tool (24 skills total, names+descriptions only in the prompt — the owner&#39;s no-default-injection directive). (E) THE THINKING AREA — a live thought before the first tool call renders as a LIVE segment (auto-expand, stick-to-bottom, the jump pill). (F) THE REASONING LADDERS — xhigh/max are real levels now; the chosen rung rides the wire VERBATIM when the ladder holds it; detection visible in the menu; legacy models auto-refresh. (G) THE BROWSER — the usage hover opens in the menu-overlay window (the browser never pauses); agent-navigate == address-bar parity (same-URL re-drives, file:// re-reads the disk). (H) THE CHAT — edit/write rows render collapsible UNIFIED DIFF cards; the donut&#39;s numbers are hover-only. (I) THE INSTALLER — the kill-order: graceful shutdown ask, bounded 5s wait, process-tree taskkill, 300ms handle-release grace, all BEFORE the installer launches (the locked-file race). (J) THE R96-J LIVE-FIRE — the built sidecar vs REAL OpenRouter over a 258-file synthetic project with the owner&#39;s exact model (deepseek-v4.1-flash): the precision edit landed exactly, ZERO loop-guard warnings across paged reads, effort &#39;max&#39; verbatim, token usage exact — and two real bugs caught live (the OpenRouter app-attribution headers; the unspecified-max_tokens pricing trap — the output cap now rides the wire).</p>
       </div>
       <span class="now-live"><span class="live-dot" aria-hidden="true"></span>current focus</span>
     </div>
@@ -2482,7 +2482,7 @@
       <div>
         <h2 id="quality-title">Quality</h2>
         <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
-        <p class="quality-note">R94 (the field-report round, v0.92.0): the final tree 6d8ee24 (the app code at 86044aa) → CI 34720217283 + Release 34720260234 both SUCCESS; v0.92.0 published (release 387712322, latest, both assets sha256-verified; zero real-key bytes in the shipped kit + installer). The round answered the owner&#39;s v0.91.0 field report end to end — the update paths (in-app allowlist + launcher realignment + installer Job-Object/NSIS orphan kill), the chat (stick-to-bottom scroll + mid-turn queued injection at tool boundaries), provider reliability (malformed &#39;unknown object&#39; joins the ladder + the unknown-with-progress retry), computer use (the csc-free UIAutomation fallback + window_action + the vision gate), browser (evalJob self-heal + wait + sequence), the models-tab UX, and the prompt overhaul — verified by the full pipeline (root 3,091 + agent-core 2,041 + e2e 12/12) AND the new Linux live-fire harness (scripts/r94-live-fire.mjs) proving it on the wire.</p>
+        <p class="quality-note">R96 (the smarter-agent round, v0.94.0): the final tree 34961ab → CI 34796586539 + Release 34796593336 both SUCCESS; v0.94.0 published (release 388103373, latest, both assets sha256-verified against fresh downloads — setup.exe 118b0487…, kit 17fbddfc…; zero real-key values in the kit). The round answered the owner&#39;s v0.93.0 report end to end: the loop guard can no longer stop healthy work (warn-only + raw-args identity — the paged-read false positive closed LIVE, not just in unit tests), completion = the model&#39;s own stop (the &#39;The last message must have role=user&#39; failure can never fire over finished work), the tools precision round (whole-file-first reads, ripgrep-semantics search, atomic multi-edit with unified-diff cards in chat), the prompts + skills system (24 seeded skills, search_skills discovery, names+descriptions only), the reasoning ladders verbatim (the owner&#39;s model&#39;s [&#39;max&#39;,&#39;high&#39;,&#39;low&#39;] rides &#39;max&#39; as picked), the browser menu-overlay usage card (never pauses the browser), agent-navigate parity (same-URL re-drives, file:// re-reads the disk), and the installer kill-order for the locked-file race — landed through CI&#39;s Windows cargo check gate (the Rust toolchain is absent in the dev sandbox, honestly noted in round-96.md §7).</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -2535,7 +2535,7 @@
           <span class="check-icon icon-accent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
           <div class="check-body">
             <span class="check-label">CI pipeline</span>
-            <span class="check-value ">R95 pushed (3f6bd20): the local pipeline fully green — lint, both typechecks, 3,258/3,258 (175 files), e2e 12/12, build, license 134, docs:check 201/0/0, version ×4 = 0.93.0. CI + Release running; the REAL-API live-fire passed all checks vs real OpenRouter (token usage EXACT: zero deviation).</span>
+            <span class="check-value ">R96 pushed (34961ab, the docs commit; the code at 96f5cdf/7bc5817/02c7b80): the local pipeline fully green — lint, both typechecks, agent-core 2,228/2,228 (107 files), frontend 1,193/1,193, e2e 12/12, build, license audit, docs:check 203/0/0, version ×4 = 0.94.0. CI 34796586539 + Release 34796593336 both SUCCESS. v0.94.0 PUBLISHED (release 388103373, latest, assets sha256-verified, kit scanned clean). The R96-J REAL-API live-fire passed all checks vs real OpenRouter over the 258-file project (token usage exact; two live-caught bugs fixed in-round).</span>
             <span class="check-sub">red since R39 — Rust shell, fix queued (P0-1)</span>
           </div>
         </article>
@@ -3104,9 +3104,14 @@
           <span class="timeline-label">R94 — the field-report round: v0.92.0 (update paths, chat, reliability, computer-use fallback, browser self-heal, prompts)</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-09-13</span>
           <span class="timeline-label">R95 — the sixth-walkthrough round: the Models &amp; Providers overhaul, model-aware thinking + the loop guard, the native local-file browser, the chat robustness pass, the REAL-API live-fire. Shipped as v0.93.0.</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-09-14</span>
+          <span class="timeline-label">R96 — the smarter-agent round (v0.94.0): the warn-only loop guard with raw-args identity, completion = the model&#39;s own stop (the role=user fix), the tools precision round (whole-file reads, ripgrep search, atomic multi-edit), the prompts + skills system (24 seeded skills + search_skills discovery), the reasoning ladders verbatim, the browser menu-overlay usage card + agent-nav parity, the chat unified-diff cards, the installer kill-order — all live-fired over a 258-file project vs real OpenRouter.</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -3201,12 +3206,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-09-13 18:31 UTC · curated public data only — no product source · Acute v0.93.0</p>
+    <p class="footer-note">Generated 2026-09-14 02:23 UTC · curated public data only — no product source · Acute v0.94.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-09-13T18:31:49.284Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
-<script src="assets/app.js?v=20260913t183149284z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-09-14T02:23:37.935Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
+<script src="assets/app.js?v=20260914t022337935z" defer></script>
 </body>
 </html>
