@@ -34,13 +34,13 @@
   ],
   "plan": {
     "current": {
-      "title": "R98 — the ninth-walkthrough round (v0.96.0)",
-      "detail": "The owner's v0.95.0 report answered end to end: the design LANGUAGE as an enforceable folder (TOKENS/MOTION/COMPONENTS/WIZARD-DNA), the Data & Statistics surface (heatmap + per-model charts + donut + agent health + clear-data, in Settings AND the usage screen), desktop notifications, the Prompts tab + the always-load skill tier, the token-optimization pair (the file ledger + search_symbols/auto-index), Mermaid in chat, the wizard's custom OpenAI-compatible providers, the browser screenshot chain fixed, the context popup's 420px sectioned rebuild, the window controls, the grouped settings, memory add/edit, and the terminal discovery. The recovery chapter: a mid-round sandbox reset lost 8 unpushed commits — everything re-implemented + pushed per-workstream (push-after-every-commit now binding)."
+      "title": "R99 — the research-driven UI redo + the self-contained app (v0.97.0)",
+      "detail": "The owner's tenth walkthrough answered end to end: the browser ENGINE ships inside the installer (WebView2 Fixed Version Runtime — the app never touches the device's engine) + every in-app link routes into the embedded browser panel (the chat links were dead before); the ONE-CLICK SILENT UPDATE (/S /R — the app relaunches itself; release notes inline; the 24h auto-check + the sidebar dot + a toast); the chat visual redo (turn headers with model identity, Completed-N-steps summaries, tool-row outcome glyphs, the soft caret); the context popup rebuilt after the /context reference (the overview hero, the composition bar with inline % labels + the legend with manage links); the Data & Statistics polish (one quiet Agent health section, the danger zone always last, the anti-jitter kit); the project-wide SYSTEM PROMPT MANAGER (master-detail-lite after Cursor Rules); and the system-prompt overhaul (the precedence ladder, the autonomy risk tiers, INTAKE phase 0, tool descriptions, the subagent report contract, confidence tags — the dedup paid ~2.3K chars). The R98 review debt paid: a full independent subagent review pass (ship-shape after 4 MINORs — all fixed + pinned)."
     },
     "upcoming": [
       {
-        "title": "The owner's v0.95.0 walkthrough",
-        "detail": "The R97 test checklist lives in round-97.md §9 — the context bar, the thinking-loop default-off, the failed-turn token chips, the text-size/timestamps pair, the colored thinking code with gutters, the state-aware skeleton/error surfaces, and the Browser settings home with the working HOME button."
+        "title": "The owner's v0.97.0 walkthrough",
+        "detail": "The R99 test checklist lives in the repo's round-99.md §5 — the in-app link routing, the one-click silent update + relaunch, the chat turn headers + compressed summaries, the context hero/bar/legend, the stats danger zone, the System prompt manager, and the agent's intake/autonomy/confidence behavior."
       }
     ],
     "principles": [
@@ -1885,8 +1885,8 @@
     }
   ],
   "quality": {
-    "ci": "GREEN — CI 34879323837 and Release 34879322559 both SUCCESS on 52ffce2 (v0.95.0: lint, both typechecks, agent-core 2,255/2,255 in 111 files, frontend 1,223/1,223, e2e 12/12, build, license audit, docs:check 204/0/0, version ×4). v0.95.0 PUBLISHED (release 388616224, latest — both assets sha256-verified, the kit scanned clean).",
-    "ciNote": "R97 (the context/freedom/states round, v0.95.0): pushed as 3cf6af8 (12 commits: the plan, C the context bar, D the thinking loop, E the failure usage, F the syntax colors, G the browser settings, H the chat customizability, I the state sweep ×4, J the review fixes, K the docs ×2) — CI 34879323837 + Release 34879322559 both SUCCESS on the first try. v0.95.0 published as release 388616224 (latest): setup.exe 37,683,671 B + launcher kit 117,188 B, both verified against GitHub's server-side sha256 digests.",
+    "ci": "PENDING — the v0.97.0 CI + Release runs land on the tag commit b6dc571 (CI already GREEN mid-round on 329126c including cargo check; the Release dispatch on 34fe1e5 SUCCESS — the engine-bundled installer chain is proven end to end; the final runs gate the publish)",
+    "ciNote": "R99 (the research-driven UI redo round, v0.97.0): the research pass ran FIRST (Cursor/VS Code/Claude Code /context/GitHub/Tauri patterns drove every design), seven surgical workstreams landed (A the fixedRuntime browser + the link router + the two CI fixes the round taught — the serde type-tag and the compile-time resources validation; B the chat visual redo; C the one-click silent update; D the context hero/bar/legend; E the stats reorder + anti-jitter; F the System prompt manager; G the prompt overhaul — the owner’s 8-flaw list answered), and the full independent review pass ran LAST (the R98 debt paid: ship-shape after 4 MINORs, all fixed + pinned). Suites: root 3,754/3,754 (12 env-skips), agent-core 2,384/2,384, docs:check 214/0/0.",
     "suites": [
       {
         "name": "frontend",
@@ -2228,6 +2228,10 @@
     {
       "date": "2026-09-15",
       "label": "Round 98 — the design-language + data round (v0.96.0)"
+    },
+    {
+      "date": "2026-09-15",
+      "label": "R99 — the research-driven UI redo round (v0.97.0): the self-contained browser, one-click silent updates, the agent’s contract"
     }
   ],
   "chips": [
@@ -2334,5 +2338,5 @@
   },
   "lastUpdated": "2026-09-15",
   "ciNote": "CI 34993547873 + Release 34993551131 both SUCCESS on 50a4b24 (first try). v0.96.0 published: release 389300285, latest, both assets sha256-verified (setup.exe d5b13f3c…, kit 14e05082…); the kit scanned clean.",
-  "version": "0.96"
+  "version": "0.97"
 }
