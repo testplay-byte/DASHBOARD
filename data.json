@@ -2332,7 +2332,7 @@
     ],
     "total": 97
   },
-  "lastUpdated": "2026-09-14",
-  "ciNote": "CI 34993547873 + Release 34993551131 fired on v0.96.0 (tag) — this row syncs GREEN when they land.",
+  "lastUpdated": "2026-09-15",
+  "ciNote": "CI 34993547873 + Release 34993551131 both SUCCESS on 50a4b24 (first try). v0.96.0 published: release 389300285, latest, both assets sha256-verified (setup.exe d5b13f3c…, kit 14e05082…); the kit scanned clean.",
   "version": "0.96"
 }
