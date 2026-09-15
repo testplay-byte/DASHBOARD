@@ -1885,7 +1885,7 @@
     }
   ],
   "quality": {
-    "ci": "PENDING — the v0.97.0 CI + Release runs land on the tag commit b6dc571 (CI already GREEN mid-round on 329126c including cargo check; the Release dispatch on 34fe1e5 SUCCESS — the engine-bundled installer chain is proven end to end; the final runs gate the publish)",
+    "ci": "GREEN — CI 35035134792 + Release 35035136469 both SUCCESS on b6dc571; v0.97.0 PUBLISHED (release 389541687, latest — the ENGINE-BUNDLED installer: setup.exe 270,884,416 B (sha256 f502aaee… verified against GitHub’s server-side digest on fresh bytes via the authenticated asset API) + the kit (dcfe82cd…, scanned clean). The installer grew 38.7 MB → 258 MB — it ships the WebView2 Fixed Version Runtime, the honest price of the self-contained browser.",
     "ciNote": "R99 (the research-driven UI redo round, v0.97.0): the research pass ran FIRST (Cursor/VS Code/Claude Code /context/GitHub/Tauri patterns drove every design), seven surgical workstreams landed (A the fixedRuntime browser + the link router + the two CI fixes the round taught — the serde type-tag and the compile-time resources validation; B the chat visual redo; C the one-click silent update; D the context hero/bar/legend; E the stats reorder + anti-jitter; F the System prompt manager; G the prompt overhaul — the owner’s 8-flaw list answered), and the full independent review pass ran LAST (the R98 debt paid: ship-shape after 4 MINORs, all fixed + pinned). Suites: root 3,754/3,754 (12 env-skips), agent-core 2,384/2,384, docs:check 214/0/0.",
     "suites": [
       {
