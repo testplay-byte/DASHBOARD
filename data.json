@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.98.0",
+    "version": "0.100.0",
     "availability": "Public source · Windows 10 x64",
     "github": {
       "label": "testplay-byte/ACUTE-CODE",
@@ -34,13 +34,13 @@
   ],
   "plan": {
     "current": {
-      "title": "R101 — the calm update hand-off + the chat timeline + honest Mermaid + Linux ARM64 (v0.99.0)",
-      "detail": "The owner's v0.97.0 report answered end to end: the fixedRuntime bundle retired (installer 258 MB → ~37–40 MB, the panel de-branded as ACUTE Browser, the honest engine line, the trilemma on record), the design language enforced by a new audit gate (sub-10px text eliminated, heavy weights 474→19, JS hovers 243→33), the chat window + settings + sidebar + dashboard overhauls, the Linux release (deb + AppImage on WebKitGTK, the Secret Service key store, the rust-linux CI gate), and the live-fire agent battery on real OpenRouter turns (which caught + fixed the Invalid-JSON instant dead end)."
+      "title": "R103 — the release pipeline made bounded/retrying/resumable + the union-alpha evaluation (v0.100.0 PUBLISHED)",
+      "detail": "The stuck-release incident fixed at the root: the v0.100.0 tag run hung 27+ minutes in the old no-timeout uploader with delete-then-re-upload re-runs; replaced by a bounded, retrying, RESUMABLE uploader (same-size assets skip, one draft per tag, byte-exact verification) with timeout-minutes on every job in both workflows — proven against the live API and then through three real dispatches of a degraded uploads.github.com (every failure loud and bounded), finishing with operator-banked assets + a 9-second verification green. Content unchanged from R102 (the Linux key-store fix, the settings sidebar, the Mermaid viewer, the quiet composer). Also: the stealth/union-alpha model evaluated across 23 live calls — tools/JSON/vision/streaming work; the claimed thinking modes do not exist at the API level; free fallback-tier."
     },
     "upcoming": [
       {
-        "title": "The owner's v0.99.0 walkthrough",
-        "detail": "The R101 test checklist lives in round-101.md §5 — the update arc (the calm Restarting splash, the self-healing failed install), the composer focus fix, the chat timeline rail, the sidebar rail label chips, the settings nav pane, Mermaid in answers AND thinking sections, and the Linux arm64 bundles."
+        "title": "The owner's v0.100.0 walkthrough",
+        "detail": "The test checklist lives in round-102.md §5: the Linux key-save arc (including the amber key-file fallback note), the single settings sidebar, the Mermaid viewer (zoom/pan/source), the quiet composer, the roomy minimized rail — plus v0.100.0 itself, published with all six assets across two Linux arches + Windows."
       }
     ],
     "principles": [
@@ -1885,12 +1885,12 @@
     }
   ],
   "quality": {
-    "ci": "GREEN — CI 35217892441 + Release 35217892393 both SUCCESS on the hotfix re-tag 7c34293; v0.99.0 PUBLISHED (release 390674532, latest): setup.exe 36.9 MB + the amd64 pair + THE FIRST ARM64 BUNDLES (ACUTE-CODE_0.99.0_arm64.deb 64.1 MB + ACUTE-CODE_0.99.0_aarch64.AppImage 126.5 MB) + the launcher kit. Two CI-caught hotfixes on the first tag run (the ARM64 naming asymmetry; the r89 version-pin rot — now derived live from the manifest).",
-    "ciNote": "R100 (the honest-browser + UI-overhaul + Linux-release round, v0.98.0): research first (the browser trilemma doc + the UI design-language audit — both committed), then nine workstreams: A the evergreen revert + de-branded PANEL_USER_AGENT + the engine line; C TOKENS revised + the design-audit gate (ratchet baseline wired into verify + CI) + the Kicker/SectionCard/SettingsRow primitives; D the chat §C4 overhaul; E the settings nav-with-search shell + all nine tabs swept; F+G the shell density + the working-screen de-costume; B the Linux release (ADR-0031 Secret Service key store, the rust-linux CI job, the linux-bundles release job); H the live-fire agent battery (7 legs, real OpenRouter turns — the Invalid-JSON classification fix caught live); I the close-out. Suites: root 3,798/3,798, docs:check 219/0/0, the audit ratchet: sub-10px 101→0, weights 474→19, hovers 243→33, hex 254→103.",
+    "ci": "GREEN — CI 35258001371 and Release 35258020425 both SUCCESS (Release on attempt 4 — the resumable contract: the operator banked the last two AppImages through uploads.github.com’s degraded 500 window and the re-run verified 6/6 assets byte-exact in 9 s). v0.100.0 PUBLISHED (release 390953974, latest) with six assets: setup.exe 38,746,943 B + amd64.deb 67,291,130 B + amd64.AppImage 134,990,328 B + arm64.deb 67,240,846 B + aarch64.AppImage 132,729,352 B + the launcher kit 125,148 B.",
+    "ciNote": "R103 (the release-pipeline hardening round, v0.100.0’s delivery unblocked): the owner’s “GitHub releases are not being successful… getting stuck” report answered at the root — the first v0.100.0 tag run hung 27+ minutes in softprops’ no-timeout concurrent uploader (two “Headers Timeout Error” deaths; every re-run DELETED the five banked assets before re-sending everything; 1 h 28 m against the 10-minute norm). softprops is REPLACED by scripts/release/publish-github-release.sh: BOUNDED (per-call timeouts + the stalled-transfer detector + timeout-minutes on every job in both workflows), RETRYING (per-asset curl retries + the 30/60/120 s backoff ladder), RESUMABLE ((name,size)-keyed uploads skip what is done — re-runs re-send only what is missing), with one-draft-per-tag hygiene and a byte-exact final verification. Proven in five live-API rig passes + three real dispatches through a genuinely degraded uploads.github.com (intermittent 500 windows on large uploads — defended by the landed-check: a failed upload may still have committed; key resume on observed state, never the error path). No application code changed — v0.100.0’s content is exactly round 102’s. Bonus: the stealth/union-alpha evaluation (23 live calls — tools, enforced JSON, vision, streaming all work; the “two thinking modes” do NOT exist at the API level; 1.4–40 s latency variance → free fallback-tier, not primary).",
     "suites": [
       {
         "name": "frontend",
-        "tests": 3818
+        "tests": 3823
       },
       {
         "name": "agent-core",
@@ -2232,6 +2232,18 @@
     {
       "date": "2026-09-15",
       "label": "R99 — the research-driven UI redo round (v0.97.0): the self-contained browser, one-click silent updates, the agent’s contract"
+    },
+    {
+      "date": "2026-09-17",
+      "label": "R100 — the honest browser + the enforced design language + the Linux release (v0.98.0)"
+    },
+    {
+      "date": "2026-09-17",
+      "label": "R101 — the calm update hand-off + the chat timeline + the first ARM64 bundles (v0.99.0)"
+    },
+    {
+      "date": "2026-09-17",
+      "label": "R102/R103 — keys that save on Linux + the Mermaid viewer + the hardened release pipeline (v0.100.0)"
     }
   ],
   "chips": [
@@ -2337,6 +2349,6 @@
     "total": 97
   },
   "lastUpdated": "2026-09-17",
-  "ciNote": "R101 (the twelfth-walkthrough round, v0.99.0): the owner's v0.98.0 report answered item by item — B the CALM UPDATE HAND-OFF (run_update_installer emits update-installing BEFORE the pre-install kill; the updateInFlight flag suppresses the watchdog/connect-loop offline flip; the ConnectionGate renders the calm 'Restarting into vX — your data is kept, the app comes back by itself' splash with the children unmounted so no query banner can flash; a rejected launch self-heals via auto-retryConnection — the 'environment may be running or crashed' report cannot recur); C the sidebar rail polish (CSS-only RailLabel chips with full project names, the active accent bar, the +N overflow tile, the settings nav pane); D the chat timeline rail (a continuous gradient-faded spine + per-item node dots — solid=you/hollow=agent/red=error — with sr-only labels) + the composer focus fix (border-color swap only, the ring deleted); E the Linux ARM64 release (the native ubuntu-24.04-arm job + the rust-linux-arm64 CI gate, both green on their first runs; node-pty's no-Linux-prebuilds truth documented); F honest + resilient Mermaid (errors surface with the cause-chain, import/render retries, thinking-section fences RENDER now, the check-mermaid-chunk build gate — proven live at 667.8 KiB). Suites: root 3,818/3,818 + agent-core 2,385/2,385, docs:check 220/0/0, audit clean at the re-pinned-down baseline.",
-  "version": "0.99.0"
+  "ciNote": "R103 (the release-pipeline hardening round, v0.100.0’s delivery unblocked): the owner’s “GitHub releases are not being successful… getting stuck” report answered at the root — the first v0.100.0 tag run hung 27+ minutes in softprops’ no-timeout concurrent uploader (two “Headers Timeout Error” deaths; every re-run DELETED the five banked assets before re-sending everything; 1 h 28 m against the 10-minute norm). softprops is REPLACED by scripts/release/publish-github-release.sh: BOUNDED (per-call timeouts + the stalled-transfer detector + timeout-minutes on every job in both workflows), RETRYING (per-asset curl retries + the 30/60/120 s backoff ladder), RESUMABLE ((name,size)-keyed uploads skip what is done — re-runs re-send only what is missing), with one-draft-per-tag hygiene and a byte-exact final verification. Proven in five live-API rig passes + three real dispatches through a genuinely degraded uploads.github.com (intermittent 500 windows on large uploads — defended by the landed-check: a failed upload may still have committed; key resume on observed state, never the error path). No application code changed — v0.100.0’s content is exactly round 102’s. Bonus: the stealth/union-alpha evaluation (23 live calls — tools, enforced JSON, vision, streaming all work; the “two thinking modes” do NOT exist at the API level; 1.4–40 s latency variance → free fallback-tier, not primary).",
+  "version": "0.100.0"
 }
