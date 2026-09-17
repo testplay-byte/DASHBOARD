@@ -1885,7 +1885,7 @@
     }
   ],
   "quality": {
-    "ci": "PENDING — the v0.98.0 tag run (the first with the linux-bundles job: deb+AppImage) dispatched on f938c32 (the cfg-paren hotfix); this flips GREEN when CI + Release both land SUCCESS.",
+    "ci": "GREEN — CI 35202716106 + Release 35202722327 both SUCCESS; v0.98.0 PUBLISHED (latest): the EVERGREEN installer setup.exe 36.9 MB (back from 258 MB — the 4x complaint answered) + the FIRST LINUX BUNDLES (deb 64.1 MB, AppImage 128.7 MB) + the launcher kit.",
     "ciNote": "R100 (the honest-browser + UI-overhaul + Linux-release round, v0.98.0): research first (the browser trilemma doc + the UI design-language audit — both committed), then nine workstreams: A the evergreen revert + de-branded PANEL_USER_AGENT + the engine line; C TOKENS revised + the design-audit gate (ratchet baseline wired into verify + CI) + the Kicker/SectionCard/SettingsRow primitives; D the chat §C4 overhaul; E the settings nav-with-search shell + all nine tabs swept; F+G the shell density + the working-screen de-costume; B the Linux release (ADR-0031 Secret Service key store, the rust-linux CI job, the linux-bundles release job); H the live-fire agent battery (7 legs, real OpenRouter turns — the Invalid-JSON classification fix caught live); I the close-out. Suites: root 3,798/3,798, docs:check 219/0/0, the audit ratchet: sub-10px 101→0, weights 474→19, hovers 243→33, hex 254→103.",
     "suites": [
       {
