@@ -34,13 +34,13 @@
   ],
   "plan": {
     "current": {
-      "title": "R100 — the honest browser + the UI overhaul + the Linux release (v0.98.0)",
+      "title": "R101 — the calm update hand-off + the chat timeline + honest Mermaid + Linux ARM64 (v0.99.0)",
       "detail": "The owner's v0.97.0 report answered end to end: the fixedRuntime bundle retired (installer 258 MB → ~37–40 MB, the panel de-branded as ACUTE Browser, the honest engine line, the trilemma on record), the design language enforced by a new audit gate (sub-10px text eliminated, heavy weights 474→19, JS hovers 243→33), the chat window + settings + sidebar + dashboard overhauls, the Linux release (deb + AppImage on WebKitGTK, the Secret Service key store, the rust-linux CI gate), and the live-fire agent battery on real OpenRouter turns (which caught + fixed the Invalid-JSON instant dead end)."
     },
     "upcoming": [
       {
-        "title": "The owner's v0.98.0 walkthrough",
-        "detail": "The R100 test checklist lives in round-100.md §5 — the small installer, the ACUTE Browser identity, the engine line, the visual overhauls, the Linux deb/AppImage, the retry-hardened agent."
+        "title": "The owner's v0.99.0 walkthrough",
+        "detail": "The R101 test checklist lives in round-101.md §5 — the update arc (the calm Restarting splash, the self-healing failed install), the composer focus fix, the chat timeline rail, the sidebar rail label chips, the settings nav pane, Mermaid in answers AND thinking sections, and the Linux arm64 bundles."
       }
     ],
     "principles": [
@@ -1885,12 +1885,12 @@
     }
   ],
   "quality": {
-    "ci": "GREEN — CI 35202716106 + Release 35202722327 both SUCCESS; v0.98.0 PUBLISHED (latest): the EVERGREEN installer setup.exe 36.9 MB (back from 258 MB — the 4x complaint answered) + the FIRST LINUX BUNDLES (deb 64.1 MB, AppImage 128.7 MB) + the launcher kit.",
+    "ci": "GREEN — CI 35217892441 + Release 35217892393 both SUCCESS on the hotfix re-tag 7c34293; v0.99.0 PUBLISHED (release 390674532, latest): setup.exe 36.9 MB + the amd64 pair + THE FIRST ARM64 BUNDLES (ACUTE-CODE_0.99.0_arm64.deb 64.1 MB + ACUTE-CODE_0.99.0_aarch64.AppImage 126.5 MB) + the launcher kit. Two CI-caught hotfixes on the first tag run (the ARM64 naming asymmetry; the r89 version-pin rot — now derived live from the manifest).",
     "ciNote": "R100 (the honest-browser + UI-overhaul + Linux-release round, v0.98.0): research first (the browser trilemma doc + the UI design-language audit — both committed), then nine workstreams: A the evergreen revert + de-branded PANEL_USER_AGENT + the engine line; C TOKENS revised + the design-audit gate (ratchet baseline wired into verify + CI) + the Kicker/SectionCard/SettingsRow primitives; D the chat §C4 overhaul; E the settings nav-with-search shell + all nine tabs swept; F+G the shell density + the working-screen de-costume; B the Linux release (ADR-0031 Secret Service key store, the rust-linux CI job, the linux-bundles release job); H the live-fire agent battery (7 legs, real OpenRouter turns — the Invalid-JSON classification fix caught live); I the close-out. Suites: root 3,798/3,798, docs:check 219/0/0, the audit ratchet: sub-10px 101→0, weights 474→19, hovers 243→33, hex 254→103.",
     "suites": [
       {
         "name": "frontend",
-        "tests": 3651
+        "tests": 3818
       },
       {
         "name": "agent-core",
@@ -2337,6 +2337,6 @@
     "total": 97
   },
   "lastUpdated": "2026-09-17",
-  "ciNote": "CI 34993547873 + Release 34993551131 both SUCCESS on 50a4b24 (first try). v0.96.0 published: release 389300285, latest, both assets sha256-verified (setup.exe d5b13f3c…, kit 14e05082…); the kit scanned clean.",
-  "version": 0.98
+  "ciNote": "R101 (the twelfth-walkthrough round, v0.99.0): the owner's v0.98.0 report answered item by item — B the CALM UPDATE HAND-OFF (run_update_installer emits update-installing BEFORE the pre-install kill; the updateInFlight flag suppresses the watchdog/connect-loop offline flip; the ConnectionGate renders the calm 'Restarting into vX — your data is kept, the app comes back by itself' splash with the children unmounted so no query banner can flash; a rejected launch self-heals via auto-retryConnection — the 'environment may be running or crashed' report cannot recur); C the sidebar rail polish (CSS-only RailLabel chips with full project names, the active accent bar, the +N overflow tile, the settings nav pane); D the chat timeline rail (a continuous gradient-faded spine + per-item node dots — solid=you/hollow=agent/red=error — with sr-only labels) + the composer focus fix (border-color swap only, the ring deleted); E the Linux ARM64 release (the native ubuntu-24.04-arm job + the rust-linux-arm64 CI gate, both green on their first runs; node-pty's no-Linux-prebuilds truth documented); F honest + resilient Mermaid (errors surface with the cause-chain, import/render retries, thinking-section fences RENDER now, the check-mermaid-chunk build gate — proven live at 667.8 KiB). Suites: root 3,818/3,818 + agent-core 2,385/2,385, docs:check 220/0/0, audit clean at the re-pinned-down baseline.",
+  "version": "0.99.0"
 }
