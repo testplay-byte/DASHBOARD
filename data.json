@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.94.0",
+    "version": "0.98.0",
     "availability": "Public source · Windows 10 x64",
     "github": {
       "label": "testplay-byte/ACUTE-CODE",
@@ -34,13 +34,13 @@
   ],
   "plan": {
     "current": {
-      "title": "R99 — the research-driven UI redo + the self-contained app (v0.97.0)",
-      "detail": "The owner's tenth walkthrough answered end to end: the browser ENGINE ships inside the installer (WebView2 Fixed Version Runtime — the app never touches the device's engine) + every in-app link routes into the embedded browser panel (the chat links were dead before); the ONE-CLICK SILENT UPDATE (/S /R — the app relaunches itself; release notes inline; the 24h auto-check + the sidebar dot + a toast); the chat visual redo (turn headers with model identity, Completed-N-steps summaries, tool-row outcome glyphs, the soft caret); the context popup rebuilt after the /context reference (the overview hero, the composition bar with inline % labels + the legend with manage links); the Data & Statistics polish (one quiet Agent health section, the danger zone always last, the anti-jitter kit); the project-wide SYSTEM PROMPT MANAGER (master-detail-lite after Cursor Rules); and the system-prompt overhaul (the precedence ladder, the autonomy risk tiers, INTAKE phase 0, tool descriptions, the subagent report contract, confidence tags — the dedup paid ~2.3K chars). The R98 review debt paid: a full independent subagent review pass (ship-shape after 4 MINORs — all fixed + pinned)."
+      "title": "R100 — the honest browser + the UI overhaul + the Linux release (v0.98.0)",
+      "detail": "The owner's v0.97.0 report answered end to end: the fixedRuntime bundle retired (installer 258 MB → ~37–40 MB, the panel de-branded as ACUTE Browser, the honest engine line, the trilemma on record), the design language enforced by a new audit gate (sub-10px text eliminated, heavy weights 474→19, JS hovers 243→33), the chat window + settings + sidebar + dashboard overhauls, the Linux release (deb + AppImage on WebKitGTK, the Secret Service key store, the rust-linux CI gate), and the live-fire agent battery on real OpenRouter turns (which caught + fixed the Invalid-JSON instant dead end)."
     },
     "upcoming": [
       {
-        "title": "The owner's v0.97.0 walkthrough",
-        "detail": "The R99 test checklist lives in the repo's round-99.md §5 — the in-app link routing, the one-click silent update + relaunch, the chat turn headers + compressed summaries, the context hero/bar/legend, the stats danger zone, the System prompt manager, and the agent's intake/autonomy/confidence behavior."
+        "title": "The owner's v0.98.0 walkthrough",
+        "detail": "The R100 test checklist lives in round-100.md §5 — the small installer, the ACUTE Browser identity, the engine line, the visual overhauls, the Linux deb/AppImage, the retry-hardened agent."
       }
     ],
     "principles": [
@@ -1885,8 +1885,8 @@
     }
   ],
   "quality": {
-    "ci": "GREEN — CI 35035134792 + Release 35035136469 both SUCCESS on b6dc571; v0.97.0 PUBLISHED (release 389541687, latest — the ENGINE-BUNDLED installer: setup.exe 270,884,416 B (sha256 f502aaee… verified against GitHub’s server-side digest on fresh bytes via the authenticated asset API) + the kit (dcfe82cd…, scanned clean). The installer grew 38.7 MB → 258 MB — it ships the WebView2 Fixed Version Runtime, the honest price of the self-contained browser.",
-    "ciNote": "R99 (the research-driven UI redo round, v0.97.0): the research pass ran FIRST (Cursor/VS Code/Claude Code /context/GitHub/Tauri patterns drove every design), seven surgical workstreams landed (A the fixedRuntime browser + the link router + the two CI fixes the round taught — the serde type-tag and the compile-time resources validation; B the chat visual redo; C the one-click silent update; D the context hero/bar/legend; E the stats reorder + anti-jitter; F the System prompt manager; G the prompt overhaul — the owner’s 8-flaw list answered), and the full independent review pass ran LAST (the R98 debt paid: ship-shape after 4 MINORs, all fixed + pinned). Suites: root 3,754/3,754 (12 env-skips), agent-core 2,384/2,384, docs:check 214/0/0.",
+    "ci": "PENDING — the v0.98.0 tag run (the first with the linux-bundles job: deb+AppImage) dispatched on f938c32 (the cfg-paren hotfix); this flips GREEN when CI + Release both land SUCCESS.",
+    "ciNote": "R100 (the honest-browser + UI-overhaul + Linux-release round, v0.98.0): research first (the browser trilemma doc + the UI design-language audit — both committed), then nine workstreams: A the evergreen revert + de-branded PANEL_USER_AGENT + the engine line; C TOKENS revised + the design-audit gate (ratchet baseline wired into verify + CI) + the Kicker/SectionCard/SettingsRow primitives; D the chat §C4 overhaul; E the settings nav-with-search shell + all nine tabs swept; F+G the shell density + the working-screen de-costume; B the Linux release (ADR-0031 Secret Service key store, the rust-linux CI job, the linux-bundles release job); H the live-fire agent battery (7 legs, real OpenRouter turns — the Invalid-JSON classification fix caught live); I the close-out. Suites: root 3,798/3,798, docs:check 219/0/0, the audit ratchet: sub-10px 101→0, weights 474→19, hovers 243→33, hex 254→103.",
     "suites": [
       {
         "name": "frontend",
@@ -2336,7 +2336,7 @@
     ],
     "total": 97
   },
-  "lastUpdated": "2026-09-15",
+  "lastUpdated": "2026-09-17",
   "ciNote": "CI 34993547873 + Release 34993551131 both SUCCESS on 50a4b24 (first try). v0.96.0 published: release 389300285, latest, both assets sha256-verified (setup.exe d5b13f3c…, kit 14e05082…); the kit scanned clean.",
-  "version": "0.97"
+  "version": 0.98
 }
