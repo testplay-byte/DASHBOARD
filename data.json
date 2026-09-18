@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.100.0",
+    "version": "0.101.0",
     "availability": "Public source · Windows 10 x64",
     "github": {
       "label": "testplay-byte/ACUTE-CODE",
@@ -34,13 +34,13 @@
   ],
   "plan": {
     "current": {
-      "title": "R103 — the release pipeline made bounded/retrying/resumable + the union-alpha evaluation (v0.100.0 PUBLISHED)",
-      "detail": "The stuck-release incident fixed at the root: the v0.100.0 tag run hung 27+ minutes in the old no-timeout uploader with delete-then-re-upload re-runs; replaced by a bounded, retrying, RESUMABLE uploader (same-size assets skip, one draft per tag, byte-exact verification) with timeout-minutes on every job in both workflows — proven against the live API and then through three real dispatches of a degraded uploads.github.com (every failure loud and bounded), finishing with operator-banked assets + a 9-second verification green. Content unchanged from R102 (the Linux key-store fix, the settings sidebar, the Mermaid viewer, the quiet composer). Also: the stealth/union-alpha model evaluated across 23 live calls — tools/JSON/vision/streaming work; the claimed thinking modes do not exist at the API level; free fallback-tier."
+      "title": "R104 — the update hand-shake + the Linux AppImage updater (v0.101.0 PUBLISHED)",
+      "detail": "The owner's v0.100.0 report, both halves answered at the root. Windows: the one-click auto-install is retired — 'Download update' now STOPS at a verified staged file ('Downloaded and verified — vX is ready to install'), and only the explicit 'Restart and update now' confirmation installs; a quiet 'Discard download' walks it back; the About tab re-adopts a staged download on every visit (days later, no re-check, no re-download). Linux: the update that never updated (the check offered the Windows setup.exe; the Rust shell had no Linux install path — 'Restarting into 0.100.0' then 'Connecting to Agent Core' with the app left on 0.99.0) is fixed in both layers: the check now picks this machine's own asset (the arch-matched AppImage on Linux, the setup.exe on Windows), and the shell runs the atomic same-directory AppImage replace + the delayed relaunch — the app comes back by itself on the new version."
     },
     "upcoming": [
       {
-        "title": "The owner's v0.100.0 walkthrough",
-        "detail": "The test checklist lives in round-102.md §5: the Linux key-save arc (including the amber key-file fallback note), the single settings sidebar, the Mermaid viewer (zoom/pan/source), the quiet composer, the roomy minimized rail — plus v0.100.0 itself, published with all six assets across two Linux arches + Windows."
+        "title": "The owner's v0.101.0 walkthrough",
+        "detail": "The test checklist lives in round-104.md §4: the Windows two-stage arc (Download STOPS at the staged row; only the confirm installs), the staged download surviving the About tab + the Discard walk-back, and the Linux AppImage update end-to-end (download the ~130 MB image, confirm, the app relaunches itself on v0.101.0) — plus the .deb honest-refusal case and the badge/install agreement."
       }
     ],
     "principles": [
@@ -1885,16 +1885,18 @@
     }
   ],
   "quality": {
-    "ci": "GREEN — CI 35258001371 and Release 35258020425 both SUCCESS (Release on attempt 4 — the resumable contract: the operator banked the last two AppImages through uploads.github.com’s degraded 500 window and the re-run verified 6/6 assets byte-exact in 9 s). v0.100.0 PUBLISHED (release 390953974, latest) with six assets: setup.exe 38,746,943 B + amd64.deb 67,291,130 B + amd64.AppImage 134,990,328 B + arm64.deb 67,240,846 B + aarch64.AppImage 132,729,352 B + the launcher kit 125,148 B.",
-    "ciNote": "R103 (the release-pipeline hardening round, v0.100.0’s delivery unblocked): the owner’s “GitHub releases are not being successful… getting stuck” report answered at the root — the first v0.100.0 tag run hung 27+ minutes in softprops’ no-timeout concurrent uploader (two “Headers Timeout Error” deaths; every re-run DELETED the five banked assets before re-sending everything; 1 h 28 m against the 10-minute norm). softprops is REPLACED by scripts/release/publish-github-release.sh: BOUNDED (per-call timeouts + the stalled-transfer detector + timeout-minutes on every job in both workflows), RETRYING (per-asset curl retries + the 30/60/120 s backoff ladder), RESUMABLE ((name,size)-keyed uploads skip what is done — re-runs re-send only what is missing), with one-draft-per-tag hygiene and a byte-exact final verification. Proven in five live-API rig passes + three real dispatches through a genuinely degraded uploads.github.com (intermittent 500 windows on large uploads — defended by the landed-check: a failed upload may still have committed; key resume on observed state, never the error path). No application code changed — v0.100.0’s content is exactly round 102’s. Bonus: the stealth/union-alpha evaluation (23 live calls — tools, enforced JSON, vision, streaming all work; the “two thinking modes” do NOT exist at the API level; 1.4–40 s latency variance → free fallback-tier, not primary).",
+    "ci": "GREEN — CI 35301463893 and Release 35301467330 both SUCCESS on 71826cd (the CI-caught hotfix re-tag: the first push failed the design-audit ratchet in two minutes — R2 +4, honestly re-pinned 1522→1526 for four documented 11px ladder steps). v0.101.0 PUBLISHED (release 391182273, latest) with six assets: setup.exe 38,756,767 B + amd64.deb 67,302,862 B + amd64.AppImage 134,990,328 B + arm64.deb 67,248,818 B + aarch64.AppImage 132,745,736 B + the launcher kit 125,957 B. Both rust jobs (x64 + arm64) were GREEN on the very first push — the AppImage replace leg compiled clean with no local Rust toolchain (the R100 pattern).",
+    "ciNote": "R104 (the fourteenth-walkthrough round): the update experience rebuilt as a two-stage hand-shake (prepare → a persisted staged state → an explicit confirm — the durable contract any future update mechanism plugs into), and the Linux updater made real end-to-end (the platform-aware asset pick, the arch-matched AppImage download, the atomic replace with the delayed relaunch, and every failure leg mapped honestly — a read-only location or a .deb install answers with the real error, never a silent nothing-updated). One CI-caught hotfix (the design-audit ratchet caught +4 px-literal steps the in-sandbox pipe-check had hidden — the ratchet doing exactly its job).",
     "suites": [
       {
         "name": "frontend",
-        "tests": 3823
+        "tests": 3823,
+        "detail": "3,823 passed / 12 env-skipped (root vitest, R104 close) — +6 R104 pins (the two-stage stop-at-ready, the Linux AppImage leg, the mount-resume, the stale self-heal, the discard, the staleness sweep)"
       },
       {
         "name": "agent-core",
-        "tests": 2370
+        "tests": 2392,
+        "detail": "2,392/2,392 (R104: r89-updates 14 → 22 — the platform matrix, the six-asset route pick, the staged-name derivation, the DELETE discard trio)"
       },
       {
         "name": "sidecar e2e",
@@ -2244,6 +2246,10 @@
     {
       "date": "2026-09-17",
       "label": "R102/R103 — keys that save on Linux + the Mermaid viewer + the hardened release pipeline (v0.100.0)"
+    },
+    {
+      "date": "2026-09-18",
+      "label": "R104 — the update hand-shake (download, then confirm) + the Linux AppImage updater made real (v0.101.0)"
     }
   ],
   "chips": [
