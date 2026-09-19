@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.104.0",
+    "version": "0.105.0",
     "availability": "Public source · Windows 10 x64",
     "github": {
       "label": "testplay-byte/ACUTE-CODE",
@@ -34,13 +34,13 @@
   ],
   "plan": {
     "current": {
-      "title": "R108 — the mobile artifact made real: the companion actually runs, updates in place, and self-diagnoses (v0.104.0 published, 8/8 assets, latest-verified)",
-      "detail": "The splash-forever bug fixed at the ROOT — the v0.103.0 APK never embedded the JavaScript bundle (debug builds expect a Metro dev server; proven entry-by-entry from the shipped APK); the CI now builds the RELEASE variant with a hard no-bundle-no-ship gate. The APK cut from 302 MB to the 51 MB arm64 deliverable + a 113 MB universal fallback (R8, stripped arm64-only libs, ABI splits). The stable repo signing key means updates install in place from v0.104.0 on. The [ACUTE-BOOT] startup trail + on-device crash screen + Android Studio logcat filters make every future boot self-evidencing. And the Clay wardrobe reworked per the owner's verdict: the glow-fades deleted, clay rebuilt as shadow+form, chrome quieter."
+      "title": "R109 — the companion REBUILT in clay: the Android app's UI round + the live link (v0.105.0 published, 7/7 assets, latest-verified)",
+      "detail": "The owner's v0.104.0 verdict ('the UI of the application was trash') answered end to end: the full design system v2 (Clay Studio + liquid chrome, Manrope + JetBrains Mono, clay as shadow+form with chrome rationed to three surfaces), the floating bottom bar with 4-side margins and the spring indicator, large-title headers with the always-visible connection pill, the first-run setup wizard, the connect hub with pinch-zoom scanning + torch + full manual entry, the markdown transcript with the live streaming caret and expandable tool cards, the real Android keyboard handling (the composer never sinks under the keyboard again), the notifications SSE stream (bell + approvals badge, live), the flaky-TLS reliability fix (the 'host offline until rescan' trap dead at the Kotlin root), the phone-side management surface (providers/models/agents/prompts/preferences + the usage dashboard + projects with session creation) guarded by the NEW desktop device-token blocklist, and the ARM64-only APK per the owner's ruling — 53.20 MiB, in-place updates over v0.104.0. The three next-round guides (Cloudflare anywhere-access, Firebase push, the multi-program architecture) ship in docs/guides/."
     },
     "upcoming": [
       {
-        "title": "The owner's v0.104.0 walkthrough",
-        "detail": "UNINSTALL the old companion once (the old debug-key signature cannot update to the new key), then install ACUTE-CODE_0.104.0_android-arm64.apk from the release page. Watch the boot trail under package:com.acutecode.companion in Android Studio Logcat; pair via QR. Desktop: the clay rework read — matte cards, no top glows, the chrome jewelry quiet."
+        "title": "The owner's v0.105.0 walkthrough (the clay companion)",
+        "detail": "Install ACUTE-CODE_0.105.0_android-arm64.apk OVER v0.104.0 — same signing key, updates in place, nothing to uninstall. First startup runs the wizard; pair by QR (pinch to zoom) or manual entry; watch the floating bar, the status pill, the markdown transcript, the dashboard tab, and Settings → Providers/Agents/Prompts/Preferences from the phone. Then: the Cloudflare anywhere-access round (the setup guide ships in docs/guides/ this release) + the Firebase push round."
       },
       {
         "title": "Remote access from anywhere (the promised round)",
@@ -1893,18 +1893,18 @@
     }
   ],
   "quality": {
-    "ci": "GREEN — v0.104.0 tagged at a97283c after CI + Mobile both green (the mobile release pipeline's dress rehearsal caught and fixed the gradle metaspace OOM live); v0.104.0 PUBLISHED (8/8 assets, latest-verified, the APKs independently content-verified: bundle embedded, arm64-only, 51 MB)",
-    "ciNote": "R108 (the mobile-artifact round): the shipped v0.103.0 APK was read entry-by-entry over ranged HTTP to find the splash bug (no embedded JS bundle) and the 302 MB anatomy (4 ABIs x 25 unstripped debug .so + 23 dex); the fix — release builds + ABI splits + a stable signing key + the no-bundle-no-ship CI gate — survived a live dress rehearsal that caught the gradle metaspace OOM before the tag. Suites: 4087 root + 136 mobile + 16 launcher + 12 e2e.",
+    "ci": "GREEN — v0.105.0 tagged at 7720cd4 after CI + Mobile both green (the interrupted session recovered: the tagging had been waiting on CI since 12:03Z); v0.105.0 PUBLISHED (7/7 assets, latest-verified, the ARM64-only APK independently content-verified over ranged HTTP: Hermes bundle embedded at 4.98 MiB, arm64-v8a only at 25.92 MiB of native libs, 3 R8'd dex)",
+    "ciNote": "R109 (the companion-rebuilt round): the whole Android UI rebuilt on the Clay Studio + liquid-chrome design system; the reliability root fix (SSLException no longer masquerades as a pin mismatch — the probe ladder continues); the desktop-side device-token blocklist (8 new tests) so a paired phone can configure but never reveal keys, reset, drive terminals, or control the computer; the ARM64-only artifact per the owner's ruling (no universal APK). The release round also completed the interrupted session's tail: the dead placeholder removed, the round-109 evidence file + the owner's TEST CHECKLIST, and the tag landed only after both workflows went green on the exact release commit. Suites: 4095 root + 164 mobile + 16 launcher + 12 e2e.",
     "suites": [
       {
         "name": "root vitest",
-        "tests": 4093,
-        "detail": "4,093 passed (R107 close) — +75 tests: the three r107 runtime suites (turn-gate, retry-supervision, sync-guards), the CLI batch (171 total), the prompt pin updates, themes.test.ts, DevicesTab"
+        "tests": 4095,
+        "detail": "4,095 passed (re-run at the v0.105.0 release tree; the agent-core device-blocklist tests included) — CI's pnpm verify green on windows-latest at the tagged commit"
       },
       {
         "name": "mobile (jest)",
-        "tests": 127,
-        "detail": "127/127 in mobile/ (the standalone npm workspace; vitest excludes mobile/** since R106-i)"
+        "tests": 164,
+        "detail": "164/164 in mobile/ (the markdown parser + activity day-grouping + approvals/config suites; re-run at the release tree)"
       },
       {
         "name": "sidecar e2e",
@@ -2262,6 +2262,10 @@
     {
       "date": "2026-09-19",
       "label": "R108 — the companion actually runs (v0.104.0): the embedded-bundle release build, the 51 MB arm64 APK, the stable signing key, the boot trail + logcat filters, and the Clay rework (shadow+form)"
+    },
+    {
+      "date": "2026-09-19",
+      "label": "R109 — the companion rebuilt in clay (v0.105.0): the design system v2 + the floating bar + the setup wizard + the connect flow with pinch-zoom scanning + the markdown transcript + the keyboard fix + the live notifications stream + the phone-configures-desktop surface (with the device-token blocklist) + the ARM64-only APK"
     }
   ],
   "chips": [
@@ -2368,5 +2372,5 @@
   },
   "lastUpdated": "2026-09-19",
   "ciNote": "R103 (the release-pipeline hardening round, v0.100.0’s delivery unblocked): the owner’s “GitHub releases are not being successful… getting stuck” report answered at the root — the first v0.100.0 tag run hung 27+ minutes in softprops’ no-timeout concurrent uploader (two “Headers Timeout Error” deaths; every re-run DELETED the five banked assets before re-sending everything; 1 h 28 m against the 10-minute norm). softprops is REPLACED by scripts/release/publish-github-release.sh: BOUNDED (per-call timeouts + the stalled-transfer detector + timeout-minutes on every job in both workflows), RETRYING (per-asset curl retries + the 30/60/120 s backoff ladder), RESUMABLE ((name,size)-keyed uploads skip what is done — re-runs re-send only what is missing), with one-draft-per-tag hygiene and a byte-exact final verification. Proven in five live-API rig passes + three real dispatches through a genuinely degraded uploads.github.com (intermittent 500 windows on large uploads — defended by the landed-check: a failed upload may still have committed; key resume on observed state, never the error path). No application code changed — v0.100.0’s content is exactly round 102’s. Bonus: the stealth/union-alpha evaluation (23 live calls — tools, enforced JSON, vision, streaming all work; the “two thinking modes” do NOT exist at the API level; 1.4–40 s latency variance → free fallback-tier, not primary).",
-  "version": "0.104.0"
+  "version": "0.105.0"
 }
