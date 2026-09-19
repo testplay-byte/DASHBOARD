@@ -34,13 +34,13 @@
   ],
   "plan": {
     "current": {
-      "title": "R109 — the companion REBUILT in clay: the Android app's UI round + the live link (v0.105.0 published, 7/7 assets, latest-verified)",
-      "detail": "The owner's v0.104.0 verdict ('the UI of the application was trash') answered end to end: the full design system v2 (Clay Studio + liquid chrome, Manrope + JetBrains Mono, clay as shadow+form with chrome rationed to three surfaces), the floating bottom bar with 4-side margins and the spring indicator, large-title headers with the always-visible connection pill, the first-run setup wizard, the connect hub with pinch-zoom scanning + torch + full manual entry, the markdown transcript with the live streaming caret and expandable tool cards, the real Android keyboard handling (the composer never sinks under the keyboard again), the notifications SSE stream (bell + approvals badge, live), the flaky-TLS reliability fix (the 'host offline until rescan' trap dead at the Kotlin root), the phone-side management surface (providers/models/agents/prompts/preferences + the usage dashboard + projects with session creation) guarded by the NEW desktop device-token blocklist, and the ARM64-only APK per the owner's ruling — 53.20 MiB, in-place updates over v0.104.0. The three next-round guides (Cloudflare anywhere-access, Firebase push, the multi-program architecture) ship in docs/guides/."
+      "title": "R112 — remote access over the cloud relay: the anywhere-link + the disconnect loop killed at the root (v0.106.0 published, 7/7 assets, latest-verified)",
+      "detail": "The owner's R110 walkthrough answered at the root: a ONE-TIME Cloudflare Worker (acute-relay.anikuta.workers.dev — production-verified 12/12 end-to-end through the real edge, free plan, no domain, self-updating via its own git repo) gives every desktop a permanent public endpoint; the desktop dials OUT (agent-core's cloud-connector: one WSS tunnel, 25s ping / 10s watchdog, 1s→60s jittered backoff, SSE frame bridging, never-fatal boot — enabled per program in Settings → Devices → the Remote access card); the PHONE CHANGED NOTHING (the pairing QR carries the relay automatically; the companion probes its ladder LAN-first, relay-last; a relay 503 is retryable, never an unpair). The #1 complaint — the disconnect loop — is dead on both sides of the wire: 10s ': ping' heartbeats on the SSE streams, 65s keep-alive where the server's old 5s ambush lived, two-cycle hysteresis + transition-gated debounced NetInfo wakes + non-overlapping 5s probes on the phone. Pairing polish: root-aware back arrow, one-line hero copy, the PIN shown after scan. The release round also caught CI-red the interrupted session left behind (the root tsc program covers agent-core/tests — the four R112 test files got type honesty) and honestly re-pinned the design ratchet (R2 1573→1591, the Devices tab's established chrome idiom). Suites: agent-core 2525/2525, root 4153/0, mobile 210/210."
     },
     "upcoming": [
       {
-        "title": "The owner's v0.105.0 walkthrough (the clay companion)",
-        "detail": "Install ACUTE-CODE_0.105.0_android-arm64.apk OVER v0.104.0 — same signing key, updates in place, nothing to uninstall. First startup runs the wizard; pair by QR (pinch to zoom) or manual entry; watch the floating bar, the status pill, the markdown transcript, the dashboard tab, and Settings → Providers/Agents/Prompts/Preferences from the phone. Then: the Cloudflare anywhere-access round (the setup guide ships in docs/guides/ this release) + the Firebase push round."
+        "title": "The owner's v0.106.0 off-LAN walkthrough (remote access)",
+        "detail": "Install ACUTE-CODE_0.106.0_android-arm64.apk OVER v0.105.0 (in place, same signing key — uninstall nothing). Then the anywhere-link test: on the PC, Settings → Devices → the Remote access (internet) card → toggle on, paste the Relay URL (https://acute-relay.anikuta.workers.dev) + the Host key, Save, watch the status line say Connected. Re-pair once (the QR now carries the relay automatically), leave Wi-Fi range, and verify the companion stays connected through the relay — [ACUTE-MOB] logcat + the relay's /admin listing diagnose anything that flakes. Meanwhile: let the app idle 10+ minutes on the notifications stream — the disconnect loop should stay dead."
       },
       {
         "title": "Remote access from anywhere (the promised round)",
@@ -1893,8 +1893,8 @@
     }
   ],
   "quality": {
-    "ci": "GREEN — v0.105.0 tagged at 7720cd4 after CI + Mobile both green (the interrupted session recovered: the tagging had been waiting on CI since 12:03Z); v0.105.0 PUBLISHED (7/7 assets, latest-verified, the ARM64-only APK independently content-verified over ranged HTTP: Hermes bundle embedded at 4.98 MiB, arm64-v8a only at 25.92 MiB of native libs, 3 R8'd dex)",
-    "ciNote": "R109 (the companion-rebuilt round): the whole Android UI rebuilt on the Clay Studio + liquid-chrome design system; the reliability root fix (SSLException no longer masquerades as a pin mismatch — the probe ladder continues); the desktop-side device-token blocklist (8 new tests) so a paired phone can configure but never reveal keys, reset, drive terminals, or control the computer; the ARM64-only artifact per the owner's ruling (no universal APK). The release round also completed the interrupted session's tail: the dead placeholder removed, the round-109 evidence file + the owner's TEST CHECKLIST, and the tag landed only after both workflows went green on the exact release commit. Suites: 4095 root + 164 mobile + 16 launcher + 12 e2e.",
+    "ci": "GREEN — v0.106.0 tagged at bbef079 only after CI + Mobile verified green on both release commits (4b55500 + bbef079); the CI-red the interrupted session left (root tsc covers agent-core/tests) was caught and fixed same-round; v0.106.0 PUBLISHED (7/7 assets, latest-verified, zero drafts; the ARM64 APK independently content-verified over ranged HTTP: Hermes bundle embedded at 4.99 MiB, 3 R8'd dex, arm64-v8a ONLY — no universal)",
+    "ciNote": "R112 (the anywhere-link round): remote access over a one-time Cloudflare Worker + Durable Objects relay (production-verified 12/12; the WebSocketRequestResponsePair-is-a-GLOBAL lesson); the desktop cloud-connector with its Remote access card; the phone's zero-change LAN-first/relay-last ladder; the R110 #1 disconnect-loop root fixes on both sides (SSE heartbeats, 65s keep-alive, hysteresis + debounced NetInfo); pairing items #4/#5/#6; the release round's own catch: the root-typecheck honesty fix + the honest design-ratchet re-pin (R2 1591, per the R104 precedent).",
     "suites": [
       {
         "name": "root vitest",
@@ -2266,6 +2266,10 @@
     {
       "date": "2026-09-19",
       "label": "R109 — the companion rebuilt in clay (v0.105.0): the design system v2 + the floating bar + the setup wizard + the connect flow with pinch-zoom scanning + the markdown transcript + the keyboard fix + the live notifications stream + the phone-configures-desktop surface (with the device-token blocklist) + the ARM64-only APK"
+    },
+    {
+      "date": "2026-09-19",
+      "label": "R112 — the nineteenth round (v0.106.0): remote access over the cloud relay (the one-time Worker at acute-relay.anikuta.workers.dev, the desktop connector's outbound tunnel, the phone's LAN-first/relay-last ladder) + the R110 #1 disconnect-loop root fixes on both sides of the wire + pairing-screen items #4/#5/#6 — suites 2525/4153/210 all green, 7/7 release assets, latest-verified"
     }
   ],
   "chips": [
@@ -2372,5 +2376,5 @@
   },
   "lastUpdated": "2026-09-19",
   "ciNote": "R103 (the release-pipeline hardening round, v0.100.0’s delivery unblocked): the owner’s “GitHub releases are not being successful… getting stuck” report answered at the root — the first v0.100.0 tag run hung 27+ minutes in softprops’ no-timeout concurrent uploader (two “Headers Timeout Error” deaths; every re-run DELETED the five banked assets before re-sending everything; 1 h 28 m against the 10-minute norm). softprops is REPLACED by scripts/release/publish-github-release.sh: BOUNDED (per-call timeouts + the stalled-transfer detector + timeout-minutes on every job in both workflows), RETRYING (per-asset curl retries + the 30/60/120 s backoff ladder), RESUMABLE ((name,size)-keyed uploads skip what is done — re-runs re-send only what is missing), with one-draft-per-tag hygiene and a byte-exact final verification. Proven in five live-API rig passes + three real dispatches through a genuinely degraded uploads.github.com (intermittent 500 windows on large uploads — defended by the landed-check: a failed upload may still have committed; key resume on observed state, never the error path). No application code changed — v0.100.0’s content is exactly round 102’s. Bonus: the stealth/union-alpha evaluation (23 live calls — tools, enforced JSON, vision, streaming all work; the “two thinking modes” do NOT exist at the API level; 1.4–40 s latency variance → free fallback-tier, not primary).",
-  "version": "0.105.0"
+  "version": "0.106.0"
 }

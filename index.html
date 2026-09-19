@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="canonical" href="https://testplay-byte.github.io/DASHBOARD/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23FF6B2C%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Menlo%2C%20Consolas%2C%20monospace%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%231f130a%22%3E%E2%97%90%3C%2Ftext%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="assets/style.css?v=20260919t135942057z">
+<link rel="stylesheet" href="assets/style.css?v=20260919t212645626z">
 <script>
   // Apply persisted theme before paint to avoid a flash.
   (function () {
@@ -96,7 +96,7 @@
     <aside class="updated-box" aria-label="Last updated">
       <svg class="updated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
       <span class="updated-label">Last updated</span>
-      <span class="updated-time">2026-09-19 13:59 UTC</span>
+      <span class="updated-time">2026-09-19 21:26 UTC</span>
       <span class="updated-relative" id="updated-relative"></span>
     </aside>
   </section>
@@ -115,7 +115,7 @@
       </article>
       <article class="stat-card card">
         <span class="stat-label">Milestones shipped</span>
-        <span class="stat-value"><span data-count="85">85</span></span>
+        <span class="stat-value"><span data-count="86">86</span></span>
         <span class="stat-sub">Aug 21 – Sep 19 · 30-day run</span>
       </article>
       <article class="stat-card card">
@@ -2459,8 +2459,8 @@
     <div class="now-card">
       <span class="now-label">Now</span>
       <div class="now-body">
-        <h3 class="now-title">R109 — the companion REBUILT in clay: the Android app&#39;s UI round + the live link (v0.105.0 published, 7/7 assets, latest-verified)</h3>
-        <p class="now-detail">The owner&#39;s v0.104.0 verdict (&#39;the UI of the application was trash&#39;) answered end to end: the full design system v2 (Clay Studio + liquid chrome, Manrope + JetBrains Mono, clay as shadow+form with chrome rationed to three surfaces), the floating bottom bar with 4-side margins and the spring indicator, large-title headers with the always-visible connection pill, the first-run setup wizard, the connect hub with pinch-zoom scanning + torch + full manual entry, the markdown transcript with the live streaming caret and expandable tool cards, the real Android keyboard handling (the composer never sinks under the keyboard again), the notifications SSE stream (bell + approvals badge, live), the flaky-TLS reliability fix (the &#39;host offline until rescan&#39; trap dead at the Kotlin root), the phone-side management surface (providers/models/agents/prompts/preferences + the usage dashboard + projects with session creation) guarded by the NEW desktop device-token blocklist, and the ARM64-only APK per the owner&#39;s ruling — 53.20 MiB, in-place updates over v0.104.0. The three next-round guides (Cloudflare anywhere-access, Firebase push, the multi-program architecture) ship in docs/guides/.</p>
+        <h3 class="now-title">R112 — remote access over the cloud relay: the anywhere-link + the disconnect loop killed at the root (v0.106.0 published, 7/7 assets, latest-verified)</h3>
+        <p class="now-detail">The owner&#39;s R110 walkthrough answered at the root: a ONE-TIME Cloudflare Worker (acute-relay.anikuta.workers.dev — production-verified 12/12 end-to-end through the real edge, free plan, no domain, self-updating via its own git repo) gives every desktop a permanent public endpoint; the desktop dials OUT (agent-core&#39;s cloud-connector: one WSS tunnel, 25s ping / 10s watchdog, 1s→60s jittered backoff, SSE frame bridging, never-fatal boot — enabled per program in Settings → Devices → the Remote access card); the PHONE CHANGED NOTHING (the pairing QR carries the relay automatically; the companion probes its ladder LAN-first, relay-last; a relay 503 is retryable, never an unpair). The #1 complaint — the disconnect loop — is dead on both sides of the wire: 10s &#39;: ping&#39; heartbeats on the SSE streams, 65s keep-alive where the server&#39;s old 5s ambush lived, two-cycle hysteresis + transition-gated debounced NetInfo wakes + non-overlapping 5s probes on the phone. Pairing polish: root-aware back arrow, one-line hero copy, the PIN shown after scan. The release round also caught CI-red the interrupted session left behind (the root tsc program covers agent-core/tests — the four R112 test files got type honesty) and honestly re-pinned the design ratchet (R2 1573→1591, the Devices tab&#39;s established chrome idiom). Suites: agent-core 2525/2525, root 4153/0, mobile 210/210.</p>
       </div>
       <span class="now-live"><span class="live-dot" aria-hidden="true"></span>current focus</span>
     </div>
@@ -2496,7 +2496,7 @@
       <div>
         <h2 id="quality-title">Quality</h2>
         <p class="section-desc">Every change is verified before it lands — tests, types, lint, licenses, CI. Reported honestly, including failures.</p>
-        <p class="quality-note">R109 (the companion-rebuilt round): the whole Android UI rebuilt on the Clay Studio + liquid-chrome design system; the reliability root fix (SSLException no longer masquerades as a pin mismatch — the probe ladder continues); the desktop-side device-token blocklist (8 new tests) so a paired phone can configure but never reveal keys, reset, drive terminals, or control the computer; the ARM64-only artifact per the owner&#39;s ruling (no universal APK). The release round also completed the interrupted session&#39;s tail: the dead placeholder removed, the round-109 evidence file + the owner&#39;s TEST CHECKLIST, and the tag landed only after both workflows went green on the exact release commit. Suites: 4095 root + 164 mobile + 16 launcher + 12 e2e.</p>
+        <p class="quality-note">R112 (the anywhere-link round): remote access over a one-time Cloudflare Worker + Durable Objects relay (production-verified 12/12; the WebSocketRequestResponsePair-is-a-GLOBAL lesson); the desktop cloud-connector with its Remote access card; the phone&#39;s zero-change LAN-first/relay-last ladder; the R110 #1 disconnect-loop root fixes on both sides (SSE heartbeats, 65s keep-alive, hysteresis + debounced NetInfo); pairing items #4/#5/#6; the release round&#39;s own catch: the root-typecheck honesty fix + the honest design-ratchet re-pin (R2 1591, per the R104 precedent).</p>
       </div>
     </header>
     <div class="quality-grid">
@@ -2549,7 +2549,7 @@
           <span class="check-icon icon-accent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
           <div class="check-body">
             <span class="check-label">CI pipeline</span>
-            <span class="check-value ">GREEN — v0.105.0 tagged at 7720cd4 after CI + Mobile both green (the interrupted session recovered: the tagging had been waiting on CI since 12:03Z); v0.105.0 PUBLISHED (7/7 assets, latest-verified, the ARM64-only APK independently content-verified over ranged HTTP: Hermes bundle embedded at 4.98 MiB, arm64-v8a only at 25.92 MiB of native libs, 3 R8&#39;d dex)</span>
+            <span class="check-value ">GREEN — v0.106.0 tagged at bbef079 only after CI + Mobile verified green on both release commits (4b55500 + bbef079); the CI-red the interrupted session left (root tsc covers agent-core/tests) was caught and fixed same-round; v0.106.0 PUBLISHED (7/7 assets, latest-verified, zero drafts; the ARM64 APK independently content-verified over ranged HTTP: Hermes bundle embedded at 4.99 MiB, 3 R8&#39;d dex, arm64-v8a ONLY — no universal)</span>
             <span class="check-sub">red since R39 — Rust shell, fix queued (P0-1)</span>
           </div>
         </article>
@@ -3168,9 +3168,14 @@
           <span class="timeline-label">R108 — the companion actually runs (v0.104.0): the embedded-bundle release build, the 51 MB arm64 APK, the stable signing key, the boot trail + logcat filters, and the Clay rework (shadow+form)</span>
           
         </li>
-        <li class="timeline-item latest">
+        <li class="timeline-item">
           <span class="timeline-date">2026-09-19</span>
           <span class="timeline-label">R109 — the companion rebuilt in clay (v0.105.0): the design system v2 + the floating bar + the setup wizard + the connect flow with pinch-zoom scanning + the markdown transcript + the keyboard fix + the live notifications stream + the phone-configures-desktop surface (with the device-token blocklist) + the ARM64-only APK</span>
+          
+        </li>
+        <li class="timeline-item latest">
+          <span class="timeline-date">2026-09-19</span>
+          <span class="timeline-label">R112 — the nineteenth round (v0.106.0): remote access over the cloud relay (the one-time Worker at acute-relay.anikuta.workers.dev, the desktop connector&#39;s outbound tunnel, the phone&#39;s LAN-first/relay-last ladder) + the R110 #1 disconnect-loop root fixes on both sides of the wire + pairing-screen items #4/#5/#6 — suites 2525/4153/210 all green, 7/7 release assets, latest-verified</span>
           <span class="timeline-flag">latest</span>
         </li>
       </ol>
@@ -3265,12 +3270,12 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-note">Generated 2026-09-19 13:59 UTC · curated public data only — no product source · Acute v0.105.0</p>
+    <p class="footer-note">Generated 2026-09-19 21:26 UTC · curated public data only — no product source · Acute v0.105.0</p>
     <a class="top-link" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script type="application/json" id="dash-data">{"buildIso":"2026-09-19T13:59:42.057Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
-<script src="assets/app.js?v=20260919t135942057z" defer></script>
+<script type="application/json" id="dash-data">{"buildIso":"2026-09-19T21:26:45.626Z","screenshots":{"rounds":[{"round":27,"date":"2026-08-24","url":"screenshots/round-27.zip","count":22,"size_kb":1338},{"round":28,"date":"2026-08-24","url":"screenshots/round-28.zip","count":8,"size_kb":675},{"round":29,"date":"2026-08-24","url":"screenshots/round-29.zip","count":8,"size_kb":1848,"scope":"Next.js showcase hub (browser-previewable on the sandbox dev port)"},{"round":30,"date":"2026-08-24","url":"screenshots/round-30.zip","count":9,"size_kb":418,"scope":"Real product testing (live streaming, sessions, sidebar)"},{"round":32,"date":"2026-08-24","url":"screenshots/round-32.zip","count":6,"size_kb":385,"scope":"Owner-designed UI implementation (live product testing)"},{"round":33,"date":"2026-08-24","url":"screenshots/round-33.zip","count":8,"size_kb":443,"scope":"Behavioral fixes + sidebar system (live product testing)"},{"round":34,"date":"2026-08-24","url":"screenshots/round-34.zip","count":9,"size_kb":814,"scope":"Multi-step proof + settings redesign"},{"round":35,"date":"2026-08-25","url":"screenshots/round-35.zip","count":7,"size_kb":617,"scope":"Thinking + interleaving proof"},{"round":36,"date":"2026-08-25","url":"screenshots/round-36.zip","count":8,"size_kb":673,"scope":"Sub-agent orchestration proof"},{"round":37,"date":"2026-08-25","url":"screenshots/round-37.zip","count":10,"size_kb":814,"scope":"Chat continuity (Working section) + provider rebuild + approvals"},{"round":50,"date":"2026-08-30","url":"screenshots/round-50.zip","count":2,"size_kb":247}],"total":97}}</script>
+<script src="assets/app.js?v=20260919t212645626z" defer></script>
 </body>
 </html>
