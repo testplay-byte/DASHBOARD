@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.101.0",
+    "version": "0.103.0",
     "availability": "Public source · Windows 10 x64",
     "github": {
       "label": "testplay-byte/ACUTE-CODE",
@@ -34,13 +34,21 @@
   ],
   "plan": {
     "current": {
-      "title": "R105 — the Linux browser panel made whole + the composer's whole-section focus + the rate-limit taxonomy + the planning corpus (main GREEN at fded61f; v0.102.0 tags when the owner next ships)",
-      "detail": "Both Linux field reports answered with verified root causes: the browser split was tauri-runtime-wry packing child webviews into tao's vertical GtkBox while wry's set_bounds no-ops for box-packed webviews (the BrowserPanel's geometry was firing into silence) — fixed by the Overlay+Fixed GTK surgery (stateless, self-healing, pass-through input; CI-green on x64+arm64 after one honest 6-error hotfix). The composer's stray input border was a CASCADE-LAYERS bug (the unlayered global :focus-visible rule beat the layered outline-none utility) — fixed in the layer structure, plus the owner's refined directive: the WHOLE bottom section highlights as one cohesive unit (live-verified). The first oh-my-pi adoption landed (the rate-limit REASON taxonomy: quota floors the retry ladder at 10 min; the provider lessons table). The planning corpus: CLI-DESIGN + ANDROID-R1 + ANDROID-R2-DECISIONS + LINKING-PROTOCOL + the OMP adoption roadmap. The free-model benchmarks: cohere/north-mini-code:free the test pick, nemotron-3-super-120b the fallback. Suites 3851 + 2408 green."
+      "title": "R107 — the improvement round: the prompts made honest, the turn engine safe for three clients, the CLI a real client, and the Clay + liquid-chrome wardrobe (main GREEN at 6eed21e; v0.102.0 + v0.103.0 both released)",
+      "detail": "Fifty review findings across three parallel agents (prompts, runtime logic, commands), all P0/P1 landed: the chain-vs-approvals reconciliation, the sub-agent report contract on the producer side, channel-honest communication, the hardened injection guard; the concurrent-turn gate, retryChild supervision parity, the abort-aware queue, sync-path loop guards; CLI approvals + agent-question rendering + did-you-mean + no-spawn-on-typo; plus the Clay theme + chrome tokens. v0.102.0 shipped the CLI + the Android companion + device linking (7/7 assets incl. the debug APK)."
     },
     "upcoming": [
       {
-        "title": "The owner's v0.101.0 walkthrough",
-        "detail": "The test checklist lives in round-104.md §4: the Windows two-stage arc (Download STOPS at the staged row; only the confirm installs), the staged download surviving the About tab + the Discard walk-back, and the Linux AppImage update end-to-end (download the ~130 MB image, confirm, the app relaunches itself on v0.101.0) — plus the .deb honest-refusal case and the badge/install agreement."
+        "title": "The owner's v0.102.0/v0.103.0 walkthrough",
+        "detail": "Pair a real phone (Settings → Devices; the APK is on each release page), stream a session from the couch, approve/deny from the pocket, try the CLI (acute / acute -p / acute approvals), and pick the Clay theme in Settings."
+      },
+      {
+        "title": "Remote access from anywhere (the promised round)",
+        "detail": "The Cloudflare path per docs/planning/CLOUDFLARE-REMOTE-ACCESS.md — the manual-address pairing form is already tunnel-ready; the round brings the easy-setup Cloudflare system."
+      },
+      {
+        "title": "The standing candidates (honest)",
+        "detail": "The budget-aware turn margin, the palette command layer + the CLI second wave (agents/projects/usage/notifications/queue/devices), the browser_control schema split, the O(events) assembly memo, the clay/chrome spread to the remaining bento cards, the modularity roadmap, ratings-driven prompt tuning, edit-linting, installer code-signing, the Files-tab polish."
       }
     ],
     "principles": [
@@ -1885,18 +1893,18 @@
     }
   ],
   "quality": {
-    "ci": "GREEN — CI 35301463893 and Release 35301467330 both SUCCESS on 71826cd (the CI-caught hotfix re-tag: the first push failed the design-audit ratchet in two minutes — R2 +4, honestly re-pinned 1522→1526 for four documented 11px ladder steps). v0.101.0 PUBLISHED (release 391182273, latest) with six assets: setup.exe 38,756,767 B + amd64.deb 67,302,862 B + amd64.AppImage 134,990,328 B + arm64.deb 67,248,818 B + aarch64.AppImage 132,745,736 B + the launcher kit 125,957 B. Both rust jobs (x64 + arm64) were GREEN on the very first push — the AppImage replace leg compiled clean with no local Rust toolchain (the R100 pattern).",
-    "ciNote": "R104 (the fourteenth-walkthrough round): the update experience rebuilt as a two-stage hand-shake (prepare → a persisted staged state → an explicit confirm — the durable contract any future update mechanism plugs into), and the Linux updater made real end-to-end (the platform-aware asset pick, the arch-matched AppImage download, the atomic replace with the delayed relaunch, and every failure leg mapped honestly — a read-only location or a .deb install answers with the real error, never a silent nothing-updated). One CI-caught hotfix (the design-audit ratchet caught +4 px-literal steps the in-sandbox pipe-check had hidden — the ratchet doing exactly its job).",
+    "ci": "GREEN — v0.103.0 tagged at 6eed21e after CI green on every R107 push; v0.102.0 published (7/7 assets, latest-verified)",
+    "ciNote": "R107 (the improvement round): three parallel review agents produced 50 file:line-cited findings; the implementation landed in four batches (runtime, CLI, prompts, UI), each verified with the full root suite before push. v0.102.0's APK attach failed on a bash parse bug in upload-apk-asset.sh (reproduced locally, fixed, tested end-to-end); the APK was attached manually and the fixed script ships in v0.103.0.",
     "suites": [
       {
-        "name": "frontend",
-        "tests": 3823,
-        "detail": "3,823 passed / 12 env-skipped (root vitest, R104 close) — +6 R104 pins (the two-stage stop-at-ready, the Linux AppImage leg, the mount-resume, the stale self-heal, the discard, the staleness sweep)"
+        "name": "root vitest",
+        "tests": 4093,
+        "detail": "4,093 passed (R107 close) — +75 tests: the three r107 runtime suites (turn-gate, retry-supervision, sync-guards), the CLI batch (171 total), the prompt pin updates, themes.test.ts, DevicesTab"
       },
       {
-        "name": "agent-core",
-        "tests": 2392,
-        "detail": "2,392/2,392 (R104: r89-updates 14 → 22 — the platform matrix, the six-asset route pick, the staged-name derivation, the DELETE discard trio)"
+        "name": "mobile (jest)",
+        "tests": 127,
+        "detail": "127/127 in mobile/ (the standalone npm workspace; vitest excludes mobile/** since R106-i)"
       },
       {
         "name": "sidecar e2e",
@@ -1914,7 +1922,7 @@
       "deps": 134,
       "verdict": "CLEAN"
     },
-    "lastReviewed": "2026-09-12"
+    "lastReviewed": "2026-09-19"
   },
   "milestones": [
     {
