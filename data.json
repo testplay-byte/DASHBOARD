@@ -2,7 +2,7 @@
   "product": {
     "name": "Acute",
     "tagline": "Local-first multi-agent engineering workbench — sandboxed file tools, streaming chat, sub-agent orchestration, approvals, and an embedded browser on a single desktop.",
-    "version": "0.107.0",
+    "version": "0.108.0",
     "availability": "Public source · Windows 10 x64",
     "github": {
       "label": "testplay-byte/ACUTE-CODE",
@@ -34,13 +34,13 @@
   ],
   "plan": {
     "current": {
-      "title": "R113 — live sync between every device: the events stream + the Projects-first shells + the phone's chat replica (v0.107.0 published, 7/7 assets, latest-verified)",
-      "detail": "The owner's post-v0.106.0 test feedback, all ten items answered: (1) THE BIG ONE — content now updates in live view everywhere. A backend events bus fans every change out one SSE subscription per client (GET /api/v1/events/stream: hello/session/turn/project/settings frames, 10s ping): a turn started on ANY device streams its live frames — thinking, tool runs, the caret, queue chips — to every other connected screen through the SAME reducers each client already used for its own turns (own stream always wins; the mirror survives the initiator's death). No more switching sessions and back. (2) Appearance + settings propagate live: the theme flips on the phone and the PC shifts within a moment (server-backed appearance domain, echo-guarded), and every settings save broadcasts to open screens on every device. (3) Providers show YOUR configured inventory first ('Your providers' above the catalog tier, on both clients; the server tells the truth per row with a pool-aware hasKey). (4) The Sessions screen is gone by the owner's ruling — the phone's tabs are home·projects·approvals·dashboard·settings with a real project detail screen; the desktop's dead sessions-screen source deleted and ProjectView rows open their session directly. (5) The giant page headers deleted on every screen, both platforms. (6) The phone's chat screen is a real replica: the composer carries operation mode, model selection, thinking level, the context ring, attach/upload, and @-project-file mention; the transcript renders images (full-screen viewer), question cards, todo cards, and sub-agent cards; the keyboard never covers the composer. (7) The prompt discipline round: argument-hygiene + benign-exit rules grounded in the OMP roadmap + opencode/aider/cline research, skills in a consistent envelope — the 24,000-char prompt budget held without a bump. Suites: agent-core 2570/2570, root vitest 4255/4255, mobile 332/332; all local gates green (tsc, eslint, build, e2e 12/12, license, docs:check 241/0); remote CI + Mobile verified green before the tag, Release + Mobile tag runs green on it."
+      "title": "R114 — every menu works, live sync everywhere, the honest transcript (v0.108.0 published, 7/7 assets, latest-verified, APK content-checked)",
+      "detail": "The owner's post-v0.107.0 walkthrough feedback, every item answered: (1) THE HEADLINE — every bottom-sheet menu on the phone rendered as a title row and an X (model picker, mode sheet, New Project, all of them); the root was ONE layout bug (Android Yoga collapses a flex:1 scroller inside a content-sized panel) and one pixel clamp fixed every menu at once. (2) Live sync, everywhere it was still missing: mode + model changes propagate the moment they're saved (a session meta frame on the events stream; the session's model now lives on the SERVER — migration 0041, three-tier prepareTurn), and a new turn.started frame fires before anything else so the OTHER device shows it's working instantly — send from the phone and the PC's send button flips to Stop/Queue with a remote bubble + resolved model + Thinking placeholder; send from the PC and the phone's transcript opens the live turn immediately. Chat prefs (density, text size, timestamps, tool activity) joined the synced appearance domain. (3) The honest transcript on the phone: the model pill names the model the next turn will actually run (never a lying 'Auto'), an animated Thinking placeholder stands in until first output, skill reads are one quiet line, file writes show a LIVE streaming preview (tool-input-delta consumed), terminal commands carry their output tails, screenshots render (a wire-shape fix). (4) The phone's shell: chromeless tab roots (no titles/bell/status pill), a colder-white clay substrate, the color-coded dashboard (stacked in/out bars + per-model hues + toned tiles + gridlines), projects that expand inline (the accordion — no page navigation, honest status labels: open/done/stopped), a real New Project folder browser over the filesystem, and a New Session naming sheet. (5) Vision always-on: a model marked vision-capable can ALWAYS see (the 'off' mode retired; the choice is only WHICH model looks), and the separate-model picker lists only configured vision-capable models. (6) The phone owns its inventory: full Models & Providers management — custom providers, the masked key pool with per-slot test, saved-model CRUD (add from catalog or custom, edit caps incl. the vision flag, hide/show, delete, per-model test). A read-only defect audit verified 24/25 complaints landed with file:line evidence; its three findings shipped as R114-g."
     },
     "upcoming": [
       {
-        "title": "The owner's round-113 walkthrough (live sync on real hardware)",
-        "detail": "Pair on v0.107.0, then: start a turn on the PC and watch it stream live on the open phone session; send from the phone and watch the desktop transcript go live; flip the theme on either device; save a settings domain and watch the other device's open screen apply it; check the Projects tab, the composer controls, and the configured-providers split. The suites pin the machinery — only the owner's hands close the loop."
+        "title": "The owner's round-114 walkthrough (the phone's first full-featured release)",
+        "detail": "Install the v0.108.0 APK + desktop build, pair, then: open every bottom menu (model/mode/context/thinking — the empty-sheet fix), start a turn on the PC and watch the phone open it instantly with the Thinking placeholder + model, send from the phone and watch the PC's send button flip, pick a model on either device and watch the other's pill follow, flip the chat prefs, browse the dashboard's color-coded charts, expand a project inline, create a project through the folder browser, manage models/providers end-to-end from the phone."
       },
       {
         "title": "Remote access from anywhere (the promised round)",
@@ -48,7 +48,7 @@
       },
       {
         "title": "The standing candidates (honest)",
-        "detail": "The budget-aware turn margin, the palette command layer + the CLI second wave (agents/projects/usage/notifications/queue/devices), the browser_control schema split, the O(events) assembly memo, the clay/chrome spread to the remaining bento cards, the modularity roadmap, ratings-driven prompt tuning, edit-linting, installer code-signing, the Files-tab polish."
+        "detail": "The budget-aware turn margin, the palette command layer, the prompt-tier nudges (OMP #11), the StablePrefix split (OMP #2 — a dedicated chat.ts/runtime.ts/golden round), GitHub Actions release speed, Firebase guided setup."
       }
     ],
     "principles": [
@@ -1893,18 +1893,23 @@
     }
   ],
   "quality": {
-    "ci": "GREEN — v0.107.0 tagged at 516600f only after CI + Mobile verified green on the push (516600f); Release + Mobile tag runs green on the tag; v0.107.0 PUBLISHED (release 392303219, latest, 7/7 assets: six desktop + the ARM64 APK independently content-verified over ranged HTTP — Hermes bundle embedded, 3 R8'd dex, arm64-v8a ONLY, 1236 entries). Local matrix at the bump tree: root vitest 4255/4255 (243 files), agent-core 2570/2570, mobile 332/332 + tsc clean, ROOT tsc + eslint clean, build green (mermaid chunk ok), e2e 12/12, license:audit clean (299 prod deps), docs:check 241/0.",
+    "ci": "GREEN — v0.108.0 tagged at 1368395 only after CI + Mobile APK verified green on the push; Release + Mobile tag runs green on the tag; v0.108.0 PUBLISHED (release 392448917, latest, 7/7 assets: six desktop + the ARM64 APK independently content-verified over ranged HTTP — Hermes bundle embedded, 3 R8'd dex, arm64-v8a ONLY, 1236 entries). Local matrix at the final tree: root vitest 4315/4315 (242 files), agent-core 2608/2608 (136 files), mobile 431/431 (20 suites) + tsc clean, ROOT tsc + eslint clean, docs:check 242/0, version:check 7/7 at 0.108.0. Per-wave gates: R114-b agent-core 2570→2608; R114-c mobile 332→347; R114-d 347→388; R114-e root 4255→4315; R114-f 388→430; R114-g audit fixes 431.",
     "ciNote": "R113 (the live-sync round): the events fan-out backbone (agent-core's events bus + GET /events/stream with turn-frame mirroring pre-serialization) + both clients consuming it (the desktop's EventStreamStarter/stream-store remote mirror; the phone's events controller + applyLiveFrame remote turns) + server-backed appearance + providers configured-first + the Projects-first shells + the phone's composer/transcript replica + the prompt discipline round. The round also survived four infra-timeout interruptions with the verify-don't-rewrite finisher pattern (every interruption's work verified line-by-line before it landed).",
     "suites": [
       {
         "name": "root vitest",
-        "tests": 4095,
-        "detail": "4,255 passed / 0 failed — 243 files at the v0.107.0 release tree (the sweep includes agent-core's suites; +102 over the v0.106.0 close across the six R113 commits)"
+        "tests": 4315,
+        "detail": "4,315 passed / 0 failed — 242 files at the v0.108.0 release tree (the sweep includes the R114 frontend waves: stream-store turn.started, events-stream meta frames, composer-utils model ladder, theme-store five-field sync, ImageAnalysis rework; +60 over the v0.107.0 close)"
+      },
+      {
+        "name": "agent-core (vitest)",
+        "tests": 2608,
+        "detail": "2,608/2,608 in agent-core/ — 136 files at the release tree (+38 R114 sync-wave tests: meta frames, selectedModel validation + three-tier prepareTurn, turn.started emission order, the five-field appearance domain, vision coercion + relay ladder, fs browse)"
       },
       {
         "name": "mobile (jest)",
-        "tests": 164,
-        "detail": "332/332 in mobile/ — 17 suites at the release tree (+64 R113 tests: the events controller, remote-turn wiring, appearance sync, composer state, attachments, context meter; R113-c added expo-document-picker + expo-file-system)"
+        "tests": 431,
+        "detail": "431/431 in mobile/ — 20 suites at the release tree (+99 R114 tests: fs-browse, session status labels, the tool-input-delta streaming-args extractor, chat-prefs mappings, the config route table; the systemic sheet fix + the accordion + the providers replica)"
       },
       {
         "name": "sidecar e2e",
@@ -2274,6 +2279,10 @@
     {
       "date": "2026-09-20",
       "label": "R113 — the twentieth round (v0.107.0): live sync between every device (the events bus + GET /events/stream consumed by both clients — remote turns stream live through the same reducers, appearance + settings propagate) + the space-honest shells (the phone's Sessions tab merged into Projects, the desktop's page headers deleted) + the phone's chat replica (the composer control row, the rich transcript cards, the keyboard fix) + providers configured-first + the prompt discipline round — suites 2570/4255/332 all green, 7/7 release assets, latest-verified"
+    },
+    {
+      "date": "2026-09-20",
+      "label": "R114 — the twenty-first round (v0.108.0): every bottom menu works (the systemic sheet fix) + live sync everywhere it was missing (meta frames + turn.started + the server-side selected model — instant cross-device busy state, mode/model/chat-prefs propagation) + the honest phone transcript (thinking placeholder, per-tool cards with the streaming write preview, screenshots fixed) + the phone owns its inventory (custom providers, the key pool, saved-model CRUD) + vision always-on for marked models ('off' retired) — suites 2608/4315/431 all green, 7/7 release assets, latest-verified, APK content-checked"
     }
   ],
   "chips": [
@@ -2379,6 +2388,6 @@
     "total": 97
   },
   "lastUpdated": "2026-09-20",
-  "ciNote": "R103 (the release-pipeline hardening round, v0.100.0’s delivery unblocked): the owner’s “GitHub releases are not being successful… getting stuck” report answered at the root — the first v0.100.0 tag run hung 27+ minutes in softprops’ no-timeout concurrent uploader (two “Headers Timeout Error” deaths; every re-run DELETED the five banked assets before re-sending everything; 1 h 28 m against the 10-minute norm). softprops is REPLACED by scripts/release/publish-github-release.sh: BOUNDED (per-call timeouts + the stalled-transfer detector + timeout-minutes on every job in both workflows), RETRYING (per-asset curl retries + the 30/60/120 s backoff ladder), RESUMABLE ((name,size)-keyed uploads skip what is done — re-runs re-send only what is missing), with one-draft-per-tag hygiene and a byte-exact final verification. Proven in five live-API rig passes + three real dispatches through a genuinely degraded uploads.github.com (intermittent 500 windows on large uploads — defended by the landed-check: a failed upload may still have committed; key resume on observed state, never the error path). No application code changed — v0.100.0’s content is exactly round 102’s. Bonus: the stealth/union-alpha evaluation (23 live calls — tools, enforced JSON, vision, streaming all work; the “two thinking modes” do NOT exist at the API level; 1.4–40 s latency variance → free fallback-tier, not primary).",
-  "version": "0.107.0"
+  "ciNote": "R114 (the every-menu round): the systemic empty-sheet fix (Android Yoga flex:1 collapse — one pixel clamp unlocked every bottom menu) + the sync foundation (session meta frames, the server-side selected model with three-tier prepareTurn, turn.started as the first frame of every turn, the five-field appearance domain, vision 'off' retired with model-flag vision always on, GET /system/fs/browse) + the phone's honest shell and transcript (chromeless roots, colder-white clay, the color-coded dashboard, the projects accordion, per-tool cards with the streaming write preview) + the desktop riding the same foundation (instant remote busy state, the model pick as server truth, the ImageAnalysis rework) + the phone's full inventory (custom providers, key pool, saved-model CRUD). Every wave tsc+lint+secret-scan green; a read-only defect audit re-verified the complaint list against source before release.",
+  "version": "0.108.0"
 }
